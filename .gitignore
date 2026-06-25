@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Local Netlify folder
+.netlify/
+
+# Netlify deployment artifacts
+deploy-*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Dolt database files
+.dolt/
+*.db
