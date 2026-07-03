@@ -166,7 +166,7 @@
   }
 
   .pill {
-    @apply rounded-full border border-white/25 px-3 py-2 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-white/85;
+    @apply rounded-full border border-white/25 px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-white/85;
   }
 
   .particle-field {
