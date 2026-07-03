@@ -188,16 +188,16 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="3" aria-label="Show dairy barn airspace"></button>
         </div>
       </div>
-      <CurveDivider class="bottom-0 text-white" />
+      <CurveDivider class="-bottom-px text-white" />
     </section>
 
-    <section id="platform" class="relative overflow-hidden bg-white py-20 lg:py-28">
-      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <section id="platform" class="relative overflow-hidden bg-white py-14 lg:py-28">
+      <div class="pointer-events-none absolute inset-0 max-lg:opacity-55" aria-hidden="true">
         <div class="absolute -bottom-0 -left-[5%] h-[90%] w-[68%] bg-[radial-gradient(ellipse_at_center,hsl(211_86%_84%/.45)_0%,hsl(160_44%_82%/.32)_44%,transparent_70%)]"></div>
-        <div class="absolute -right-[16%] -top-[15%] h-[90%] w-[52%] bg-[radial-gradient(ellipse_at_center,hsl(104_48%_85%/.42)_0%,hsl(104_48%_88%/.18)_48%,transparent_72%)]"></div>
+        <div class="absolute -right-[16%] -top-[15%] h-[90%] w-[52%] bg-[radial-gradient(ellipse_at_center,hsl(104_48%_85%/.42)_0%,hsl(104_48%_88%/.18)_48%,transparent_72%)] max-lg:-bottom-[6%] max-lg:top-auto"></div>
       </div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
-        <div class="reveal relative pb-10 max-lg:order-2" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal relative pb-10 max-lg:order-2 max-lg:pb-0" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div
             class="reveal overflow-hidden rounded-lg bg-slate-100 shadow-lift ring-1 ring-slate-900/5"
             x-data="{
@@ -243,7 +243,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section class="relative overflow-hidden bg-gradient-to-b from-white to-slate-100 py-20 lg:py-28">
+    <section class="relative overflow-hidden bg-gradient-to-b from-white to-slate-100 py-14 lg:py-28">
       <div class="particle-field particle-field-light" aria-hidden="true">
         <span class="particle"></span>
         <span class="particle"></span>
@@ -285,7 +285,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section id="agriculture" class="relative overflow-hidden bg-canopy py-24 text-white lg:py-36">
+    <section id="agriculture" class="relative overflow-hidden bg-canopy py-16 text-white lg:py-36">
       <CurveDivider class="top-0 rotate-180 text-slate-100" />
       <div class="container-page relative pt-8">
         <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -326,7 +326,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
 
     <section
       id="applications"
-      class="bg-gradient-to-b from-slate-100 to-white py-20 lg:py-28"
+      class="bg-gradient-to-b from-slate-100 to-white py-14 lg:py-28"
     >
       <div class="container-page">
         <div class="reveal max-w-3xl" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -364,8 +364,8 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
                 hidden={index !== 0}
               >
                 <div class="flex flex-col lg:min-h-[380px]">
-                  <h3 class="text-2xl font-semibold leading-8 text-slate-900 lg:min-h-[4rem]">{app.title}</h3>
-                  <p class="mt-4 max-w-xl leading-7 text-slate-600 lg:min-h-[5.25rem]">{app.copy}</p>
+                  <h3 class="text-2xl font-semibold leading-8 text-slate-900">{app.title}</h3>
+                  <p class="mt-4 max-w-xl leading-7 text-slate-600">{app.copy}</p>
                   <p class="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Typical deployments</p>
                   <div class="mt-4 grid gap-3 lg:min-h-[5.75rem]">
                     {app.uses.map((use) => (
@@ -391,18 +391,18 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       <div class="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-3xl bg-canopy py-24 text-white shadow-deep lg:py-36">
       <div class="absolute -right-50 -top-50 h-[34rem] w-[34rem] rounded-full border-[18px] border-botanical-500/25"></div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
-        <figure class="reveal relative flex min-h-[520px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <div class="absolute h-[min(560px,96%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl motion-safe:animate-[glow_5s_ease-in-out_infinite]"></div>
-          <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative h-[520px] w-auto drop-shadow-[0_42px_58px_rgba(0,0,0,.6)] lg:h-[620px]" widths={[420, 620, 900]} sizes="(min-width: 1024px) 42vw, 84vw" />
-          <figcaption class="absolute bottom-0 text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
+        <figure class="reveal relative flex min-h-[360px] items-center justify-center lg:min-h-[520px]" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div class="absolute left-1/2 top-1/2 h-[min(560px,90%)] aspect-square -translate-x-1/2 -translate-y-1/2 rounded-full bg-botanical-400/20 blur-2xl motion-safe:animate-[glow_5s_ease-in-out_infinite]"></div>
+          <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative mx-auto h-[340px] w-auto drop-shadow-[0_42px_58px_rgba(0,0,0,.6)] sm:h-[520px] lg:h-[620px]" widths={[420, 620, 900]} sizes="(min-width: 1024px) 42vw, 84vw" />
+          <figcaption class="absolute inset-x-0 bottom-0 text-center text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
         </figure>
         <div class="reveal" style="transition-delay: 100ms" x-data x-intersect.once="$el.classList.add('is-visible')">
           <p class="eyebrow text-botanical-300">Botanical Chemistry</p>
           <h2 class="section-title mt-4 text-white">Nature's most effective defense.</h2>
           <p class="mt-5 max-w-2xl text-base leading-8 text-emerald-50/70">BotaniMax is the botanical disinfectant built for the Genesis 360, AgGriGuard, and 360HVAC system family. Protect people, animals, and crops with no synthetic residues.</p>
-          <div class="mt-7 flex items-center gap-5 border-t border-white/15 pt-6">
+          <div class="mt-7 flex flex-col items-start gap-2 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:gap-5">
             <b class="text-7xl font-semibold leading-none text-botanical-300 lg:text-8xl">99.999%</b>
-            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria,<br /> viruses and fungi</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria, viruses and fungi</span>
           </div>
           <div class="mt-8 grid gap-6 sm:grid-cols-2">
             {[
@@ -433,7 +433,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section id="resources" class="bg-slate-100 py-20 lg:py-28">
+    <section id="resources" class="bg-slate-100 py-14 lg:py-28">
       <div class="container-page">
         <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div>
@@ -457,14 +457,14 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section id="testimonials" class="bg-slate-50 py-20 lg:py-28">
+    <section id="testimonials" class="bg-slate-50 py-14 lg:py-28">
       <div class="container-page">
-        <div class="reveal flex flex-wrap items-end justify-between gap-6" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal flex items-start justify-between gap-4" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div>
             <p class="inline-flex rounded-full border border-primary-200 bg-primary-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary-700">Testimonials</p>
             <h2 class="section-title mt-5">Real Stories, Real Results</h2>
           </div>
-          <div class="flex gap-3">
+          <div class="flex shrink-0 gap-3">
             <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-canopy text-white shadow-lift transition hover:bg-canopy-light focus:outline-none focus:ring-4 focus:ring-botanical-200" data-testimonial-prev aria-label="Previous testimonials">
               <ArrowLeft class="h-4 w-4" />
             </button>
