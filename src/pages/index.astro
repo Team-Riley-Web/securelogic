@@ -218,8 +218,8 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           <!--</div>-->
         </div>
         <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <p class="eyebrow">Precision-Engineered Environmental Systems</p>
-          <h2 class="section-title mt-4">The Genesis 360 Platform</h2>
+          <p class="eyebrow max-lg:text-center">Precision-Engineered Environmental Systems</p>
+          <h2 class="section-title mt-4 max-lg:text-center">The Genesis 360 Platform</h2>
           <p class="section-copy mt-5">
             Genesis 360 is an intelligent, automated misting platform engineered to provide true 360-degree coverage in every environment. Sub-10 micron dry-mist droplets distribute uniform coverage throughout air and surface zones, wrapping around, under, and behind objects.
           </p>
@@ -397,12 +397,12 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           <figcaption class="absolute inset-x-0 bottom-0 text-center text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
         </figure>
         <div class="reveal" style="transition-delay: 100ms" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <p class="eyebrow text-botanical-300">Botanical Chemistry</p>
-          <h2 class="section-title mt-4 text-white">Nature's most effective defense.</h2>
+          <p class="eyebrow text-botanical-300 max-lg:text-center">Botanical Chemistry</p>
+          <h2 class="section-title mt-4 text-white max-lg:text-center">Nature's most effective defense.</h2>
           <p class="mt-5 max-w-2xl text-base leading-8 text-emerald-50/70">BotaniMax is the botanical disinfectant built for the Genesis 360, AgGriGuard, and 360HVAC system family. Protect people, animals, and crops with no synthetic residues.</p>
           <div class="mt-7 flex flex-col items-start gap-2 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:gap-5">
             <b class="text-7xl font-semibold leading-none text-botanical-300 lg:text-8xl">99.999%</b>
-            <span class="text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria, viruses and fungi</span>
+            <span class="pt-[5px] text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria, viruses and fungi</span>
           </div>
           <div class="mt-8 grid gap-6 sm:grid-cols-2">
             {[
@@ -422,7 +422,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           </div>
           <div class="mt-9 flex flex-col items-start gap-4 max-lg:items-center">
             <a href="#quote" class="button-primary">Request BotaniMax pricing <ArrowRight class="h-4 w-4" /></a>
-            <div class="gap-2 max-lg:text-center">
+            <div class="flex flex-col items-start gap-2 max-lg:items-center">
               <span class="pill text-[10px]">Kills SARS-CoV-2</span>
               <span class="pill text-[10px]">FIFRA 25b</span>
               <span class="pill text-[10px]">Tier 3 antimicrobial</span>
@@ -474,11 +474,10 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           </div>
         </div>
         <div class="reveal mt-10" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <div class="scrollbar-none flex items-stretch gap-5 overflow-x-auto pb-2" data-testimonial-track aria-label="Customer testimonials">
+          <div class="scrollbar-none flex snap-x snap-mandatory items-stretch gap-5 overflow-x-auto pb-2" data-testimonial-track aria-label="Customer testimonials">
             {[...testimonials, ...testimonials].map(({ quote, name, role, image }, index) => (
-              <article class="flex w-[min(24rem,85vw)] shrink-0 flex-col rounded-lg border border-slate-200/80 bg-white p-6 md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]" aria-hidden={index >= testimonials.length ? 'true' : undefined} data-testimonial-card>
-                <span class="font-serif text-5xl leading-none text-canopy" aria-hidden="true">&ldquo;</span>
-                <div class="mt-2 flex gap-1">
+              <article class="flex w-[86vw] shrink-0 snap-start flex-col rounded-lg border border-slate-200/80 bg-white p-6 sm:w-[22rem] md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]" aria-hidden={index >= testimonials.length ? 'true' : undefined} data-testimonial-card>
+                <div class="flex gap-1">
                   {Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-amber-400 text-amber-400" />)}
                 </div>
                 <p class="mt-4 text-sm font-medium leading-6 text-slate-800">&ldquo;{quote}&rdquo;</p>
