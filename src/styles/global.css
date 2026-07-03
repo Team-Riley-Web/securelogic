@@ -1,2 +1,140 @@
 @import "tailwindcss";
 @config "../../tailwind.config.cjs";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-700 antialiased;
+  }
+
+  ::selection {
+    @apply bg-botanical-200 text-slate-900;
+  }
+
+  [x-cloak] {
+    display: none !important;
+  }
+
+  a {
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.22em;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.18em] text-botanical-600;
+  }
+
+  .section-title {
+    @apply max-w-3xl text-3xl font-semibold tracking-normal text-slate-900 sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply max-w-2xl text-base leading-7 text-slate-600 sm:text-lg;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-lift transition hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary-700 shadow-lift transition hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-100;
+  }
+
+  .button-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/60 focus:outline-none focus:ring-4 focus:ring-white/15;
+  }
+
+  .nav-link {
+    @apply border-b-2 border-transparent py-2 text-sm font-semibold transition hover:border-primary-600;
+  }
+
+  .mobile-link {
+    @apply rounded-md px-3 py-3 text-base font-semibold text-slate-800 hover:bg-slate-100;
+  }
+
+  .card {
+    @apply rounded-lg bg-white shadow-lift;
+  }
+
+  .accent-card {
+    @apply rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5;
+  }
+
+  .field {
+    @apply w-full rounded-md bg-white px-4 py-3 text-sm text-slate-800 shadow-sm ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-primary-100;
+  }
+
+  .reveal {
+    @apply translate-y-0 opacity-100 transition duration-700;
+  }
+
+  .reveal-enabled .reveal {
+    @apply translate-y-4 opacity-0;
+  }
+
+  .reveal-enabled .reveal.is-visible,
+  .reveal-enabled .is-visible .reveal {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .apps-tab {
+    @apply flex shrink-0 items-center justify-between gap-3 rounded-md border border-slate-200 bg-white/70 px-4 py-3 text-left text-sm font-semibold text-slate-500 transition hover:text-slate-900 lg:w-full lg:border-transparent lg:bg-transparent;
+  }
+
+  .apps-tab[aria-selected="true"] {
+    @apply border-slate-200 bg-white text-slate-900 shadow-lift;
+  }
+
+  .image-card {
+    @apply relative block overflow-hidden rounded-lg shadow-lift ring-1 ring-white/10;
+  }
+
+  .image-card-img {
+    @apply absolute inset-0 h-full w-full object-cover transition duration-700;
+  }
+
+  .image-card:hover .image-card-img {
+    transform: scale(1.05);
+  }
+
+  .image-card::after {
+    @apply absolute inset-0 content-[''];
+    background: linear-gradient(0deg, hsl(160 34% 10% / 0.9) 0%, hsl(160 34% 10% / 0.28) 48%, hsl(160 34% 10% / 0) 76%);
+  }
+
+  .image-card-copy {
+    @apply absolute inset-x-0 bottom-0 z-10 p-6;
+  }
+
+  .image-card-copy h3 {
+    @apply text-2xl font-semibold text-white;
+  }
+
+  .image-card-copy p {
+    @apply mt-2 max-w-xl text-sm leading-6 text-emerald-50/75;
+  }
+
+  .image-card-copy span {
+    @apply mt-4 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-semibold text-white;
+  }
+
+  .pill {
+    @apply rounded-full border border-white/25 px-3 py-2 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-white/85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

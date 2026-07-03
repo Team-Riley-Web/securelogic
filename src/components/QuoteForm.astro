@@ -1,0 +1,58 @@
+---
+interface Props {
+  title?: string;
+  compact?: boolean;
+}
+
+const { title = 'Get A Quote', compact = false } = Astro.props;
+---
+
+<form
+  name="secure-logic-quote"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class:list={['card grid gap-4 p-6', compact ? '' : 'md:p-8']}
+>
+  <input type="hidden" name="form-name" value="secure-logic-quote" />
+  <p class="hidden">
+    <label>Do not fill this out <input name="bot-field" /></label>
+  </p>
+  <div>
+    <p class="eyebrow">Secure Logic</p>
+    <h2 class="mt-2 text-2xl font-semibold text-slate-900">{title}</h2>
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="grid gap-2 text-sm font-semibold text-slate-700">
+      First *
+      <input class="field" name="first" autocomplete="given-name" required />
+    </label>
+    <label class="grid gap-2 text-sm font-semibold text-slate-700">
+      Last *
+      <input class="field" name="last" autocomplete="family-name" required />
+    </label>
+  </div>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="grid gap-2 text-sm font-semibold text-slate-700">
+      Email *
+      <input class="field" type="email" name="email" autocomplete="email" required />
+    </label>
+    <label class="grid gap-2 text-sm font-semibold text-slate-700">
+      Phone
+      <input class="field" type="tel" name="phone" autocomplete="tel" />
+    </label>
+  </div>
+  <label class="grid gap-2 text-sm font-semibold text-slate-700">
+    Product Requested
+    <select class="field" name="product">
+      <option>BotaniMax - Botanical Disinfectant</option>
+      <option>Genesis 360 Misting System</option>
+      <option>BotaniMax + Genesis 360 Misting System</option>
+    </select>
+  </label>
+  <label class="grid gap-2 text-sm font-semibold text-slate-700">
+    Message
+    <textarea class="field min-h-32" name="message"></textarea>
+  </label>
+  <button class="button-primary w-full" type="submit">Submit</button>
+</form>

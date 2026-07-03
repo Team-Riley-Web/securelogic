@@ -1,11 +1,462 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { ArrowRight, Check, ChevronRight, Cpu, Droplets, Leaf, Menu, Sparkles, X } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import CurveDivider from '../components/CurveDivider.astro';
 import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
+import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import logo from '../assets/images/logo.png';
+import products from '../assets/images/products.png';
+import botanimax from '../assets/images/botanimax-bottle.png';
+import greenhouse from '../assets/images/blog-greenhouse.png';
+import cannabis from '../assets/images/blog-cannabis.png';
+import wrestling from '../assets/images/blog-wrestling.png';
+import sickBuilding from '../assets/images/blog-sick-building.png';
+
+const applications = [
+  { title: 'Agriculture', copy: 'Engineered 360-degree dry mist for crops, livestock, and controlled-environment agriculture.', uses: ['Cannabis grow rooms', 'Greenhouses and vertical farms', 'Livestock barns and hatcheries'] },
+  { title: 'Athletic Facilities', copy: 'Targets sweat-prone, high-contact training spaces with consistent 360-degree coverage.', uses: ['Wrestling and martial arts rooms', 'Weight rooms and cardio areas', 'Locker rooms and showers'] },
+  { title: 'Early Child Care', copy: 'Helps protect high-touch environments where young children play, learn, and nap.', uses: ['Classrooms and playrooms', 'Nap rooms', 'Shared restrooms and storage'] },
+  { title: 'Schools', copy: 'Provides automated whole-room treatment across busy K-12 and campus facilities.', uses: ['Classrooms and labs', 'Cafeterias and libraries', 'Buses and transport fleets'] },
+  { title: 'Medical & Healthcare', copy: 'Supports infection-control goals in clinical, procedural, and long-term care settings.', uses: ['Patient rooms', 'Dialysis clinics', 'Procedure and isolation rooms'] },
+  { title: 'Military & Public Safety', copy: 'Delivers portable and fixed-system coverage for mission-critical, high-traffic spaces.', uses: ['Barracks and common rooms', 'Command centers', 'Vehicles and mobile clinics'] },
+  { title: 'Cruise Ships & Marine Vessels', copy: 'Brings automated misting to complex, multi-deck marine environments.', uses: ['Guest cabins', 'Dining rooms and galleys', 'Medical bays and crew quarters'] },
+  { title: 'Entertainment Venues', copy: 'Supports safer, cleaner environments wherever large crowds gather indoors.', uses: ['Arenas and suites', 'Theaters and cinemas', 'Arcades and attractions'] },
+];
+
+const posts: { title: string; date: string; image: ImageMetadata; alt: string }[] = [
+  { title: 'How to Identify Sick Building Syndrome and Improve Indoor Air Quality in Your Building', date: 'March 27, 2026', image: sickBuilding, alt: 'Bright commercial building lobby with illustrated airborne germs' },
+  { title: 'Reducing Microbial Risk to Improve Cannabis Crop Yield', date: 'January 26, 2026', image: cannabis, alt: 'Greenhouse comparison showing cannabis plants affected by mold' },
+  { title: 'Are You Missing These 3 High-Risk Hotspots?', date: 'October 8, 2025', image: wrestling, alt: 'Two wrestlers in a gym with illustrated pathogens nearby' },
+  { title: 'How Indoor Growing Facilities Can Protect Crops from Bacterial and Fungal Threats', date: 'September 10, 2025', image: greenhouse, alt: 'Rows of strawberries growing inside a greenhouse' },
+];
+
+const applicationData = JSON.stringify(applications);
 ---
 
-<BaseLayout>
-  <Header />
-  <main></main>
+<BaseLayout
+  title="Secure Logic | Precision Misting. Automated Efficiency. 360-Degree Coverage."
+  description="Secure Logic Genesis 360 automated dry-mist systems and BotaniMax botanical disinfectant for agriculture and mission-critical facilities."
+>
+  <header
+    class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
+    x-data="{ open: false, scrolled: false }"
+    x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
+    x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
+  >
+    <div class="container-page flex items-center gap-6 transition-all duration-300" x-bind:class="scrolled ? 'h-16' : 'h-20'">
+      <a href="/" class="mr-auto flex items-center gap-3" aria-label="Secure Logic home">
+        <Image
+          src={logo}
+          alt="Secure Logic logo"
+          class="w-auto object-contain transition-all duration-300"
+          x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
+          widths={[120, 180, 240]}
+          sizes="160px"
+          priority
+        />
+      </a>
+      <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+        <a href="#platform" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Genesis 360</a>
+        <a href="#botanimax" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">BotaniMax</a>
+        <a href="#applications" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Applications</a>
+        <a href="#resources" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Resources</a>
+      </nav>
+      <a href="tel:18889974310" class="hidden font-mono text-sm font-medium transition xl:block" x-bind:class="scrolled ? 'text-slate-500' : 'text-emerald-50/70'">1-888-997-4310</a>
+      <a href="#quote" class="hidden items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold shadow-lift transition focus:outline-none focus:ring-4 lg:inline-flex" x-bind:class="scrolled ? 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-200' : 'bg-white/92 text-primary-700 hover:bg-white focus:ring-white/20'">Get a Quote</a>
+      <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-md transition lg:hidden" x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'" x-on:click="open = !open" x-bind:aria-expanded="open.toString()" aria-label="Toggle navigation">
+        <Menu class="h-5 w-5" x-show="!open" />
+        <X class="h-5 w-5" x-show="open" x-cloak />
+      </button>
+    </div>
+    <nav class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak x-on:click="open = false" aria-label="Mobile navigation">
+      <div class="container-page grid gap-1 py-5">
+        <a href="#platform" class="mobile-link">Genesis 360</a>
+        <a href="#botanimax" class="mobile-link">BotaniMax</a>
+        <a href="#applications" class="mobile-link">Applications</a>
+        <a href="#resources" class="mobile-link">Resources</a>
+        <a href="#quote" class="button-primary mt-3">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section
+      class="relative isolate overflow-hidden bg-canopy text-white"
+      x-data="{
+        current: 0,
+        slides: [
+          { label: 'Agriculture', title: 'Crop fields and greenhouses', copy: 'Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.' },
+          { label: 'Controlled Environments', title: 'Cannabis and indoor grow rooms', copy: 'Automated treatment helps reduce microbial pressure where humidity and dense growth raise risk.' },
+          { label: 'Built Environments', title: 'Schools and shared facilities', copy: 'Repeatable whole-room cycles support cleaner air and surfaces in high-traffic indoor spaces.' }
+        ],
+        init() {
+          window.setInterval(() => {
+            this.current = (this.current + 1) % this.slides.length;
+          }, 5200);
+        }
+      }"
+    >
+      <div class="absolute inset-0">
+        <Image
+          src={greenhouse}
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover object-[58%_50%] opacity-95 transition-opacity duration-700"
+          widths={[960, 1280, 1600]}
+          sizes="100vw"
+          priority
+          aria-hidden="true"
+          x-show="current === 0"
+          x-transition.opacity
+        />
+        <Image
+          src={cannabis}
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover object-[54%_50%] opacity-95 transition-opacity duration-700"
+          widths={[960, 1280, 1600]}
+          sizes="100vw"
+          aria-hidden="true"
+          x-show="current === 1"
+          x-transition.opacity
+        />
+        <Image
+          src={sickBuilding}
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover object-[50%_50%] opacity-95 transition-opacity duration-700"
+          widths={[960, 1280, 1600]}
+          sizes="100vw"
+          aria-hidden="true"
+          x-show="current === 2"
+          x-transition.opacity
+        />
+      </div>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,hsl(160_34%_14%)_0%,hsl(160_34%_14%/.96)_36%,hsl(160_34%_14%/.58)_68%,hsl(160_34%_14%/.18)_100%),linear-gradient(0deg,hsl(160_34%_14%/.72)_0%,hsl(160_34%_14%/.18)_42%,hsl(160_34%_14%/.04)_100%)]"></div>
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="absolute -bottom-24 left-0 h-96 w-3/4 rounded-full bg-botanical-300/10 blur-3xl motion-safe:animate-[mist_18s_ease-in-out_infinite_alternate]"></div>
+        <div class="absolute -right-28 top-4 h-96 w-2/3 rounded-full bg-white/10 blur-3xl motion-safe:animate-[mist_24s_ease-in-out_infinite_alternate]"></div>
+      </div>
+      <div class="container-page relative grid min-h-[min(88vh,900px)] items-center py-20 lg:grid-cols-[1.02fr_.98fr]">
+        <div class="relative z-10">
+          <p class="eyebrow text-botanical-300">Disinfection Reimagined</p>
+          <h1 class="mt-5 max-w-[15ch] text-4xl font-semibold leading-[1.06] tracking-normal text-white sm:text-6xl">
+            Precision Misting. Automated Efficiency. 360-Degree Coverage.
+          </h1>
+          <p class="mt-6 max-w-xl text-lg font-medium leading-8 text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)]">
+            Genesis 360 Systems represents more than automation. It is physics-engineered protection that is measurable, sustainable, and repeatable from the grow room to the whole facility.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#platform" class="button-primary">Discover Genesis 360 <ArrowRight class="h-4 w-4" /></a>
+            <a href="#quote" class="button-dark">Get a Quote</a>
+          </div>
+          <div class="mt-11 flex max-w-xl flex-wrap gap-x-9 gap-y-5 border-t border-white/15 pt-6">
+            <div><b class="block font-mono text-2xl font-semibold text-white">&lt;10 μm</b><span class="text-sm text-emerald-50/65">dry-mist droplet size</span></div>
+            <div><b class="block font-mono text-2xl font-semibold text-white">360°</b><span class="text-sm text-emerald-50/65">air and surface coverage</span></div>
+            <div><b class="block font-mono text-2xl font-semibold text-white">Automated</b><span class="text-sm text-emerald-50/65">programmable cycles</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-24 right-6 z-10 hidden w-[min(25rem,calc(100vw-3rem))] rounded-lg bg-canopy/86 p-5 shadow-deep ring-1 ring-white/20 backdrop-blur-md md:block lg:right-10">
+        <div class="flex items-center gap-3">
+          <span class="h-1 w-10 rounded-full bg-botanical-300"></span>
+          <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-botanical-200" x-text="slides[current].label"></p>
+        </div>
+        <h2 class="mt-4 text-xl font-semibold text-white" x-text="slides[current].title"></h2>
+        <p class="mt-2 text-sm font-medium leading-6 text-white/82" x-text="slides[current].copy"></p>
+        <div class="mt-5 flex gap-2" aria-label="Hero applications">
+          <template x-for="(_, index) in slides" :key="index">
+            <button
+              type="button"
+              class="h-2.5 rounded-full transition-all"
+              x-bind:class="current === index ? 'w-8 bg-botanical-300' : 'w-2.5 bg-white/35 hover:bg-white/60'"
+              x-on:click="current = index"
+              x-bind:aria-label="`Show application ${index + 1}`"
+            ></button>
+          </template>
+        </div>
+      </div>
+      <CurveDivider class="bottom-0 text-white" />
+    </section>
+
+    <section id="platform" class="bg-white py-20 lg:py-28">
+      <div class="container-page grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
+        <div class="reveal relative pb-10" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div
+            class="reveal overflow-hidden rounded-lg bg-slate-100 shadow-lift ring-1 ring-slate-900/5"
+            x-data="{
+              update() {
+                const rect = $el.getBoundingClientRect();
+                const progress = Math.min(1, Math.max(0, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
+                $refs.image.style.transform = `scale(${1.04 + progress * 0.12})`;
+              }
+            }"
+            x-init="update(); window.addEventListener('scroll', () => requestAnimationFrame(() => update()), { passive: true }); window.addEventListener('resize', () => requestAnimationFrame(() => update()), { passive: true })"
+          >
+            <Image x-ref="image" src={products} alt="Genesis 360 and BotaniMax product line" class="w-full object-cover transition-transform duration-200" style="transform: scale(1.04);" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 46vw, 100vw" />
+          </div>
+          <div class="absolute bottom-0 right-0 w-[46%] overflow-hidden rounded-lg bg-slate-900 shadow-deep ring-4 ring-white max-sm:relative max-sm:mt-4 max-sm:w-full max-sm:ring-0">
+            <video class="aspect-video w-full object-cover" autoplay muted loop playsinline preload="metadata">
+              <source src="/videos/genesis-nozzles.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <p class="eyebrow">Precision-Engineered Environmental Systems</p>
+          <h2 class="section-title mt-4">The Genesis 360 Platform</h2>
+          <p class="section-copy mt-5">
+            Genesis 360 is an intelligent, automated misting platform engineered to provide true 360-degree coverage in every environment. Sub-10 micron dry-mist droplets distribute uniform coverage throughout air and surface zones, wrapping around, under, and behind objects.
+          </p>
+          <div class="mt-8 divide-y divide-slate-200 border-y border-slate-200">
+            {[
+              ['Sub-10 micron dry mist', 'hangs in air, no wetting', Droplets],
+              ['Programmable automation', 'scheduled, repeatable cycles', Cpu],
+              ['Whole-room coverage', 'around, under, behind objects', Sparkles],
+              ['Botanical chemistry', 'BotaniMax plant-based disinfectant', Leaf],
+            ].map(([title, copy, Icon]) => (
+              <div class="flex items-center gap-4 py-4">
+                <Icon class="h-6 w-6 shrink-0 text-primary-600" />
+                <p><b class="font-semibold text-slate-900">{title}</b> <span class="text-slate-500">- {copy}</span></p>
+              </div>
+            ))}
+          </div>
+          <a href="#quote" class="group mt-7 inline-flex items-center gap-2 border-b border-primary-700 pb-1 text-sm font-semibold text-primary-700">
+            Explore the full platform <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-slate-100 py-20 lg:py-28">
+      <div class="container-page">
+        <div class="reveal max-w-3xl" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <p class="eyebrow">The Cost of Inaction</p>
+          <h2 class="section-title mt-4">What you can't see is costing you.</h2>
+          <p class="section-copy mt-5">
+            Airborne pathogens and biofilm move faster than wipes and hand-sprayers can. In agriculture, the losses are measured in billions and in yield you never harvest.
+          </p>
+        </div>
+        <div class="mt-12 grid border-t-2 border-slate-900 md:grid-cols-4">
+          {[
+            ['$40B', 'In U.S. crop losses to pests and plant disease every year.', 'Source: USDA'],
+            ['$20B+', 'Lost annually by U.S. livestock industries to disease.', 'Source: AVMA'],
+            ['58M', 'Birds culled in the recent U.S. avian influenza outbreak.', 'Source: USDA ERS'],
+            ['80%', 'Of recirculated air in animal housing and grow rooms can carry microbial contaminants.', 'Source: AEM, 2023'],
+          ].map(([value, copy, source], index) => (
+            <article class="reveal py-7 pr-6" style={`transition-delay: ${index * 90}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
+              <b class="block font-mono text-5xl font-semibold leading-none tracking-normal text-primary-600 lg:text-6xl">{value}</b>
+              <p class="mt-4 text-sm font-medium leading-6 text-slate-800">{copy}</p>
+              <p class="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-slate-500">{source}</p>
+            </article>
+          ))}
+        </div>
+        <div class="reveal mt-8 flex flex-wrap items-center gap-5 border-t border-slate-200 pt-7" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <span class="h-1 w-10 rounded-full bg-botanical-500"></span>
+          <p class="max-w-3xl font-semibold leading-7 text-slate-800">Genesis 360 replaces labor-intensive, inconsistent disinfection with automated, measurable coverage of the air and every surface.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="agriculture" class="relative overflow-hidden bg-canopy py-24 text-white lg:py-36">
+      <CurveDivider class="top-0 rotate-180 text-slate-100" />
+      <div class="container-page relative pt-8">
+        <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <p class="eyebrow text-botanical-300">Agriculture First</p>
+          <h2 class="section-title mt-4 text-white">Reach every corner. Protect every acre.</h2>
+          <p class="mt-5 max-w-3xl text-base leading-8 text-emerald-50/70">
+            AgGriGuard Mist and InRoom Mist disperse BotaniMax into the air and across every exposed surface with touch-free, full-coverage disinfection for crops, canopy, and livestock.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-[1.05fr_.95fr]">
+          <a href="#applications" class="image-card reveal min-h-[520px]" x-data x-intersect.once="$el.classList.add('is-visible')" x-on:click.prevent="$dispatch('select-app', { index: 0 }); document.querySelector('#applications').scrollIntoView({ behavior: 'smooth' })">
+            <Image src={greenhouse} alt="Greenhouse crop rows with strawberries" class="image-card-img" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 50vw, 100vw" />
+            <div class="image-card-copy">
+              <h3>Crop fields and greenhouses</h3>
+              <p>Protect crops from soilborne fungi, bacterial blight, and viruses without wetting foliage, media, or equipment.</p>
+              <span>See deployments <ArrowRight class="h-4 w-4" /></span>
+            </div>
+          </a>
+          <div class="grid gap-6">
+            <a href="#applications" class="image-card reveal min-h-[250px]" style="transition-delay: 90ms" x-data x-intersect.once="$el.classList.add('is-visible')" x-on:click.prevent="$dispatch('select-app', { index: 0 }); document.querySelector('#applications').scrollIntoView({ behavior: 'smooth' })">
+              <Image src={cannabis} alt="Indoor cannabis cultivation facility" class="image-card-img" widths={[520, 760, 960]} sizes="(min-width: 1024px) 45vw, 100vw" />
+              <div class="image-card-copy">
+                <h3>Controlled grow rooms</h3>
+                <p>Automated treatment where humidity, airflow, and dense canopy growth create microbial pressure.</p>
+                <span>See deployments <ArrowRight class="h-4 w-4" /></span>
+              </div>
+            </a>
+            <div class="reveal rounded-lg bg-canopy-light p-7 shadow-lift ring-1 ring-white/10" style="transition-delay: 160ms" x-data x-intersect.once="$el.classList.add('is-visible')">
+              <Cpu class="h-8 w-8 text-botanical-300" />
+              <h3 class="mt-5 text-2xl font-semibold text-white">360HVAC Mist for ag facilities</h3>
+              <p class="mt-3 text-sm leading-6 text-emerald-50/70">Infuses air-handling systems with ultra-fine BotaniMax mist, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide.</p>
+              <a href="#applications" class="mt-5 inline-flex items-center gap-2 border-b border-white/40 pb-1 text-sm font-semibold text-white">See deployments <ArrowRight class="h-4 w-4" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="applications"
+      class="bg-slate-100 py-20 lg:py-28"
+      x-data={`{
+        apps: ${applicationData},
+        selected: 0,
+        init() {
+          window.addEventListener('select-app', (event) => { this.selected = event.detail.index || 0 });
+        }
+      }`}
+    >
+      <div class="container-page">
+        <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div>
+            <p class="eyebrow">Applications</p>
+            <h2 class="section-title mt-4">Applications That Demand Precision</h2>
+          </div>
+          <p class="section-copy md:max-w-lg">Genesis 360 is designed for flexibility and scalability across industries where hygiene, safety, and environmental quality are mission-critical.</p>
+        </div>
+        <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div class="flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0" role="tablist" aria-label="Industries">
+            <template x-for="(app, index) in apps" :key="app.title">
+              <button type="button" class="apps-tab" x-bind:aria-selected="selected === index" x-on:click="selected = index" role="tab">
+                <span x-text="app.title"></span>
+                <ChevronRight class="hidden h-4 w-4 lg:block" />
+              </button>
+            </template>
+          </div>
+          <div class="rounded-lg bg-white p-7 shadow-lift ring-1 ring-slate-900/5 sm:p-10">
+            <template x-for="(app, index) in apps" :key="app.title">
+              <div x-show="selected === index" x-transition.opacity role="tabpanel">
+                <h3 class="text-2xl font-semibold text-slate-900" x-text="app.title"></h3>
+                <p class="mt-4 max-w-2xl leading-7 text-slate-600" x-text="app.copy"></p>
+                <p class="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Typical deployments</p>
+                <div class="mt-4 grid gap-3">
+                  <template x-for="use in app.uses" :key="use">
+                    <div class="flex items-start gap-3 text-slate-700">
+                      <Check class="mt-1 h-4 w-4 shrink-0 text-botanical-600" />
+                      <span x-text="use"></span>
+                    </div>
+                  </template>
+                </div>
+                <a href="#quote" class="button-secondary mt-8">Scope a system for this space</a>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="botanimax" class="relative isolate overflow-hidden bg-canopy py-24 text-white lg:py-36">
+      <div class="absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full border-[18px] border-primary-500/25"></div>
+      <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.82fr_1.18fr]">
+        <figure class="reveal relative flex min-h-[420px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div class="absolute h-[min(450px,90%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl"></div>
+          <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative h-[420px] w-auto drop-shadow-[0_36px_48px_rgba(0,0,0,.55)]" widths={[260, 420, 620]} sizes="(min-width: 1024px) 36vw, 80vw" />
+          <figcaption class="absolute bottom-0 font-mono text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
+        </figure>
+        <div class="reveal" style="transition-delay: 100ms" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <p class="eyebrow text-botanical-300">Botanical Chemistry</p>
+          <h2 class="section-title mt-4 text-white">Nature's most effective defense.</h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-emerald-50/70">BotaniMax is the botanical disinfectant built for the Genesis 360, AgGriGuard, and 360HVAC system family. Protect people, animals, and crops with no synthetic residues.</p>
+          <div class="mt-7 flex items-center gap-5 border-t border-white/15 pt-6">
+            <b class="font-mono text-5xl font-semibold text-botanical-300">99.9999%</b>
+            <span class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria,<br /> viruses and fungi</span>
+          </div>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2">
+            {[
+              ['100% plant-derived', 'Thyme, wintergreen and citrus oils with no harsh residues.'],
+              ['EPA-registered (25b)', 'Positioned for animal production, crop facilities, and food-contact areas.'],
+              ['Multi-modal action', 'Attacks pathogens through multiple mechanisms to reduce resistance pressure.'],
+              ['Safe for daily use', 'Designed for repeated facility treatment and operational routines.'],
+            ].map(([title, copy]) => (
+              <div class="grid grid-cols-[auto_1fr] gap-3">
+                <Leaf class="mt-1 h-5 w-5 text-botanical-300" />
+                <div>
+                  <b class="font-semibold text-white">{title}</b>
+                  <p class="mt-1 text-sm leading-6 text-emerald-50/65">{copy}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#quote" class="button-primary">Request BotaniMax pricing <ArrowRight class="h-4 w-4" /></a>
+            <span class="pill">Kills SARS-CoV-2</span>
+            <span class="pill">FIFRA 25b</span>
+            <span class="pill">Tier 3 antimicrobial</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="bg-white py-20 lg:py-28">
+      <div class="container-page">
+        <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div>
+            <p class="eyebrow">Resources</p>
+            <h2 class="section-title mt-4">Recent Blog Posts</h2>
+          </div>
+          <a href="/blogs/" class="button-secondary">View All Posts <ArrowRight class="h-4 w-4" /></a>
+        </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {posts.map(({ title, date, image, alt }, index) => (
+            <article class="reveal group overflow-hidden rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-deep" style={`transition-delay: ${index * 80}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
+              <Image src={image} alt={alt} class="aspect-[16/10] w-full object-cover" widths={[360, 520, 700]} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" />
+              <div class="p-5">
+                <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{date}</p>
+                <h3 class="mt-3 text-base font-semibold leading-6 text-slate-900">{title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="quote" class="relative overflow-hidden bg-canopy py-24 text-white lg:py-32">
+      <CurveDivider class="top-0 rotate-180 text-white" />
+      <div class="container-page relative grid items-center gap-12 pt-8 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <p class="eyebrow text-botanical-300">Get Started Today</p>
+          <h2 class="section-title mt-4 text-white">Build a cleaner, healthier indoor environment.</h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-emerald-50/70">Tell Secure Logic which product you are evaluating and where it will be used. The team can help scope the right Genesis 360, AgGriGuard, and BotaniMax configuration for your facility.</p>
+          <div class="mt-7 grid gap-3">
+            {['Response within one business day', 'Facility walkthrough and coverage plan', 'Fixed, portable, or HVAC-integrated options'].map((point) => (
+              <div class="flex items-center gap-3 font-semibold text-white">
+                <Check class="h-5 w-5 text-botanical-300" />
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="reveal" style="transition-delay: 100ms" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <QuoteForm title="Request a quote" compact />
+        </div>
+      </div>
+    </section>
+  </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  const revealItems = Array.from(document.querySelectorAll('.reveal'));
+
+  if (revealItems.length) {
+    document.documentElement.classList.add('reveal-enabled');
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
+        },
+        { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+      );
+
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('is-visible'));
+    }
+  }
+</script>

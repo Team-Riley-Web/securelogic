@@ -1,0 +1,18 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  copy?: string;
+}
+
+const { eyebrow = 'Secure Logic', title, copy } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-white">
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(104_48%_89%/.55),transparent_34%),radial-gradient(circle_at_80%_0%,hsl(211_92%_92%/.7),transparent_30%)]"></div>
+  <div class="container-page relative py-20 sm:py-24">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 class="mt-4 max-w-4xl text-4xl font-semibold tracking-normal text-slate-900 sm:text-5xl">{title}</h1>
+    {copy && <p class="mt-6 section-copy">{copy}</p>}
+  </div>
+</section>

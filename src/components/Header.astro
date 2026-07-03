@@ -1,1 +1,102 @@
-<header></header>
+---
+import { ChevronDown, Menu, X } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+
+const nav = [
+  { label: 'Genesis 360 Systems', href: '/genesis360mistingsystems/' },
+  { label: 'Applications', href: '/#applications' },
+  { label: 'BotaniMax', href: '/botanimax/' },
+  {
+    label: 'Resources',
+    href: '/resources/',
+    children: [
+      { label: 'Blog', href: '/blogs/' },
+      { label: 'Brochures', href: '/resources/brochures/' },
+      { label: 'Documentation', href: '/resources/documentation/' },
+      { label: 'FAQs', href: '/resources/faqs/' },
+    ],
+  },
+  {
+    label: 'About Us',
+    href: '/about-us/',
+    children: [
+      { label: 'Technology', href: '/about-us/technology/' },
+      { label: 'Contact Us', href: '/contact-us/' },
+    ],
+  },
+];
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-white/60 bg-white/88 shadow-sm backdrop-blur-xl"
+  x-data="{ open: false }"
+>
+  <div class="container-page flex h-20 items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-3" aria-label="Secure Logic home">
+      <Image src={logo} alt="Secure Logic logo" class="h-14 w-14 rounded-md object-contain" widths={[80, 120]} sizes="56px" />
+      <span class="hidden text-base font-semibold text-slate-900 sm:block">Secure Logic</span>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+      {nav.map((item) => (
+        <div class="group relative">
+          <a
+            href={item.href}
+            class="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-primary-700"
+          >
+            {item.label}
+            {item.children && <ChevronDown class="h-4 w-4" aria-hidden="true" />}
+          </a>
+          {item.children && (
+            <div class="invisible absolute left-0 top-full w-56 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100">
+              <div class="rounded-lg bg-white p-2 shadow-deep ring-1 ring-slate-900/5">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="block rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-primary-50 hover:text-primary-700"
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a href="tel:18889974310" class="text-sm font-semibold text-slate-700 hover:text-primary-700">1-888-997-4310</a>
+      <a href="/get-a-quote/" class="button-primary">Get a Quote</a>
+    </div>
+
+    <button
+      type="button"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-md bg-slate-100 text-slate-800 lg:hidden"
+      aria-label="Toggle navigation"
+      x-on:click="open = !open"
+    >
+      <Menu class="h-5 w-5" x-show="!open" />
+      <X class="h-5 w-5" x-show="open" x-cloak />
+    </button>
+  </div>
+
+  <div class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak>
+    <nav class="container-page grid gap-1 py-5" aria-label="Mobile navigation">
+      {nav.map((item) => (
+        <>
+          <a href={item.href} class="rounded-md px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100">{item.label}</a>
+          {item.children && (
+            <div class="grid gap-1 pl-4">
+              {item.children.map((child) => (
+                <a href={child.href} class="rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-primary-50 hover:text-primary-700">{child.label}</a>
+              ))}
+            </div>
+          )}
+        </>
+      ))}
+      <a href="/get-a-quote/" class="button-primary mt-3">Get a Quote</a>
+    </nav>
+  </div>
+</header>

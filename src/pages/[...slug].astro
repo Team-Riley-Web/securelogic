@@ -1,0 +1,382 @@
+---
+import type { ImageMetadata } from 'astro';
+import { ArrowDownToLine, ArrowRight, Check, FileText, Mail, Phone, ShieldCheck } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import botanimaxLogo from '../assets/images/botanimax-logo.png';
+import botanimaxBottle from '../assets/images/botanimax-bottle.png';
+import compact from '../assets/images/genesis-compact.png';
+import inroom from '../assets/images/inroom-mist.png';
+import hvac from '../assets/images/hvac-mist.png';
+import mobile from '../assets/images/mobile-mist.png';
+import medical from '../assets/images/medical-mist.png';
+import portable from '../assets/images/portable-mist.png';
+import agri from '../assets/images/agri-guard.png';
+import physics from '../assets/images/physics-icon.png';
+import nozzle from '../assets/images/nozzle-icon.png';
+import nozzles from '../assets/images/nozzles.png';
+import pathogen from '../assets/images/pathogen.png';
+import faqRoom from '../assets/images/faq-room.jpg';
+import contactBg from '../assets/images/contact-bg.jpeg';
+import sickBuilding from '../assets/images/blog-sick-building.png';
+import cannabis from '../assets/images/blog-cannabis.png';
+import wrestling from '../assets/images/blog-wrestling.png';
+import greenhouse from '../assets/images/blog-greenhouse.png';
+import label from '../assets/images/botanimax-label.png';
+import childcare from '../assets/images/brochure-childcare.png';
+import agriculture from '../assets/images/brochure-agriculture.png';
+import fitness from '../assets/images/brochure-fitness.png';
+
+export function getStaticPaths() {
+  return [
+    'home-page',
+    'genesis360mistingsystems',
+    'botanimax',
+    'resources',
+    'resources/brochures',
+    'resources/documentation',
+    'resources/faqs',
+    'faqs',
+    'about-us',
+    'about-us/technology',
+    'contact-us',
+    'get-a-quote',
+    'blogs',
+    'privacy-policy',
+  ].map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug ?? '';
+const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
+
+const systems: { name: string; image: ImageMetadata; alt: string }[] = [
+  { name: 'InRoomMist', image: inroom, alt: 'Genesis 360 InRoom Mist' },
+  { name: 'HVACMist', image: hvac, alt: 'Genesis 360 HVAC misting system image' },
+  { name: 'Compact Mist', image: compact, alt: 'Secure Logic Genesis Compact' },
+  { name: 'MobileMist', image: mobile, alt: 'Genesis 360 Mobile Mist' },
+  { name: 'MedicalMist', image: medical, alt: 'Kinetic Systems Medical Mist' },
+  { name: 'PortableMist', image: portable, alt: 'Kinetic Systems Portable Mist' },
+  { name: 'AgriGuard', image: agri, alt: 'Genesis 360 Grey AgriGuard' },
+];
+
+const differentiators = [
+  ['True whole-room disinfection', 'Sub-10-micron dry mist behaves like a vapor, filling the entire room volume and treating air, surfaces, and hard-to-access areas.'],
+  ['Automation and remote operation', 'Industrial-grade controls run pre-programmed cycles automatically, with options for centralized or remote control.'],
+  ['Faster reentry times', 'Integrated air movement and drying accelerate clear-out so rooms can return to service more quickly.'],
+  ['Environmentally neutral', 'Dry mist leaves no residue, does not change humidity or temperature, and uses tightly controlled dosing.'],
+  ['Precision-engineered nozzles', 'Custom nozzles deliver consistent droplet size and low, predictable flow rates.'],
+  ['Platform, not a single device', 'A modular family built on the same core technology for HVAC, in-room, medical, mobile, and agricultural use.'],
+];
+
+const features = [
+  'EPA 2(c) Registered',
+  'Controls harmful bacteria, viruses, and fungi',
+  'Helps contain emerging pathogens',
+  'Residual clean efficacy',
+  'An emerging viral pathogen disinfectant',
+  'Made in the USA',
+];
+
+const posts: { title: string; copy: string; date: string; image: ImageMetadata }[] = [
+  { title: 'How to Identify Sick Building Syndrome and Improve Indoor Air Quality in Your Building', copy: 'Someone feels fine on the weekend. Then Monday hits: dry eyes, scratchy throat, headache, brain fog, fatigue.', date: 'March 27, 2026', image: sickBuilding },
+  { title: 'Reducing Microbial Risk to Improve Cannabis Crop Yield', copy: 'Indoor cultivation gives cannabis growers consistency, but dense controlled environments can amplify microbial risk.', date: 'January 26, 2026', image: cannabis },
+  { title: 'Are You Missing These 3 High-Risk Hotspots?', copy: 'Wrestling hygiene is not only mats. High-contact training spaces need repeatable whole-room coverage.', date: 'October 8, 2025', image: wrestling },
+  { title: 'How Indoor Growing Facilities Can Protect Crops from Bacterial and Fungal Threats', copy: 'Indoor farming has changed agriculture, but microbial threats still move through air, surfaces, and irrigation zones.', date: 'September 10, 2025', image: greenhouse },
+];
+
+const docs = [
+  ['EPA Registration for the Label', 'Botanical-Disinfectant-Master-Label-1.pdf'],
+  ['BotaniMax SDS Sheet', 'SDS-PreVasive-Botanical-Disinfectant-RTU-4-1.pdf'],
+  ['Efficacy Lab Report', 'Pathogen-Report.pdf'],
+  ['Staph Efficacy Lab Report', 'Staph-Final-Report.pdf'],
+  ['Industrial Hygiene White Paper', 'INDUSTRIAL-HYGIENE-White-Paper-Genesis-misting-Trial-BotaniMax.pdf'],
+];
+
+const brochures: { title: string; image: ImageMetadata }[] = [
+  { title: 'Early Child Care Centers', image: childcare },
+  { title: 'Agriculture Overview', image: agriculture },
+  { title: 'Fitness Centers', image: fitness },
+];
+
+const technologyCards: { title: string; image: ImageMetadata; copy: string }[] = [
+  { title: 'Physics-Based Precision', image: physics, copy: 'Every nozzle produces a uniform stream of sub-10 micron dry-mist droplets that stay airborne, behave like a vapor, and reach hidden zones.' },
+  { title: 'Intelligent Nozzle Architecture', image: nozzle, copy: 'Precision nozzles atomize fluid at tightly controlled rates while maintaining consistent particle size distribution.' },
+  { title: 'Automated Intelligence', image: compact, copy: 'Industrial-grade PLC controls regulate misting duration, intervals, density, and cycles with repeatable logic.' },
+  { title: 'Environmental Neutrality', image: nozzles, copy: 'The dry mist causes no meaningful humidity or temperature change and is designed to avoid wet surfaces, corrosion, or condensation.' },
+];
+
+const faqs = [
+  ['What is the Genesis 360 Misting System Platform?', 'Genesis 360 is an automated environmental misting platform that uses sub-10 micron dry mist droplets and intelligent controls to deliver consistent 360-degree coverage in air and on surfaces.'],
+  ['How is Genesis 360 different from traditional foggers or spray systems?', 'Traditional foggers and pump sprayers produce larger wet droplets that fall quickly and leave gaps. Genesis 360 droplets remain suspended long enough to fill the room or duct volume and wrap around objects.'],
+  ['What problems does Genesis 360 solve for facilities?', 'It addresses inconsistent manual coverage, labor dependence, and unpredictable chemical use by automating tightly controlled cycles.'],
+  ['What does sub-10 micron droplets mean, and why does it matter?', 'Droplets smaller than ten microns remain suspended longer, contact airborne particles, reach hidden surfaces, and evaporate before pooling.'],
+  ['What is meant by 360-degree coverage?', 'The system treats the entire three-dimensional space, including undersides, corners, behind equipment, and the air column.'],
+  ['Can Genesis 360 be customized for different buildings or processes?', 'Yes. Nozzle placement, flow rates, cycle durations, zone configurations, schedules, and optional sensors can be configured.'],
+  ['Is the technology safe for electronics, medical equipment, and sensitive surfaces?', 'The dry mist is designed to remain vapor-phase and evaporate quickly without standing moisture, condensation, or pooling when installed and operated as directed.'],
+  ['What kind of maintenance does Genesis 360 require?', 'Most systems require low monthly maintenance such as inspecting filters, verifying nozzle performance, and checking fluid levels.'],
+];
+---
+
+<BaseLayout title={`Secure Logic | ${canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home'}`}>
+  <Header />
+  <main>
+    {canonicalSlug === 'home-page' && (
+      <>
+        <PageHero eyebrow="Secure Logic" title="Precision Misting. Automated Efficiency. 360-Degree Coverage." copy="The current Secure Logic homepage is available at the site root." />
+        <section class="bg-white py-20">
+          <div class="container-page">
+            <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'genesis360mistingsystems' && (
+      <>
+        <PageHero eyebrow="Genesis 360 Systems" title="The Genesis360 Misting System Family" copy="The Genesis360 Platform represents the next generation of environmental control, built around proprietary sub-10 micron droplet technology and precision-engineered nozzles." />
+        <section class="bg-white py-20">
+          <div class="container-page">
+            <div class="grid gap-6 md:grid-cols-3 lg:grid-cols-4">
+            {systems.map(({ name, image, alt }) => (
+                <article class="accent-card grid place-items-center gap-4 border-t-4 border-primary-500 p-6 text-center">
+                  <Image src={image} alt={alt} class="h-28 w-28 object-contain" widths={[150, 300, 450]} sizes="112px" />
+                  <h2 class="text-lg font-semibold text-slate-900">{name}</h2>
+                </article>
+              ))}
+            </div>
+            <div class="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {differentiators.map(([title, copy]) => (
+                <article class="card p-6">
+                  <ShieldCheck class="h-6 w-6 text-botanical-600" />
+                  <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'botanimax' && (
+      <>
+        <PageHero eyebrow="BotaniMax" title="Botanical Disinfection for Cleaner Indoor Environments" copy="BotaniMax is dedicated to redefining the way you clean, one botanical solution at a time." />
+        <section class="bg-white py-20">
+          <div class="container-page grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
+            <div class="grid place-items-center rounded-lg bg-slate-100 p-8 shadow-lift">
+              <Image src={botanimaxLogo} alt="BotaniMax logo for disinfection product" class="h-40 w-40 object-contain" widths={[240, 400]} sizes="160px" />
+              <Image src={botanimaxBottle} alt="Bottle of BotaniMax in a clear bottle" class="mt-8 max-h-[460px] object-contain" widths={[260, 420, 620]} sizes="(min-width: 1024px) 38vw, 100vw" />
+            </div>
+            <div>
+              <h2 class="section-title">Key Features of BotaniMax</h2>
+              <div class="mt-8 grid gap-3 sm:grid-cols-2">
+                {features.map((feature) => (
+                  <div class="flex gap-3 rounded-lg bg-slate-50 p-4">
+                    <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" />
+                    <span class="text-sm font-semibold text-slate-800">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-8 grid gap-6 text-sm leading-7 text-slate-600">
+                <p><strong class="text-slate-900">Plant Actives:</strong> BotaniMax is crafted from 150+ plant actives, infusing each drop with botanical defense against pathogens.</p>
+                <p><strong class="text-slate-900">Comprehensive Protection:</strong> The formula combats a wide spectrum of harmful microorganisms across varied environments.</p>
+                <p><strong class="text-slate-900">Eco-Friendly Solution:</strong> Secure Logic prioritizes sustainability with a product aligned to responsible practices.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'resources' && (
+      <>
+        <PageHero eyebrow="Resources" title="Welcome to the Secure Logic Resource Center" copy="Discover brochures, blogs, documentation, and frequently asked questions for botanical disinfectants and innovative misting systems." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['Blog', '/blogs/', 'Insights on botanical disinfectants, Genesis 360 technology, and indoor environmental quality.'],
+              ['Brochures', '/resources/brochures/', 'Download industry-specific brochures for child care, agriculture, and fitness centers.'],
+              ['Documentation', '/resources/documentation/', 'Access labels, SDS sheets, lab reports, and technical papers.'],
+              ['FAQs', '/resources/faqs/', 'Review common questions about micro-droplet physics and automated coverage.'],
+            ].map(([title, href, copy]) => (
+              <a href={href} class="accent-card group border-t-4 border-botanical-500 p-6">
+                <FileText class="h-7 w-7 text-primary-600" />
+                <h2 class="mt-5 text-xl font-semibold text-slate-900">{title}</h2>
+                <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
+                <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Open <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'blogs' && (
+      <>
+        <PageHero eyebrow="Blog" title="Secure Logic Blog" copy="Tips and insights on botanical disinfectants, Genesis 360 misting systems, indoor air quality, and microbial risk reduction." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-8 md:grid-cols-2">
+            {posts.map(({ title, copy, date, image }) => (
+              <article class="card overflow-hidden">
+                <Image src={image} alt={title} class="aspect-[16/9] w-full object-cover" widths={[520, 760, 1040]} sizes="(min-width: 768px) 50vw, 100vw" />
+                <div class="p-6">
+                  <p class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{date}</p>
+                  <h2 class="mt-3 text-xl font-semibold text-slate-900">{title}</h2>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'resources/brochures' && (
+      <>
+        <PageHero eyebrow="Brochures" title="Download Secure Logic Brochures" copy="Learn more about the Genesis 360 Misting System and BotaniMax through industry-specific brochures." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-6 md:grid-cols-3">
+            {brochures.map(({ title, image }) => (
+              <article class="card p-6 text-center">
+                <Image src={image} alt={`${title} brochure cover`} class="mx-auto h-72 object-contain" widths={[240, 360, 520]} sizes="(min-width: 768px) 33vw, 100vw" />
+                <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
+                <a href="/contact-us/" class="button-secondary mt-5">Request Brochure</a>
+              </article>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'resources/documentation' && (
+      <>
+        <PageHero eyebrow="Documentation" title="Supporting Data for Genesis 360 Misting Systems" copy="Access product labels, safety documents, lab reports, and white papers supporting Secure Logic technology." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+            <Image src={label} alt="BotaniMax Label image" class="rounded-lg bg-slate-100 shadow-lift" widths={[640, 960, 1200]} sizes="(min-width: 1024px) 42vw, 100vw" />
+            <div class="grid gap-4">
+              {docs.map(([title, file]) => (
+                <a href={`https://securelogicusa.com/wp-content/uploads/2025/04/${file}`} class="accent-card flex items-center justify-between gap-4 p-5">
+                  <span class="font-semibold text-slate-900">{title}</span>
+                  <ArrowDownToLine class="h-5 w-5 text-primary-600" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'resources/faqs' && (
+      <>
+        <PageHero eyebrow="FAQ" title="Frequently Asked Questions" copy="Answers about micro-droplet physics, 360-degree coverage, intelligent automation, maintenance, and customization." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+            <Image src={faqRoom} alt="Clean indoor facility room used for environmental control" class="rounded-lg shadow-deep" widths={[520, 760, 1040]} sizes="(min-width: 1024px) 38vw, 100vw" />
+            <div class="grid gap-4">
+              {faqs.map(([question, answer]) => (
+                <details class="rounded-lg bg-slate-50 p-5 shadow-sm open:bg-white open:shadow-lift">
+                  <summary class="cursor-pointer text-base font-semibold text-slate-900">{question}</summary>
+                  <p class="mt-4 text-sm leading-6 text-slate-600">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'about-us' && (
+      <>
+        <PageHero eyebrow="About Secure Logic" title="Reimagining How the World Disinfects." copy="Secure Logic is a micro-droplet fumigation technology company inventing automated systems to control and improve indoor environments." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-12 lg:grid-cols-[1fr_.9fr]">
+            <div class="grid gap-6 text-base leading-8 text-slate-600">
+              <h2 class="section-title">Our Story</h2>
+              <p>For more than 23 years, Co-Founder and CEO Marty Boquet ran one of the Gulf Coast's largest restoration and infection-control firms. In hospitals, schools, government buildings, and homes, he kept seeing the same problems: inconsistent manual labor, missed hidden zones, wet sprays, chemical waste, and HVAC systems quietly spreading contaminants.</p>
+              <p>After the pandemic, Marty teamed up with Co-Founder and COO Josh Morvant, who brings more than 20 years of construction, engineering, and systems design experience. Together, they set out to create an automated, physics-driven system that converts liquid into an ultra-dry, sub-10 micron mist.</p>
+              <p>Through extensive R&D and testing with more than 20 nozzle designs, that vision became the Genesis 360 Misting System Platform and the foundation of Secure Logic.</p>
+            </div>
+            <div class="grid gap-6">
+              <Image src={nozzles} alt="Two nozzles spraying towards each other" class="rounded-lg shadow-lift" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
+              <Image src={pathogen} alt="Image of a pathogen cell" class="rounded-lg shadow-lift" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
+            </div>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'about-us/technology' && (
+      <>
+        <PageHero eyebrow="Technology" title="The Science Behind Genesis 360" copy="Micro-droplet physics, precision nozzle architecture, and automated logic create measurable control over air and surface domains." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-6 md:grid-cols-2">
+            {technologyCards.map(({ title, image, copy }) => (
+              <article class="accent-card grid gap-5 p-6">
+                <Image src={image} alt={title} class="h-36 w-36 object-contain" widths={[220, 380]} sizes="144px" />
+                <h2 class="text-xl font-semibold text-slate-900">{title}</h2>
+                <p class="text-sm leading-6 text-slate-600">{copy}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'contact-us' && (
+      <>
+        <PageHero eyebrow="Contact Us" title="Connect Directly to the Secure Logic Team" copy="If you have questions about products, need assistance with a quote, or want to explore a partnership, the team is here to help." />
+        <section class="bg-white py-20">
+          <div class="container-page grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+            <div class="rounded-lg bg-slate-900 p-8 text-white shadow-deep">
+              <Image src={contactBg} alt="Clean indoor environment for Secure Logic contact page" class="-mx-8 -mt-8 mb-8 h-56 w-[calc(100%+4rem)] rounded-t-lg object-cover opacity-80" widths={[520, 760]} sizes="(min-width: 1024px) 36vw, 100vw" />
+              <a href="tel:18889974310" class="flex items-center gap-3"><Phone class="h-5 w-5 text-botanical-300" />1-888-997-4310</a>
+              <a href="mailto:info@securelogicUSA.com" class="mt-4 flex items-center gap-3"><Mail class="h-5 w-5 text-botanical-300" />info@securelogicUSA.com</a>
+            </div>
+            <QuoteForm title="Contact Secure Logic" />
+          </div>
+        </section>
+      </>
+    )}
+
+    {canonicalSlug === 'get-a-quote' && (
+      <>
+        <PageHero eyebrow="Get a Quote" title="Elevate Your Health and Safety and Get A Quote Today" copy="Request a quote to evaluate Secure Logic botanical disinfection and automated misting systems." />
+        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'privacy-policy' && (
+      <>
+        <PageHero eyebrow="Privacy Policy" title="Privacy Policy" copy="The original WordPress privacy policy content is preserved for the footer legal route." />
+        <section class="bg-white py-20">
+          <div class="container-page prose prose-slate max-w-3xl">
+            <h2>Who we are</h2>
+            <p>Our website address is: https://securelogicusa.com.</p>
+            <h2>Comments</h2>
+            <p>When visitors leave comments on the site, we collect the data shown in the comments form, the visitor's IP address, and browser user agent string to help spam detection.</p>
+            <h2>Media</h2>
+            <p>If you upload images to the website, avoid uploading images with embedded location data included.</p>
+            <h2>Cookies</h2>
+            <p>If you leave a comment, you may opt in to saving your name, email address, and website in cookies for convenience.</p>
+            <h2>Embedded content from other websites</h2>
+            <p>Articles may include embedded content from other websites. Embedded content behaves as if the visitor has visited the other website.</p>
+            <h2>How long we retain your data</h2>
+            <p>If you leave a comment, the comment and its metadata are retained indefinitely to recognize and approve follow-up comments automatically.</p>
+            <h2>What rights you have over your data</h2>
+            <p>You can request an exported file of the personal data held about you or request that personal data be erased, excluding data retained for administrative, legal, or security purposes.</p>
+          </div>
+        </section>
+      </>
+    )}
+  </main>
+  <Footer />
+</BaseLayout>

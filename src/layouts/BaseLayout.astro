@@ -6,7 +6,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description } = Astro.props;
+const {
+  title = 'Secure Logic | Precision Misting and Botanical Disinfection',
+  description = 'Secure Logic designs Genesis 360 automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage.',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -14,10 +17,10 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    {description && <meta name="description" content={description} />}
-    {title && <title>{title}</title>}
+    <meta name="description" content={description} />
+    <title>{title}</title>
   </head>
-  <body>
+  <body class="min-h-screen">
     <slot />
   </body>
 </html>
