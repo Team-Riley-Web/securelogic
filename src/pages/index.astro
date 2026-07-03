@@ -32,7 +32,6 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
   { title: 'How Indoor Growing Facilities Can Protect Crops from Bacterial and Fungal Threats', date: 'September 10, 2025', image: greenhouse, alt: 'Rows of strawberries growing inside a greenhouse' },
 ];
 
-const applicationData = JSON.stringify(applications);
 ---
 
 <BaseLayout
@@ -138,12 +137,11 @@ const applicationData = JSON.stringify(applications);
       </div>
       <div class="container-page relative grid min-h-[min(88vh,900px)] items-center py-20 lg:grid-cols-[1.02fr_.98fr]">
         <div class="relative z-10">
-          <p class="eyebrow text-botanical-300">Disinfection Reimagined</p>
-          <h1 class="mt-5 max-w-[15ch] text-4xl font-semibold leading-[1.06] tracking-normal text-white sm:text-6xl">
-            Precision Misting. Automated Efficiency. 360-Degree Coverage.
+          <h1 class="max-w-[11ch] text-[clamp(4rem,10vw,8rem)] font-medium leading-[.9] tracking-[-0.06em] text-white">
+            Disinfection Reimagined.
           </h1>
-          <p class="mt-6 max-w-xl text-lg font-medium leading-8 text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)]">
-            Genesis 360 Systems represents more than automation. It is physics-engineered protection that is measurable, sustainable, and repeatable from the grow room to the whole facility.
+          <p class="mt-3 max-w-lg text-lg font-medium leading-8 text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)]">
+            Automated dry mist protects air, surfaces, crops, and critical facilities.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="#platform" class="button-primary">Discover Genesis 360 <ArrowRight class="h-4 w-4" /></a>
@@ -298,13 +296,6 @@ const applicationData = JSON.stringify(applications);
     <section
       id="applications"
       class="bg-slate-100 py-20 lg:py-28"
-      x-data={`{
-        apps: ${applicationData},
-        selected: 0,
-        init() {
-          window.addEventListener('select-app', (event) => { this.selected = event.detail.index || 0 });
-        }
-      }`}
     >
       <div class="container-page">
         <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -314,32 +305,46 @@ const applicationData = JSON.stringify(applications);
           </div>
           <p class="section-copy md:max-w-lg">Genesis 360 is designed for flexibility and scalability across industries where hygiene, safety, and environmental quality are mission-critical.</p>
         </div>
-        <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]">
           <div class="flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0" role="tablist" aria-label="Industries">
-            <template x-for="(app, index) in apps" :key="app.title">
-              <button type="button" class="apps-tab" x-bind:aria-selected="selected === index" x-on:click="selected = index" role="tab">
-                <span x-text="app.title"></span>
+            {applications.map((app, index) => (
+              <button
+                type="button"
+                class="apps-tab"
+                data-app-tab={index}
+                aria-selected={index === 0 ? 'true' : 'false'}
+                aria-controls={`application-panel-${index}`}
+                id={`application-tab-${index}`}
+                role="tab"
+              >
+                <span>{app.title}</span>
                 <ChevronRight class="hidden h-4 w-4 lg:block" />
               </button>
-            </template>
+            ))}
           </div>
           <div class="rounded-lg bg-white p-7 shadow-lift ring-1 ring-slate-900/5 sm:p-10">
-            <template x-for="(app, index) in apps" :key="app.title">
-              <div x-show="selected === index" x-transition.opacity role="tabpanel">
-                <h3 class="text-2xl font-semibold text-slate-900" x-text="app.title"></h3>
-                <p class="mt-4 max-w-2xl leading-7 text-slate-600" x-text="app.copy"></p>
+            {applications.map((app, index) => (
+              <div
+                data-app-panel={index}
+                id={`application-panel-${index}`}
+                aria-labelledby={`application-tab-${index}`}
+                role="tabpanel"
+                hidden={index !== 0}
+              >
+                <h3 class="text-2xl font-semibold text-slate-900">{app.title}</h3>
+                <p class="mt-4 max-w-2xl leading-7 text-slate-600">{app.copy}</p>
                 <p class="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Typical deployments</p>
                 <div class="mt-4 grid gap-3">
-                  <template x-for="use in app.uses" :key="use">
+                  {app.uses.map((use) => (
                     <div class="flex items-start gap-3 text-slate-700">
                       <Check class="mt-1 h-4 w-4 shrink-0 text-botanical-600" />
-                      <span x-text="use"></span>
+                      <span>{use}</span>
                     </div>
-                  </template>
+                  ))}
                 </div>
                 <a href="#quote" class="button-secondary mt-8">Scope a system for this space</a>
               </div>
-            </template>
+            ))}
           </div>
         </div>
       </div>
@@ -411,6 +416,18 @@ const applicationData = JSON.stringify(applications);
     </section>
 
     <section id="quote" class="relative overflow-hidden bg-canopy py-24 text-white lg:py-32">
+      <div class="particle-field" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+      </div>
       <CurveDivider class="top-0 rotate-180 text-white" />
       <div class="container-page relative grid items-center gap-12 pt-8 lg:grid-cols-[.9fr_1.1fr]">
         <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -459,4 +476,29 @@ const applicationData = JSON.stringify(applications);
       revealItems.forEach((item) => item.classList.add('is-visible'));
     }
   }
+
+  const appTabs = Array.from(document.querySelectorAll('[data-app-tab]'));
+  const appPanels = Array.from(document.querySelectorAll('[data-app-panel]'));
+
+  function selectApplication(index: number) {
+    appTabs.forEach((tab) => {
+      const isSelected = tab.getAttribute('data-app-tab') === String(index);
+      tab.setAttribute('aria-selected', String(isSelected));
+    });
+
+    appPanels.forEach((panel) => {
+      panel.toggleAttribute('hidden', panel.getAttribute('data-app-panel') !== String(index));
+    });
+  }
+
+  appTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      selectApplication(Number(tab.getAttribute('data-app-tab') || 0));
+    });
+  });
+
+  window.addEventListener('select-app', (event) => {
+    const detail = (event as CustomEvent<{ index?: number }>).detail;
+    selectApplication(detail?.index || 0);
+  });
 </script>
