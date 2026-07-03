@@ -56,6 +56,10 @@ module.exports = {
           from: { transform: 'translate3d(-4%, 2%, 0)' },
           to: { transform: 'translate3d(6%, -3%, 0)' },
         },
+        glow: {
+          '0%, 100%': { opacity: '0.6', transform: 'scale(0.94)' },
+          '50%': { opacity: '1', transform: 'scale(1.06)' },
+        },
       },
     },
   },

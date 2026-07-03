@@ -369,7 +369,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       <div class="absolute -right-50 -top-50 h-[34rem] w-[34rem] rounded-full border-[18px] border-botanical-500/25"></div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
         <figure class="reveal relative flex min-h-[520px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <div class="absolute h-[min(560px,96%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl"></div>
+          <div class="absolute h-[min(560px,96%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl motion-safe:animate-[glow_5s_ease-in-out_infinite]"></div>
           <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative h-[520px] w-auto drop-shadow-[0_42px_58px_rgba(0,0,0,.6)] lg:h-[620px]" widths={[420, 620, 900]} sizes="(min-width: 1024px) 42vw, 84vw" />
           <figcaption class="absolute bottom-0 font-mono text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
         </figure>
