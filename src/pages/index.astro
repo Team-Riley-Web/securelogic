@@ -168,8 +168,12 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       <CurveDivider class="bottom-0 text-white" />
     </section>
 
-    <section id="platform" class="bg-white py-20 lg:py-28">
-      <div class="container-page grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
+    <section id="platform" class="relative overflow-hidden bg-white py-20 lg:py-28">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute -bottom-[25%] -left-[18%] h-[130%] w-[72%] bg-[radial-gradient(ellipse_at_center,hsl(211_86%_84%/.45)_0%,hsl(160_44%_82%/.32)_44%,transparent_70%)]"></div>
+        <div class="absolute -right-[16%] -top-[15%] h-[120%] w-[52%] bg-[radial-gradient(ellipse_at_center,hsl(104_48%_85%/.42)_0%,hsl(104_48%_88%/.18)_48%,transparent_72%)]"></div>
+      </div>
+      <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
         <div class="reveal relative pb-10" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div
             class="reveal overflow-hidden rounded-lg bg-slate-100 shadow-lift ring-1 ring-slate-900/5"
@@ -360,7 +364,8 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section id="botanimax" class="relative isolate overflow-hidden bg-canopy py-24 text-white lg:py-36">
+    <section id="botanimax" class="bg-white px-4 py-8 sm:px-6 lg:px-10 lg:py-14">
+      <div class="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-3xl bg-canopy py-24 text-white shadow-deep lg:py-36">
       <div class="absolute -right-50 -top-50 h-[34rem] w-[34rem] rounded-full border-[18px] border-botanical-500/25"></div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
         <figure class="reveal relative flex min-h-[520px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -401,6 +406,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
 
