@@ -1,6 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
-import { ArrowRight, Check, ChevronRight, Cpu, Droplets, Leaf, Menu, Sparkles, X } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Cpu, Droplets, Leaf, Menu, Sparkles, Star, X } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import CurveDivider from '../components/CurveDivider.astro';
 import Footer from '../components/Footer.astro';
@@ -30,6 +30,13 @@ const applications = [
   { title: 'Military & Public Safety', copy: 'Delivers portable and fixed-system coverage for mission-critical, high-traffic spaces.', uses: ['Barracks and common rooms', 'Command centers', 'Vehicles and mobile clinics'], image: portableMist, alt: 'Portable misting system product' },
   { title: 'Cruise Ships & Marine Vessels', copy: 'Brings automated misting to complex, multi-deck marine environments.', uses: ['Guest cabins', 'Dining rooms and galleys', 'Medical bays and crew quarters'], image: mobileMist, alt: 'Mobile misting system product' },
   { title: 'Entertainment Venues', copy: 'Supports safer, cleaner environments wherever large crowds gather indoors.', uses: ['Arenas and suites', 'Theaters and cinemas', 'Arcades and attractions'], image: products, alt: 'Genesis 360 and BotaniMax product line' },
+];
+
+const testimonials = [
+  { quote: "Using BAC Ag has been a huge success in our show pig operation! We went from having sow health issues to bringing in new sows and not having any issues! If you want a product that's going to help sanitize your barn before your customers come through, keeps your farrowing house clean and have healthier hogs while also making sure your pigs are ready to go to their new home, then using BAC Ag is the product for you!", name: 'Keaton Kitson', role: 'Owner, Kitson Show Pigs', initials: 'KK' },
+  { quote: 'I have two 1,200-head hog barns. I did a trial where I treated one barn with BAC Ag and not the other. The barn that was treated had 30% less deads, 30% less culls, and went to market 10 pounds heavier than the untreated barn.', name: 'Southwest Iowa Pig Farmer', role: 'Pork Producer', initials: 'SW' },
+  { quote: "I've been using BAC Ag since Dec. 2025 and it's been a game changer for us — not only taking away the terrible smell in the barns, but healthier lambs, no coughing or diarrhea that you see in heated barns. I highly recommend this product if you have livestock.", name: 'David Sark', role: 'Farmer', initials: 'DS' },
+  { quote: 'After BAC Ag was fogged into my pig barn, the pigs definitely seemed more active and were up, eating and drinking immediately. There also seemed to be less fly and mosquito issues in the summer in the barn where BAC Ag was used.', name: 'Iowa Pig Farmer', role: 'Pork Producer', initials: 'IA' },
 ];
 
 const posts: { title: string; date: string; image: ImageMetadata; alt: string }[] = [
@@ -434,6 +441,45 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
+    <section id="testimonials" class="bg-slate-50 py-20 lg:py-28">
+      <div class="container-page">
+        <div class="reveal flex flex-wrap items-end justify-between gap-6" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div>
+            <p class="inline-flex rounded-full border border-primary-200 bg-primary-50 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-primary-700">Testimonials</p>
+            <h2 class="section-title mt-5">Real Stories, Real Results</h2>
+          </div>
+          <div class="flex gap-3">
+            <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-canopy text-white shadow-lift transition hover:bg-canopy-light focus:outline-none focus:ring-4 focus:ring-botanical-200" data-testimonial-prev aria-label="Previous testimonials">
+              <ArrowLeft class="h-4 w-4" />
+            </button>
+            <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-canopy text-white shadow-lift transition hover:bg-canopy-light focus:outline-none focus:ring-4 focus:ring-botanical-200" data-testimonial-next aria-label="Next testimonials">
+              <ArrowRight class="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+        <div class="reveal mt-10" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div class="scrollbar-none flex snap-x snap-mandatory items-stretch gap-5 overflow-x-auto pb-2" data-testimonial-track aria-label="Customer testimonials">
+            {testimonials.map(({ quote, name, role, initials }) => (
+              <article class="flex w-[min(24rem,85vw)] shrink-0 snap-start flex-col rounded-lg bg-white p-6 shadow-lift ring-1 ring-slate-900/5 md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]">
+                <span class="font-serif text-5xl leading-none text-canopy" aria-hidden="true">&ldquo;</span>
+                <div class="mt-2 flex gap-1">
+                  {Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-amber-400 text-amber-400" />)}
+                </div>
+                <p class="mt-4 text-sm font-medium leading-6 text-slate-800">&ldquo;{quote}&rdquo;</p>
+                <div class="mt-auto flex items-center gap-3 border-t border-slate-100 pt-5">
+                  <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-canopy text-xs font-bold text-white">{initials}</span>
+                  <div>
+                    <p class="text-sm font-semibold text-slate-900">{name}</p>
+                    <p class="text-xs text-slate-500">{role}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="quote" class="relative overflow-hidden bg-canopy py-24 text-white lg:py-32">
       <div class="particle-field" aria-hidden="true">
         <span class="particle"></span>
@@ -447,7 +493,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         <span class="particle"></span>
         <span class="particle"></span>
       </div>
-      <CurveDivider class="top-0 rotate-180 text-slate-100" />
+      <CurveDivider class="top-0 rotate-180 text-slate-50" />
       <div class="container-page relative grid items-center gap-12 pt-8 lg:grid-cols-[.9fr_1.1fr]">
         <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
           <p class="eyebrow text-botanical-300">Get Started Today</p>
@@ -467,6 +513,20 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         </div>
       </div>
     </section>
+
+    <!--<section class="bg-white px-4 py-8 sm:px-6 lg:px-10 lg:py-14">-->
+    <!--  <div class="relative isolate mx-auto max-w-[110rem] overflow-hidden rounded-3xl bg-canopy px-6 py-20 text-center text-white shadow-deep lg:py-28">-->
+    <!--    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">-->
+    <!--      <div class="absolute -bottom-24 left-1/4 h-80 w-2/3 -translate-x-1/2 rounded-full bg-botanical-300/15 blur-3xl motion-safe:animate-[mist_18s_ease-in-out_infinite_alternate]"></div>-->
+    <!--      <div class="absolute -right-20 -top-16 h-72 w-1/2 rounded-full bg-primary-400/10 blur-3xl motion-safe:animate-[mist_24s_ease-in-out_infinite_alternate]"></div>-->
+    <!--    </div>-->
+    <!--    <div class="reveal relative" x-data x-intersect.once="$el.classList.add('is-visible')">-->
+    <!--      <p class="inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-botanical-200">See It In Action</p>-->
+    <!--      <h2 class="mx-auto mt-6 max-w-2xl text-3xl font-semibold tracking-normal text-white sm:text-4xl">Ready for a new era of clean for your business?</h2>-->
+    <!--      <a href="#quote" class="button-secondary mt-8">Book a Demo <ArrowRight class="h-4 w-4" /></a>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</section>-->
   </main>
   <Footer />
 </BaseLayout>
@@ -657,6 +717,61 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
 
       statValues.forEach((stat) => statObserver.observe(stat));
     }
+  }
+
+  const testimonialTrack = document.querySelector<HTMLElement>('[data-testimonial-track]');
+  const testimonialPrev = document.querySelector<HTMLElement>('[data-testimonial-prev]');
+  const testimonialNext = document.querySelector<HTMLElement>('[data-testimonial-next]');
+
+  if (testimonialTrack) {
+    const cardStep = () => {
+      const card = testimonialTrack.querySelector('article');
+      return card ? card.getBoundingClientRect().width + 20 : testimonialTrack.clientWidth;
+    };
+
+    const showNextTestimonial = () => {
+      const maxScroll = testimonialTrack.scrollWidth - testimonialTrack.clientWidth;
+      if (testimonialTrack.scrollLeft >= maxScroll - 8) {
+        testimonialTrack.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        testimonialTrack.scrollBy({ left: cardStep(), behavior: 'smooth' });
+      }
+    };
+
+    const showPrevTestimonial = () => {
+      if (testimonialTrack.scrollLeft <= 8) {
+        testimonialTrack.scrollTo({ left: testimonialTrack.scrollWidth, behavior: 'smooth' });
+      } else {
+        testimonialTrack.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+      }
+    };
+
+    let testimonialTimer: number | undefined;
+
+    const startTestimonialAutoplay = () => {
+      window.clearInterval(testimonialTimer);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      testimonialTimer = window.setInterval(showNextTestimonial, 4500);
+    };
+
+    const stopTestimonialAutoplay = () => window.clearInterval(testimonialTimer);
+
+    testimonialNext?.addEventListener('click', () => {
+      showNextTestimonial();
+      startTestimonialAutoplay();
+    });
+
+    testimonialPrev?.addEventListener('click', () => {
+      showPrevTestimonial();
+      startTestimonialAutoplay();
+    });
+
+    testimonialTrack.addEventListener('mouseenter', stopTestimonialAutoplay);
+    testimonialTrack.addEventListener('mouseleave', startTestimonialAutoplay);
+    testimonialTrack.addEventListener('touchstart', stopTestimonialAutoplay, { passive: true });
+    testimonialTrack.addEventListener('touchend', startTestimonialAutoplay, { passive: true });
+
+    startTestimonialAutoplay();
   }
 
   const appTabs = Array.from(document.querySelectorAll('[data-app-tab]'));

@@ -98,6 +98,14 @@
     @apply border-slate-200 bg-white text-slate-900 lg:shadow-lift;
   }
 
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   .typed-hero-shell {
     position: relative;
     width: max-content;
