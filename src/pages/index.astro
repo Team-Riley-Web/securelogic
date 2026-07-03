@@ -17,6 +17,9 @@ import contactBg from '../assets/images/contact-bg.jpeg';
 import medicalMist from '../assets/images/medical-mist.png';
 import mobileMist from '../assets/images/mobile-mist.png';
 import portableMist from '../assets/images/portable-mist.png';
+import farmVideo from '../assets/videos/farm.mp4';
+import cannabisVideo from '../assets/videos/cannabis.mp4';
+import gymVideo from '../assets/videos/gym.mp4';
 
 const applications = [
   { title: 'Agriculture', copy: 'Engineered 360-degree dry mist for crops, livestock, and controlled-environment agriculture.', uses: ['Cannabis grow rooms', 'Greenhouses and vertical farms', 'Livestock barns and hatcheries'], image: greenhouse, alt: 'Rows of strawberries growing inside a greenhouse' },
@@ -86,37 +89,40 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
 
   <main>
     <section
-      class="relative isolate overflow-hidden bg-canopy text-white"
+      class="relative isolate overflow-visible bg-canopy text-white"
     >
       <div class="absolute inset-0">
-        <Image
-          src={greenhouse}
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover object-[58%_50%] opacity-95 transition-opacity duration-700"
-          widths={[960, 1280, 1600]}
-          sizes="100vw"
-          priority
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-95 transition-opacity duration-1000 ease-in-out"
+          src={farmVideo}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
           aria-hidden="true"
           data-hero-slide="0"
-        />
-        <Image
-          src={cannabis}
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover object-[54%_50%] opacity-0 transition-opacity duration-700"
-          widths={[960, 1280, 1600]}
-          sizes="100vw"
+        ></video>
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={cannabisVideo}
+          muted
+          loop
+          playsinline
+          preload="metadata"
           aria-hidden="true"
           data-hero-slide="1"
-        />
-        <Image
-          src={sickBuilding}
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover object-[50%_50%] opacity-0 transition-opacity duration-700"
-          widths={[960, 1280, 1600]}
-          sizes="100vw"
+        ></video>
+        <video
+          class="absolute bottom-0 left-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={gymVideo}
+          muted
+          loop
+          playsinline
+          preload="metadata"
           aria-hidden="true"
           data-hero-slide="2"
-        />
+        ></video>
       </div>
       <div class="absolute inset-0 bg-[linear-gradient(90deg,hsl(160_34%_14%)_0%,hsl(160_34%_14%/.96)_36%,hsl(160_34%_14%/.58)_68%,hsl(160_34%_14%/.18)_100%),linear-gradient(0deg,hsl(160_34%_14%/.72)_0%,hsl(160_34%_14%/.18)_42%,hsl(160_34%_14%/.04)_100%)]"></div>
       <div class="pointer-events-none absolute inset-0 overflow-hidden">
@@ -146,7 +152,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           </div>
         </div>
       </div>
-      <div class="absolute bottom-24 right-6 z-10 hidden w-[min(25rem,calc(100vw-3rem))] rounded-lg bg-canopy/86 p-5 shadow-deep ring-1 ring-white/20 backdrop-blur-md md:block lg:right-10">
+      <div class="absolute bottom-24 right-6 z-10 hidden w-[min(25rem,calc(100vw-3rem))] rounded-lg bg-canopy/30 p-5 shadow-deep ring-1 ring-white/20 backdrop-blur-md md:block lg:right-10">
         <div class="flex items-center gap-3">
           <span class="h-1 w-10 rounded-full bg-botanical-300"></span>
           <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-botanical-200" data-hero-label>Agriculture</p>
@@ -355,7 +361,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
     </section>
 
     <section id="botanimax" class="relative isolate overflow-hidden bg-canopy py-24 text-white lg:py-36">
-      <div class="absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full border-[18px] border-primary-500/25"></div>
+      <div class="absolute -right-50 -top-50 h-[34rem] w-[34rem] rounded-full border-[18px] border-botanical-500/25"></div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
         <figure class="reveal relative flex min-h-[520px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div class="absolute h-[min(560px,96%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl"></div>
@@ -388,7 +394,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           </div>
           <div class="mt-9 flex flex-col items-start gap-4">
             <a href="#quote" class="button-primary">Request BotaniMax pricing <ArrowRight class="h-4 w-4" /></a>
-            <div class="grid gap-2">
+            <div class="gap-2">
               <span class="pill text-[10px]">Kills SARS-CoV-2</span>
               <span class="pill text-[10px]">FIFRA 25b</span>
               <span class="pill text-[10px]">Tier 3 antimicrobial</span>
@@ -483,7 +489,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
     }
   }
 
-  const heroSlides = Array.from(document.querySelectorAll('[data-hero-slide]'));
+  const heroSlides = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-hero-slide]'));
   const heroDots = Array.from(document.querySelectorAll('[data-hero-dot]'));
   const typedHeroWord = document.querySelector('[data-typed-hero-word]');
   const heroLabel = document.querySelector('[data-hero-label]');
@@ -504,7 +510,20 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       const isSelected = slide.getAttribute('data-hero-slide') === String(index);
       slide.classList.toggle('opacity-95', isSelected);
       slide.classList.toggle('opacity-0', !isSelected);
+
+      if (isSelected && slide.paused) {
+        slide.play().catch(() => {});
+      }
     });
+
+    // Keep the outgoing video playing through the cross-fade, then pause it.
+    window.setTimeout(() => {
+      heroSlides.forEach((slide) => {
+        if (slide.getAttribute('data-hero-slide') !== String(heroIndex) && !slide.paused) {
+          slide.pause();
+        }
+      });
+    }, 1000);
 
     heroDots.forEach((dot) => {
       const isSelected = dot.getAttribute('data-hero-dot') === String(index);
