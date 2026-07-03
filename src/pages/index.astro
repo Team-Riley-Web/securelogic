@@ -174,7 +174,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         <div class="absolute -right-[16%] -top-[15%] h-[90%] w-[52%] bg-[radial-gradient(ellipse_at_center,hsl(104_48%_85%/.42)_0%,hsl(104_48%_88%/.18)_48%,transparent_72%)]"></div>
       </div>
       <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
-        <div class="reveal relative pb-10" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal relative pb-10 max-lg:order-2" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div
             class="reveal overflow-hidden rounded-lg bg-slate-100 shadow-lift ring-1 ring-slate-900/5"
             x-data="{
@@ -188,7 +188,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           >
             <Image x-ref="image" src={products} alt="Genesis 360 and BotaniMax product line" class="w-full object-cover transition-transform duration-200" style="transform: scale(1.04);" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 46vw, 100vw" />
           </div>
-          <div class="absolute bottom-0 right-0 w-[46%] overflow-hidden rounded-lg bg-slate-900 shadow-deep ring-4 ring-white max-sm:relative max-sm:mt-4 max-sm:w-full max-sm:ring-0">
+          <div class="absolute bottom-0 right-0 w-[46%] overflow-hidden rounded-lg bg-slate-900 shadow-deep ring-4 ring-white max-sm:hidden">
             <video class="aspect-video w-full object-cover" autoplay muted loop playsinline preload="metadata">
               <source src="/videos/genesis-nozzles.mp4" type="video/mp4" />
             </video>
@@ -241,7 +241,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
             Airborne pathogens and biofilm move faster than wipes and hand-sprayers can. In agriculture, the losses are measured in billions and in yield you never harvest.
           </p>
         </div>
-        <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div class="mt-12 grid gap-5 max-md:mx-auto max-md:max-w-sm md:grid-cols-2 xl:grid-cols-4">
           {[
             ['$40B', 'In U.S. crop losses to pests and plant disease every year.', 'Source: USDA'],
             ['$20B+', 'Lost annually by U.S. livestock industries to disease.', 'Source: AVMA'],
@@ -352,7 +352,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
                       </div>
                     ))}
                   </div>
-                  <a href="#quote" class="button-secondary mt-auto self-start">Scope a system for this space</a>
+                  <a href="#quote" class="button-canopy mt-8 self-start lg:mt-auto">Scope a system for this space</a>
                 </div>
                 <figure class="h-[300px] overflow-hidden rounded-lg bg-slate-900 shadow-lift sm:h-[340px] lg:h-[380px]">
                   <Image src={app.image} alt={app.alt} class="h-full w-full object-cover" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 34vw, 100vw" />
@@ -397,9 +397,9 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
               </div>
             ))}
           </div>
-          <div class="mt-9 flex flex-col items-start gap-4">
+          <div class="mt-9 flex flex-col items-start gap-4 max-lg:items-center">
             <a href="#quote" class="button-primary">Request BotaniMax pricing <ArrowRight class="h-4 w-4" /></a>
-            <div class="gap-2">
+            <div class="gap-2 max-lg:text-center">
               <span class="pill text-[10px]">Kills SARS-CoV-2</span>
               <span class="pill text-[10px]">FIFRA 25b</span>
               <span class="pill text-[10px]">Tier 3 antimicrobial</span>
@@ -410,18 +410,18 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section id="resources" class="bg-white py-20 lg:py-28">
+    <section id="resources" class="bg-slate-100 py-20 lg:py-28">
       <div class="container-page">
         <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div>
             <p class="eyebrow">Resources</p>
             <h2 class="section-title mt-4">Recent Blog Posts</h2>
           </div>
-          <a href="/blogs/" class="button-secondary">View All Posts <ArrowRight class="h-4 w-4" /></a>
+          <a href="/blogs/" class="button-secondary max-md:hidden">View All Posts <ArrowRight class="h-4 w-4" /></a>
         </div>
-        <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div class="mt-12 grid gap-6 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:pb-4 md:grid-cols-2 xl:grid-cols-4">
           {posts.map(({ title, date, image, alt }, index) => (
-            <article class="reveal group overflow-hidden rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-deep" style={`transition-delay: ${index * 80}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
+            <article class="reveal group overflow-hidden rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-deep max-md:w-[min(24rem,85vw)] max-md:shrink-0 max-md:snap-start max-md:shadow-none" style={`transition-delay: ${index * 80}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
               <Image src={image} alt={alt} class="aspect-[16/10] w-full object-cover" widths={[360, 520, 700]} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" />
               <div class="p-5">
                 <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{date}</p>
@@ -430,6 +430,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
             </article>
           ))}
         </div>
+        <a href="/blogs/" class="button-secondary mt-8 md:hidden">View All Posts <ArrowRight class="h-4 w-4" /></a>
       </div>
     </section>
 
@@ -446,7 +447,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         <span class="particle"></span>
         <span class="particle"></span>
       </div>
-      <CurveDivider class="top-0 rotate-180 text-white" />
+      <CurveDivider class="top-0 rotate-180 text-slate-100" />
       <div class="container-page relative grid items-center gap-12 pt-8 lg:grid-cols-[.9fr_1.1fr]">
         <div class="reveal" x-data x-intersect.once="$el.classList.add('is-visible')">
           <p class="eyebrow text-botanical-300">Get Started Today</p>

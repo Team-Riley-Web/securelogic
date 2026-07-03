@@ -49,6 +49,10 @@
     @apply inline-flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary-700 shadow-lift transition hover:bg-primary-50 focus:outline-none focus:ring-4 focus:ring-primary-100;
   }
 
+  .button-canopy {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-canopy px-5 py-3 text-sm font-semibold text-white shadow-lift transition hover:bg-canopy-light focus:outline-none focus:ring-4 focus:ring-botanical-200;
+  }
+
   .button-dark {
     @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/60 focus:outline-none focus:ring-4 focus:ring-white/15;
   }
@@ -91,7 +95,7 @@
   }
 
   .apps-tab[aria-selected="true"] {
-    @apply border-slate-200 bg-white text-slate-900 shadow-lift;
+    @apply border-slate-200 bg-white text-slate-900 lg:shadow-lift;
   }
 
   .typed-hero-shell {
