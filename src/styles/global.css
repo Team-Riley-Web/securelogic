@@ -94,6 +94,32 @@
     @apply border-slate-200 bg-white text-slate-900 shadow-lift;
   }
 
+  .typed-hero-shell {
+    position: relative;
+    width: max-content;
+  }
+
+  .typed-hero-reserve {
+    visibility: hidden;
+  }
+
+  .typed-hero-word {
+    position: absolute;
+    inset: 0 auto 0 0;
+    white-space: nowrap;
+  }
+
+  .typed-hero-word::after {
+    content: "";
+    display: inline-block;
+    width: 0.055em;
+    height: 0.72em;
+    margin-left: 0.08em;
+    background: currentColor;
+    animation: typed-caret 0.9s steps(1) infinite;
+    transform: translateY(0.08em);
+  }
+
   .image-card {
     @apply relative block overflow-hidden rounded-lg shadow-lift ring-1 ring-white/10;
   }
@@ -146,7 +172,7 @@
   }
 
   .particle-field-light::before {
-    background: linear-gradient(180deg, hsl(210 38% 95%) 0%, hsl(210 38% 95% / 0) 100%);
+    background: linear-gradient(180deg, #fff 0%, rgb(255 255 255 / 0) 100%);
   }
 
   .particle-field-light::after {
@@ -274,6 +300,18 @@
 
   to {
     transform: translateY(calc(-100vh - 100%)) rotate(20deg);
+  }
+}
+
+@keyframes typed-caret {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
   }
 }
 

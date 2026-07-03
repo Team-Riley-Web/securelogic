@@ -13,16 +13,20 @@ import greenhouse from '../assets/images/blog-greenhouse.png';
 import cannabis from '../assets/images/blog-cannabis.png';
 import wrestling from '../assets/images/blog-wrestling.png';
 import sickBuilding from '../assets/images/blog-sick-building.png';
+import contactBg from '../assets/images/contact-bg.jpeg';
+import medicalMist from '../assets/images/medical-mist.png';
+import mobileMist from '../assets/images/mobile-mist.png';
+import portableMist from '../assets/images/portable-mist.png';
 
 const applications = [
-  { title: 'Agriculture', copy: 'Engineered 360-degree dry mist for crops, livestock, and controlled-environment agriculture.', uses: ['Cannabis grow rooms', 'Greenhouses and vertical farms', 'Livestock barns and hatcheries'] },
-  { title: 'Athletic Facilities', copy: 'Targets sweat-prone, high-contact training spaces with consistent 360-degree coverage.', uses: ['Wrestling and martial arts rooms', 'Weight rooms and cardio areas', 'Locker rooms and showers'] },
-  { title: 'Early Child Care', copy: 'Helps protect high-touch environments where young children play, learn, and nap.', uses: ['Classrooms and playrooms', 'Nap rooms', 'Shared restrooms and storage'] },
-  { title: 'Schools', copy: 'Provides automated whole-room treatment across busy K-12 and campus facilities.', uses: ['Classrooms and labs', 'Cafeterias and libraries', 'Buses and transport fleets'] },
-  { title: 'Medical & Healthcare', copy: 'Supports infection-control goals in clinical, procedural, and long-term care settings.', uses: ['Patient rooms', 'Dialysis clinics', 'Procedure and isolation rooms'] },
-  { title: 'Military & Public Safety', copy: 'Delivers portable and fixed-system coverage for mission-critical, high-traffic spaces.', uses: ['Barracks and common rooms', 'Command centers', 'Vehicles and mobile clinics'] },
-  { title: 'Cruise Ships & Marine Vessels', copy: 'Brings automated misting to complex, multi-deck marine environments.', uses: ['Guest cabins', 'Dining rooms and galleys', 'Medical bays and crew quarters'] },
-  { title: 'Entertainment Venues', copy: 'Supports safer, cleaner environments wherever large crowds gather indoors.', uses: ['Arenas and suites', 'Theaters and cinemas', 'Arcades and attractions'] },
+  { title: 'Agriculture', copy: 'Engineered 360-degree dry mist for crops, livestock, and controlled-environment agriculture.', uses: ['Cannabis grow rooms', 'Greenhouses and vertical farms', 'Livestock barns and hatcheries'], image: greenhouse, alt: 'Rows of strawberries growing inside a greenhouse' },
+  { title: 'Athletic Facilities', copy: 'Targets sweat-prone, high-contact training spaces with consistent 360-degree coverage.', uses: ['Wrestling and martial arts rooms', 'Weight rooms and cardio areas', 'Locker rooms and showers'], image: wrestling, alt: 'Two wrestlers in a gym with illustrated pathogens nearby' },
+  { title: 'Early Child Care', copy: 'Helps protect high-touch environments where young children play, learn, and nap.', uses: ['Classrooms and playrooms', 'Nap rooms', 'Shared restrooms and storage'], image: contactBg, alt: 'Bright classroom with desks and daylight' },
+  { title: 'Schools', copy: 'Provides automated whole-room treatment across busy K-12 and campus facilities.', uses: ['Classrooms and labs', 'Cafeterias and libraries', 'Buses and transport fleets'], image: sickBuilding, alt: 'Bright shared facility with illustrated airborne germs' },
+  { title: 'Medical & Healthcare', copy: 'Supports infection-control goals in clinical, procedural, and long-term care settings.', uses: ['Patient rooms', 'Dialysis clinics', 'Procedure and isolation rooms'], image: medicalMist, alt: 'Medical misting system product' },
+  { title: 'Military & Public Safety', copy: 'Delivers portable and fixed-system coverage for mission-critical, high-traffic spaces.', uses: ['Barracks and common rooms', 'Command centers', 'Vehicles and mobile clinics'], image: portableMist, alt: 'Portable misting system product' },
+  { title: 'Cruise Ships & Marine Vessels', copy: 'Brings automated misting to complex, multi-deck marine environments.', uses: ['Guest cabins', 'Dining rooms and galleys', 'Medical bays and crew quarters'], image: mobileMist, alt: 'Mobile misting system product' },
+  { title: 'Entertainment Venues', copy: 'Supports safer, cleaner environments wherever large crowds gather indoors.', uses: ['Arenas and suites', 'Theaters and cinemas', 'Arcades and attractions'], image: products, alt: 'Genesis 360 and BotaniMax product line' },
 ];
 
 const posts: { title: string; date: string; image: ImageMetadata; alt: string }[] = [
@@ -83,19 +87,6 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
   <main>
     <section
       class="relative isolate overflow-hidden bg-canopy text-white"
-      x-data="{
-        current: 0,
-        slides: [
-          { label: 'Agriculture', title: 'Crop fields and greenhouses', copy: 'Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.' },
-          { label: 'Controlled Environments', title: 'Cannabis and indoor grow rooms', copy: 'Automated treatment helps reduce microbial pressure where humidity and dense growth raise risk.' },
-          { label: 'Built Environments', title: 'Schools and shared facilities', copy: 'Repeatable whole-room cycles support cleaner air and surfaces in high-traffic indoor spaces.' }
-        ],
-        init() {
-          window.setInterval(() => {
-            this.current = (this.current + 1) % this.slides.length;
-          }, 5200);
-        }
-      }"
     >
       <div class="absolute inset-0">
         <Image
@@ -106,28 +97,25 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           sizes="100vw"
           priority
           aria-hidden="true"
-          x-show="current === 0"
-          x-transition.opacity
+          data-hero-slide="0"
         />
         <Image
           src={cannabis}
           alt=""
-          class="absolute inset-0 h-full w-full object-cover object-[54%_50%] opacity-95 transition-opacity duration-700"
+          class="absolute inset-0 h-full w-full object-cover object-[54%_50%] opacity-0 transition-opacity duration-700"
           widths={[960, 1280, 1600]}
           sizes="100vw"
           aria-hidden="true"
-          x-show="current === 1"
-          x-transition.opacity
+          data-hero-slide="1"
         />
         <Image
           src={sickBuilding}
           alt=""
-          class="absolute inset-0 h-full w-full object-cover object-[50%_50%] opacity-95 transition-opacity duration-700"
+          class="absolute inset-0 h-full w-full object-cover object-[50%_50%] opacity-0 transition-opacity duration-700"
           widths={[960, 1280, 1600]}
           sizes="100vw"
           aria-hidden="true"
-          x-show="current === 2"
-          x-transition.opacity
+          data-hero-slide="2"
         />
       </div>
       <div class="absolute inset-0 bg-[linear-gradient(90deg,hsl(160_34%_14%)_0%,hsl(160_34%_14%/.96)_36%,hsl(160_34%_14%/.58)_68%,hsl(160_34%_14%/.18)_100%),linear-gradient(0deg,hsl(160_34%_14%/.72)_0%,hsl(160_34%_14%/.18)_42%,hsl(160_34%_14%/.04)_100%)]"></div>
@@ -138,7 +126,11 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       <div class="container-page relative grid min-h-[min(88vh,900px)] items-center py-20 lg:grid-cols-[1.02fr_.98fr]">
         <div class="relative z-10">
           <h1 class="max-w-[11ch] text-[clamp(4rem,10vw,8rem)] font-medium leading-[.9] tracking-[-0.06em] text-white">
-            Disinfection Reimagined.
+            <span class="typed-hero-shell block" aria-live="polite">
+              <span class="typed-hero-reserve" aria-hidden="true">Disinfection</span>
+              <span class="typed-hero-word" data-typed-hero-word>Disinfection</span>
+            </span>
+            Reimagined.
           </h1>
           <p class="mt-3 max-w-lg text-lg font-medium leading-8 text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)]">
             Automated dry mist protects air, surfaces, crops, and critical facilities.
@@ -157,20 +149,14 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       <div class="absolute bottom-24 right-6 z-10 hidden w-[min(25rem,calc(100vw-3rem))] rounded-lg bg-canopy/86 p-5 shadow-deep ring-1 ring-white/20 backdrop-blur-md md:block lg:right-10">
         <div class="flex items-center gap-3">
           <span class="h-1 w-10 rounded-full bg-botanical-300"></span>
-          <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-botanical-200" x-text="slides[current].label"></p>
+          <p class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-botanical-200" data-hero-label>Agriculture</p>
         </div>
-        <h2 class="mt-4 text-xl font-semibold text-white" x-text="slides[current].title"></h2>
-        <p class="mt-2 text-sm font-medium leading-6 text-white/82" x-text="slides[current].copy"></p>
+        <h2 class="mt-4 text-xl font-semibold text-white" data-hero-title>Crop fields and greenhouses</h2>
+        <p class="mt-2 text-sm font-medium leading-6 text-white/82" data-hero-copy>Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.</p>
         <div class="mt-5 flex gap-2" aria-label="Hero applications">
-          <template x-for="(_, index) in slides" :key="index">
-            <button
-              type="button"
-              class="h-2.5 rounded-full transition-all"
-              x-bind:class="current === index ? 'w-8 bg-botanical-300' : 'w-2.5 bg-white/35 hover:bg-white/60'"
-              x-on:click="current = index"
-              x-bind:aria-label="`Show application ${index + 1}`"
-            ></button>
-          </template>
+          <button type="button" class="h-2.5 w-8 rounded-full bg-botanical-300 transition-all" data-hero-dot="0" aria-label="Show agriculture"></button>
+          <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="1" aria-label="Show controlled environments"></button>
+          <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="2" aria-label="Show built environments"></button>
         </div>
       </div>
       <CurveDivider class="bottom-0 text-white" />
@@ -224,7 +210,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section class="relative overflow-hidden bg-slate-100 py-20 lg:py-28">
+    <section class="relative overflow-hidden bg-gradient-to-b from-white to-slate-100 py-20 lg:py-28">
       <div class="particle-field particle-field-light" aria-hidden="true">
         <span class="particle"></span>
         <span class="particle"></span>
@@ -238,21 +224,21 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         <span class="particle"></span>
       </div>
       <div class="container-page relative">
-        <div class="reveal max-w-3xl" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal mx-auto max-w-3xl text-center" x-data x-intersect.once="$el.classList.add('is-visible')">
           <p class="eyebrow">The Cost of Inaction</p>
-          <h2 class="section-title mt-4">What you can't see is costing you.</h2>
-          <p class="section-copy mt-5">
+          <h2 class="section-title mx-auto mt-4">What you can't see is costing you.</h2>
+          <p class="section-copy mx-auto mt-5 text-left">
             Airborne pathogens and biofilm move faster than wipes and hand-sprayers can. In agriculture, the losses are measured in billions and in yield you never harvest.
           </p>
         </div>
-        <div class="mt-12 grid border-t-2 border-slate-900 md:grid-cols-4">
+        <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {[
             ['$40B', 'In U.S. crop losses to pests and plant disease every year.', 'Source: USDA'],
             ['$20B+', 'Lost annually by U.S. livestock industries to disease.', 'Source: AVMA'],
             ['58M', 'Birds culled in the recent U.S. avian influenza outbreak.', 'Source: USDA ERS'],
             ['80%', 'Of recirculated air in animal housing and grow rooms can carry microbial contaminants.', 'Source: AEM, 2023'],
           ].map(([value, copy, source], index) => (
-            <article class="reveal py-7 pr-6" style={`transition-delay: ${index * 90}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
+            <article class="reveal rounded-lg border-t-4 border-primary-500 bg-white/88 p-6 shadow-lift ring-1 ring-slate-900/5 backdrop-blur-sm" style={`transition-delay: ${index * 90}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
               <b class="block font-mono text-5xl font-semibold leading-none tracking-normal text-primary-600 lg:text-6xl">{value}</b>
               <p class="mt-4 text-sm font-medium leading-6 text-slate-800">{copy}</p>
               <p class="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-slate-500">{source}</p>
@@ -261,7 +247,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
         </div>
         <div class="reveal mt-8 flex flex-wrap items-center gap-5 border-t border-slate-200 pt-7" x-data x-intersect.once="$el.classList.add('is-visible')">
           <span class="h-1 w-10 rounded-full bg-botanical-500"></span>
-          <p class="max-w-3xl font-semibold leading-7 text-slate-800">Genesis 360 replaces labor-intensive, inconsistent disinfection with automated, measurable coverage of the air and every surface.</p>
+          <p class="font-semibold leading-7 text-slate-800">Genesis 360 replaces labor-intensive, inconsistent disinfection with automated, measurable coverage of the air and every surface.</p>
         </div>
       </div>
     </section>
@@ -310,14 +296,14 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       class="bg-slate-100 py-20 lg:py-28"
     >
       <div class="container-page">
-        <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end" x-data x-intersect.once="$el.classList.add('is-visible')">
+        <div class="reveal max-w-3xl" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div>
             <p class="eyebrow">Applications</p>
             <h2 class="section-title mt-4">Applications That Demand Precision</h2>
+            <p class="section-copy mt-5">Genesis 360 is designed for flexibility and scalability across industries where hygiene, safety, and environmental quality are mission-critical.</p>
           </div>
-          <p class="section-copy md:max-w-lg">Genesis 360 is designed for flexibility and scalability across industries where hygiene, safety, and environmental quality are mission-critical.</p>
         </div>
-        <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]">
+        <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]" x-data x-intersect.once="$el.classList.add('is-visible')">
           <div class="flex gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0" role="tablist" aria-label="Industries">
             {applications.map((app, index) => (
               <button
@@ -334,27 +320,33 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
               </button>
             ))}
           </div>
-          <div class="rounded-lg bg-white p-7 shadow-lift ring-1 ring-slate-900/5 sm:p-10">
+          <div class="rounded-lg bg-white p-7 shadow-lift ring-1 ring-slate-900/5 sm:p-10 lg:min-h-[460px]">
             {applications.map((app, index) => (
               <div
+                class="grid gap-8 lg:min-h-[380px] lg:grid-cols-[minmax(0,.92fr)_minmax(300px,1.08fr)] lg:items-stretch"
                 data-app-panel={index}
                 id={`application-panel-${index}`}
                 aria-labelledby={`application-tab-${index}`}
                 role="tabpanel"
                 hidden={index !== 0}
               >
-                <h3 class="text-2xl font-semibold text-slate-900">{app.title}</h3>
-                <p class="mt-4 max-w-2xl leading-7 text-slate-600">{app.copy}</p>
-                <p class="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Typical deployments</p>
-                <div class="mt-4 grid gap-3">
-                  {app.uses.map((use) => (
-                    <div class="flex items-start gap-3 text-slate-700">
-                      <Check class="mt-1 h-4 w-4 shrink-0 text-botanical-600" />
-                      <span>{use}</span>
-                    </div>
-                  ))}
+                <div class="flex flex-col lg:min-h-[380px]">
+                  <h3 class="text-2xl font-semibold leading-8 text-slate-900 lg:min-h-[4rem]">{app.title}</h3>
+                  <p class="mt-4 max-w-xl leading-7 text-slate-600 lg:min-h-[5.25rem]">{app.copy}</p>
+                  <p class="mt-8 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Typical deployments</p>
+                  <div class="mt-4 grid gap-3 lg:min-h-[5.75rem]">
+                    {app.uses.map((use) => (
+                      <div class="flex items-start gap-3 text-slate-700">
+                        <Check class="mt-1 h-4 w-4 shrink-0 text-botanical-600" />
+                        <span>{use}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <a href="#quote" class="button-secondary mt-auto self-start">Scope a system for this space</a>
                 </div>
-                <a href="#quote" class="button-secondary mt-8">Scope a system for this space</a>
+                <figure class="h-[300px] overflow-hidden rounded-lg bg-slate-900 shadow-lift sm:h-[340px] lg:h-[380px]">
+                  <Image src={app.image} alt={app.alt} class="h-full w-full object-cover" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 34vw, 100vw" />
+                </figure>
               </div>
             ))}
           </div>
@@ -364,10 +356,10 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
 
     <section id="botanimax" class="relative isolate overflow-hidden bg-canopy py-24 text-white lg:py-36">
       <div class="absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full border-[18px] border-primary-500/25"></div>
-      <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.82fr_1.18fr]">
-        <figure class="reveal relative flex min-h-[420px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
-          <div class="absolute h-[min(450px,90%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl"></div>
-          <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative h-[420px] w-auto drop-shadow-[0_36px_48px_rgba(0,0,0,.55)]" widths={[260, 420, 620]} sizes="(min-width: 1024px) 36vw, 80vw" />
+      <div class="container-page relative grid items-center gap-12 lg:grid-cols-[.95fr_1.05fr]">
+        <figure class="reveal relative flex min-h-[520px] items-center justify-center" x-data x-intersect.once="$el.classList.add('is-visible')">
+          <div class="absolute h-[min(560px,96%)] aspect-square rounded-full bg-botanical-400/20 blur-2xl"></div>
+          <Image src={botanimax} alt="BotaniMax botanical disinfectant bottle" class="relative h-[520px] w-auto drop-shadow-[0_42px_58px_rgba(0,0,0,.6)] lg:h-[620px]" widths={[420, 620, 900]} sizes="(min-width: 1024px) 42vw, 84vw" />
           <figcaption class="absolute bottom-0 font-mono text-xs uppercase tracking-[0.12em] text-white/55">BotaniMax · 128 fl oz concentrate</figcaption>
         </figure>
         <div class="reveal" style="transition-delay: 100ms" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -375,7 +367,7 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           <h2 class="section-title mt-4 text-white">Nature's most effective defense.</h2>
           <p class="mt-5 max-w-2xl text-base leading-8 text-emerald-50/70">BotaniMax is the botanical disinfectant built for the Genesis 360, AgGriGuard, and 360HVAC system family. Protect people, animals, and crops with no synthetic residues.</p>
           <div class="mt-7 flex items-center gap-5 border-t border-white/15 pt-6">
-            <b class="font-mono text-5xl font-semibold text-botanical-300">99.9999%</b>
+            <b class="font-mono text-7xl font-semibold leading-none text-botanical-300 lg:text-8xl">99.999%</b>
             <span class="font-mono text-xs font-semibold uppercase tracking-[0.14em] text-white">6-log kill of bacteria,<br /> viruses and fungi</span>
           </div>
           <div class="mt-8 grid gap-6 sm:grid-cols-2">
@@ -394,11 +386,13 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
               </div>
             ))}
           </div>
-          <div class="mt-9 flex flex-wrap items-center gap-4">
+          <div class="mt-9 flex flex-col items-start gap-4">
             <a href="#quote" class="button-primary">Request BotaniMax pricing <ArrowRight class="h-4 w-4" /></a>
-            <span class="pill">Kills SARS-CoV-2</span>
-            <span class="pill">FIFRA 25b</span>
-            <span class="pill">Tier 3 antimicrobial</span>
+            <div class="grid gap-2">
+              <span class="pill text-[10px]">Kills SARS-CoV-2</span>
+              <span class="pill text-[10px]">FIFRA 25b</span>
+              <span class="pill text-[10px]">Tier 3 antimicrobial</span>
+            </div>
           </div>
         </div>
       </div>
@@ -489,6 +483,110 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
     }
   }
 
+  const heroSlides = Array.from(document.querySelectorAll('[data-hero-slide]'));
+  const heroDots = Array.from(document.querySelectorAll('[data-hero-dot]'));
+  const typedHeroWord = document.querySelector('[data-typed-hero-word]');
+  const heroLabel = document.querySelector('[data-hero-label]');
+  const heroTitle = document.querySelector('[data-hero-title]');
+  const heroCopy = document.querySelector('[data-hero-copy]');
+  const heroContent = [
+    { label: 'Agriculture', title: 'Crop fields and greenhouses', copy: 'Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.' },
+    { label: 'Controlled Environments', title: 'Cannabis and indoor grow rooms', copy: 'Automated treatment helps reduce microbial pressure where humidity and dense growth raise risk.' },
+    { label: 'Built Environments', title: 'Schools and shared facilities', copy: 'Repeatable whole-room cycles support cleaner air and surfaces in high-traffic indoor spaces.' },
+  ];
+  let heroIndex = 0;
+  let heroTimer: number | undefined;
+
+  function selectHero(index: number) {
+    heroIndex = index;
+
+    heroSlides.forEach((slide) => {
+      const isSelected = slide.getAttribute('data-hero-slide') === String(index);
+      slide.classList.toggle('opacity-95', isSelected);
+      slide.classList.toggle('opacity-0', !isSelected);
+    });
+
+    heroDots.forEach((dot) => {
+      const isSelected = dot.getAttribute('data-hero-dot') === String(index);
+      dot.classList.toggle('w-8', isSelected);
+      dot.classList.toggle('w-2.5', !isSelected);
+      dot.classList.toggle('bg-botanical-300', isSelected);
+      dot.classList.toggle('bg-white/35', !isSelected);
+    });
+
+    const content = heroContent[index];
+    if (heroLabel) heroLabel.textContent = content.label;
+    if (heroTitle) heroTitle.textContent = content.title;
+    if (heroCopy) heroCopy.textContent = content.copy;
+  }
+
+  function startHeroCarousel() {
+    window.clearInterval(heroTimer);
+    heroTimer = window.setInterval(() => {
+      selectHero((heroIndex + 1) % heroContent.length);
+    }, 5200);
+  }
+
+  heroDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      selectHero(Number(dot.getAttribute('data-hero-dot') || 0));
+      startHeroCarousel();
+    });
+  });
+
+  if (heroSlides.length) startHeroCarousel();
+
+  const typedWords = ['Disinfection', 'Clean', 'Health'];
+  let typedWordIndex = 0;
+  let typedLetterIndex = typedWords[0].length;
+  let typedDirection: 'typing' | 'deleting' | 'holding' = 'holding';
+
+  function cycleTypedHeroWord() {
+    if (!typedHeroWord) return;
+
+    const currentWord = typedWords[typedWordIndex];
+    const setTypedWord = (value: string) => {
+      typedHeroWord.textContent = value || '\u00a0';
+    };
+
+    if (typedDirection === 'holding') {
+      typedDirection = 'deleting';
+      window.setTimeout(cycleTypedHeroWord, 900);
+      return;
+    }
+
+    if (typedDirection === 'deleting') {
+      typedLetterIndex -= 1;
+      setTypedWord(currentWord.slice(0, typedLetterIndex));
+
+      if (typedLetterIndex <= 0) {
+        typedWordIndex = (typedWordIndex + 1) % typedWords.length;
+        typedDirection = 'typing';
+        window.setTimeout(cycleTypedHeroWord, 180);
+        return;
+      }
+
+      window.setTimeout(cycleTypedHeroWord, 55);
+      return;
+    }
+
+    const nextWord = typedWords[typedWordIndex];
+    typedLetterIndex += 1;
+    setTypedWord(nextWord.slice(0, typedLetterIndex));
+
+    if (typedLetterIndex >= nextWord.length) {
+      typedDirection = 'holding';
+      window.setTimeout(cycleTypedHeroWord, 1400);
+      return;
+    }
+
+    window.setTimeout(cycleTypedHeroWord, 92);
+  }
+
+  if (typedHeroWord) {
+    window.setTimeout(cycleTypedHeroWord, 1400);
+  }
+
   const appTabs = Array.from(document.querySelectorAll('[data-app-tab]'));
   const appPanels = Array.from(document.querySelectorAll('[data-app-panel]'));
 
@@ -504,9 +602,13 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
   }
 
   appTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
+    const activate = () => {
       selectApplication(Number(tab.getAttribute('data-app-tab') || 0));
-    });
+    };
+
+    tab.addEventListener('mouseenter', activate);
+    tab.addEventListener('focus', activate);
+    tab.addEventListener('click', activate);
   });
 
   window.addEventListener('select-app', (event) => {
