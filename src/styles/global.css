@@ -145,6 +145,26 @@
     background: linear-gradient(0deg, hsl(160 34% 14%) 0%, hsl(160 34% 14% / 0) 100%);
   }
 
+  .particle-field-light::before {
+    background: linear-gradient(180deg, hsl(210 38% 95%) 0%, hsl(210 38% 95% / 0) 100%);
+  }
+
+  .particle-field-light::after {
+    background: linear-gradient(0deg, hsl(210 38% 95%) 0%, hsl(210 38% 95% / 0) 100%);
+  }
+
+  .particle-field-light .particle {
+    background: hsl(104 39% 44% / 0.18);
+    box-shadow: 0 0 32px hsl(104 39% 44% / 0.12);
+  }
+
+  .particle-field-light .particle:nth-child(3),
+  .particle-field-light .particle:nth-child(6),
+  .particle-field-light .particle:nth-child(9) {
+    background: hsl(211 72% 43% / 0.16);
+    box-shadow: 0 0 32px hsl(211 72% 43% / 0.12);
+  }
+
   .particle {
     position: absolute;
     bottom: -6rem;

@@ -224,8 +224,20 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
     </section>
 
-    <section class="bg-slate-100 py-20 lg:py-28">
-      <div class="container-page">
+    <section class="relative overflow-hidden bg-slate-100 py-20 lg:py-28">
+      <div class="particle-field particle-field-light" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+      </div>
+      <div class="container-page relative">
         <div class="reveal max-w-3xl" x-data x-intersect.once="$el.classList.add('is-visible')">
           <p class="eyebrow">The Cost of Inaction</p>
           <h2 class="section-title mt-4">What you can't see is costing you.</h2>
