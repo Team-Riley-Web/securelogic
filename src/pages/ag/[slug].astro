@@ -1,0 +1,80 @@
+---
+import { ArrowLeft, ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { agMarkets } from '../../data/ag-markets';
+import { posts } from '../../data/blog-posts';
+
+export function getStaticPaths() {
+  return agMarkets.map((market) => ({ params: { slug: market.slug }, props: { market } }));
+}
+
+const { market } = Astro.props;
+const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const otherMarkets = agMarkets.filter((m) => m.slug !== market.slug);
+---
+
+<BaseLayout title={`Secure Logic | Agriculture | ${market.title}`} description={market.summary}>
+  <Header />
+  <main>
+    <section class="relative overflow-hidden bg-white">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(104_48%_89%/.55),transparent_34%),radial-gradient(circle_at_80%_0%,hsl(211_92%_92%/.7),transparent_30%)]"></div>
+      <div class="container-page relative py-20 sm:py-24">
+        <a href="/ag/" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-700">
+          <ArrowLeft class="h-4 w-4" /> Agriculture
+        </a>
+        <p class="eyebrow mt-6">Agriculture / {market.title}</p>
+        <h1 class="mt-4 max-w-3xl text-4xl font-semibold tracking-normal text-slate-900 sm:text-5xl">{market.title}</h1>
+        <p class="mt-6 max-w-2xl section-copy">{market.heroCopy}</p>
+      </div>
+    </section>
+
+    <section class="bg-white pb-20">
+      <div class="container-page">
+        <Image src={market.image} alt={market.imageAlt} class="aspect-[16/9] w-full rounded-lg object-cover shadow-deep" widths={[640, 960, 1280, 1600]} sizes="(min-width: 1024px) 80vw, 100vw" loading="eager" />
+      </div>
+    </section>
+
+    {relatedPosts.length > 0 && (
+      <section class="bg-slate-100 py-20">
+        <div class="container-page">
+          <h2 class="section-title">Related reading</h2>
+          <div class="mt-10 grid gap-8 md:grid-cols-2">
+            {relatedPosts.map((post) => (
+              <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
+                <Image src={post.image} alt={post.imageAlt} class="aspect-[16/9] w-full object-cover" widths={[420, 640, 860]} sizes="(min-width: 768px) 50vw, 100vw" />
+                <div class="flex flex-1 flex-col p-6">
+                  <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{post.date}</time>
+                  <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
+                  <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
+
+    <section class="bg-slate-100 py-20">
+      <div class="container-page">
+        <h2 class="section-title">Other agriculture markets</h2>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2">
+          {otherMarkets.map(({ icon: Icon, slug, title, summary }) => (
+            <a href={`/ag/${slug}/`} class="card group p-6">
+              <Icon class="h-6 w-6 text-botanical-600" />
+              <h3 class="mt-5 text-lg font-semibold text-slate-900">{title}</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-600">{summary}</p>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

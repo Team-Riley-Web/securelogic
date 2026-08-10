@@ -26,3 +26,4 @@ Thumbs.db
 # Dolt database files
 .dolt/
 *.db
+.gstack/

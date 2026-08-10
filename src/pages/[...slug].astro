@@ -7,6 +7,10 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { posts } from '../data/blog-posts';
+import { humanMarkets } from '../data/human-markets';
+import { hvacMarkets } from '../data/hvac-markets';
+import { agMarkets } from '../data/ag-markets';
 import botanimaxLogo from '../assets/images/botanimax-logo.png';
 import botanimaxBottle from '../assets/images/botanimax-bottle.png';
 import compact from '../assets/images/genesis-compact.png';
@@ -22,10 +26,6 @@ import nozzles from '../assets/images/nozzles.png';
 import pathogen from '../assets/images/pathogen.png';
 import faqRoom from '../assets/images/faq-room.jpg';
 import contactBg from '../assets/images/contact-bg.jpeg';
-import sickBuilding from '../assets/images/blog-sick-building.png';
-import cannabis from '../assets/images/blog-cannabis.png';
-import wrestling from '../assets/images/blog-wrestling.png';
-import greenhouse from '../assets/images/blog-greenhouse.png';
 import label from '../assets/images/botanimax-label.png';
 import childcare from '../assets/images/brochure-childcare.png';
 import agriculture from '../assets/images/brochure-agriculture.png';
@@ -34,6 +34,9 @@ import fitness from '../assets/images/brochure-fitness.png';
 export function getStaticPaths() {
   return [
     'home-page',
+    'human',
+    'hvac',
+    'ag',
     'genesis360mistingsystems',
     'botanimax',
     'resources',
@@ -45,7 +48,6 @@ export function getStaticPaths() {
     'about-us/technology',
     'contact-us',
     'get-a-quote',
-    'blogs',
     'privacy-policy',
   ].map((slug) => ({ params: { slug } }));
 }
@@ -79,13 +81,6 @@ const features = [
   'Residual clean efficacy',
   'An emerging viral pathogen disinfectant',
   'Made in the USA',
-];
-
-const posts: { title: string; copy: string; date: string; image: ImageMetadata }[] = [
-  { title: 'How to Identify Sick Building Syndrome and Improve Indoor Air Quality in Your Building', copy: 'Someone feels fine on the weekend. Then Monday hits: dry eyes, scratchy throat, headache, brain fog, fatigue.', date: 'March 27, 2026', image: sickBuilding },
-  { title: 'Reducing Microbial Risk to Improve Cannabis Crop Yield', copy: 'Indoor cultivation gives cannabis growers consistency, but dense controlled environments can amplify microbial risk.', date: 'January 26, 2026', image: cannabis },
-  { title: 'Are You Missing These 3 High-Risk Hotspots?', copy: 'Wrestling hygiene is not only mats. High-contact training spaces need repeatable whole-room coverage.', date: 'October 8, 2025', image: wrestling },
-  { title: 'How Indoor Growing Facilities Can Protect Crops from Bacterial and Fungal Threats', copy: 'Indoor farming has changed agriculture, but microbial threats still move through air, surfaces, and irrigation zones.', date: 'September 10, 2025', image: greenhouse },
 ];
 
 const docs = [
@@ -132,6 +127,122 @@ const faqs = [
             <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
           </div>
         </section>
+      </>
+    )}
+
+    {canonicalSlug === 'human' && (
+      <>
+        <PageHero eyebrow="Human" title="Protecting People Everywhere They Gather" copy="From wrestling rooms to hospital wings, Genesis 360 and BotaniMax deliver automated, whole-room coverage anywhere infection risk follows close contact." />
+        <section class="bg-white py-20">
+          <div class="container-page">
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {humanMarkets.map(({ icon: Icon, slug: marketSlug, title, summary }) => (
+                <a href={`/human/${marketSlug}/`} class="card group p-6">
+                  <Icon class="h-6 w-6 text-botanical-600" />
+                  <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">{summary}</p>
+                  <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                </a>
+              ))}
+            </div>
+            <a href="/#applications" class="button-secondary mt-8 inline-flex">See all applications <ArrowRight class="h-4 w-4" /></a>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20">
+          <div class="container-page">
+            <h2 class="section-title">Related reading</h2>
+            <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.filter((p) => humanMarkets.some((m) => m.postSlugs.includes(p.slug))).map((post) => (
+                <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
+                  <Image src={post.image} alt={post.imageAlt} class="aspect-[16/9] w-full object-cover" widths={[420, 640, 860]} sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" />
+                  <div class="flex flex-1 flex-col p-6">
+                    <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{post.date}</time>
+                    <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
+                    <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'hvac' && (
+      <>
+        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="360HVAC Mist infuses air-handling systems with ultra-fine BotaniMax mist, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
+        <section class="bg-white py-20">
+          <div class="container-page">
+            <div class="grid gap-6 sm:grid-cols-2">
+              {hvacMarkets.map(({ icon: Icon, slug: marketSlug, title, summary }) => (
+                <a href={`/hvac/${marketSlug}/`} class="card group p-6">
+                  <Icon class="h-6 w-6 text-botanical-600" />
+                  <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">{summary}</p>
+                  <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20">
+          <div class="container-page">
+            <h2 class="section-title">Related reading</h2>
+            <div class="mt-10 grid gap-8 md:grid-cols-2">
+              {posts.filter((p) => hvacMarkets.some((m) => m.postSlugs.includes(p.slug))).map((post) => (
+                <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
+                  <Image src={post.image} alt={post.imageAlt} class="aspect-[16/9] w-full object-cover" widths={[420, 640, 860]} sizes="(min-width: 768px) 50vw, 100vw" />
+                  <div class="flex flex-1 flex-col p-6">
+                    <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{post.date}</time>
+                    <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
+                    <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
+      </>
+    )}
+
+    {canonicalSlug === 'ag' && (
+      <>
+        <PageHero eyebrow="Agriculture" title="Reach Every Corner. Protect Every Acre." copy="AgGriGuard Mist and InRoom Mist disperse BotaniMax into the air and across every exposed surface with touch-free, full-coverage disinfection for crops, canopy, and livestock." />
+        <section class="bg-white py-20">
+          <div class="container-page">
+            <div class="grid gap-6 md:grid-cols-3">
+              {agMarkets.map(({ icon: Icon, slug: marketSlug, title, summary }) => (
+                <a href={`/ag/${marketSlug}/`} class="card group p-6">
+                  <Icon class="h-6 w-6 text-botanical-600" />
+                  <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">{summary}</p>
+                  <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                </a>
+              ))}
+            </div>
+            <a href="/#applications" class="button-secondary mt-8 inline-flex">See all applications <ArrowRight class="h-4 w-4" /></a>
+          </div>
+        </section>
+        <section class="bg-slate-100 py-20">
+          <div class="container-page">
+            <h2 class="section-title">Related reading</h2>
+            <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {posts.filter((p) => agMarkets.some((m) => m.postSlugs.includes(p.slug)) || p.slug === 'secure-logic-newfields-ag-botanical-disinfection-partnership').map((post) => (
+                <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
+                  <Image src={post.image} alt={post.imageAlt} class="aspect-[16/9] w-full object-cover" widths={[420, 640, 860]} sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" />
+                  <div class="flex flex-1 flex-col p-6">
+                    <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{post.date}</time>
+                    <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
+                    <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}
 
@@ -211,26 +322,6 @@ const faqs = [
                 <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
                 <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Open <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
               </a>
-            ))}
-          </div>
-        </section>
-      </>
-    )}
-
-    {canonicalSlug === 'blogs' && (
-      <>
-        <PageHero eyebrow="Blog" title="Secure Logic Blog" copy="Tips and insights on botanical disinfectants, Genesis 360 misting systems, indoor air quality, and microbial risk reduction." />
-        <section class="bg-white py-20">
-          <div class="container-page grid gap-8 md:grid-cols-2">
-            {posts.map(({ title, copy, date, image }) => (
-              <article class="card overflow-hidden">
-                <Image src={image} alt={title} class="aspect-[16/9] w-full object-cover" widths={[520, 760, 1040]} sizes="(min-width: 768px) 50vw, 100vw" />
-                <div class="p-6">
-                  <p class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{date}</p>
-                  <h2 class="mt-3 text-xl font-semibold text-slate-900">{title}</h2>
-                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
-                </div>
-              </article>
             ))}
           </div>
         </section>

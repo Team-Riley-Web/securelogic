@@ -1,0 +1,76 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import PageHero from '../../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { posts } from '../../data/blog-posts';
+
+const [featured, ...rest] = posts;
+---
+
+<BaseLayout
+  title="Secure Logic | Blog"
+  description="Insights on botanical disinfectants, Genesis 360 misting systems, indoor air quality, and microbial risk reduction."
+>
+  <Header />
+  <main>
+    <PageHero
+      eyebrow="Blog"
+      title="Secure Logic Blog"
+      copy="Tips and insights on botanical disinfectants, Genesis 360 misting systems, indoor air quality, and microbial risk reduction."
+    />
+
+    <section class="bg-white py-20">
+      <div class="container-page">
+        <a href={`/blogs/${featured.slug}/`} class="group grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+          <Image
+            src={featured.image}
+            alt={featured.imageAlt}
+            class="aspect-[16/9] w-full rounded-lg object-cover shadow-deep"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1024px) 55vw, 100vw"
+            loading="eager"
+          />
+          <div>
+            <p class="eyebrow">Latest</p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-normal text-slate-900 sm:text-4xl">{featured.title}</h2>
+            <p class="mt-5 text-base leading-7 text-slate-600">{featured.excerpt}</p>
+            <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <time datetime={featured.isoDate} class="text-sm font-semibold text-slate-500">{featured.date}</time>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary-700">
+                Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <div class="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {rest.map((post) => (
+            <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
+              <Image
+                src={post.image}
+                alt={post.imageAlt}
+                class="aspect-[16/9] w-full object-cover"
+                widths={[420, 640, 860]}
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              />
+              <div class="flex flex-1 flex-col p-6">
+                <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">
+                  {post.date}
+                </time>
+                <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
+                <p class="mt-3 flex-1 text-sm leading-6 text-slate-600">{post.excerpt}</p>
+                <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">
+                  Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

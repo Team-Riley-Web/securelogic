@@ -1,0 +1,118 @@
+---
+import { Headphones, Pause, Play, RotateCcw } from '@lucide/astro';
+
+interface Props {
+  src: string;
+}
+
+const { src } = Astro.props;
+---
+
+<div
+  class="accent-card not-prose flex items-center gap-4 p-5 sm:gap-5"
+  x-data={`{
+    playing: false,
+    ready: false,
+    loading: false,
+    current: 0,
+    duration: 0,
+    rate: 1,
+    rates: [1, 1.25, 1.5, 2],
+    get audio() { return this.$refs.audio },
+    get progress() { return this.duration ? (this.current / this.duration) * 100 : 0 },
+    format(seconds) {
+      if (!isFinite(seconds) || seconds < 0) return '--:--';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    },
+    toggle() {
+      if (this.playing) { this.audio.pause(); return }
+      if (!this.ready) this.loading = true;
+      this.audio.play();
+    },
+    rewind() { this.audio.currentTime = Math.max(0, this.audio.currentTime - 15) },
+    cycleRate() {
+      this.rate = this.rates[(this.rates.indexOf(this.rate) + 1) % this.rates.length];
+      this.audio.playbackRate = this.rate;
+    },
+    seek(event) {
+      if (!this.duration) return;
+      const box = this.$refs.track.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (event.clientX - box.left) / box.width));
+      this.audio.currentTime = ratio * this.duration;
+    },
+  }`}
+>
+  <audio
+    x-ref="audio"
+    src={src}
+    preload="none"
+    @loadedmetadata="duration = audio.duration"
+    @durationchange="duration = audio.duration"
+    @timeupdate="current = audio.currentTime"
+    @playing="playing = true; ready = true; loading = false"
+    @play="playing = true"
+    @pause="playing = false"
+    @waiting="loading = true"
+    @ended="playing = false; current = 0"
+  ></audio>
+
+  <button
+    type="button"
+    @click="toggle()"
+    :aria-label="playing ? 'Pause article audio' : 'Listen to this article'"
+    class="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-primary-600 text-white shadow-lift transition hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200"
+  >
+    <span x-show="loading" x-cloak class="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
+    <span x-show="!loading && !playing">
+      <Play class="h-5 w-5 translate-x-px fill-current" />
+    </span>
+    <span x-show="!loading && playing" x-cloak>
+      <Pause class="h-5 w-5 fill-current" />
+    </span>
+  </button>
+
+  <div class="min-w-0 flex-1">
+    <div class="flex items-center gap-2">
+      <Headphones class="h-4 w-4 shrink-0 text-botanical-600" />
+      <p class="text-sm font-semibold text-slate-900">Listen to this article</p>
+    </div>
+
+    <div
+      x-ref="track"
+      @click="seek($event)"
+      class="mt-3 h-2 w-full cursor-pointer rounded-full bg-slate-200"
+      role="progressbar"
+      aria-label="Article audio progress"
+      :aria-valuenow="Math.round(progress)"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div class="h-full rounded-full bg-botanical-500 transition-[width] duration-150" :style="`width: ${progress}%`"></div>
+    </div>
+
+    <div class="mt-2 flex items-center justify-between gap-3">
+      <p class="text-xs font-semibold tabular-nums text-slate-500">
+        <span x-text="format(current)">0:00</span> / <span x-text="duration ? format(duration) : '--:--'">--:--</span>
+      </p>
+      <div class="flex items-center gap-1">
+        <button
+          type="button"
+          @click="rewind()"
+          aria-label="Rewind 15 seconds"
+          class="grid h-8 w-8 place-items-center rounded-md text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+        >
+          <RotateCcw class="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          @click="cycleRate()"
+          aria-label="Change playback speed"
+          class="rounded-md px-2 py-1 text-xs font-semibold tabular-nums text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+          x-text="rate + '×'"
+        >1×</button>
+      </div>
+    </div>
+  </div>
+</div>

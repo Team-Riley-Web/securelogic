@@ -83,3 +83,17 @@ Act as an expert Full-Stack Frontend Engineer specializing in Astro, Tailwind CS
 2. Use the minimum code needed for the requested site.
 3. Touch only files needed for the current client.
 4. Run `npm run check` and `npm run build` before handoff.
+
+## Task Queue (TASKS.md)
+
+This project uses `TASKS.md` as a running task queue that the user adds to at any time.
+
+- After completing each task, re-read `TASKS.md` before choosing the next task.
+- Never modify or remove an unchecked task unless you are beginning that task.
+- Work on only one task at a time.
+- When the user gives a new task, add it to the bottom of the task list in `TASKS.md`.
+- Do not abandon or interrupt the current task unless the user explicitly says "interrupt".
+- Finish, test, and verify the current task before starting the next.
+- Before starting another task, review `TASKS.md` and select the oldest pending (unchecked) task.
+- Tell the user briefly when a task is complete and which task you are starting next.
+- Do not combine unrelated tasks into one implementation.

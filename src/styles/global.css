@@ -98,38 +98,60 @@
     @apply border-slate-200 bg-white text-slate-900 lg:shadow-lift;
   }
 
+  .post-body h2 {
+    @apply mt-14 text-2xl font-semibold tracking-normal text-slate-900 sm:text-3xl;
+  }
+
+  .post-body h3,
+  .post-body h4 {
+    @apply mt-12 text-xl font-semibold text-slate-900;
+  }
+
+  .post-body h5,
+  .post-body h6 {
+    @apply mt-10 text-lg font-semibold text-slate-900;
+  }
+
+  .post-body p {
+    @apply mt-6 text-base leading-8 text-slate-600;
+  }
+
+  .post-body ul,
+  .post-body ol {
+    @apply mt-6 grid gap-3 text-base leading-8 text-slate-600;
+  }
+
+  .post-body ul > li {
+    @apply relative pl-7;
+  }
+
+  .post-body ul > li::before {
+    @apply absolute left-0 top-[0.85em] h-2 w-2 rounded-sm bg-botanical-500 content-[''];
+  }
+
+  .post-body ol {
+    @apply list-decimal pl-6 marker:font-semibold marker:text-botanical-600;
+  }
+
+  .post-body strong,
+  .post-body b {
+    @apply font-semibold text-slate-900;
+  }
+
+  .post-body a {
+    @apply font-semibold text-primary-700 underline decoration-primary-300 hover:decoration-primary-600;
+  }
+
+  .post-body img {
+    @apply mx-auto mt-10 h-auto max-w-full rounded-lg shadow-lift;
+  }
+
   .scrollbar-none {
     scrollbar-width: none;
   }
 
   .scrollbar-none::-webkit-scrollbar {
     display: none;
-  }
-
-  .typed-hero-shell {
-    position: relative;
-    width: max-content;
-  }
-
-  .typed-hero-reserve {
-    visibility: hidden;
-  }
-
-  .typed-hero-word {
-    position: absolute;
-    inset: 0 auto 0 0;
-    white-space: nowrap;
-  }
-
-  .typed-hero-word::after {
-    content: "";
-    display: inline-block;
-    width: 0.055em;
-    height: 0.72em;
-    margin-left: 0.08em;
-    background: currentColor;
-    animation: typed-caret 0.9s steps(1) infinite;
-    transform: translateY(0.08em);
   }
 
   .image-card {
@@ -312,18 +334,6 @@
 
   to {
     transform: translateY(calc(-100vh - 100%)) rotate(20deg);
-  }
-}
-
-@keyframes typed-caret {
-  0%,
-  48% {
-    opacity: 1;
-  }
-
-  49%,
-  100% {
-    opacity: 0;
   }
 }
 

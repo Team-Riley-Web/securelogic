@@ -1,11 +1,14 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { ArrowLeft, ArrowRight, Check, ChevronRight, Cpu, Droplets, Leaf, Menu, Sparkles, Star, X } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, CircleQuestionMark, ClipboardList, Cpu, Droplets, FileCheck, FileText, Leaf, Menu, MousePointerClick, Newspaper, Phone, Sparkles, SprayCan, Star, X } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import CurveDivider from '../components/CurveDivider.astro';
 import Footer from '../components/Footer.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { posts } from '../data/blog-posts';
+import { humanMarkets } from '../data/human-markets';
+import { hvacMarkets } from '../data/hvac-markets';
+import { agMarkets } from '../data/ag-markets';
 import logo from '../assets/images/logo.png';
 import products from '../assets/images/medical.png';
 import botanimax from '../assets/images/botanimax-bottle.png';
@@ -44,11 +47,49 @@ const testimonials = [
   { quote: 'After BAC Ag was fogged into my pig barn, the pigs definitely seemed more active and were up, eating and drinking immediately. There also seemed to be less fly and mosquito issues in the summer in the barn where BAC Ag was used.', name: 'Iowa Pig Farmer', role: 'Pork Producer', image: farmer4 },
 ];
 
-const posts: { title: string; date: string; image: ImageMetadata; alt: string }[] = [
-  { title: 'How to Identify Sick Building Syndrome and Improve Indoor Air Quality in Your Building', date: 'March 27, 2026', image: sickBuilding, alt: 'Bright commercial building lobby with illustrated airborne germs' },
-  { title: 'Reducing Microbial Risk to Improve Cannabis Crop Yield', date: 'January 26, 2026', image: cannabis, alt: 'Greenhouse comparison showing cannabis plants affected by mold' },
-  { title: 'Are You Missing These 3 High-Risk Hotspots?', date: 'October 8, 2025', image: wrestling, alt: 'Two wrestlers in a gym with illustrated pathogens nearby' },
-  { title: 'How Indoor Growing Facilities Can Protect Crops from Bacterial and Fungal Threats', date: 'September 10, 2025', image: greenhouse, alt: 'Rows of strawberries growing inside a greenhouse' },
+const recentPosts = posts.slice(0, 4);
+
+const megaMenus = [
+  {
+    label: 'Human',
+    href: '/human/',
+    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
+    items: humanMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/human/${m.slug}/` })),
+  },
+  {
+    label: 'HVAC',
+    href: '/hvac/',
+    gridClass: 'sm:grid-cols-3',
+    items: hvacMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/hvac/${m.slug}/` })),
+  },
+  {
+    label: 'Ag',
+    href: '/ag/',
+    gridClass: 'sm:grid-cols-3',
+    items: agMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/ag/${m.slug}/` })),
+  },
+  {
+    label: 'Resources',
+    href: '/resources/',
+    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
+    items: [
+      { icon: Newspaper, title: 'Blog', summary: 'Insights on botanical disinfectants, misting systems, and indoor air quality.', href: '/blogs/' },
+      { icon: FileText, title: 'Brochures', summary: 'Download industry-specific brochures for agriculture, child care, and fitness.', href: '/resources/brochures/' },
+      { icon: FileCheck, title: 'Documentation', summary: 'Labels, SDS sheets, lab reports, and technical white papers.', href: '/resources/documentation/' },
+      { icon: CircleQuestionMark, title: 'FAQs', summary: 'Answers about micro-droplet physics, coverage, and maintenance.', href: '/resources/faqs/' },
+    ],
+  },
+  {
+    label: 'About Us',
+    href: '/about-us/',
+    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
+    items: [
+      { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis 360’s sub-10 micron dry mist.', href: '/about-us/technology/' },
+      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Secure Logic team.', href: '/contact-us/' },
+      { icon: SprayCan, title: 'Genesis 360', summary: 'Automated misting systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
+      { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
+    ],
+  },
 ];
 
 ---
@@ -63,38 +104,119 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
     x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
     x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
   >
-    <div class="container-page flex items-center gap-6 transition-all duration-300" x-bind:class="scrolled ? 'h-16' : 'h-20'">
-      <a href="/" class="mr-auto flex items-center gap-3" aria-label="Secure Logic home">
-        <Image
-          src={logo}
-          alt="Secure Logic logo"
-          class="w-auto object-contain transition-all duration-300"
-          x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
-          widths={[120, 180, 240]}
-          sizes="160px"
-          priority
-        />
-      </a>
-      <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-        <a href="#platform" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Genesis 360</a>
-        <a href="#botanimax" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">BotaniMax</a>
-        <a href="#applications" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Applications</a>
-        <a href="#resources" class="nav-link" x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'">Resources</a>
+    <div class="flex items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
+      <div class="flex flex-1 items-stretch">
+        <a href="/" class="flex shrink-0 items-center self-center" aria-label="Secure Logic home">
+          <Image
+            src={logo}
+            alt="Secure Logic logo"
+            class="w-auto object-contain transition-all duration-300"
+            x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
+            widths={[120, 180, 240]}
+            sizes="160px"
+            priority
+          />
+        </a>
+      </div>
+      <nav class="hidden items-stretch gap-3 lg:flex xl:gap-6" aria-label="Primary navigation" x-data="{ active: null }" x-on:mouseleave="active = null">
+        {megaMenus.map((menu, i) => (
+          <a
+            href={menu.href}
+            class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold transition"
+            x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"
+            aria-haspopup="true"
+            x-on:mouseenter={`active = ${i}`}
+            x-bind:aria-expanded={`(active === ${i}).toString()`}
+          >
+            {menu.label}
+            <ChevronDown class="h-4 w-4 transition" x-bind:class={`active === ${i} && 'rotate-180'`} aria-hidden="true" />
+          </a>
+        ))}
+
+        <div
+          class="absolute inset-x-0 top-full border-t border-slate-100 bg-white shadow-deep"
+          x-show="active !== null"
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 -translate-y-1"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-1"
+          x-cloak
+          x-on:click.outside="active = null"
+        >
+          {megaMenus.map((menu, i) => (
+            <div x-show={`active === ${i}`}>
+              <div class="container-page">
+                <div class={`grid gap-2 py-6 ${menu.gridClass}`}>
+                  {menu.items.map(({ icon: Icon, title, summary, href }) => (
+                    <a href={href} class="group relative rounded-lg p-4 transition hover:bg-slate-50">
+                      <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-50 transition group-hover:bg-botanical-50">
+                        <Icon class="h-5 w-5 text-slate-600 transition group-hover:text-botanical-600" aria-hidden="true" />
+                      </div>
+                      <p class="mt-4 text-sm font-semibold text-slate-900 transition group-hover:text-primary-700">{title}</p>
+                      <p class="mt-1 text-sm leading-6 text-slate-500">{summary}</p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div class="grid grid-cols-2 divide-x divide-slate-200 border-t border-slate-100 bg-slate-50">
+                <a
+                  href={menu.href}
+                  class="flex items-center justify-center gap-2 p-3 text-sm font-semibold uppercase tracking-wide text-primary-700 transition hover:bg-slate-100"
+                >
+                  <MousePointerClick class="h-4 w-4 text-slate-400" aria-hidden="true" /> View all {menu.label}
+                </a>
+                <a
+                  href="/get-a-quote/"
+                  class="flex items-center justify-center gap-2 p-3 text-sm font-semibold uppercase tracking-wide text-primary-700 transition hover:bg-slate-100"
+                >
+                  <ClipboardList class="h-4 w-4 text-slate-400" aria-hidden="true" /> Get a Quote
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </nav>
-      <a href="tel:18889974310" class="hidden text-sm font-medium transition xl:block" x-bind:class="scrolled ? 'text-slate-500' : 'text-emerald-50/70'">1-888-997-4310</a>
-      <a href="#quote" class="hidden items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold uppercase tracking-wide shadow-lift transition focus:outline-none focus:ring-4 lg:inline-flex" x-bind:class="scrolled ? 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-200' : 'bg-white/92 text-primary-700 hover:bg-white focus:ring-white/20'">Get a Quote</a>
-      <button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-md transition lg:hidden" x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'" x-on:click="open = !open" x-bind:aria-expanded="open.toString()" aria-label="Toggle navigation">
+      <div class="hidden flex-1 items-center justify-end self-center lg:flex">
+        <a
+          href="tel:18889974310"
+          class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-bold shadow-sm transition xl:px-5 xl:py-3 xl:text-base"
+          x-bind:class="scrolled ? 'bg-botanical-50 text-botanical-900 hover:bg-botanical-100' : 'bg-white/15 text-white hover:bg-white/25'"
+        >
+          <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
+          1-888-997-4310
+        </a>
+      </div>
+      <button type="button" class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md transition lg:hidden" x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'" x-on:click="open = !open" x-bind:aria-expanded="open.toString()" aria-label="Toggle navigation">
         <Menu class="h-5 w-5" x-show="!open" />
         <X class="h-5 w-5" x-show="open" x-cloak />
       </button>
     </div>
     <nav class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak x-on:click="open = false" aria-label="Mobile navigation">
       <div class="container-page grid gap-1 py-5">
-        <a href="#platform" class="mobile-link">Genesis 360</a>
-        <a href="#botanimax" class="mobile-link">BotaniMax</a>
-        <a href="#applications" class="mobile-link">Applications</a>
-        <a href="#resources" class="mobile-link">Resources</a>
-        <a href="#quote" class="button-primary mt-3 uppercase tracking-wide">Get a Quote</a>
+        {megaMenus.map((menu) => (
+          <div x-data="{ open: false }">
+            <button
+              type="button"
+              class="mobile-link flex w-full items-center justify-between"
+              x-on:click.stop="open = !open"
+              x-bind:aria-expanded="open.toString()"
+            >
+              {menu.label}
+              <ChevronDown class="h-4 w-4 transition" x-bind:class="open && 'rotate-180'" />
+            </button>
+            <div class="grid gap-1 pl-4" x-show="open" x-cloak>
+              {menu.items.map(({ title, href }) => (
+                <a href={href} class="rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-primary-50 hover:text-primary-700">{title}</a>
+              ))}
+              <a href={menu.href} class="rounded-md px-3 py-2 text-base font-medium text-primary-700 hover:bg-primary-50">View all {menu.label}</a>
+            </div>
+          </div>
+        ))}
+        <a href="tel:18889974310" class="mobile-link flex items-center gap-2">
+          <Phone class="h-4 w-4 shrink-0 text-botanical-600" aria-hidden="true" /> 1-888-997-4310
+        </a>
       </div>
     </nav>
   </header>
@@ -153,12 +275,8 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
       </div>
       <div class="container-page relative grid min-h-[min(98vh,900px)] items-center py-20 lg:grid-cols-[1.02fr_.98fr]">
         <div class="relative z-10">
-          <h1 class="max-w-[11ch] text-[clamp(4rem,10vw,8rem)] font-medium leading-[1] tracking-[-0.06em] text-white">
-            <span class="typed-hero-shell block" aria-live="polite">
-              <span class="typed-hero-reserve" aria-hidden="true">Disinfection</span>
-              <span class="typed-hero-word" data-typed-hero-word>Disinfection</span>
-            </span>
-            Reimagined.
+          <h1 class="max-w-[18ch] text-[clamp(2.75rem,6.5vw,5.75rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white">
+            Engineering better environments.
           </h1>
           <p class="mt-3 max-w-lg text-2xl font-medium leading-[1.6] tracking-[-0.01em] text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)] lg:mt-10">
             Automated dry mist protects air, surfaces, crops, and critical facilities.
@@ -443,14 +561,14 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
           <a href="/blogs/" class="button-secondary max-md:hidden">View All Posts <ArrowRight class="h-4 w-4" /></a>
         </div>
         <div class="mt-12 grid gap-6 max-md:flex max-md:snap-x max-md:overflow-x-auto max-md:pb-4 md:grid-cols-2 xl:grid-cols-4">
-          {posts.map(({ title, date, image, alt }, index) => (
-            <article class="reveal group overflow-hidden rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-deep max-md:w-[min(24rem,85vw)] max-md:shrink-0 max-md:snap-start max-md:shadow-none" style={`transition-delay: ${index * 80}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
-              <Image src={image} alt={alt} class="aspect-[16/10] w-full object-cover" widths={[360, 520, 700]} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" />
+          {recentPosts.map(({ slug, title, date, image, imageAlt }, index) => (
+            <a href={`/blogs/${slug}/`} class="reveal group overflow-hidden rounded-lg bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-deep max-md:w-[min(24rem,85vw)] max-md:shrink-0 max-md:snap-start max-md:shadow-none" style={`transition-delay: ${index * 80}ms`} x-data x-intersect.once="$el.classList.add('is-visible')">
+              <Image src={image} alt={imageAlt} class="aspect-[16/10] w-full object-cover" widths={[360, 520, 700]} sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw" />
               <div class="p-5">
                 <p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{date}</p>
                 <h3 class="mt-3 text-base font-semibold leading-6 text-slate-900">{title}</h3>
               </div>
-            </article>
+            </a>
           ))}
         </div>
         <a href="/blogs/" class="button-secondary mt-8 md:hidden">View All Posts <ArrowRight class="h-4 w-4" /></a>
@@ -573,7 +691,6 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
 
   const heroSlides = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-hero-slide]'));
   const heroDots = Array.from(document.querySelectorAll('[data-hero-dot]'));
-  const typedHeroWord = document.querySelector('[data-typed-hero-word]');
   const heroLabel = document.querySelector('[data-hero-label]');
   const heroTitle = document.querySelector('[data-hero-title]');
   const heroCopy = document.querySelector('[data-hero-copy]');
@@ -637,57 +754,6 @@ const posts: { title: string; date: string; image: ImageMetadata; alt: string }[
   });
 
   if (heroSlides.length) startHeroCarousel();
-
-  const typedWords = ['Disinfection', 'Clean', 'Health'];
-  let typedWordIndex = 0;
-  let typedLetterIndex = typedWords[0].length;
-  let typedDirection: 'typing' | 'deleting' | 'holding' = 'holding';
-
-  function cycleTypedHeroWord() {
-    if (!typedHeroWord) return;
-
-    const currentWord = typedWords[typedWordIndex];
-    const setTypedWord = (value: string) => {
-      typedHeroWord.textContent = value || '\u00a0';
-    };
-
-    if (typedDirection === 'holding') {
-      typedDirection = 'deleting';
-      window.setTimeout(cycleTypedHeroWord, 900);
-      return;
-    }
-
-    if (typedDirection === 'deleting') {
-      typedLetterIndex -= 1;
-      setTypedWord(currentWord.slice(0, typedLetterIndex));
-
-      if (typedLetterIndex <= 0) {
-        typedWordIndex = (typedWordIndex + 1) % typedWords.length;
-        typedDirection = 'typing';
-        window.setTimeout(cycleTypedHeroWord, 180);
-        return;
-      }
-
-      window.setTimeout(cycleTypedHeroWord, 55);
-      return;
-    }
-
-    const nextWord = typedWords[typedWordIndex];
-    typedLetterIndex += 1;
-    setTypedWord(nextWord.slice(0, typedLetterIndex));
-
-    if (typedLetterIndex >= nextWord.length) {
-      typedDirection = 'holding';
-      window.setTimeout(cycleTypedHeroWord, 1400);
-      return;
-    }
-
-    window.setTimeout(cycleTypedHeroWord, 92);
-  }
-
-  if (typedHeroWord) {
-    window.setTimeout(cycleTypedHeroWord, 1400);
-  }
 
   const statValues = Array.from(document.querySelectorAll<HTMLElement>('[data-stat-value]'));
 
