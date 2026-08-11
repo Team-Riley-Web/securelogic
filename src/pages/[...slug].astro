@@ -307,9 +307,15 @@ const faqs = [
 
     {canonicalSlug === 'resources' && (
       <>
-        <PageHero eyebrow="Resources" title="Welcome to the Secure Logic Resource Center" copy="Discover brochures, blogs, documentation, and frequently asked questions for botanical disinfectants and innovative misting systems." />
+        <PageHero eyebrow="Resources" title="Welcome to the Secure Logic Resource Center" copy="Discover everything you need to know about botanical disinfectants and innovative HVAC misting systems in one place." />
         <section class="bg-white py-20">
-          <div class="container-page grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div class="container-page">
+            <div class="mx-auto max-w-3xl text-center">
+              <p class="text-lg leading-8 text-slate-600">Our Resource Center is packed with valuable tools — detailed brochures, insightful blogs, eye-catching infographics, and answers to frequently asked questions. Whether you're exploring sustainable disinfection solutions or learning how to optimize indoor air quality, this hub is designed to educate, inspire, and guide you every step of the way.</p>
+              <p class="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-botanical-600">Click the links below</p>
+            </div>
+          </div>
+          <div class="container-page mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
               ['Blog', '/blogs/', 'Insights on botanical disinfectants, Genesis 360 technology, and indoor environmental quality.'],
               ['Brochures', '/resources/brochures/', 'Download industry-specific brochures for child care, agriculture, and fitness centers.'],

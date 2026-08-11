@@ -18,7 +18,7 @@ unchecked task unless you are starting it.
 - [x] implement the blog reader (see ###blogreader section below)
 - [x] Build out site map and direction (see ###sitemap section below)
 - [x] Update homepage hero copy to lead with "Engineering better environments" tagline (see ###homehero section belowcurrently "Disinfection Reimagined.")
-- [ ] Make a resources page: https://securelogicusa.com/resources/
+- [x] Make a resources page: https://securelogicusa.com/resources/
 - [ ] Bring in documentation and brochures as a part of the resources: https://securelogicusa.com/resources/documentation/ https://securelogicusa.com/resources/brochures/
 - [ ] Add about us page: https://securelogicusa.com/about-us/
 - [ ] Determine where best to recreate this page: https://securelogicusa.com/about-us/technology/
