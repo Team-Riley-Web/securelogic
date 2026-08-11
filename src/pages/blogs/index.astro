@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import PageHero from '../../components/PageHero.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { posts } from '../../data/blog-posts';
 
@@ -71,6 +72,8 @@ const [featured, ...rest] = posts;
         </div>
       </div>
     </section>
+
+    <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
   </main>
   <Footer />
 </BaseLayout>

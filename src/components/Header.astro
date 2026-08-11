@@ -58,18 +58,18 @@ const megaMenus = [
 ---
 
 <header
-  class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
+  class="fixed left-0 right-0 top-0 z-50 bg-canopy/82 backdrop-blur-md transition-all duration-300"
   x-data="{ open: false, scrolled: false }"
   x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
   x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
 >
-  <div class="flex items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
+  <div class="flex h-20 items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
     <div class="flex flex-1 items-stretch">
       <a href="/" class="flex shrink-0 items-center self-center" aria-label="Secure Logic home">
         <Image
           src={logo}
           alt="Secure Logic logo"
-          class="w-auto object-contain transition-all duration-300"
+          class="h-12 w-auto object-contain brightness-0 invert transition-all duration-300"
           x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
           widths={[120, 180, 240]}
           sizes="160px"
@@ -81,7 +81,7 @@ const megaMenus = [
       {megaMenus.map((menu, i) => (
         <a
           href={menu.href}
-          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold transition"
+          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold text-emerald-50/90 transition hover:text-white"
           x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"
           aria-haspopup="true"
           x-on:mouseenter={`active = ${i}`}
@@ -141,7 +141,7 @@ const megaMenus = [
     <div class="hidden flex-1 items-center justify-end self-center lg:flex">
       <a
         href="tel:18889974310"
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-bold shadow-sm transition xl:px-5 xl:py-3 xl:text-base"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-white/15 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-white/25 xl:px-5 xl:py-3 xl:text-base"
         x-bind:class="scrolled ? 'bg-canopy text-white hover:bg-canopy-light' : 'bg-white/15 text-white hover:bg-white/25'"
       >
         <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -151,7 +151,7 @@ const megaMenus = [
 
     <button
       type="button"
-      class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md transition lg:hidden"
+      class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md bg-white/10 text-white ring-1 ring-white/20 transition lg:hidden"
       x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'"
       x-on:click="open = !open"
       x-bind:aria-expanded="open.toString()"

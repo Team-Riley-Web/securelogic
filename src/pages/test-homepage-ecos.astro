@@ -1,0 +1,299 @@
+---
+// TEST PAGE — not linked in nav. Recreates the real homepage's content using
+// ecos.com's visual language: split cyan-gradient hero, circular product
+// carousel over a soft bubble-dot background, sentence-case teal pill CTAs,
+// alternating photo/text feature bands, and a solid-teal footer.
+import { ArrowRight, Mail, Phone } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { posts } from '../data/blog-posts';
+import logo from '../assets/images/logo.png';
+import greenhouse from '../assets/images/blog-greenhouse.png';
+import botanimaxBottle from '../assets/images/botanimax-bottle.png';
+import compact from '../assets/images/genesis-compact.png';
+import inroom from '../assets/images/inroom-mist.png';
+import hvacMist from '../assets/images/hvac-mist.png';
+import agri from '../assets/images/agri-guard.png';
+import wrestling from '../assets/images/blog-wrestling.png';
+import nozzles from '../assets/images/nozzles.png';
+
+const categories = [
+  { title: 'Human', href: '/human/', image: wrestling, photo: true },
+  { title: 'HVAC', href: '/hvac/', image: hvacMist, photo: false },
+  { title: 'Ag', href: '/ag/', image: agri, photo: false },
+  { title: 'Genesis 360', href: '/genesis360mistingsystems/', image: compact, photo: false },
+  { title: 'BotaniMax', href: '/botanimax/', image: botanimaxBottle, photo: false },
+];
+
+const badges = ['EPA 2(c) Registered', 'Made in the USA', 'Patent-Pending Formula', '150+ Plant Actives', 'Residual Clean Efficacy'];
+
+const systemTiles = [inroom, hvacMist, compact];
+const botaniTiles = [botanimaxBottle, botanimaxBottle];
+
+const recentPosts = posts.slice(0, 3);
+---
+
+<BaseLayout
+  title="Secure Logic | Test Homepage (Ecos style)"
+  description="Design test: Secure Logic's real homepage content restyled after ecos.com — split cyan hero, bubble-carousel categories, and teal feature bands."
+>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+    .ec {
+      --ec-teal: #0e6e8c;
+      --ec-teal-dark: #0a5069;
+      --ec-ink: #0c3f52;
+      --ec-cream: #fdf3ea;
+      --ec-sky: #d6f0fb;
+      font-family: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
+      color: var(--ec-ink);
+    }
+
+    .ec h1,
+    .ec h2,
+    .ec h3,
+    .ec .ec-logo {
+      font-family: 'Baloo 2', ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
+    }
+
+    .ec-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      background: var(--ec-teal);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.8rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .ec-pill:hover {
+      background: var(--ec-teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .ec-bubbles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ec-bubbles span {
+      position: absolute;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 30%, rgb(14 110 140 / 0.16), rgb(14 110 140 / 0.06));
+    }
+
+    .ec-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: rgb(255 255 255 / 0.14);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.55rem 1.15rem;
+    }
+  </style>
+
+  <div class="ec bg-white">
+    <!-- Header -->
+    <header class="border-b border-slate-100 bg-white">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5">
+        <a href="/" class="flex items-center gap-2" aria-label="Secure Logic home">
+          <Image src={logo} alt="Secure Logic logo" class="h-10 w-auto object-contain" widths={[120, 180]} sizes="120px" />
+        </a>
+        <nav class="hidden gap-7 text-sm font-bold lg:flex" style="color: var(--ec-ink);">
+          <a href="/human/" class="hover:opacity-70">Human</a>
+          <a href="/hvac/" class="hover:opacity-70">HVAC</a>
+          <a href="/ag/" class="hover:opacity-70">Ag</a>
+          <a href="/blogs/" class="hover:opacity-70">Blog</a>
+          <a href="/resources/" class="hover:opacity-70">Resources</a>
+        </nav>
+        <a href="/get-a-quote/" class="ec-pill">Get A Quote</a>
+      </div>
+    </header>
+
+    <!-- Split hero -->
+    <section class="grid overflow-hidden lg:grid-cols-2">
+      <div class="flex flex-col justify-center px-8 py-20 sm:px-14" style="background: linear-gradient(180deg, var(--ec-sky), #fff);">
+        <h1 class="text-[clamp(2.25rem,4.5vw,3.5rem)] leading-[1.1]" style="color: var(--ec-ink);">Engineering better environments, one facility at a time.</h1>
+        <p class="mt-5 max-w-md text-lg leading-7 text-slate-600">Automated dry-mist disinfection built with plant-powered botanicals and sub-10 micron precision — a powerful clean that helps reduce chemical waste.</p>
+        <a href="/get-a-quote/" class="ec-pill mt-8 self-start">Get A Quote</a>
+      </div>
+      <div class="min-h-[320px]">
+        <Image src={greenhouse} alt="Genesis 360 misting inside a greenhouse" class="h-full w-full object-cover" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 50vw, 100vw" />
+      </div>
+    </section>
+
+    <!-- Mission + category carousel -->
+    <section class="relative overflow-hidden px-6 py-24" style="background: linear-gradient(180deg, #fff, var(--ec-sky));">
+      <div class="ec-bubbles" aria-hidden="true">
+        <span style="width:120px;height:120px;left:6%;top:10%;"></span>
+        <span style="width:70px;height:70px;left:22%;top:55%;"></span>
+        <span style="width:50px;height:50px;left:40%;top:15%;"></span>
+        <span style="width:90px;height:90px;right:12%;top:20%;"></span>
+        <span style="width:60px;height:60px;right:24%;top:60%;"></span>
+        <span style="width:100px;height:100px;right:4%;top:70%;"></span>
+      </div>
+      <div class="relative mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl sm:text-4xl" style="color: var(--ec-teal);">Protection starts here</h2>
+        <p class="mx-auto mt-5 max-w-xl text-slate-600">Our mission is simple: deliver consistent, automated, whole-room disinfection — for people, animals, and the facilities that depend on them.</p>
+      </div>
+      <div class="relative mx-auto mt-14 flex max-w-6xl flex-wrap items-start justify-center gap-x-10 gap-y-10">
+        {categories.map(({ title, href, image, photo }) => (
+          <a href={href} class="group flex flex-col items-center text-center">
+            <div class="h-36 w-36 overflow-hidden rounded-full shadow-lg sm:h-44 sm:w-44" style="background: #fff;">
+              <Image
+                src={image}
+                alt=""
+                class:list={['h-full w-full transition duration-300 group-hover:scale-105', photo ? 'object-cover' : 'object-contain p-6']}
+                widths={[180, 280]}
+                sizes="176px"
+              />
+            </div>
+            <p class="mt-4 text-lg font-bold" style="color: var(--ec-teal);">{title}</p>
+          </a>
+        ))}
+      </div>
+      <div class="relative mt-14 text-center">
+        <a href="/genesis360mistingsystems/" class="ec-pill">View All Applications</a>
+      </div>
+    </section>
+
+    <!-- Certifications band (in place of retailer logos) -->
+    <section class="px-6 py-12 text-center" style="background: var(--ec-teal);">
+      <p class="text-xs font-bold uppercase tracking-[0.16em] text-white/70">Certifications &amp; Compliance</p>
+      <div class="mx-auto mt-5 flex max-w-4xl flex-wrap items-center justify-center gap-3">
+        {badges.map((badge) => (
+          <span class="ec-badge">{badge}</span>
+        ))}
+      </div>
+    </section>
+
+    <!-- Feature: Genesis 360 physics (photo left, text right) -->
+    <section class="px-6 py-24" style="background: var(--ec-cream);">
+      <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+        <div class="overflow-hidden rounded-3xl">
+          <Image src={nozzles} alt="Genesis 360 nozzle detail" class="h-full w-full object-cover" widths={[500, 700]} sizes="500px" />
+        </div>
+        <div>
+          <h2 class="text-3xl sm:text-4xl" style="color: var(--ec-teal);">Protect every square foot</h2>
+          <p class="mt-5 text-base leading-7 text-slate-600">Every Genesis 360 nozzle produces a uniform stream of sub-10 µm dry-mist droplets — small enough to stay airborne, light enough to behave like a vapor, engineered for measurable, repeatable coverage.</p>
+          <a href="/genesis360mistingsystems/" class="ec-pill mt-8">Browse All Systems</a>
+          <div class="mt-10 flex gap-4">
+            {systemTiles.map((img) => (
+              <div class="h-24 w-24 rounded-2xl p-3" style="background: var(--ec-sky);">
+                <Image src={img} alt="" class="h-full w-full object-contain" widths={[100, 150]} sizes="96px" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature: BotaniMax (text left, photo right) -->
+    <section class="px-6 py-24" style="background: var(--ec-sky);">
+      <div class="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+        <div class="order-2 lg:order-1">
+          <h2 class="text-3xl sm:text-4xl" style="color: var(--ec-teal);">Safer formulas, powerful clean</h2>
+          <p class="mt-5 text-base leading-7 text-slate-600">BotaniMax is crafted from 150+ plant actives — a patent-pending, EPA-registered botanical disinfectant that controls bacteria, viruses, and fungi without harsh synthetics.</p>
+          <a href="/botanimax/" class="ec-pill mt-8">Shop BotaniMax</a>
+          <div class="mt-10 flex gap-4">
+            {botaniTiles.map((img) => (
+              <div class="h-24 w-24 rounded-2xl bg-white p-3">
+                <Image src={img} alt="" class="h-full w-full object-contain" widths={[100, 150]} sizes="96px" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="order-1 overflow-hidden rounded-3xl bg-white lg:order-2">
+          <Image src={botanimaxBottle} alt="BotaniMax bottle" class="mx-auto h-96 object-contain py-8" widths={[300, 460]} sizes="300px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog teaser ("Follow us" equivalent) -->
+    <section class="px-6 py-24 text-center" style="background: var(--ec-cream);">
+      <h2 class="text-3xl sm:text-4xl" style="color: var(--ec-teal);">From the field</h2>
+      <p class="mx-auto mt-3 max-w-xl text-slate-600">Insights on botanical disinfectants, misting systems, and indoor air quality.</p>
+      <div class="mx-auto mt-12 flex max-w-4xl flex-wrap items-start justify-center gap-x-8 gap-y-8">
+        {recentPosts.map((post) => (
+          <a href={`/blogs/${post.slug}/`} class="group flex flex-col items-center text-center">
+            <div class="h-32 w-32 overflow-hidden rounded-full shadow-lg sm:h-40 sm:w-40">
+              <Image src={post.image} alt={post.imageAlt} class="h-full w-full object-cover transition duration-300 group-hover:scale-105" widths={[160, 240]} sizes="160px" />
+            </div>
+          </a>
+        ))}
+      </div>
+      <a href="/blogs/" class="ec-pill mt-10 inline-flex">Read The Blog <ArrowRight class="h-4 w-4" /></a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 py-16 text-white" style="background: var(--ec-teal-dark);">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-wrap items-center justify-between gap-6 border-b border-white/15 pb-8">
+          <Image src={logo} alt="Secure Logic logo" class="h-9 w-auto object-contain brightness-0 invert" widths={[120, 180]} sizes="120px" />
+          <div class="flex gap-3">
+            <a href="http://facebook.com/SecureLogicUSA" aria-label="Facebook" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.75c0-.5.1-.85.32-1.06.21-.22.57-.33 1.08-.33H17V2.2C16.23 2.1 15.49 2 14.78 2c-1.53 0-2.75.45-3.65 1.34-.9.9-1.35 2.16-1.35 3.79V8.5H7v3.55h2.78V22h4.03v-9.95h2.98l.46-3.55H14Z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/securelogicusa/" aria-label="Instagram" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@SecureLogic-Genesis360" aria-label="YouTube" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.58 7.2a3 3 0 0 0-2.11-2.12C17.61 4.58 12 4.58 12 4.58s-5.61 0-7.47.5A3 3 0 0 0 2.42 7.2 31.3 31.3 0 0 0 1.92 12c0 1.64.17 3.26.5 4.8a3 3 0 0 0 2.11 2.12c1.86.5 7.47.5 7.47.5s5.61 0 7.47-.5a3 3 0 0 0 2.11-2.12c.33-1.54.5-3.16.5-4.8 0-1.64-.17-3.26-.5-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+            </a>
+          </div>
+          <a href="/get-a-quote/" class="ec-pill" style="background: #fff; color: var(--ec-teal-dark);">Get A Quote</a>
+        </div>
+        <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <h3 class="text-base text-white">Products</h3>
+            <div class="mt-4 grid gap-2 text-sm text-white/80">
+              <a href="/human/" class="hover:text-white">Human</a>
+              <a href="/hvac/" class="hover:text-white">HVAC</a>
+              <a href="/ag/" class="hover:text-white">Ag</a>
+              <a href="/genesis360mistingsystems/" class="hover:text-white">Genesis 360</a>
+              <a href="/botanimax/" class="hover:text-white">BotaniMax</a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-base text-white">Blog</h3>
+            <div class="mt-4 grid gap-2 text-sm text-white/80">
+              <a href="/blogs/" class="hover:text-white">All Articles</a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-base text-white">About</h3>
+            <div class="mt-4 grid gap-2 text-sm text-white/80">
+              <a href="/about-us/" class="hover:text-white">Our Story</a>
+              <a href="/about-us/technology/" class="hover:text-white">Technology</a>
+              <a href="/contact-us/" class="hover:text-white">Contact</a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-base text-white">Resources</h3>
+            <div class="mt-4 grid gap-2 text-sm text-white/80">
+              <a href="/resources/faqs/" class="hover:text-white">FAQ</a>
+              <a href="/resources/brochures/" class="hover:text-white">Brochures</a>
+              <a href="/resources/documentation/" class="hover:text-white">Documentation</a>
+              <a href="tel:18889974310" class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
+              <a href="mailto:info@securelogicUSA.com" class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />info@securelogicUSA.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 border-t border-white/15 pt-6 text-xs text-white/60">
+          <p>Copyright 2026 © Secure Logic — Design test page styled after ecos.com, not linked in navigation.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

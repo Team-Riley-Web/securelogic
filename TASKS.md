@@ -29,11 +29,11 @@ unchecked task unless you are starting it.
 - [x] Improve the Get A Quote component - make it looks much nicer
 - [x] Match the font and styling of /Users/joshuariley/Downloads/life2health-main/resources
 - [x] Bring back the home hero typing effect and words - lets just try "Engineering Better Environments" centered removing all the rest of the content (Move <10 μm dry-mist droplet size 360° air and surface coverage Automated programmable cycles to Applications That Demand Precision section)
-- [ ] Interior nav should match home page nav - not sure why they appear different
--- [ ] When scrolled the nav button should be the dark green
-- [ ] On interior pages the get a quote form should always come before the footer
-- [ ] Make a test homepage with the same content following this site's design/styles: https://www.blueland.com/
-- [ ] Make a 2nd test homepage with the same content following this site's design/styles: https://www.ecos.com/
+- [x] Interior nav should match home page nav - not sure why they appear different
+-- [x] When scrolled the nav button should be the dark green
+- [x] On interior pages the get a quote form should always come before the footer
+- [x] Make a test homepage with the same content following this site's design/styles: https://www.blueland.com/
+- [x] Make a 2nd test homepage with the same content following this site's design/styles: https://www.ecos.com/
 
 
 ### bloghero
