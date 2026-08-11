@@ -1,0 +1,235 @@
+---
+// Hover-driven mega-menu for the Blueland design tests.
+//
+// Fully token-driven so v1 and v2 can share one implementation while keeping
+// their own palettes and fonts. Every colour/typeface comes from a CSS custom
+// property with a sensible fallback — set these on any ancestor:
+//
+//   --mm-accent        link + label colour            (default #133cd1)
+//   --mm-ink           item titles                    (default #0b1057)
+//   --mm-muted         item summaries                 (default #64748b)
+//   --mm-panel-bg      dropdown background            (default #fff)
+//   --mm-tile-bg       icon tile                      (default #f6f9fe)
+//   --mm-tile-hover-bg icon tile on row hover         (default #e1f2ff)
+//   --mm-row-hover-bg  item background on hover       (default #f8fafc)
+//   --mm-foot-bg       footer strip                   (default #f6f9fe)
+//   --mm-border        hairlines                      (default #e2e8f0)
+//   --mm-label-font    uppercase label typeface       (default: inherit)
+//   --mm-trigger-size  nav trigger font-size          (default 15px)
+//
+// NOTE: the panel is positioned `absolute inset-x-0 top-full`, so the nearest
+// positioned ancestor must be the <header> — give it `relative`.
+import { ChevronDown, ClipboardList, MousePointerClick } from '@lucide/astro';
+import type { MegaMenuGroup } from '../data/mega-menus';
+
+interface Props {
+  menus: MegaMenuGroup[];
+  /** Extra classes for the <nav> wrapper (spacing, breakpoint visibility). */
+  class?: string;
+  /** Where the panel's secondary footer action points. */
+  quoteHref?: string;
+}
+
+const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
+---
+
+<nav
+  class:list={['mm-nav', klass]}
+  aria-label="Main navigation"
+  x-data="{ active: null }"
+  x-on:mouseleave="active = null"
+  x-on:keydown.escape="active = null"
+>
+  {menus.map((menu, i) => (
+    <a
+      href={menu.href}
+      class="mm-trigger"
+      aria-haspopup="true"
+      x-on:mouseenter={`active = ${i}`}
+      x-on:focus={`active = ${i}`}
+      x-bind:aria-expanded={`(active === ${i}).toString()`}
+    >
+      {menu.label}
+      <ChevronDown class="mm-chevron" x-bind:class={`active === ${i} && 'mm-chevron-open'`} aria-hidden="true" />
+    </a>
+  ))}
+
+  <div
+    class="mm-panel"
+    x-show="active !== null"
+    x-transition:enter="mm-enter"
+    x-transition:enter-start="mm-enter-start"
+    x-transition:enter-end="mm-enter-end"
+    x-transition:leave="mm-leave"
+    x-transition:leave-start="mm-enter-end"
+    x-transition:leave-end="mm-enter-start"
+    x-cloak
+    x-on:click.outside="active = null"
+  >
+    {menus.map((menu, i) => (
+      <div x-show={`active === ${i}`}>
+        <div class="mm-inner">
+          <div class:list={['mm-grid', menu.gridClass]}>
+            {menu.items.map(({ icon: Icon, title, summary, href }) => (
+              <a href={href} class="mm-item">
+                <span class="mm-tile"><Icon class="mm-icon" aria-hidden="true" /></span>
+                <span class="mm-item-title">{title}</span>
+                <span class="mm-item-copy">{summary}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="mm-foot">
+          <a href={menu.href} class="mm-foot-link">
+            <MousePointerClick class="mm-foot-icon" aria-hidden="true" /> View all {menu.label}
+          </a>
+          <a href={quoteHref} class="mm-foot-link">
+            <ClipboardList class="mm-foot-icon" aria-hidden="true" /> Get a Quote
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</nav>
+
+<style>
+  .mm-nav {
+    display: none;
+    align-items: stretch;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .mm-nav { display: flex; }
+  }
+
+  .mm-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+    font-size: var(--mm-trigger-size, 15px);
+    font-weight: 500;
+    color: inherit;
+    transition: opacity 0.2s ease;
+  }
+
+  .mm-trigger:hover { opacity: 0.7; }
+
+  .mm-chevron {
+    height: 0.9rem;
+    width: 0.9rem;
+    transition: transform 0.2s ease;
+  }
+
+  .mm-chevron-open { transform: rotate(180deg); }
+
+  .mm-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 60;
+    background: var(--mm-panel-bg, #fff);
+    border-top: 1px solid var(--mm-border, #e2e8f0);
+    box-shadow: 0 24px 48px -24px rgb(15 23 42 / 0.28);
+  }
+
+  /* Alpine transition classes */
+  .mm-enter { transition: opacity 0.2s ease, transform 0.2s ease; }
+  .mm-leave { transition: opacity 0.15s ease, transform 0.15s ease; }
+  .mm-enter-start { opacity: 0; transform: translateY(-4px); }
+  .mm-enter-end { opacity: 1; transform: translateY(0); }
+
+  .mm-inner {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80rem;
+    padding: 0 1.5rem;
+  }
+
+  .mm-grid {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+  }
+
+  .mm-item {
+    display: block;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: background 0.2s ease;
+  }
+
+  .mm-item:hover { background: var(--mm-row-hover-bg, #f8fafc); }
+
+  .mm-tile {
+    display: flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: var(--mm-tile-bg, #f6f9fe);
+    transition: background 0.2s ease;
+  }
+
+  .mm-item:hover .mm-tile { background: var(--mm-tile-hover-bg, #e1f2ff); }
+
+  .mm-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    color: var(--mm-accent, #133cd1);
+  }
+
+  .mm-item-title {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--mm-label-font, inherit);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--mm-ink, #0b1057);
+  }
+
+  .mm-item:hover .mm-item-title { color: var(--mm-accent, #133cd1); }
+
+  .mm-item-copy {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+    color: var(--mm-muted, #64748b);
+  }
+
+  .mm-foot {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--mm-border, #e2e8f0);
+    background: var(--mm-foot-bg, #f6f9fe);
+  }
+
+  .mm-foot-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem;
+    font-family: var(--mm-label-font, inherit);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mm-accent, #133cd1);
+    transition: background 0.2s ease;
+  }
+
+  .mm-foot-link + .mm-foot-link { border-left: 1px solid var(--mm-border, #e2e8f0); }
+  .mm-foot-link:hover { background: var(--mm-row-hover-bg, #f8fafc); }
+
+  .mm-foot-icon {
+    height: 1rem;
+    width: 1rem;
+    opacity: 0.55;
+  }
+</style>

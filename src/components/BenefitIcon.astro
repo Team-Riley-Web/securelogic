@@ -1,0 +1,81 @@
+---
+// Benefit icons for the "Sub-10 Micron Mist. 360° Coverage." band.
+//
+// Matched to blueland.com's equivalent row ("4,000,000+ Homes Have Made the
+// Switch"), where each glyph is a 160x160 unframed line drawing in the brand
+// blue with small 4-point sparkle accents. Deliberately frameless so they read
+// as a different family from the ringed CertMark seals lower on the page.
+interface Props {
+  kind: 'coverage' | 'precision' | 'botanical' | 'value';
+  class?: string;
+}
+
+const { kind, class: klass = '' } = Astro.props;
+
+const labels: Record<Props['kind'], string> = {
+  coverage: 'Dry mist droplet reaching surfaces manual cleaning cannot',
+  precision: 'Precision nozzle producing uniform atomized spray',
+  botanical: 'Botanical active ingredients in solution',
+  value: 'Lower operating cost',
+};
+
+// 4-point sparkle, drawn about its own origin so it can be placed by transform.
+const sparkle = 'M0-6C.8-1.6.8-1.6 6 0 .8 1.6.8 1.6 0 6-.8 1.6-.8 1.6-6 0-.8-1.6-.8-1.6 0-6Z';
+---
+
+<svg
+  viewBox="0 0 96 96"
+  class:list={['h-full w-full', klass]}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2.4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role="img"
+  aria-label={labels[kind]}
+>
+  {kind === 'coverage' && (
+    <>
+      <path d="M48 16c0 0 19 22.5 19 35a19 19 0 0 1-38 0c0-12.5 19-35 19-35z" />
+      <path d="M37 53a11 11 0 0 0 8 11" stroke-width="2.2" opacity="0.75" />
+      <path d={sparkle} transform="translate(76,24) scale(1.05)" fill="currentColor" stroke="none" />
+      <path d={sparkle} transform="translate(20,62) scale(0.72)" fill="currentColor" stroke="none" opacity="0.75" />
+    </>
+  )}
+
+  {kind === 'precision' && (
+    <>
+      <rect x="10" y="40" width="20" height="16" rx="4" />
+      <path d="M30 43.5L37 48l-7 4.5z" fill="currentColor" stroke="none" />
+      <!-- Three arcs struck from the nozzle tip (37,48) at r=13/23/33 over ±38°,
+           so they read as one expanding spray cone rather than stray brackets. -->
+      <path d="M47.2 40.0A13 13 0 0 1 47.2 56.0" />
+      <path d="M55.1 33.8A23 23 0 0 1 55.1 62.2" opacity="0.8" />
+      <path d="M63.0 27.7A33 33 0 0 1 63.0 68.3" opacity="0.6" />
+      <circle cx="72" cy="41" r="1.7" fill="currentColor" stroke="none" opacity="0.75" />
+      <circle cx="77" cy="52" r="1.4" fill="currentColor" stroke="none" opacity="0.55" />
+      <circle cx="71" cy="61" r="1.5" fill="currentColor" stroke="none" opacity="0.65" />
+    </>
+  )}
+
+  {kind === 'botanical' && (
+    <>
+      <path d="M39 17v19L25.5 62.5A7 7 0 0 0 31.8 73h32.4a7 7 0 0 0 6.3-10.5L57 36V17" />
+      <path d="M35 17h26" />
+      <path d="M48 60c0-7 4.8-12 11-12.8C59 54.2 54.2 59.3 48 60z" stroke-width="2.2" />
+      <path d="M48 60c0-5.4-3.7-9.3-8.5-9.9C39.5 55.5 43.2 59.4 48 60z" stroke-width="2.2" opacity="0.75" />
+      <path d={sparkle} transform="translate(74,22) scale(0.95)" fill="currentColor" stroke="none" />
+    </>
+  )}
+
+  {kind === 'value' && (
+    <>
+      <path d="M18 34h50a8 8 0 0 1 8 8v26a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8z" />
+      <path d="M18 34a6 6 0 0 1 6-6h38" opacity="0.75" />
+      <path d="M76 50H62a5.5 5.5 0 0 0 0 11h14" />
+      <circle cx="63.5" cy="55.5" r="1.9" fill="currentColor" stroke="none" />
+      <path d={sparkle} transform="translate(80,26) scale(0.95)" fill="currentColor" stroke="none" />
+      <path d={sparkle} transform="translate(24,74) scale(0.66)" fill="currentColor" stroke="none" opacity="0.7" />
+    </>
+  )}
+</svg>

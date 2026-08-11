@@ -1,0 +1,123 @@
+---
+// Certification marks for Secure Logic / BotaniMax.
+//
+// These are ORIGINAL line-art marks stating facts verified against the product's
+// EPA master label (EPA Reg. No. 92089-2, accepted 11/27/2024) and the product
+// pages. They are deliberately NOT the federal EPA seal: 18 U.S.C. §709 and EPA
+// policy bar private use of the agency seal/logo because it implies government
+// endorsement, and EPA registration explicitly is not an endorsement. The
+// compliant way for a registrant to show this is the registration number in
+// text, which is what the EPA mark below does.
+//
+// variant:
+//   'default' — glyph plus its caption set inside the ring
+//   'icon'    — glyph only, recentred and scaled up to fill the ring.
+//               EPA ignores this: its registration number IS the mark, so
+//               stripping the text would leave an empty circle.
+interface Props {
+  kind: 'epa' | 'evp' | 'usa' | 'patent' | 'botanical';
+  variant?: 'default' | 'icon';
+  class?: string;
+}
+
+const { kind, variant = 'default', class: klass = '' } = Astro.props;
+
+const labels: Record<Props['kind'], string> = {
+  epa: 'EPA registered disinfectant, registration number 92089-2',
+  evp: 'Qualified for emerging viral pathogen claims',
+  usa: 'Made in the USA',
+  patent: 'Patent-pending botanical formula',
+  botanical: 'Formulated with over 150 plant-derived actives',
+};
+
+// Each glyph is drawn sitting high in the circle to leave room for its caption.
+// Icon-only re-centres it on (48,48) and scales up, so the optical weight still
+// matches the EPA mark sitting beside it. Scales are capped so the widest part
+// of each glyph stays clear of the r=40.5 inner ring.
+//
+// The pivot is each glyph's CENTRE OF MASS, not its bounding-box centre. Both
+// the shield (broad top tapering to a point) and the sprout (leaves above a
+// hairline stem) carry their weight high, so bbox-centring leaves them looking
+// like they float. Pivoting on the visual centroid drops them into balance:
+//   shield  bbox cy 46.0 → centroid ~43.0
+//   sprout  bbox cy 47.5 → centroid ~45.2  (leaves ≈90% of the ink)
+//   flag    bbox cy 44.9 → centroid ~43.3  (lower stripes fade to 55%/30%)
+const iconTransforms: Record<string, string> = {
+  evp: 'translate(48,48) scale(1.3) translate(-48,-43)',
+  usa: 'translate(48,48) scale(1.25) translate(-48,-43.3)',
+  patent: 'translate(48,48) scale(1.55) translate(-48,-43)',
+  botanical: 'translate(48,48) scale(1.55) translate(-48,-45.2)',
+};
+
+const iconOnly = variant === 'icon' && kind !== 'epa';
+const gTransform = iconOnly ? iconTransforms[kind] : undefined;
+---
+
+<svg
+  viewBox="0 0 96 96"
+  class:list={['h-full w-full', klass]}
+  fill="none"
+  stroke="currentColor"
+  role="img"
+  aria-label={labels[kind]}
+>
+  <!-- Shared double-ring seal frame -->
+  <circle cx="48" cy="48" r="45.5" stroke-width="2" />
+  <circle cx="48" cy="48" r="40.5" stroke-width="1" opacity="0.55" />
+
+  {kind === 'epa' && (
+    <g stroke="none" fill="currentColor">
+      <text x="48" y="45" text-anchor="middle" font-size="21" font-weight="700" letter-spacing="1.2">EPA</text>
+      <rect x="27" y="50.5" width="42" height="1.1" opacity="0.5" />
+      <text x="48" y="62" text-anchor="middle" font-size="7.6" font-weight="700" letter-spacing="1.5">REGISTERED</text>
+      <text x="48" y="72" text-anchor="middle" font-size="7" font-weight="500" opacity="0.75">No. 92089-2</text>
+    </g>
+  )}
+
+  {kind === 'evp' && (
+    <g transform={gTransform}>
+      <path d="M48 26.5l14 5.2v13.4c0 9.6-5.8 17.4-14 20.4-8.2-3-14-10.8-14-20.4V31.7l14-5.2z" stroke-width="2" />
+      <circle cx="48" cy="44" r="4.4" stroke-width="1.6" />
+      <path d="M48 39.6v-3.1M48 51.5v3.1M43.6 44h-3.2M55.6 44h-3.2" stroke-width="1.6" stroke-linecap="round" />
+      {!iconOnly && (
+        <text x="48" y="76" text-anchor="middle" font-size="6.8" font-weight="700" letter-spacing="0.6" stroke="none" fill="currentColor">EVP CLAIM</text>
+      )}
+    </g>
+  )}
+
+  {kind === 'usa' && (
+    <g stroke="none" fill="currentColor" transform={gTransform}>
+      <path d="M48 27.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L48 27.5z" />
+      <rect x="28" y="49" width="40" height="2.2" rx="1.1" />
+      <rect x="28" y="54.5" width="40" height="2.2" rx="1.1" opacity="0.55" />
+      <rect x="28" y="60" width="40" height="2.2" rx="1.1" opacity="0.3" />
+      {!iconOnly && (
+        <text x="48" y="75" text-anchor="middle" font-size="6.8" font-weight="700" letter-spacing="0.6">MADE IN USA</text>
+      )}
+    </g>
+  )}
+
+  {kind === 'patent' && (
+    <g transform={gTransform}>
+      <circle cx="48" cy="43" r="11.5" stroke-width="2" />
+      <path d="M48 34.5v8.5l5.5 3.4" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+      {!iconOnly && (
+        <>
+          <text x="48" y="67" text-anchor="middle" font-size="6.8" font-weight="700" letter-spacing="0.6" stroke="none" fill="currentColor">PATENT</text>
+          <text x="48" y="76" text-anchor="middle" font-size="6.8" font-weight="700" letter-spacing="0.6" stroke="none" fill="currentColor">PENDING</text>
+        </>
+      )}
+    </g>
+  )}
+
+  {kind === 'botanical' && (
+    <g transform={gTransform}>
+      <path d="M48 52.5c0-9.5 6.6-16.5 15.5-17.5C63 45 57 52 48 52.5z" stroke-width="1.9" stroke-linejoin="round" />
+      <path d="M48 52.5c0-9.5-6.6-16.5-15.5-17.5C33 45 39 52 48 52.5z" stroke-width="1.9" stroke-linejoin="round" />
+      <path d="M48 52.5v7.5" stroke-width="1.9" stroke-linecap="round" />
+      {!iconOnly && (
+        <text x="48" y="75" text-anchor="middle" font-size="6.8" font-weight="700" letter-spacing="0.4" stroke="none" fill="currentColor">150+ ACTIVES</text>
+      )}
+    </g>
+  )}
+</svg>
