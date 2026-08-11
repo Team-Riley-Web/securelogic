@@ -1,58 +1,148 @@
 ---
+import { ArrowRight, Check, Mail, Phone } from '@lucide/astro';
+
 interface Props {
   title?: string;
   compact?: boolean;
 }
 
 const { title = 'Get A Quote', compact = false } = Astro.props;
+
+const points = [
+  'Response within one business day',
+  'Facility walkthrough and coverage plan',
+  'Fixed, portable, or HVAC-integrated options',
+];
+
+const products = [
+  'BotaniMax - Botanical Disinfectant',
+  'Genesis 360 Misting System',
+  'BotaniMax + Genesis 360 Misting System',
+];
 ---
 
-<form
-  name="secure-logic-quote"
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  class:list={['card grid gap-4 p-6', compact ? '' : 'md:p-8']}
->
-  <input type="hidden" name="form-name" value="secure-logic-quote" />
-  <p class="hidden">
-    <label>Do not fill this out <input name="bot-field" /></label>
-  </p>
-  <div>
-    <p class="eyebrow">Secure Logic</p>
-    <h2 class="mt-2 text-2xl font-semibold text-slate-900">{title}</h2>
+<div class="@container">
+  <div
+    class:list={[
+      'overflow-hidden rounded-2xl bg-white',
+      compact ? 'shadow-lift ring-1 ring-slate-900/5' : 'grid shadow-deep ring-1 ring-slate-900/5 @4xl:grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)]',
+    ]}
+  >
+    {!compact && (
+      <aside class="relative overflow-hidden bg-canopy p-8 @2xl:p-10">
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,hsl(104_40%_67%/.22),transparent_46%),radial-gradient(circle_at_85%_90%,hsl(211_80%_72%/.18),transparent_44%)]"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative">
+          <p class="eyebrow text-botanical-300">Get Started Today</p>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight text-white">{title}</h2>
+          <p class="mt-5 text-base leading-8 text-emerald-50/70">
+            Tell us which product you are evaluating and where it will be used. Our team can help scope the right
+            configuration for your facility.
+          </p>
+          <div class="mt-8 grid gap-3">
+            {points.map((point) => (
+              <div class="flex items-start gap-3 text-sm font-semibold leading-6 text-white">
+                <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-300" />
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+          <div class="mt-8 grid gap-3 border-t border-white/15 pt-8">
+            <a
+              href="tel:18889974310"
+              class="inline-flex items-center gap-3 text-sm font-semibold text-white transition hover:text-botanical-200"
+            >
+              <Phone class="h-4 w-4 text-botanical-300" /> 1-888-997-4310
+            </a>
+            <a
+              href="mailto:info@securelogicUSA.com"
+              class="inline-flex items-center gap-3 text-sm font-semibold text-white transition hover:text-botanical-200"
+            >
+              <Mail class="h-4 w-4 text-botanical-300" /> info@securelogicUSA.com
+            </a>
+          </div>
+        </div>
+      </aside>
+    )}
+
+    <form
+      name="secure-logic-quote"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class:list={['grid content-start gap-5 p-6', compact ? '@lg:p-8' : '@2xl:p-10']}
+    >
+      <input type="hidden" name="form-name" value="secure-logic-quote" />
+      <p class="hidden">
+        <label>Do not fill this out <input name="bot-field" /></label>
+      </p>
+
+      {compact && (
+        <div>
+          <p class="eyebrow">Secure Logic</p>
+          <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900">{title}</h2>
+        </div>
+      )}
+
+      <div class="grid gap-5 @lg:grid-cols-2">
+        <label class="field-label">
+          <span>First <span class="field-required">*</span></span>
+          <input class="field" name="first" placeholder="Jane" autocomplete="given-name" required />
+        </label>
+        <label class="field-label">
+          <span>Last <span class="field-required">*</span></span>
+          <input class="field" name="last" placeholder="Doe" autocomplete="family-name" required />
+        </label>
+      </div>
+
+      <div class="grid gap-5 @lg:grid-cols-2">
+        <label class="field-label">
+          <span>Email <span class="field-required">*</span></span>
+          <input class="field" type="email" name="email" placeholder="jane@company.com" autocomplete="email" required />
+        </label>
+        <label class="field-label">
+          <span>Phone</span>
+          <input class="field" type="tel" name="phone" placeholder="(555) 123-4567" autocomplete="tel" />
+        </label>
+      </div>
+
+      <label class="field-label">
+        <span>Product Requested</span>
+        <div class="relative">
+          <select class="field appearance-none pr-11" name="product">
+            {products.map((product) => <option>{product}</option>)}
+          </select>
+          <svg
+            class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+            <path d="m6 8 4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+      </label>
+
+      <label class="field-label">
+        <span>Message</span>
+        <textarea
+          class="field min-h-32 resize-y"
+          name="message"
+          placeholder="Tell us about your facility, square footage, and timeline."></textarea>
+      </label>
+
+      <button class="button-primary group mt-1 w-full py-3.5" type="submit">
+        Request my quote
+        <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+      </button>
+      <p class="text-xs leading-5 text-slate-500">
+        We only use your details to respond to this request. No spam, ever.
+      </p>
+    </form>
   </div>
-  <div class="grid gap-4 sm:grid-cols-2">
-    <label class="grid gap-2 text-sm font-semibold text-slate-700">
-      First *
-      <input class="field" name="first" autocomplete="given-name" required />
-    </label>
-    <label class="grid gap-2 text-sm font-semibold text-slate-700">
-      Last *
-      <input class="field" name="last" autocomplete="family-name" required />
-    </label>
-  </div>
-  <div class="grid gap-4 sm:grid-cols-2">
-    <label class="grid gap-2 text-sm font-semibold text-slate-700">
-      Email *
-      <input class="field" type="email" name="email" autocomplete="email" required />
-    </label>
-    <label class="grid gap-2 text-sm font-semibold text-slate-700">
-      Phone
-      <input class="field" type="tel" name="phone" autocomplete="tel" />
-    </label>
-  </div>
-  <label class="grid gap-2 text-sm font-semibold text-slate-700">
-    Product Requested
-    <select class="field" name="product">
-      <option>BotaniMax - Botanical Disinfectant</option>
-      <option>Genesis 360 Misting System</option>
-      <option>BotaniMax + Genesis 360 Misting System</option>
-    </select>
-  </label>
-  <label class="grid gap-2 text-sm font-semibold text-slate-700">
-    Message
-    <textarea class="field min-h-32" name="message"></textarea>
-  </label>
-  <button class="button-primary w-full" type="submit">Submit</button>
-</form>
+</div>

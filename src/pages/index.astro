@@ -1,15 +1,12 @@
 ---
-import { ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, CircleQuestionMark, ClipboardList, Cpu, Droplets, FileCheck, FileText, Leaf, Menu, MousePointerClick, Newspaper, Phone, Sparkles, SprayCan, Star, X } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, Check, ChevronRight, Cpu, Droplets, Leaf, Sparkles, Star } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import CurveDivider from '../components/CurveDivider.astro';
 import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { posts } from '../data/blog-posts';
-import { humanMarkets } from '../data/human-markets';
-import { hvacMarkets } from '../data/hvac-markets';
-import { agMarkets } from '../data/ag-markets';
-import logo from '../assets/images/logo.png';
 import products from '../assets/images/medical.png';
 import botanimax from '../assets/images/botanimax-bottle.png';
 import greenhouse from '../assets/images/blog-greenhouse.png';
@@ -49,177 +46,13 @@ const testimonials = [
 
 const recentPosts = posts.slice(0, 4);
 
-const megaMenus = [
-  {
-    label: 'Human',
-    href: '/human/',
-    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
-    items: humanMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/human/${m.slug}/` })),
-  },
-  {
-    label: 'HVAC',
-    href: '/hvac/',
-    gridClass: 'sm:grid-cols-3',
-    items: hvacMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/hvac/${m.slug}/` })),
-  },
-  {
-    label: 'Ag',
-    href: '/ag/',
-    gridClass: 'sm:grid-cols-3',
-    items: agMarkets.map((m) => ({ icon: m.icon, title: m.title, summary: m.summary, href: `/ag/${m.slug}/` })),
-  },
-  {
-    label: 'Resources',
-    href: '/resources/',
-    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
-    items: [
-      { icon: Newspaper, title: 'Blog', summary: 'Insights on botanical disinfectants, misting systems, and indoor air quality.', href: '/blogs/' },
-      { icon: FileText, title: 'Brochures', summary: 'Download industry-specific brochures for agriculture, child care, and fitness.', href: '/resources/brochures/' },
-      { icon: FileCheck, title: 'Documentation', summary: 'Labels, SDS sheets, lab reports, and technical white papers.', href: '/resources/documentation/' },
-      { icon: CircleQuestionMark, title: 'FAQs', summary: 'Answers about micro-droplet physics, coverage, and maintenance.', href: '/resources/faqs/' },
-    ],
-  },
-  {
-    label: 'About Us',
-    href: '/about-us/',
-    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
-    items: [
-      { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis 360’s sub-10 micron dry mist.', href: '/about-us/technology/' },
-      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Secure Logic team.', href: '/contact-us/' },
-      { icon: SprayCan, title: 'Genesis 360', summary: 'Automated misting systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
-      { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
-    ],
-  },
-];
-
 ---
 
 <BaseLayout
   title="Secure Logic | Precision Misting. Automated Efficiency. 360-Degree Coverage."
   description="Secure Logic Genesis 360 automated dry-mist systems and BotaniMax botanical disinfectant for agriculture and mission-critical facilities."
 >
-  <header
-    class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
-    x-data="{ open: false, scrolled: false }"
-    x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
-    x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
-  >
-    <div class="flex items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
-      <div class="flex flex-1 items-stretch">
-        <a href="/" class="flex shrink-0 items-center self-center" aria-label="Secure Logic home">
-          <Image
-            src={logo}
-            alt="Secure Logic logo"
-            class="w-auto object-contain transition-all duration-300"
-            x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
-            widths={[120, 180, 240]}
-            sizes="160px"
-            priority
-          />
-        </a>
-      </div>
-      <nav class="hidden items-stretch gap-3 lg:flex xl:gap-6" aria-label="Primary navigation" x-data="{ active: null }" x-on:mouseleave="active = null">
-        {megaMenus.map((menu, i) => (
-          <a
-            href={menu.href}
-            class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold transition"
-            x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"
-            aria-haspopup="true"
-            x-on:mouseenter={`active = ${i}`}
-            x-bind:aria-expanded={`(active === ${i}).toString()`}
-          >
-            {menu.label}
-            <ChevronDown class="h-4 w-4 transition" x-bind:class={`active === ${i} && 'rotate-180'`} aria-hidden="true" />
-          </a>
-        ))}
-
-        <div
-          class="absolute inset-x-0 top-full border-t border-slate-100 bg-white shadow-deep"
-          x-show="active !== null"
-          x-transition:enter="transition ease-out duration-200"
-          x-transition:enter-start="opacity-0 -translate-y-1"
-          x-transition:enter-end="opacity-100 translate-y-0"
-          x-transition:leave="transition ease-in duration-150"
-          x-transition:leave-start="opacity-100 translate-y-0"
-          x-transition:leave-end="opacity-0 -translate-y-1"
-          x-cloak
-          x-on:click.outside="active = null"
-        >
-          {megaMenus.map((menu, i) => (
-            <div x-show={`active === ${i}`}>
-              <div class="container-page">
-                <div class={`grid gap-2 py-6 ${menu.gridClass}`}>
-                  {menu.items.map(({ icon: Icon, title, summary, href }) => (
-                    <a href={href} class="group relative rounded-lg p-4 transition hover:bg-slate-50">
-                      <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-50 transition group-hover:bg-botanical-50">
-                        <Icon class="h-5 w-5 text-slate-600 transition group-hover:text-botanical-600" aria-hidden="true" />
-                      </div>
-                      <p class="mt-4 text-sm font-semibold text-slate-900 transition group-hover:text-primary-700">{title}</p>
-                      <p class="mt-1 text-sm leading-6 text-slate-500">{summary}</p>
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div class="grid grid-cols-2 divide-x divide-slate-200 border-t border-slate-100 bg-slate-50">
-                <a
-                  href={menu.href}
-                  class="flex items-center justify-center gap-2 p-3 text-sm font-semibold uppercase tracking-wide text-primary-700 transition hover:bg-slate-100"
-                >
-                  <MousePointerClick class="h-4 w-4 text-slate-400" aria-hidden="true" /> View all {menu.label}
-                </a>
-                <a
-                  href="/get-a-quote/"
-                  class="flex items-center justify-center gap-2 p-3 text-sm font-semibold uppercase tracking-wide text-primary-700 transition hover:bg-slate-100"
-                >
-                  <ClipboardList class="h-4 w-4 text-slate-400" aria-hidden="true" /> Get a Quote
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </nav>
-      <div class="hidden flex-1 items-center justify-end self-center lg:flex">
-        <a
-          href="tel:18889974310"
-          class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-bold shadow-sm transition xl:px-5 xl:py-3 xl:text-base"
-          x-bind:class="scrolled ? 'bg-botanical-50 text-botanical-900 hover:bg-botanical-100' : 'bg-white/15 text-white hover:bg-white/25'"
-        >
-          <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
-          1-888-997-4310
-        </a>
-      </div>
-      <button type="button" class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md transition lg:hidden" x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'" x-on:click="open = !open" x-bind:aria-expanded="open.toString()" aria-label="Toggle navigation">
-        <Menu class="h-5 w-5" x-show="!open" />
-        <X class="h-5 w-5" x-show="open" x-cloak />
-      </button>
-    </div>
-    <nav class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak x-on:click="open = false" aria-label="Mobile navigation">
-      <div class="container-page grid gap-1 py-5">
-        {megaMenus.map((menu) => (
-          <div x-data="{ open: false }">
-            <button
-              type="button"
-              class="mobile-link flex w-full items-center justify-between"
-              x-on:click.stop="open = !open"
-              x-bind:aria-expanded="open.toString()"
-            >
-              {menu.label}
-              <ChevronDown class="h-4 w-4 transition" x-bind:class="open && 'rotate-180'" />
-            </button>
-            <div class="grid gap-1 pl-4" x-show="open" x-cloak>
-              {menu.items.map(({ title, href }) => (
-                <a href={href} class="rounded-md px-3 py-2 text-base font-medium text-slate-600 hover:bg-primary-50 hover:text-primary-700">{title}</a>
-              ))}
-              <a href={menu.href} class="rounded-md px-3 py-2 text-base font-medium text-primary-700 hover:bg-primary-50">View all {menu.label}</a>
-            </div>
-          </div>
-        ))}
-        <a href="tel:18889974310" class="mobile-link flex items-center gap-2">
-          <Phone class="h-4 w-4 shrink-0 text-botanical-600" aria-hidden="true" /> 1-888-997-4310
-        </a>
-      </div>
-    </nav>
-  </header>
+  <Header overlay />
 
   <main>
     <section
@@ -268,43 +101,22 @@ const megaMenus = [
           data-hero-slide="3"
         ></video>
       </div>
-      <div class="absolute inset-0 bg-[linear-gradient(90deg,hsl(160_34%_14%)_0%,hsl(160_34%_14%/.96)_36%,hsl(160_34%_14%/.58)_68%,hsl(160_34%_14%/.18)_100%),linear-gradient(0deg,hsl(160_34%_14%/.72)_0%,hsl(160_34%_14%/.18)_42%,hsl(160_34%_14%/.04)_100%)]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(160_34%_14%/.85)_0%,hsl(160_34%_14%/.55)_46%,hsl(160_34%_14%/.35)_100%)]"></div>
       <div class="pointer-events-none absolute inset-0 overflow-hidden">
         <div class="absolute -bottom-24 left-0 h-96 w-3/4 rounded-full bg-botanical-300/10 blur-3xl motion-safe:animate-[mist_18s_ease-in-out_infinite_alternate]"></div>
         <div class="absolute -right-28 top-4 h-96 w-2/3 rounded-full bg-white/10 blur-3xl motion-safe:animate-[mist_24s_ease-in-out_infinite_alternate]"></div>
       </div>
-      <div class="container-page relative grid min-h-[min(98vh,900px)] items-center py-20 lg:grid-cols-[1.02fr_.98fr]">
-        <div class="relative z-10">
-          <h1 class="max-w-[18ch] text-[clamp(2.75rem,6.5vw,5.75rem)] font-medium leading-[1.05] tracking-[-0.02em] text-white">
-            Engineering better environments.
-          </h1>
-          <p class="mt-3 max-w-lg text-2xl font-medium leading-[1.6] tracking-[-0.01em] text-white/88 drop-shadow-[0_2px_12px_rgba(0,0,0,.42)] lg:mt-10">
-            Automated dry mist protects air, surfaces, crops, and critical facilities.
-          </p>
-          <!--<div class="mt-8 flex flex-wrap gap-3">-->
-          <!--  <a href="#platform" class="button-primary">Discover Genesis 360 <ArrowRight class="h-4 w-4" /></a>-->
-          <!--  <a href="#quote" class="button-dark">Get a Quote</a>-->
-          <!--</div>-->
-          <div class="mt-11 flex max-w-xl flex-wrap gap-x-9 gap-y-5 border-white/15 pt-6 max-lg:mt-8 max-lg:flex-col max-lg:pt-0 lg:border-t">
-            <div><b class="block text-2xl font-semibold text-white">&lt;10 μm</b><span class="text-sm text-emerald-50/65">dry-mist droplet size</span></div>
-            <div><b class="block text-2xl font-semibold text-white">360°</b><span class="text-sm text-emerald-50/65">air and surface coverage</span></div>
-            <div><b class="block text-2xl font-semibold text-white">Automated</b><span class="text-sm text-emerald-50/65">programmable cycles</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="absolute bottom-0 right-6 z-10 hidden w-[min(25rem,calc(100vw-3rem))] rounded-lg bg-canopy p-5 ring-1 ring-white/20 backdrop-blur-md md:block lg:right-35">
-        <div class="flex items-center gap-3">
-          <span class="h-1 w-10 rounded-full bg-botanical-300"></span>
-          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-botanical-200" data-hero-label>Agriculture</p>
-        </div>
-        <h2 class="mt-4 text-xl font-semibold text-white" data-hero-title>Crop fields and greenhouses</h2>
-        <p class="mt-2 text-sm font-medium leading-6 text-white/82" data-hero-copy>Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.</p>
-        <div class="mt-5 flex gap-2" aria-label="Hero applications">
-          <button type="button" class="h-2.5 w-8 rounded-full bg-botanical-300 transition-all" data-hero-dot="0" aria-label="Show agriculture"></button>
-          <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="1" aria-label="Show controlled environments"></button>
-          <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="2" aria-label="Show built environments"></button>
-          <button type="button" class="h-2.5 w-2.5 rounded-full bg-white/35 transition-all hover:bg-white/60" data-hero-dot="3" aria-label="Show dairy barn airspace"></button>
-        </div>
+      <div class="container-page relative grid min-h-[min(92vh,820px)] place-items-center py-20 text-center">
+        <h1 class="max-w-[16ch] text-[clamp(2.75rem,6.5vw,5.75rem)] font-bold leading-[1.05] tracking-tight text-white">
+          <span class="sr-only">Engineering Better Environments.</span>
+          <span aria-hidden="true">
+            Engineering Better
+            <span class="typed-hero-shell mx-auto block" aria-hidden="true">
+              <span class="typed-hero-reserve" aria-hidden="true">Environments.</span>
+              <span class="typed-hero-word" data-typed-hero-word>Environments.</span>
+            </span>
+          </span>
+        </h1>
       </div>
       <CurveDivider class="-bottom-px text-white" />
     </section>
@@ -452,6 +264,11 @@ const megaMenus = [
             <p class="eyebrow">Applications</p>
             <h2 class="section-title mt-4">Applications That Demand Precision</h2>
             <p class="section-copy mt-5">Genesis 360 is designed for flexibility and scalability across industries where hygiene, safety, and environmental quality are mission-critical.</p>
+            <div class="mt-8 flex flex-wrap gap-x-9 gap-y-5 border-t border-slate-200 pt-6">
+              <div><b class="block text-2xl font-bold tracking-tight text-slate-900">&lt;10 μm</b><span class="text-sm text-slate-500">dry-mist droplet size</span></div>
+              <div><b class="block text-2xl font-bold tracking-tight text-slate-900">360°</b><span class="text-sm text-slate-500">air and surface coverage</span></div>
+              <div><b class="block text-2xl font-bold tracking-tight text-slate-900">Automated</b><span class="text-sm text-slate-500">programmable cycles</span></div>
+            </div>
           </div>
         </div>
         <div class="reveal mt-12 grid gap-7 lg:grid-cols-[300px_1fr]" x-data x-intersect.once="$el.classList.add('is-visible')">
@@ -690,16 +507,6 @@ const megaMenus = [
   }
 
   const heroSlides = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-hero-slide]'));
-  const heroDots = Array.from(document.querySelectorAll('[data-hero-dot]'));
-  const heroLabel = document.querySelector('[data-hero-label]');
-  const heroTitle = document.querySelector('[data-hero-title]');
-  const heroCopy = document.querySelector('[data-hero-copy]');
-  const heroContent = [
-    { label: 'Agriculture', title: 'Crop fields and greenhouses', copy: 'Dry mist reaches canopy, equipment, and air zones without soaking plants or disrupting production.' },
-    { label: 'Controlled Environments', title: 'Cannabis and indoor grow rooms', copy: 'Automated treatment helps reduce microbial pressure where humidity and dense growth raise risk.' },
-    { label: 'Built Environments', title: 'Schools and athletic facilities', copy: 'Repeatable whole-room cycles support cleaner air and surfaces in high-traffic indoor spaces.' },
-    { label: 'Livestock', title: 'Dairy barn airspace', copy: 'Dust, dander, and odor circulate through barn and airspace continuously. Surface cleaning alone cannot reach them.' },
-  ];
   let heroIndex = 0;
   let heroTimer: number | undefined;
 
@@ -724,36 +531,69 @@ const megaMenus = [
         }
       });
     }, 1000);
-
-    heroDots.forEach((dot) => {
-      const isSelected = dot.getAttribute('data-hero-dot') === String(index);
-      dot.classList.toggle('w-8', isSelected);
-      dot.classList.toggle('w-2.5', !isSelected);
-      dot.classList.toggle('bg-botanical-300', isSelected);
-      dot.classList.toggle('bg-white/35', !isSelected);
-    });
-
-    const content = heroContent[index];
-    if (heroLabel) heroLabel.textContent = content.label;
-    if (heroTitle) heroTitle.textContent = content.title;
-    if (heroCopy) heroCopy.textContent = content.copy;
   }
 
   function startHeroCarousel() {
     window.clearInterval(heroTimer);
     heroTimer = window.setInterval(() => {
-      selectHero((heroIndex + 1) % heroContent.length);
+      selectHero((heroIndex + 1) % heroSlides.length);
     }, 5200);
   }
 
-  heroDots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      selectHero(Number(dot.getAttribute('data-hero-dot') || 0));
-      startHeroCarousel();
-    });
-  });
-
   if (heroSlides.length) startHeroCarousel();
+
+  const typedHeroWord = document.querySelector<HTMLElement>('[data-typed-hero-word]');
+  const typedWords = ['Environments.'];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let typedWordIndex = 0;
+  let typedLetterIndex = typedWords[0].length;
+  let typedDirection: 'typing' | 'deleting' | 'holding' = 'holding';
+
+  function cycleTypedHeroWord() {
+    if (!typedHeroWord) return;
+
+    const currentWord = typedWords[typedWordIndex];
+    const setTypedWord = (value: string) => {
+      typedHeroWord.textContent = value || ' ';
+    };
+
+    if (typedDirection === 'holding') {
+      typedDirection = 'deleting';
+      window.setTimeout(cycleTypedHeroWord, 1600);
+      return;
+    }
+
+    if (typedDirection === 'deleting') {
+      typedLetterIndex -= 1;
+      setTypedWord(currentWord.slice(0, typedLetterIndex));
+
+      if (typedLetterIndex <= 0) {
+        typedWordIndex = (typedWordIndex + 1) % typedWords.length;
+        typedDirection = 'typing';
+        window.setTimeout(cycleTypedHeroWord, 320);
+        return;
+      }
+
+      window.setTimeout(cycleTypedHeroWord, 55);
+      return;
+    }
+
+    const nextWord = typedWords[typedWordIndex];
+    typedLetterIndex += 1;
+    setTypedWord(nextWord.slice(0, typedLetterIndex));
+
+    if (typedLetterIndex >= nextWord.length) {
+      typedDirection = 'holding';
+      window.setTimeout(cycleTypedHeroWord, 2200);
+      return;
+    }
+
+    window.setTimeout(cycleTypedHeroWord, 92);
+  }
+
+  if (typedHeroWord && !prefersReducedMotion) {
+    window.setTimeout(cycleTypedHeroWord, 2200);
+  }
 
   const statValues = Array.from(document.querySelectorAll<HTMLElement>('[data-stat-value]'));
 

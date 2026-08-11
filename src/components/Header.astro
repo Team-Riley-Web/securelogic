@@ -6,6 +6,13 @@ import { humanMarkets } from '../data/human-markets';
 import { hvacMarkets } from '../data/hvac-markets';
 import { agMarkets } from '../data/ag-markets';
 
+interface Props {
+  /** Homepage-only: skip the layout spacer so a full-bleed hero can sit directly under the floating header. */
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+
 const megaMenus = [
   {
     label: 'Human',
@@ -50,11 +57,23 @@ const megaMenus = [
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-white/60 bg-white/88 shadow-sm backdrop-blur-xl" x-data="{ open: false }">
-  <div class="flex h-20 items-stretch gap-4 px-6 xl:gap-8 xl:px-16">
+<header
+  class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
+  x-data="{ open: false, scrolled: false }"
+  x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
+  x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
+>
+  <div class="flex items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
     <div class="flex flex-1 items-stretch">
       <a href="/" class="flex shrink-0 items-center self-center" aria-label="Secure Logic home">
-        <Image src={logo} alt="Secure Logic logo" class="h-14 w-auto object-contain" widths={[150, 220]} sizes="150px" />
+        <Image
+          src={logo}
+          alt="Secure Logic logo"
+          class="w-auto object-contain transition-all duration-300"
+          x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
+          widths={[120, 180, 240]}
+          sizes="160px"
+        />
       </a>
     </div>
 
@@ -62,7 +81,8 @@ const megaMenus = [
       {megaMenus.map((menu, i) => (
         <a
           href={menu.href}
-          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold text-slate-700 transition hover:text-primary-700"
+          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold transition"
+          x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"
           aria-haspopup="true"
           x-on:mouseenter={`active = ${i}`}
           x-bind:aria-expanded={`(active === ${i}).toString()`}
@@ -121,7 +141,8 @@ const megaMenus = [
     <div class="hidden flex-1 items-center justify-end self-center lg:flex">
       <a
         href="tel:18889974310"
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-botanical-50 px-4 py-2.5 text-sm font-bold text-botanical-900 shadow-sm transition hover:bg-botanical-100 xl:px-5 xl:py-3 xl:text-base"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-bold shadow-sm transition xl:px-5 xl:py-3 xl:text-base"
+        x-bind:class="scrolled ? 'bg-canopy text-white hover:bg-canopy-light' : 'bg-white/15 text-white hover:bg-white/25'"
       >
         <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
         1-888-997-4310
@@ -130,23 +151,25 @@ const megaMenus = [
 
     <button
       type="button"
-      class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md bg-slate-100 text-slate-800 lg:hidden"
-      aria-label="Toggle navigation"
+      class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md transition lg:hidden"
+      x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'"
       x-on:click="open = !open"
+      x-bind:aria-expanded="open.toString()"
+      aria-label="Toggle navigation"
     >
       <Menu class="h-5 w-5" x-show="!open" />
       <X class="h-5 w-5" x-show="open" x-cloak />
     </button>
   </div>
 
-  <div class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak>
-    <nav class="container-page grid gap-1 py-5" aria-label="Mobile navigation">
+  <nav class="border-t border-slate-100 bg-white lg:hidden" x-show="open" x-cloak x-on:click="open = false" aria-label="Mobile navigation">
+    <div class="container-page grid gap-1 py-5">
       {megaMenus.map((menu) => (
         <div x-data="{ open: false }">
           <button
             type="button"
-            class="flex w-full items-center justify-between rounded-md px-3 py-2 text-base font-semibold text-slate-800 hover:bg-slate-100"
-            x-on:click="open = !open"
+            class="mobile-link flex w-full items-center justify-between"
+            x-on:click.stop="open = !open"
             x-bind:aria-expanded="open.toString()"
           >
             {menu.label}
@@ -160,9 +183,10 @@ const megaMenus = [
           </div>
         </div>
       ))}
-      <a href="tel:18889974310" class="flex items-center gap-2 rounded-md px-3 py-2 text-base font-semibold text-slate-800 hover:bg-slate-100">
+      <a href="tel:18889974310" class="mobile-link flex items-center gap-2">
         <Phone class="h-4 w-4 shrink-0 text-botanical-600" aria-hidden="true" /> 1-888-997-4310
       </a>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </header>
+{!overlay && <div class="h-20" aria-hidden="true"></div>}
