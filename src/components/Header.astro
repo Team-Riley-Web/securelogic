@@ -2,6 +2,7 @@
 import { ChevronDown, ClipboardList, Cpu, FileCheck, FileText, Leaf, Menu, MousePointerClick, Newspaper, Phone, SprayCan, CircleQuestionMark, X } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import logo from '../assets/images/logo.png';
+import logoTight from '../assets/images/logo-tight.png';
 import { humanMarkets } from '../data/human-markets';
 import { hvacMarkets } from '../data/hvac-markets';
 import { agMarkets } from '../data/ag-markets';
@@ -58,21 +59,35 @@ const megaMenus = [
 ---
 
 <header
-  class="fixed left-0 right-0 top-0 z-50 bg-canopy/82 backdrop-blur-md transition-all duration-300"
+  class="fixed left-0 right-0 top-0 z-50 transition-all duration-300"
   x-data="{ open: false, scrolled: false }"
   x-init="scrolled = window.scrollY > 8; window.addEventListener('scroll', () => scrolled = window.scrollY > 8, { passive: true })"
-  x-bind:class="scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"
+  x-bind:class={overlay
+    ? "scrolled ? 'bg-canopy shadow-[0_1px_0_hsl(159_30%_26%)] backdrop-blur-xl' : 'bg-transparent backdrop-blur-none'"
+    : "scrolled ? 'bg-white/92 shadow-[0_1px_0_hsl(214_32%_88%)] backdrop-blur-xl' : 'bg-canopy/82 backdrop-blur-md'"}
 >
-  <div class="flex h-20 items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16" x-bind:class="scrolled ? 'h-16' : 'h-20'">
+  <div
+    class="flex items-stretch gap-4 px-6 transition-all duration-300 xl:gap-8 xl:px-16"
+    style={overlay ? 'height: 4.5rem;' : 'height: 5rem;'}
+    x-bind:style={overlay
+      ? "scrolled ? 'height: 3.5rem;' : 'height: 4.5rem;'"
+      : "scrolled ? 'height: 4rem;' : 'height: 5rem;'"}
+  >
     <div class="flex flex-1 items-stretch">
       <a href="/" class="flex shrink-0 items-center self-center" aria-label="Secure Logic home">
         <Image
-          src={logo}
+          src={overlay ? logoTight : logo}
           alt="Secure Logic logo"
-          class="h-12 w-auto object-contain brightness-0 invert transition-all duration-300"
-          x-bind:class="scrolled ? 'h-10' : 'h-12 brightness-0 invert'"
-          widths={[120, 180, 240]}
-          sizes="160px"
+          class="w-auto object-contain transition-all duration-300"
+          style={overlay ? 'height: 2.5rem;' : 'height: 3rem;'}
+          x-bind:style={overlay
+            ? "scrolled ? 'height: 2rem; transform: translateY(1rem);' : 'height: 2.5rem; transform: translateY(0);'"
+            : "scrolled ? 'height: 2.5rem;' : 'height: 3rem;'"}
+          x-bind:class={overlay
+            ? "scrolled ? 'drop-shadow-[0_0_5px_rgba(255,255,255,0.55)]' : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(0,0,0,0.28)]'"
+            : "scrolled ? '' : 'brightness-0 invert'"}
+          widths={[140, 210, 280]}
+          sizes="180px"
         />
       </a>
     </div>
@@ -81,8 +96,8 @@ const megaMenus = [
       {megaMenus.map((menu, i) => (
         <a
           href={menu.href}
-          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold text-emerald-50/90 transition hover:text-white"
-          x-bind:class="scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"
+          class="flex h-full items-center gap-1 whitespace-nowrap text-base font-semibold transition"
+          x-bind:class={overlay ? "'text-white/90 hover:text-botanical-200'" : "scrolled ? 'text-slate-700 hover:text-slate-950' : 'text-emerald-50/90 hover:text-white'"}
           aria-haspopup="true"
           x-on:mouseenter={`active = ${i}`}
           x-bind:aria-expanded={`(active === ${i}).toString()`}
@@ -108,12 +123,38 @@ const megaMenus = [
           <div x-show={`active === ${i}`}>
             <div class="container-page">
               <div class={`grid gap-2 py-6 ${menu.gridClass}`}>
-                {menu.items.map(({ icon: Icon, title, summary, href }) => (
-                  <a href={href} class="group relative rounded-lg p-4 transition hover:bg-slate-50">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-50 transition group-hover:bg-botanical-50">
-                      <Icon class="h-5 w-5 text-slate-600 transition group-hover:text-botanical-600" aria-hidden="true" />
+                {menu.items.map(({ icon: Icon, title, summary, href }, itemIndex) => (
+                  <a
+                    href={href}
+                    class:list={[
+                      'group relative rounded-lg p-4 transition',
+                      itemIndex % 2 === 0 ? 'hover:bg-primary-50/80' : 'hover:bg-botanical-50/80',
+                    ]}
+                  >
+                    <div
+                      class:list={[
+                        'flex h-11 w-11 items-center justify-center rounded-lg transition',
+                        itemIndex % 2 === 0
+                          ? 'bg-primary-50 group-hover:bg-primary-100'
+                          : 'bg-botanical-50 group-hover:bg-botanical-100',
+                      ]}
+                    >
+                      <Icon
+                        class:list={[
+                          'h-5 w-5 transition',
+                          itemIndex % 2 === 0 ? 'text-primary-700' : 'text-canopy',
+                        ]}
+                        aria-hidden="true"
+                      />
                     </div>
-                    <p class="mt-4 text-sm font-semibold text-slate-900 transition group-hover:text-primary-700">{title}</p>
+                    <p
+                      class:list={[
+                        'mt-4 text-sm font-semibold text-slate-900 transition',
+                        itemIndex % 2 === 0 ? 'group-hover:text-primary-700' : 'group-hover:text-canopy',
+                      ]}
+                    >
+                      {title}
+                    </p>
                     <p class="mt-1 text-sm leading-6 text-slate-500">{summary}</p>
                   </a>
                 ))}
@@ -142,7 +183,7 @@ const megaMenus = [
       <a
         href="tel:18889974310"
         class="inline-flex items-center gap-2 whitespace-nowrap rounded-md bg-white/15 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-white/25 xl:px-5 xl:py-3 xl:text-base"
-        x-bind:class="scrolled ? 'bg-canopy text-white hover:bg-canopy-light' : 'bg-white/15 text-white hover:bg-white/25'"
+        x-bind:class={overlay ? "'bg-white/15 text-white hover:bg-white/25'" : "scrolled ? 'bg-canopy text-white hover:bg-canopy-light' : 'bg-white/15 text-white hover:bg-white/25'"}
       >
         <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
         1-888-997-4310
@@ -152,7 +193,7 @@ const megaMenus = [
     <button
       type="button"
       class="inline-flex h-11 w-11 shrink-0 items-center justify-center self-center rounded-md bg-white/10 text-white ring-1 ring-white/20 transition lg:hidden"
-      x-bind:class="scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'"
+      x-bind:class={overlay ? "'bg-white/10 text-white ring-1 ring-white/20'" : "scrolled ? 'bg-slate-100 text-slate-800' : 'bg-white/10 text-white ring-1 ring-white/20'"}
       x-on:click="open = !open"
       x-bind:aria-expanded="open.toString()"
       aria-label="Toggle navigation"

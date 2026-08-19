@@ -36,8 +36,8 @@ const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
 <nav
   class:list={['mm-nav', klass]}
   aria-label="Main navigation"
-  x-data="{ active: null }"
-  x-on:mouseleave="active = null"
+  x-data="{ active: null, closeTimer: undefined }"
+  x-on:mouseleave="closeTimer = window.setTimeout(() => active = null, 240)"
   x-on:keydown.escape="active = null"
 >
   {menus.map((menu, i) => (
@@ -45,8 +45,8 @@ const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
       href={menu.href}
       class="mm-trigger"
       aria-haspopup="true"
-      x-on:mouseenter={`active = ${i}`}
-      x-on:focus={`active = ${i}`}
+      x-on:mouseenter={`window.clearTimeout(closeTimer); active = ${i}`}
+      x-on:focus={`window.clearTimeout(closeTimer); active = ${i}`}
       x-bind:aria-expanded={`(active === ${i}).toString()`}
     >
       {menu.label}
@@ -64,6 +64,7 @@ const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
     x-transition:leave-start="mm-enter-end"
     x-transition:leave-end="mm-enter-start"
     x-cloak
+    x-on:mouseenter="window.clearTimeout(closeTimer)"
     x-on:click.outside="active = null"
   >
     {menus.map((menu, i) => (
@@ -133,6 +134,15 @@ const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
     background: var(--mm-panel-bg, #fff);
     border-top: 1px solid var(--mm-border, #e2e8f0);
     box-shadow: 0 24px 48px -24px rgb(15 23 42 / 0.28);
+  }
+
+  .mm-panel::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: var(--mm-hover-bridge, 1.5rem);
   }
 
   /* Alpine transition classes */
