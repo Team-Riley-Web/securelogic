@@ -16,6 +16,9 @@
 //   --mm-border        hairlines                      (default #e2e8f0)
 //   --mm-label-font    uppercase label typeface       (default: inherit)
 //   --mm-trigger-size  nav trigger font-size          (default 15px)
+//   --mm-trigger-weight     nav trigger font-weight    (default 500)
+//   --mm-trigger-transform  nav trigger text-transform (default none)
+//   --mm-trigger-tracking   nav trigger letter-spacing (default normal)
 //
 // NOTE: the panel is positioned `absolute inset-x-0 top-full`, so the nearest
 // positioned ancestor must be the <header> — give it `relative`.
@@ -110,7 +113,9 @@ const { menus, class: klass = '', quoteHref = '/get-a-quote/' } = Astro.props;
     gap: 0.3rem;
     white-space: nowrap;
     font-size: var(--mm-trigger-size, 15px);
-    font-weight: 500;
+    font-weight: var(--mm-trigger-weight, 500);
+    text-transform: var(--mm-trigger-transform, none);
+    letter-spacing: var(--mm-trigger-tracking, normal);
     color: inherit;
     transition: opacity 0.2s ease;
   }

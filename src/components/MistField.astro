@@ -1,0 +1,188 @@
+---
+// Layered drifting fog, lifted out of the /alt-homepage-test/ pre-footer so it
+// can be dropped onto any dark section later. It only reads on a dark
+// background — the particles use mix-blend-mode: screen, so over a light panel
+// they disappear.
+//
+// Usage: give the host section `relative isolate overflow-hidden`, then drop
+//   <MistField />                      // edge-weighted bank, clear centre
+//   <MistField variant="full" />       // even coverage across the width
+//   <MistField variant="continue" />   // fades downward, for the section below
+//   <MistField particles={[...]} />    // custom placement (see mistPresets)
+//
+// Each particle is one inline style string of --mist-* custom properties:
+//   --mist-left / --mist-top   position within the field
+//   --mist-size                width (aspect-ratio fixes the height)
+//   --mist-opacity             base opacity
+//   --mist-duration/-delay     drift timing (negative delay desynchronises)
+//   --mist-blur                softness
+//   --mist-rotation            resting rotation
+interface Props {
+  /** 'bank' banks the fog at the left/right edges, 'full' spreads it evenly,
+   *  'continue' fades downward for carrying fog past a section boundary. */
+  variant?: 'bank' | 'full' | 'continue';
+  /** Override the particle set with any of the mistPresets, or your own. */
+  particles?: string[];
+  class?: string;
+}
+
+/** Edge-weighted bank: heavy at the sides, thin behind centred copy. */
+const mistEdgeBank = [
+  '--mist-left:-20%;--mist-top:30%;--mist-size:40rem;--mist-opacity:.5;--mist-duration:26s;--mist-delay:-8s;--mist-blur:26px;--mist-rotation:-12deg;',
+  '--mist-left:-8%;--mist-top:58%;--mist-size:34rem;--mist-opacity:.56;--mist-duration:21s;--mist-delay:-4s;--mist-blur:22px;--mist-rotation:16deg;',
+  '--mist-left:8%;--mist-top:78%;--mist-size:38rem;--mist-opacity:.44;--mist-duration:30s;--mist-delay:-17s;--mist-blur:28px;--mist-rotation:-6deg;',
+  '--mist-left:64%;--mist-top:26%;--mist-size:38rem;--mist-opacity:.46;--mist-duration:24s;--mist-delay:-11s;--mist-blur:26px;--mist-rotation:22deg;',
+  '--mist-left:78%;--mist-top:56%;--mist-size:36rem;--mist-opacity:.54;--mist-duration:19s;--mist-delay:-13s;--mist-blur:22px;--mist-rotation:-18deg;',
+  '--mist-left:88%;--mist-top:80%;--mist-size:42rem;--mist-opacity:.42;--mist-duration:28s;--mist-delay:-6s;--mist-blur:30px;--mist-rotation:10deg;',
+  '--mist-left:34%;--mist-top:92%;--mist-size:44rem;--mist-opacity:.3;--mist-duration:32s;--mist-delay:-21s;--mist-blur:34px;--mist-rotation:-4deg;',
+];
+
+/** Even coverage, for a section with no centred text to protect. */
+const mistFull = [
+  '--mist-left:-18%;--mist-top:38%;--mist-size:34rem;--mist-opacity:.52;--mist-duration:24s;--mist-delay:-8s;--mist-blur:20px;--mist-rotation:-12deg;',
+  '--mist-left:16%;--mist-top:14%;--mist-size:40rem;--mist-opacity:.42;--mist-duration:28s;--mist-delay:-16s;--mist-blur:24px;--mist-rotation:-24deg;',
+  '--mist-left:35%;--mist-top:42%;--mist-size:36rem;--mist-opacity:.5;--mist-duration:21s;--mist-delay:-11s;--mist-blur:20px;--mist-rotation:8deg;',
+  '--mist-left:56%;--mist-top:16%;--mist-size:42rem;--mist-opacity:.44;--mist-duration:26s;--mist-delay:-6s;--mist-blur:24px;--mist-rotation:28deg;',
+  '--mist-left:72%;--mist-top:54%;--mist-size:32rem;--mist-opacity:.56;--mist-duration:18s;--mist-delay:-13s;--mist-blur:18px;--mist-rotation:-18deg;',
+  '--mist-left:22%;--mist-top:74%;--mist-size:44rem;--mist-opacity:.46;--mist-duration:30s;--mist-delay:-19s;--mist-blur:28px;--mist-rotation:-6deg;',
+];
+
+/** Continuation set: sits above the section top so fog crosses a boundary. */
+const mistContinuation = [
+  '--mist-left:-16%;--mist-top:-16%;--mist-size:38rem;--mist-opacity:.5;--mist-duration:27s;--mist-delay:-9s;--mist-blur:30px;--mist-rotation:-10deg;',
+  '--mist-left:74%;--mist-top:-20%;--mist-size:40rem;--mist-opacity:.46;--mist-duration:23s;--mist-delay:-15s;--mist-blur:32px;--mist-rotation:14deg;',
+  '--mist-left:28%;--mist-top:-26%;--mist-size:46rem;--mist-opacity:.28;--mist-duration:34s;--mist-delay:-3s;--mist-blur:36px;--mist-rotation:6deg;',
+];
+
+const { variant = 'bank', particles, class: klass = '' } = Astro.props;
+
+const defaults = {
+  bank: mistEdgeBank,
+  full: mistFull,
+  continue: mistContinuation,
+};
+
+const cloud = particles ?? defaults[variant];
+---
+
+<div class:list={['mist-field', `mist-field-${variant}`, 'pointer-events-none', klass]} aria-hidden="true">
+  {cloud.map((style, index) => (
+    <span class:list={['mist-particle', index % 2 === 1 && 'is-reverse']} style={style}></span>
+  ))}
+</div>
+
+<style>
+  /* Two masks composited together: a vertical fade that hides the seam with the
+     section above, and (for the banked variants) a horizontal one that thins the
+     fog through the middle so it gathers along the left and right edges. */
+  .mist-field {
+    position: absolute;
+    z-index: 0;
+    inset: -22% -12% -6%;
+    overflow: hidden;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
+  .mist-field-bank {
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 70%, rgb(0 0 0 / 0.34) 93%, rgb(0 0 0 / 0.2) 100%),
+      linear-gradient(to right, #000 0%, #000 14%, rgb(0 0 0 / 0.14) 36%, rgb(0 0 0 / 0.14) 64%, #000 86%, #000 100%);
+    mask-image:
+      linear-gradient(to bottom, transparent 0%, #000 16%, #000 70%, rgb(0 0 0 / 0.34) 93%, rgb(0 0 0 / 0.2) 100%),
+      linear-gradient(to right, #000 0%, #000 14%, rgb(0 0 0 / 0.14) 36%, rgb(0 0 0 / 0.14) 64%, #000 86%, #000 100%);
+  }
+
+  .mist-field-full {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 100%);
+  }
+
+  /* Continuation half: full strength at the top, dissolved by the bottom. */
+  .mist-field-continue {
+    inset: -12% -12% auto;
+    height: 62%;
+    -webkit-mask-image:
+      linear-gradient(to bottom, rgb(0 0 0 / 0.24) 0%, #000 24%, #000 46%, transparent 100%),
+      linear-gradient(to right, #000 0%, #000 14%, rgb(0 0 0 / 0.14) 36%, rgb(0 0 0 / 0.14) 64%, #000 86%, #000 100%);
+    mask-image:
+      linear-gradient(to bottom, rgb(0 0 0 / 0.24) 0%, #000 24%, #000 46%, transparent 100%),
+      linear-gradient(to right, #000 0%, #000 14%, rgb(0 0 0 / 0.14) 36%, rgb(0 0 0 / 0.14) 64%, #000 86%, #000 100%);
+  }
+
+  /* Two slow, wide fog banks under the particles for depth. */
+  .mist-field-bank::before,
+  .mist-field-bank::after,
+  .mist-field-full::before,
+  .mist-field-full::after {
+    content: '';
+    position: absolute;
+    left: -12%;
+    width: 124%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgb(255 255 255 / 0.46) 0%, rgb(231 240 255 / 0.2) 42%, transparent 74%);
+    filter: blur(36px);
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  .mist-field-bank::before,
+  .mist-field-full::before {
+    top: 48%;
+    height: 34%;
+    opacity: 0.3;
+    animation: mist-fog-bank 22s ease-in-out -7s infinite alternate;
+  }
+
+  .mist-field-bank::after,
+  .mist-field-full::after {
+    top: 72%;
+    height: 32%;
+    opacity: 0.26;
+    animation: mist-fog-bank 28s ease-in-out -16s infinite alternate-reverse;
+  }
+
+  .mist-particle {
+    position: absolute;
+    left: var(--mist-left);
+    top: var(--mist-top);
+    width: var(--mist-size);
+    max-width: none;
+    aspect-ratio: 1.7;
+    border-radius: 42% 58% 64% 36% / 54% 38% 62% 46%;
+    background:
+      radial-gradient(ellipse at 24% 62%, rgb(255 255 255 / 0.7) 0%, rgb(233 241 255 / 0.3) 34%, transparent 70%),
+      radial-gradient(ellipse at 53% 34%, rgb(255 255 255 / 0.6) 0%, rgb(224 236 255 / 0.22) 36%, transparent 68%),
+      radial-gradient(ellipse at 79% 64%, rgb(255 255 255 / 0.66) 0%, rgb(235 243 255 / 0.26) 35%, transparent 72%);
+    filter: blur(var(--mist-blur));
+    mix-blend-mode: screen;
+    opacity: var(--mist-opacity);
+    transform: translate3d(-7%, 5%, 0) rotate(var(--mist-rotation)) scale(0.92);
+    transform-origin: center;
+    animation: mist-drift var(--mist-duration) ease-in-out var(--mist-delay) infinite alternate;
+    will-change: transform;
+  }
+
+  .mist-particle.is-reverse { animation-direction: alternate-reverse; }
+
+  @keyframes mist-drift {
+    from { transform: translate3d(-7%, 5%, 0) rotate(var(--mist-rotation)) scale(0.92); }
+    to { transform: translate3d(9%, -7%, 0) rotate(calc(var(--mist-rotation) + 14deg)) scale(1.08); }
+  }
+
+  @keyframes mist-fog-bank {
+    from { transform: translate3d(-5%, 0, 0) scaleX(0.94); }
+    to { transform: translate3d(6%, -8%, 0) scaleX(1.08); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mist-field::before,
+    .mist-field::after,
+    .mist-particle { animation: none; }
+
+    .mist-particle {
+      transform: rotate(var(--mist-rotation));
+      will-change: auto;
+    }
+  }
+</style>

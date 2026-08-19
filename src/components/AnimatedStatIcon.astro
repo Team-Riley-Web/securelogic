@@ -1,0 +1,195 @@
+---
+// Animated line icons for the "Engineered for Facilities" trust band.
+//
+// One shared visual language across all four: 24-unit viewBox, thin stroke,
+// round caps. Each carries a single slow loop so the row reads as one system
+// rather than four unrelated animations. Motion is disabled under
+// prefers-reduced-motion, leaving the static line art.
+//
+// Two colours: the structural shapes take `color` from the host, and every
+// moving part takes the green accent. Override either from the parent:
+//   style="color: var(--bl-blue); --ai-accent: #52a94d;"
+interface Props {
+  kind: 'droplet' | 'coverage' | 'cycle' | 'shield';
+  class?: string;
+}
+
+const { kind, class: klass = 'h-7 w-7' } = Astro.props;
+---
+
+<svg
+  class:list={['ai', `ai-${kind}`, klass]}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="0.95"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {kind === 'droplet' && (
+    <>
+      <circle class="ai-mote" cx="12" cy="3.4" r="1" fill="currentColor" stroke="none" />
+      <path class="ai-shell" d="M12 20.6c3.2 0 5.8-2.5 5.8-5.5C17.8 10.7 12 4.4 12 4.4S6.2 10.7 6.2 15.1c0 3 2.6 5.5 5.8 5.5Z" />
+      <circle class="ai-core" cx="12" cy="15.2" r="2.1" />
+    </>
+  )}
+
+  {kind === 'coverage' && (
+    <>
+      <circle class="ai-ring" cx="12" cy="12" r="8.6" stroke-dasharray="26 10" />
+      <circle class="ai-ring ai-ring-inner" cx="12" cy="12" r="5.6" stroke-dasharray="14 9" />
+      <g class="ai-orbit"><circle cx="12" cy="3.4" r="1.35" fill="currentColor" stroke="none" /></g>
+      <circle class="ai-hub" cx="12" cy="12" r="2.1" />
+    </>
+  )}
+
+  {kind === 'cycle' && (
+    <>
+      <path class="ai-dial" d="M20.2 12a8.2 8.2 0 1 1-2.9-6.26" />
+      <path class="ai-dial-tip" d="M17.6 2.6v3.4h-3.4" />
+      <g class="ai-hand"><path d="M12 12V6.9" /></g>
+      <g class="ai-hand ai-hand-minor"><path d="M12 12h3.4" /></g>
+      <circle class="ai-hub" cx="12" cy="12" r="1.15" fill="currentColor" stroke="none" />
+    </>
+  )}
+
+  {kind === 'shield' && (
+    <>
+      <path class="ai-shell" d="M12 3.1 5.2 6v5.4c0 4.1 2.8 7.4 6.8 8.7 4-1.3 6.8-4.6 6.8-8.7V6L12 3.1Z" />
+      <path class="ai-check" d="m8.9 12 2.3 2.4 4-4.7" stroke-dasharray="11" stroke-dashoffset="11" />
+    </>
+  )}
+</svg>
+
+<style>
+  .ai {
+    overflow: visible;
+    --ai-accent-resolved: var(--ai-accent, #52a94d);
+  }
+
+  /* Green picks out the part that moves in each icon: the falling mote, the
+     orbiting dot and inner ring, the sweep hand and its arrow tip, the check. */
+  .ai-mote,
+  .ai-orbit circle {
+    fill: var(--ai-accent-resolved);
+  }
+
+  .ai-droplet .ai-core,
+  .ai-coverage .ai-ring-inner,
+  .ai-cycle .ai-hand:not(.ai-hand-minor) path,
+  .ai-cycle .ai-dial-tip,
+  .ai-check {
+    stroke: var(--ai-accent-resolved);
+  }
+
+  /* Rotations reference the 24-unit viewBox so origins stay at the icon centre
+     regardless of each shape's own bounding box. */
+  .ai-orbit,
+  .ai-hand,
+  .ai-ring {
+    transform-box: view-box;
+    transform-origin: 12px 12px;
+  }
+
+  /* Droplet — a mote falls in, the shell breathes, the core pulses. */
+  .ai-mote {
+    animation: ai-mote-fall 3.2s ease-in infinite;
+  }
+
+  .ai-droplet .ai-shell {
+    transform-box: view-box;
+    transform-origin: 12px 14px;
+    animation: ai-breathe 3.2s ease-in-out infinite;
+  }
+
+  .ai-droplet .ai-core {
+    transform-box: view-box;
+    transform-origin: 12px 15.2px;
+    animation: ai-core-pulse 3.2s ease-in-out infinite;
+  }
+
+  /* 360° coverage — counter-rotating dashed rings around a steady hub. */
+  .ai-coverage .ai-ring {
+    animation: ai-spin 14s linear infinite;
+  }
+
+  .ai-coverage .ai-ring-inner {
+    animation: ai-spin 9s linear infinite reverse;
+  }
+
+  .ai-orbit {
+    animation: ai-spin 6s linear infinite;
+  }
+
+  /* Automated — the sweep hand steps around a dial that never stops. */
+  .ai-cycle .ai-hand {
+    animation: ai-spin 4.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .ai-cycle .ai-hand-minor {
+    animation: ai-spin 13.5s linear infinite;
+  }
+
+  .ai-cycle .ai-dial-tip {
+    animation: ai-tip-flash 4.5s ease-in-out infinite;
+  }
+
+  /* Shield — the check draws itself in, holds, then resets. */
+  .ai-check {
+    animation: ai-draw 3.6s ease-in-out infinite;
+  }
+
+  .ai-shield .ai-shell {
+    transform-box: view-box;
+    transform-origin: 12px 12px;
+    animation: ai-breathe 3.6s ease-in-out infinite;
+  }
+
+  @keyframes ai-mote-fall {
+    0% { opacity: 0; transform: translateY(-2.4px); }
+    18% { opacity: 1; }
+    46% { opacity: 1; transform: translateY(8.4px); }
+    58%, 100% { opacity: 0; transform: translateY(8.4px); }
+  }
+
+  @keyframes ai-breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.045); }
+  }
+
+  @keyframes ai-core-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.88); }
+    52% { opacity: 1; transform: scale(1.06); }
+  }
+
+  @keyframes ai-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes ai-tip-flash {
+    0%, 72%, 100% { opacity: 0.4; }
+    12%, 46% { opacity: 1; }
+  }
+
+  @keyframes ai-draw {
+    0% { stroke-dashoffset: 11; }
+    28%, 78% { stroke-dashoffset: 0; }
+    96%, 100% { stroke-dashoffset: 11; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai * {
+      animation: none !important;
+    }
+
+    .ai-check {
+      stroke-dashoffset: 0;
+    }
+
+    .ai-mote {
+      opacity: 1;
+    }
+  }
+</style>

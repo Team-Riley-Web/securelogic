@@ -81,6 +81,41 @@ unchecked task unless you are starting it.
 - [x] Reduce the `/alt-homepage-test/` H₂O orbital background’s moving dots from six to three—one per ring—while retaining balanced staggered motion and the reduced-motion fallback
 - [x] Condense `/alt-homepage-test/` “The Genesis 360 Platform” to a smaller three-product showcase featuring the large InRoomMist gym installation plus Compact Mist and PortableMist, and clearly explain that additional mist-device configurations are available
 - [x] Increase the `/alt-homepage-test/` BotaniMax bottle’s vertical scroll travel slightly beyond its current range while preserving the lower starting position, section-boundary clipping, and reduced-motion fallback
+- [x] Update the `/alt-homepage-test/` footer decoration to use `logo-icon-no-words.png`, remove the separate top-left outline circle, and reposition the icon on the left so its leaf and nearly the entire mark remain visible while preserving the bottom-right circle
+- [x] Match the `/alt-homepage-test/` footer credit exactly to the index footer: “Crafted by” followed by the linked and styled Team Riley name at `https://teamrileyweb.com`
+- [x] Replace the static `/alt-homepage-test/` “Start Protecting Your Facility” cloud blobs with a polished layered mist effect inspired by https://codepen.io/byron-root/pen/XWWavqw, using lightweight local CSS motion and a reduced-motion fallback
+- [x] Make the `/alt-homepage-test/` transition from “From The Field” into “Start Protecting Your Facility” seamless with a linear gradient that begins at the preceding section’s white and resolves into the pre-footer blue
+- [x] Move the ghosted `logo-icon-no-words.png` footer decoration farther left so it touches the viewport edge while keeping the leaf visible, and reduce its opacity slightly
+- [x] Redesign `/alt-homepage-test/` “Why Facilities Switch To Genesis 360” as a full-width 50/50 split with an edge-to-edge object-cover image on the left, padded content on the right, and a smooth dedicated image parallax treatment
+- [x] Remove scroll-driven image scaling from `/alt-homepage-test/` “The Genesis 360 Platform” product cards and replace it with a smooth, GPU-friendly hover zoom that does not lag during page scrolling
+- [x] Simplify the `/alt-homepage-test/` Genesis 360 “More mist-device configurations” callout by removing its heading and opaque panel treatment, tightening the white body copy’s line height, and aligning its horizontal padding with the In Room Mist card text
+- [x] Add natural word spacing to the `/alt-homepage-test/` Genesis 360 product names, including “In Room Mist” and “Portable Mist”
+- [x] Make the `/alt-homepage-test/` pre-footer fog clearly visible by increasing mist contrast, depth, and motion against a darker brand-blue background while preserving the seamless transition from “From The Field”
+- [x] Add a small, low-opacity `logo-icon-no-words.png` graphic behind the `/alt-homepage-test/` pre-footer heading, echoing the footer decoration without compromising copy legibility
+- [x] Correct the ghosted `logo-icon-no-words.png` placement on `/alt-homepage-test/`: remove it from the pre-footer and position it subtly behind the centered Secure Logic logo in the main header
+- [x] Add a soft white backdrop behind the centered Secure Logic logo in the `/alt-homepage-test/` header so the ghosted icon never impairs legibility, fading gradually to transparent at its edges
+- [x] Make the `/alt-homepage-test/` header stick to the top on scroll: collapse the rotating announcement bar and the Genesis 360 / BotaniMax / Shop All secondary nav away, keep the logo row pinned, and expand everything back at the top of the page
+- [x] Flip the pinned `/alt-homepage-test/` header to dark blue while scrolled, inverting the Secure Logic logo to white and keeping the navigation and Get A Quote CTA readable
+- [x] Replace the `/alt-homepage-test/` “Engineered for Facilities” stat icons with a visually consistent set of cleanly animated icons, respecting reduced-motion preferences
+- [x] Rework the `/alt-homepage-test/` “Start Protecting Your Facility” fog so it reads lighter behind the copy, concentrates toward the left and right edges, and merges continuously into the footer instead of competing with it
+- [x] Refine the index header's scrolled state: shrink the phone-number button slightly, and on the left logo remove the white glow, size it up a little (it currently shrinks too much), and nudge it to sit more truly vertically centered
+- [x] Fix the `/alt-homepage-test/` scroll bug where the ghosted header graphic inverts mid-transition and touches the header edges: drop or fade the ghost out of the scrolled state so the flip stays clean
+- [x] Make the `/alt-homepage-test/` header nav links bold and uppercase to match the Get A Quote weight, uppercase the secondary nav too, and shorten “About Us” to “About”
+- [x] Keep the `/alt-homepage-test/` Genesis 360 / BotaniMax / Shop All bar available on desktop by revealing it when scrolling back up and sliding it away when scrolling down
+- [x] Enlarge the `/alt-homepage-test/` animated facility icons to the size of their current circular backgrounds and remove the white circles
+- [x] Carry one continuous linear gradient from the `/alt-homepage-test/` pre-footer into the footer so the blue flows with no visible seam
+- [x] Fix the `/alt-homepage-test/` header flicker that starts on the first pixel of scroll: remove the ghosted header graphic and stop the sticky header from changing the document height mid-scroll
+- [x] Enlarge the `/alt-homepage-test/` animated facility icons further, to roughly 96px, with a lighter stroke to match
+- [x] Save the pre-footer fog as a reusable `MistField` component for use on a darker section later
+- [x] Restyle the `/alt-homepage-test/` “Start Protecting Your Facility” pre-footer in the standard light blue with dark text and a blue CTA, dropping the fog from it
+- [x] Replace the `/alt-homepage-test/` footer's bottom-right outline circle with the same-size ghosted `logo-icon-no-words.png` mark
+- [x] Keep “Sub-10 μm” from rendering as “SUB-10 MM” in the uppercase `/alt-homepage-test/` announcement bar
+- [x] Give the `/alt-homepage-test/` animated facility icons green accents on their moving parts, driven by an overridable `--ai-accent` token
+- [x] Remove the ghosted footer logo on the left of `/alt-homepage-test/`, keeping only the right-hand mark
+- [x] Make the `/alt-homepage-test/` “Start Protecting Your Facility” background a solid light blue with no linear gradients
+- [x] Try the `/alt-homepage-test/` “Why Facilities Switch To Genesis 360” section on the dark blue background with green accent checkmarks
+- [x] Return the index header to the semi-opaque dark-green band at the top of the page, keeping the white logo, and shrink the logo to 2rem on scroll
+- [x] On the index header only, drop the top-of-page logo to 2.25rem and cap the nav row width near 1400px
 
 
 ### bloghero

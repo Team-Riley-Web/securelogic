@@ -3,15 +3,16 @@
 // Blueland.com's visual language (bold rounded-pill CTAs, saturated royal-blue
 // palette, light-blue trust bands, deep-blue testimonial + footer blocks,
 // centered hero over full-bleed photography).
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Droplets, Info, Mail, Orbit, Phone, Quote, ShieldCheck, Star, TimerReset } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Info, Mail, Phone, Quote, Star } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedStatIcon from '../components/AnimatedStatIcon.astro';
 import CertMark from '../components/CertMark.astro';
 import MegaMenu from '../components/MegaMenu.astro';
 import { posts } from '../data/blog-posts';
 import { megaMenus } from '../data/mega-menus';
 import logo from '../assets/images/logo.png';
-import logoFull from '../assets/images/logo-full.png';
+import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
 import farmVideo from '../assets/videos/farm.mp4';
 import cannabisVideo from '../assets/videos/cannabis.mp4';
 import gymVideo from '../assets/videos/gym.mp4';
@@ -38,17 +39,17 @@ const categories = [
   { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.' },
 ];
 
-const trustStats = [
-  { label: 'Sub-10 μm', copy: 'Dry-mist droplet size that behaves like a vapor', icon: Droplets },
-  { label: '360°', copy: 'Air and surface coverage, every cycle', icon: Orbit },
-  { label: 'Automated', copy: 'Programmable, repeatable disinfection cycles', icon: TimerReset },
-  { label: 'EPA 2(c)', copy: 'Registered botanical disinfectant formula', icon: ShieldCheck },
+const trustStats: { label: string; copy: string; icon: 'droplet' | 'coverage' | 'cycle' | 'shield' }[] = [
+  { label: 'Sub-10 μm', copy: 'Dry-mist droplet size that behaves like a vapor', icon: 'droplet' },
+  { label: '360°', copy: 'Air and surface coverage, every cycle', icon: 'coverage' },
+  { label: 'Automated', copy: 'Programmable, repeatable disinfection cycles', icon: 'cycle' },
+  { label: 'EPA 2(c)', copy: 'Registered botanical disinfectant formula', icon: 'shield' },
 ];
 
 const systems = [
-  { name: 'InRoomMist', eyebrow: 'Whole-Room Coverage', copy: 'A discreet fixed system for automated, repeatable air and surface treatment.', image: genesisWallMountedGym, imageAlt: 'Genesis 360 InRoomMist system mounted on the wall of a fitness facility' },
+  { name: 'In Room Mist', eyebrow: 'Whole-Room Coverage', copy: 'A discreet fixed system for automated, repeatable air and surface treatment.', image: genesisWallMountedGym, imageAlt: 'Genesis 360 In Room Mist system mounted on the wall of a fitness facility' },
   { name: 'Compact Mist', eyebrow: 'Flexible Deployment', copy: 'Core Genesis 360 performance in a smaller, adaptable footprint.', image: compact },
-  { name: 'PortableMist', eyebrow: 'Targeted Response', copy: 'A portable option for fast, focused deployment across the facility.', image: portableMist },
+  { name: 'Portable Mist', eyebrow: 'Targeted Response', copy: 'A portable option for fast, focused deployment across the facility.', image: portableMist },
 ];
 
 const certMarks: { kind: 'epa' | 'evp' | 'usa' | 'patent' | 'botanical'; caption: string }[] = [
@@ -72,11 +73,14 @@ const switchReasons = [
   'One platform across HVAC, in-room, medical, and ag use',
 ];
 
+
 const recentPosts = posts.slice(0, 3);
 
 // Nav splits around the centred logo, so the menus split too.
 const leftMenus = megaMenus.filter((m) => ['Human', 'HVAC', 'Ag'].includes(m.label));
-const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.label));
+const rightMenus = megaMenus
+  .filter((m) => ['Resources', 'About Us'].includes(m.label))
+  .map((m) => (m.label === 'About Us' ? { ...m, label: 'About' } : m));
 ---
 
 <BaseLayout
@@ -143,6 +147,85 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
 
     .bl-pill-outline:hover {
       background: var(--bl-sky);
+    }
+
+    /* Secondary nav matches the CTA's weight and case; the mega-menu triggers get
+       the same treatment through its --mm-trigger-* tokens. */
+    .site-header-sub a {
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    /* Sticky header. The whole stack pins; the announcement bar and secondary
+       nav collapse on scroll so only the logo row stays, then expand again at
+       the top of the page. */
+    /* Nothing in here may change the document height while scrolling: an earlier
+       version collapsed the bars in-flow, the page got shorter, and Chrome's
+       scroll anchoring pushed the scroll position back across the threshold —
+       which re-opened the bars, and flickered forever. The row is now a fixed
+       height and the secondary nav is out of flow. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      overflow-anchor: none;
+    }
+
+    .site-header-main {
+      position: relative;
+      z-index: 2;
+      background: #fff;
+      transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease, box-shadow 0.32s ease;
+    }
+
+    .site-header-row {
+      min-height: 5rem;
+    }
+
+    /* Hangs below the pinned row and slides up behind it, so it peeks back out
+       on an upward scroll without touching layout. */
+    .site-header-sub {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      z-index: 1;
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease;
+    }
+
+    .site-header-sub.is-tucked {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Scrolled state: the pinned row flips to brand dark blue with the wordmark
+       inverted to white; the CTA flips to white-on-blue to stay readable. */
+    .site-header.is-scrolled .site-header-main {
+      background: var(--bl-ink);
+      color: #fff;
+      border-bottom-color: rgb(255 255 255 / 0.08);
+      box-shadow: 0 16px 36px -24px rgb(8 21 86 / 0.7);
+    }
+
+    .site-header.is-scrolled .header-logo-mark {
+      filter: brightness(0) invert(1);
+    }
+
+    .site-header.is-scrolled .site-header-main .bl-pill {
+      background: #fff;
+      color: var(--bl-ink);
+    }
+
+    .site-header.is-scrolled .site-header-main .bl-pill:hover {
+      background: var(--bl-sky);
+      color: var(--bl-blue-dark);
+    }
+
+    .header-logo-mark {
+      transition: filter 0.32s ease;
     }
 
     .announcement-slide {
@@ -505,6 +588,9 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
 
     @media (prefers-reduced-motion: reduce) {
       .announcement-slide { transition: none; }
+      .site-header-main,
+      .site-header-sub,
+      .header-logo-mark { transition: none; }
       .h2o-aura,
       .h2o-ring-runner,
       .h2o-orbit-core,
@@ -513,6 +599,7 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
 
       .h2o-molecule { transform: rotateX(3deg) rotateY(-4deg); }
       [data-botanimax-parallax] { transform: translate3d(0, 130px, 0) scale(1.12) !important; }
+      [data-why-switch-parallax] { transform: scale(1.02) !important; will-change: auto; }
     }
   </style>
 
@@ -520,6 +607,46 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
     class="bl bg-white"
     x-data="{
       reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      scrollFrame: null,
+      scrolled: false,
+      navPeek: true,
+      lastScrollY: 0,
+      headerFrame: null,
+      updateHeaderState() {
+        const y = Math.max(0, window.scrollY);
+
+        // Separate enter/exit thresholds. Collapsing the bars shortens the page,
+        // so a single boundary let the header flip back and forth on the
+        // smallest scroll — the gap between 72 and 16 absorbs that.
+        if (!this.scrolled && y > 72) this.scrolled = true;
+        else if (this.scrolled && y < 16) this.scrolled = false;
+
+        // Secondary nav stays reachable: it peeks back out on a deliberate
+        // upward scroll and slides away again on the way down. lastScrollY only
+        // moves when the threshold is crossed, so jitter accumulates to nothing.
+        if (y <= 16) {
+          this.navPeek = true;
+          this.lastScrollY = y;
+          return;
+        }
+
+        const delta = y - this.lastScrollY;
+        if (delta > 14) {
+          this.navPeek = false;
+          this.lastScrollY = y;
+        } else if (delta < -14) {
+          this.navPeek = true;
+          this.lastScrollY = y;
+        }
+      },
+      scheduleHeaderState() {
+        if (this.headerFrame !== null) return;
+
+        this.headerFrame = requestAnimationFrame(() => {
+          this.headerFrame = null;
+          this.updateHeaderState();
+        });
+      },
       updateScrollScaleImages() {
         if (this.reducedMotion) return;
 
@@ -552,19 +679,51 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
           const translateY = 240 - progress * 160;
           image.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.12)`;
         });
+      },
+      updateWhySwitchParallax() {
+        if (this.reducedMotion) return;
+
+        const viewportHeight = window.innerHeight;
+
+        document.querySelectorAll('[data-why-switch-parallax]').forEach((image) => {
+          const frame = image.parentElement;
+          if (!frame) return;
+
+          const rect = frame.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+          const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+          const translateY = (progress - 0.5) * 8;
+          image.style.transform = `translate3d(0, ${translateY}%, 0) scale(1.02)`;
+        });
+      },
+      scheduleScrollEffects() {
+        if (this.scrollFrame !== null) return;
+
+        this.scrollFrame = requestAnimationFrame(() => {
+          this.updateScrollScaleImages();
+          this.updateBotaniMaxParallax();
+          this.updateWhySwitchParallax();
+          this.scrollFrame = null;
+        });
       }
     }"
     x-init="
       document.documentElement.classList.add('reveal-enabled');
+      updateHeaderState();
+      window.addEventListener('scroll', () => scheduleHeaderState(), { passive: true });
       updateScrollScaleImages();
       updateBotaniMaxParallax();
+      updateWhySwitchParallax();
       if (!reducedMotion) {
-        window.addEventListener('scroll', () => requestAnimationFrame(() => { updateScrollScaleImages(); updateBotaniMaxParallax(); }), { passive: true });
-        window.addEventListener('resize', () => requestAnimationFrame(() => { updateScrollScaleImages(); updateBotaniMaxParallax(); }), { passive: true });
+        window.addEventListener('scroll', () => scheduleScrollEffects(), { passive: true });
+        window.addEventListener('resize', () => scheduleScrollEffects(), { passive: true });
       }
     "
   >
-    <!-- Announcement bar -->
+    <!-- Announcement bar. Deliberately outside the sticky stack: it scrolls away
+         on its own and returns at the top of the page, so the header never
+         changes the document height mid-scroll. -->
     <div class="flex min-h-10 items-center justify-center gap-3 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.08em] text-white sm:gap-6" style="background: var(--bl-blue);">
       <button type="button" class="rounded-full p-1 opacity-60 transition hover:bg-white/10 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/70" data-announcement-prev aria-label="Previous announcement">
         <ChevronLeft class="h-4 w-4" aria-hidden="true" />
@@ -574,7 +733,7 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
           Automated, Whole-Room Disinfection &nbsp;|&nbsp; <a href="/get-a-quote/" class="underline decoration-white/50 underline-offset-2">Get A Quote →</a>
         </p>
         <p class="announcement-slide" data-announcement-slide aria-hidden="true">
-          Sub-10 μm Dry-Mist Precision &nbsp;|&nbsp; <a href="/about-us/technology/" class="underline decoration-white/50 underline-offset-2">See How It Works →</a>
+          Sub-10 <span class="normal-case">μm</span> Dry-Mist Precision &nbsp;|&nbsp; <a href="/about-us/technology/" class="underline decoration-white/50 underline-offset-2">See How It Works →</a>
         </p>
         <p class="announcement-slide" data-announcement-slide aria-hidden="true">
           Botanical Chemistry, Built for Precision &nbsp;|&nbsp; <a href="/botanimax/" class="underline decoration-white/50 underline-offset-2">Explore BotaniMax →</a>
@@ -585,15 +744,18 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
       </button>
     </div>
 
+    <!-- Sticky stack: the logo row pins at a constant height; the secondary nav
+         hangs off it absolutely and slides in and out behind it. -->
+    <div class="site-header" x-bind:class="scrolled && 'is-scrolled'">
     <!-- Header — `relative` anchors the mega-menu panel (it uses top-full). -->
     <header
-      class="relative z-50 border-b border-slate-100 bg-white"
-      style="--mm-accent: var(--bl-blue); --mm-ink: var(--bl-ink); --mm-tile-bg: var(--bl-sky); --mm-tile-hover-bg: #d3e0ff; --mm-foot-bg: #f7faff; --mm-row-hover-bg: #f7faff; --mm-border: #e5ecfa; --mm-trigger-size: 14px;"
+      class="site-header-main relative z-50 border-b border-slate-100"
+      style="--mm-accent: var(--bl-blue); --mm-ink: var(--bl-ink); --mm-tile-bg: var(--bl-sky); --mm-tile-hover-bg: #d3e0ff; --mm-foot-bg: #f7faff; --mm-row-hover-bg: #f7faff; --mm-border: #e5ecfa; --mm-trigger-size: 0.78rem; --mm-trigger-weight: 700; --mm-trigger-transform: uppercase; --mm-trigger-tracking: 0.07em;"
     >
-      <div class="mx-auto grid min-h-20 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
+      <div class="site-header-row mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
         <MegaMenu menus={leftMenus} class="col-start-1 justify-self-start font-semibold" />
-        <a href="/" class="col-start-2 flex items-center justify-self-center" aria-label="Secure Logic home">
-          <Image src={logo} alt="Secure Logic logo" class="h-10 w-auto object-contain" widths={[120, 180]} sizes="120px" />
+        <a href="/" class="col-start-2 flex items-center justify-center justify-self-center" aria-label="Secure Logic home">
+          <Image src={logo} alt="Secure Logic logo" class="header-logo-mark h-10 w-auto object-contain" widths={[120, 180]} sizes="120px" />
         </a>
         <div class="col-start-3 flex items-center justify-self-end gap-4">
           <MegaMenu menus={rightMenus} class="font-semibold" />
@@ -601,10 +763,13 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
         </div>
       </div>
     </header>
-    <div class="relative z-40 hidden justify-center gap-8 border-t border-slate-100 py-3 text-sm font-semibold lg:flex" style="background: var(--bl-sky); color: var(--bl-ink);">
-      <a href="/genesis360mistingsystems/" class="hover:opacity-70">Genesis 360</a>
-      <a href="/botanimax/" class="hover:opacity-70">BotaniMax</a>
-      <a href="#shop" class="hover:opacity-70">Shop All</a>
+    <div class="site-header-sub" x-bind:class="!navPeek && 'is-tucked'" x-bind:inert="!navPeek">
+      <div class="hidden justify-center gap-8 border-t border-slate-100 py-3 lg:flex" style="background: var(--bl-sky); color: var(--bl-ink);">
+        <a href="/genesis360mistingsystems/" class="hover:opacity-70">Genesis 360</a>
+        <a href="/botanimax/" class="hover:opacity-70">BotaniMax</a>
+        <a href="#shop" class="hover:opacity-70">Shop All</a>
+      </div>
+    </div>
     </div>
 
     <!-- Hero — matched to the live homepage (index.astro). -->
@@ -729,10 +894,10 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
       <div class="reveal mx-auto max-w-5xl text-center" x-intersect.once="$el.classList.add('is-visible')">
         <h2 class="text-3xl sm:text-4xl">Engineered for Facilities That Can't Afford Inconsistency.</h2>
         <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {trustStats.map(({ label, copy, icon: Icon }) => (
+          {trustStats.map(({ label, copy, icon }) => (
             <div>
-              <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white" style="color: var(--bl-blue);">
-                <Icon class="h-7 w-7" aria-hidden="true" />
+              <div class="mx-auto flex h-24 w-24 items-center justify-center" style="color: var(--bl-blue); --ai-accent: #52a94d;">
+                <AnimatedStatIcon kind={icon} class="h-24 w-24" />
               </div>
               <p class="mt-4 text-xl font-extrabold" style="color: var(--bl-blue);">{label}</p>
               <p class="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
@@ -783,11 +948,11 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
                   src={image}
                   alt={imageAlt ?? `Genesis 360 ${name} system`}
                   class:list={[
-                    'h-full w-full object-center transition-transform duration-200',
-                    index === 0 ? 'object-cover' : 'object-contain drop-shadow-[0_24px_22px_rgba(0,0,0,0.34)]',
+                    'h-full w-full transform-gpu object-center transition-transform duration-700 ease-out [backface-visibility:hidden]',
+                    index === 0
+                      ? 'scale-[1.02] object-cover group-hover:scale-[1.07]'
+                      : 'scale-100 object-contain drop-shadow-[0_24px_22px_rgba(0,0,0,0.34)] group-hover:scale-[1.08]',
                   ]}
-                  style="transform: scale(1.04);"
-                  data-scroll-scale-image
                   widths={[320, 520, 760, 980]}
                   sizes={index === 0 ? '(min-width: 1024px) 48vw, 100vw' : '(min-width: 1024px) 32vw, 100vw'}
                 />
@@ -809,11 +974,8 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
             </a>
           ))}
         </div>
-        <div class="reveal mt-6 flex flex-col gap-4 rounded-2xl bg-white/[0.06] px-6 py-5 ring-1 ring-white/10 sm:flex-row sm:items-center sm:justify-between" x-intersect.once="$el.classList.add('is-visible')">
-          <div>
-            <p class="text-sm font-bold text-white">More mist-device configurations are available.</p>
-            <p class="mt-1 max-w-3xl text-sm leading-6 text-white/60">The broader Genesis 360 lineup includes HVAC-integrated, mobile, agricultural, and facility-specific systems built around the same precision platform.</p>
-          </div>
+        <div class="reveal mt-6 flex flex-col gap-4 bg-transparent px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8" x-intersect.once="$el.classList.add('is-visible')">
+          <p class="max-w-3xl text-sm leading-5 text-white">The broader Genesis 360 lineup includes HVAC-integrated, mobile, agricultural, and facility-specific systems built around the same precision platform.</p>
           <a href="/genesis360mistingsystems/" class="inline-flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-[#a6d960] transition hover:text-white">
             Explore The Full Lineup <ArrowRight class="h-4 w-4" aria-hidden="true" />
           </a>
@@ -950,27 +1112,28 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
       </div>
     </section>
 
-    <!-- Why switch checklist -->
-    <section class="px-6 py-24" style="background: var(--bl-sky);">
-      <div class="reveal mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
-        <div>
-          <div class="overflow-hidden rounded-2xl bg-white shadow-[0_24px_60px_-30px_rgb(16_32_74/.45),0_2px_8px_rgb(16_32_74/.12)]">
-            <Image src={fitnessAthletics} alt="Genesis 360 systems and BotaniMax products arranged inside an athletic training facility" class="aspect-[4/3] w-full object-cover transition-transform duration-200" style="transform: scale(1.04);" data-scroll-scale-image widths={[640, 960, 1280]} sizes="(min-width: 1024px) 46vw, 100vw" />
-          </div>
+    <!-- Why switch checklist. Dark-blue panel, so the checks use the lime accent
+         this page already uses for green on dark sections. -->
+    <section class="overflow-hidden" style="background: var(--bl-ink);">
+      <div class="reveal grid lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="relative min-h-[25rem] overflow-hidden lg:min-h-[42rem]">
+          <Image src={fitnessAthletics} alt="Genesis 360 systems and BotaniMax products arranged inside an athletic training facility" class="absolute -top-[8%] left-0 h-[116%] w-full object-cover object-center will-change-transform [backface-visibility:hidden]" style="transform: translate3d(0, -4%, 0) scale(1.02);" data-why-switch-parallax widths={[640, 960, 1280, 1600]} sizes="(min-width: 1024px) 50vw, 100vw" />
         </div>
-        <div>
-          <h2 class="text-3xl sm:text-4xl">Why Facilities Switch To Genesis 360.</h2>
-          <ul class="mt-6 grid gap-4">
-            {switchReasons.map((reason) => (
-              <li class="flex items-start gap-3 text-base leading-7 text-slate-700">
-                <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white" style="background: var(--bl-blue);">
-                  <svg viewBox="0 0 20 20" fill="none" class="h-3 w-3" stroke="currentColor" stroke-width="2.5"><path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </span>
-                {reason}
-              </li>
-            ))}
-          </ul>
-          <a href="/genesis360mistingsystems/" class="bl-pill mt-8">Learn About The Platform</a>
+        <div class="flex items-center px-6 py-20 sm:px-10 lg:px-16 xl:px-24">
+          <div class="max-w-xl">
+            <h2 class="text-3xl text-white sm:text-4xl">Why Facilities Switch To Genesis 360.</h2>
+            <ul class="mt-6 grid gap-4">
+              {switchReasons.map((reason) => (
+                <li class="flex items-start gap-3 text-base leading-7 text-white/80">
+                  <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full" style="background: rgb(166 217 96 / 0.16); color: #a6d960;">
+                    <svg viewBox="0 0 20 20" fill="none" class="h-3 w-3" stroke="currentColor" stroke-width="2.5"><path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                  {reason}
+                </li>
+              ))}
+            </ul>
+            <a href="/genesis360mistingsystems/" class="bl-pill mt-8" style="background: #fff; color: var(--bl-ink);">Learn About The Platform</a>
+          </div>
         </div>
       </div>
     </section>
@@ -1003,28 +1166,20 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
       </div>
     </section>
 
-    <!-- Final CTA (mist clouds) -->
-    <section class="relative overflow-hidden px-6 py-24 text-center" style="background: var(--bl-sky);">
-      <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div class="absolute -bottom-16 left-[8%] h-40 w-40 rounded-full bg-white/70 blur-2xl"></div>
-        <div class="absolute -bottom-10 left-[28%] h-28 w-28 rounded-full bg-white/60 blur-2xl"></div>
-        <div class="absolute -bottom-20 right-[15%] h-48 w-48 rounded-full bg-white/70 blur-2xl"></div>
-        <div class="absolute -bottom-8 right-[35%] h-24 w-24 rounded-full bg-white/60 blur-2xl"></div>
-      </div>
-      <div class="reveal relative mx-auto max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+    <!-- Final CTA -->
+    <section class="relative isolate overflow-hidden px-6 py-24 text-center" style="background: var(--bl-sky);">
+      <div class="reveal relative z-10 mx-auto max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
         <p class="text-xs font-bold uppercase tracking-[0.16em]" style="color: var(--bl-blue);">Your Facility. Your Coverage Plan.</p>
-        <h2 class="mt-4 text-3xl sm:text-4xl" style="color: var(--bl-blue-dark);">Start Protecting Your Facility.</h2>
+        <h2 class="mt-4 text-3xl sm:text-4xl" style="color: var(--bl-ink);">Start Protecting Your Facility.</h2>
         <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-600">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
-        <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
+        <a href="/get-a-quote/" class="bl-pill mt-8 shadow-[0_18px_36px_-18px_rgb(29_63_214/.45),0_2px_6px_rgb(16_32_74/.12)]">Get A Quote</a>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="relative overflow-hidden px-6 py-16 text-white" style="background: radial-gradient(circle at 12% -10%, rgb(117 167 255 / 0.58) 0%, transparent 34%), radial-gradient(circle at 88% 115%, rgb(7 12 72 / 0.92) 0%, transparent 46%), linear-gradient(125deg, #2b58ef 0%, #1d3fd6 36%, #1734b0 62%, #0b1057 100%);">
-      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <Image src={logoFull} alt="" class="absolute -left-28 -top-24 w-[26rem] max-w-none brightness-0 invert opacity-[0.065] blur-[0.2px] sm:-left-20 sm:w-[30rem]" widths={[420, 600]} sizes="480px" />
-        <div class="absolute -left-40 -top-52 h-[32rem] w-[32rem] rounded-full border-[2rem] border-white/[0.06]"></div>
-        <div class="absolute -bottom-64 right-[8%] h-[38rem] w-[38rem] rounded-full border-[4rem] border-white/[0.04]"></div>
+    <footer class="relative isolate overflow-hidden px-6 py-16 text-white" style="background: linear-gradient(180deg, #1734a9 0%, #16309a 16%, #142a86 44%, #0e1c66 74%, #0b1057 100%);">
+      <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <Image src={logoIconNoWords} alt="" class="absolute -bottom-64 right-[8%] w-[38rem] max-w-none brightness-0 invert opacity-[0.05] blur-[0.2px]" widths={[480, 640]} sizes="608px" />
       </div>
       <div class="relative mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div>
@@ -1062,7 +1217,10 @@ const rightMenus = megaMenus.filter((m) => ['Resources', 'About Us'].includes(m.
       </div>
       <div class="relative mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-white/20 pt-6 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between">
         <p>Copyright 2026 © Secure Logic</p>
-        <p class="sm:text-right">Crafted with care by Team Riley</p>
+        <p class="sm:text-right">
+          Crafted by
+          <a href="https://teamrileyweb.com" class="font-semibold text-slate-200 underline decoration-botanical-300/70 underline-offset-4 transition hover:text-white">Team Riley</a>
+        </p>
       </div>
     </footer>
   </div>
