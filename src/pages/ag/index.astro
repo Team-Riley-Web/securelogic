@@ -24,7 +24,6 @@ import { agMarkets } from '../../data/ag-markets';
 import hogBarn from '../../assets/images/blog-pig-farming.png';
 import poultryBarn from '../../assets/images/blog-poultry-biosecurity.png';
 import greenhouse from '../../assets/images/blog-greenhouse.png';
-import logoMark from '../../assets/images/logo-icon-no-words.png';
 import heroVideo from '../../assets/videos/farm.mp4';
 import heroPoster from '../../assets/images/hero-farm-poster.jpg';
 
@@ -111,9 +110,17 @@ const agPosts = posts.filter(
       justify-content: flex-end;
       overflow: hidden;
       isolation: isolate;
-      /* Mobile: reserve the top of the card for the photograph, then let the
-         panel below grow to fit its copy — picture first, then the card. */
-      padding-top: 13rem;
+    }
+
+    /* Mobile gives the photograph its own larger 4:3 frame. `contain` keeps
+       edge subjects visible instead of using the full card height as a crop. */
+    .sector-media {
+      position: relative;
+      display: block;
+      aspect-ratio: 4 / 3;
+      flex: none;
+      overflow: hidden;
+      background: #0c193c;
     }
 
     .sector-image {
@@ -121,8 +128,7 @@ const agPosts = posts.filter(
       inset: 0;
       height: 100%;
       width: 100%;
-      object-fit: cover;
-      z-index: -2;
+      object-fit: contain;
       transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -182,7 +188,17 @@ const agPosts = posts.filter(
     @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
       .sector-card {
         min-height: 30rem;
-        padding-top: 0;
+      }
+
+      .sector-media {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        aspect-ratio: auto;
+      }
+
+      .sector-image {
+        object-fit: cover;
       }
 
       .sector-content {
@@ -331,13 +347,15 @@ const agPosts = posts.filter(
         <div class="grid gap-px bg-white/10 lg:grid-cols-3">
           {sectors.map(({ title, tagline, href, linkLabel, image, imageAlt, stat }) => (
             <a href={href} class="sector-card group">
-              <Image
-                src={image}
-                alt={imageAlt}
-                class="sector-image"
-                widths={[480, 720, 1080]}
-                sizes="(min-width: 640px) 33vw, 100vw"
-              />
+              <span class="sector-media">
+                <Image
+                  src={image}
+                  alt={imageAlt}
+                  class="sector-image"
+                  widths={[480, 720, 1080]}
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                />
+              </span>
               <span class="sector-scrim" aria-hidden="true"></span>
 
               <span class="sector-content">
@@ -370,9 +388,6 @@ const agPosts = posts.filter(
            per-sector resources pages exist. -->
       <section class="relative overflow-hidden py-20 sm:py-24 bg-brand-100">
         <div class="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" style="background: radial-gradient(circle at 88% 6%, rgb(29 63 214 / 0.1), transparent 46%), radial-gradient(circle at 4% 96%, rgb(82 194 76 / 0.09), transparent 44%);"></div>
-        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <Image src={logoMark} alt="" class="absolute -top-40 w-[60rem] max-w-none opacity-[0.06]" style="right: calc(var(--spacing) * -60);" widths={[560, 840, 960]} sizes="960px" />
-        </div>
 
         <div class="container-page relative">
           <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">

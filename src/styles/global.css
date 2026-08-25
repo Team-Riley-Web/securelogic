@@ -291,19 +291,21 @@
 
   .typed-hero-word {
     position: absolute;
-    inset: 0 auto 0 0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     white-space: nowrap;
   }
 
   .typed-hero-word::after {
     content: "";
-    display: inline-block;
+    position: absolute;
+    top: 0.16em;
+    left: calc(100% + 0.08em);
     width: 0.055em;
     height: 0.72em;
-    margin-left: 0.08em;
     background: currentColor;
     animation: typed-caret 0.9s steps(1) infinite;
-    transform: translateY(0.08em);
   }
 
   .image-card {
