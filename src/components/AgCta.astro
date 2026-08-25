@@ -1,0 +1,35 @@
+---
+// Closing CTA for the agriculture pages. Was duplicated verbatim across /ag/
+// and /ag/hogs-livestock/, which is how the two drifted into different rhythm
+// and how the phone card ended up dialling on one page and not the other.
+// Three more sector pages are coming, so it lives here now.
+//
+// NOTE: the deck asked for two iconographic actions here ("call or email your
+// sales representative" / "place an order now"). Reduced to a single Get A
+// Quote at the client's request while /get-a-quote/ is unfinished — the CTA
+// points at /contact-us/ for now.
+import { ArrowRight } from '@lucide/astro';
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  copy: string;
+}
+
+const { eyebrow, heading, copy } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-brand-100 py-20 text-center sm:py-24">
+  <div
+    class="reveal relative z-10 mx-auto max-w-3xl px-5 sm:px-6 lg:px-8"
+    x-intersect.once="$el.classList.add('is-visible')"
+  >
+    <p class="bl-eyebrow">{eyebrow}</p>
+    <h2 class="bl-h2 mt-4">{heading}</h2>
+    <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">{copy}</p>
+
+    <a href="/contact-us/" class="bl-pill mt-10 shadow-lift-brand">
+      Get A Quote <ArrowRight class="h-4 w-4" aria-hidden="true" />
+    </a>
+  </div>
+</section>

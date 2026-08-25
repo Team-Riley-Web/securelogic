@@ -9,7 +9,12 @@ import { agMarkets } from '../../data/ag-markets';
 import { posts } from '../../data/blog-posts';
 
 export function getStaticPaths() {
-  return agMarkets.map((market) => ({ params: { slug: market.slug }, props: { market } }));
+  // hogs-livestock has its own bespoke page at ag/hogs-livestock.astro, built
+  // from the client copy deck. It stays in ag-markets.ts for the nav and the
+  // cross-links, but this shared template must not also emit that route.
+  return agMarkets
+    .filter((market) => market.slug !== 'hogs-livestock')
+    .map((market) => ({ params: { slug: market.slug }, props: { market } }));
 }
 
 const { market } = Astro.props;

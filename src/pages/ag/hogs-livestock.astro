@@ -1,0 +1,677 @@
+---
+// Hogs & Livestock — built from the client copy deck
+// (securelogic-files/webcopy/SL_hog-web-copy_08-13-26.docx). The deck's four
+// modules map 1:1 to the sections below, and its two design notes are honoured:
+// Module 2 uses the requested card-flip (facility on the front, Genesis360 on
+// the back) and Module 4's actions are iconographic buttons.
+//
+// This static route deliberately shadows /ag/[slug].astro for this one market,
+// so the other two ag markets keep the shared template. ag-markets.ts still
+// lists it, which is what feeds the mega-menu and the cross-links.
+import { ArrowLeft, ArrowRight, BrickWall, Check, Cloud, Columns3, Fence, Footprints, Phone, ShoppingCart, Truck, Warehouse, Wrench, X } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import AgCta from '../../components/AgCta.astro';
+import AgPostsRow from '../../components/AgPostsRow.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { agMarkets } from '../../data/ag-markets';
+import { posts } from '../../data/blog-posts';
+import swineVideo from '../../assets/videos/swine.mp4';
+import swinePoster from '../../assets/images/hero-swine-poster.jpg';
+import transparentBarn from '../../assets/images/transparent-barn.png';
+import pigBarn from '../../assets/images/baby-pigs-2.jpg';
+import handheldUnit from '../../assets/images/mobile-mist.png';
+import miniUnit from '../../assets/images/genesis-compact.png';
+import customUnit from '../../assets/images/agri-guard.png';
+
+const market = agMarkets.find((m) => m.slug === 'hogs-livestock')!;
+// This market's own post leads, then the ag press release, then whatever other
+// ag posts are needed to fill the row.
+const PRESS_RELEASE = 'secure-logic-newfields-ag-botanical-disinfection-partnership';
+const agSlugs = new Set(agMarkets.flatMap((m) => m.postSlugs));
+const relatedRank = (slug: string) =>
+  market.postSlugs.includes(slug) ? 0 : slug === PRESS_RELEASE ? 1 : 2;
+const relatedPosts = posts
+  .filter((p) => market.postSlugs.includes(p.slug) || p.slug === PRESS_RELEASE || agSlugs.has(p.slug))
+  .sort((a, b) => relatedRank(a.slug) - relatedRank(b.slug))
+  .slice(0, 3);
+
+// Module 2 — three device sizes. Front of each card is the facility it serves,
+// back is the Genesis360 unit that covers it.
+const deployments = [
+  {
+    facility: 'Transport & Equipment',
+    facilityCopy: 'Trailers, load-out chutes, boot rooms, and the shared equipment that moves between sites.',
+    icon: Truck,
+    device: 'Handheld',
+    deviceCopy: 'Grab-and-go fogging for targeted spots and anything arriving on the farm.',
+    image: handheldUnit,
+    imageAlt: 'Genesis360 handheld fogging unit',
+  },
+  {
+    facility: 'Farrowing & Nursery',
+    facilityCopy: 'Smaller rooms where the youngest, most vulnerable pigs are housed at high density.',
+    icon: Warehouse,
+    device: 'Mini',
+    deviceCopy: 'A fixed, programmable unit sized for single rooms and running cycles on its own schedule.',
+    image: miniUnit,
+    imageAlt: 'Genesis360 Mini automated misting unit',
+  },
+  {
+    facility: 'Grow-Finish Barns',
+    facilityCopy: 'Full-length barns and multi-room sites where coverage has to reach every pen.',
+    icon: Warehouse,
+    device: 'Custom',
+    deviceCopy: 'Engineered distribution built to the barn, tied into your existing layout and airflow.',
+    image: customUnit,
+    imageAlt: 'Genesis360 custom AgGriGuard distribution unit',
+  },
+];
+
+// Module 3 — the status quo, verbatim from the deck.
+const todayReality = [
+  'Vaccinating pigs after they’ve become sick',
+  'Powerwashing barns only when they’re vacant',
+  'Requiring major labor, time and cost without 24/7 pathogen protection',
+];
+
+// Coverage callouts, laid out like the source infographic: a ringed icon and
+// label in the margin, a leader line onto the feature, and the description held
+// back until hover.
+//
+// `anchor` is the point on the barn; `callout` is where the ringed icon sits.
+// Both are percentages of the stage, so they track the artwork as it scales.
+const coveragePoints = [
+  { key: 'air', label: 'Air Space', icon: Cloud, side: 'left',
+    copy: 'Billions of droplets suspend in the air column to reduce airborne pathogens.',
+    callout: { x: 1.5, y: 15 }, anchor: { x: 50, y: 23 } },
+  { key: 'wall', label: 'Wall Surface', icon: BrickWall, side: 'left',
+    copy: 'Droplets contact and coat wall surfaces for extended protection.',
+    callout: { x: 1.5, y: 43 }, anchor: { x: 33, y: 46 } },
+  { key: 'gate', label: 'Gate', icon: Fence, side: 'left',
+    copy: 'Effective coverage on gates helps reduce contact pathogens.',
+    callout: { x: 1.5, y: 71 }, anchor: { x: 39, y: 66 } },
+  { key: 'equipment', label: 'Equipment', icon: Wrench, side: 'right',
+    copy: 'Droplets coat feeders, waterers, and fixtures to reduce microbes.',
+    callout: { x: 98.5, y: 15 }, anchor: { x: 57, y: 35 } },
+  { key: 'divider', label: 'Pen Divider', icon: Columns3, side: 'right',
+    copy: 'Complete coverage on pen dividers helps reduce cross-contamination.',
+    callout: { x: 98.5, y: 43 }, anchor: { x: 60, y: 54 } },
+  { key: 'floor', label: 'Floor', icon: Footprints, side: 'right',
+    copy: 'Droplets settle on flooring surfaces to reduce pathogens underfoot.',
+    callout: { x: 98.5, y: 71 }, anchor: { x: 64, y: 70 } },
+];
+
+const withGenesis = [
+  'Automatically treat entire barns and facilities to minimize pathogen load on every surface',
+  'Proactively deliver pathogen protection to every animal',
+  // NOT from the copy deck — written to mirror Today's third line so the two
+  // columns balance. Worth a copy review.
+  'Run programmable cycles in occupied rooms, without waiting for a barn to go vacant',
+];
+---
+
+<BaseLayout
+  title="Secure Logic | Agriculture | Hogs & Livestock"
+  description="PRRS and other pathogens cost the U.S. hog industry billions every year. Genesis360 and BotaniMax bring proactive, automated pathogen control to farrowing, nursery, and grow-finish barns."
+>
+  <style>
+    /* Task: the product cards grow on hover. Scaling the card would blur its
+       text, so the frame lifts and the render inside it scales. */
+    .product-card {
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .product-card img {
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .product-card:hover img {
+      transform: scale(1.1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .product-card,
+      .product-card img,
+      .product-card:hover,
+      .product-card:hover img {
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* Both comparison panels share one background, so the Genesis360 side is
+       lifted by a lime edge and glow instead of a different fill. */
+    .genesis-panel {
+      position: relative;
+      box-shadow: 0 0 0 1px rgb(166 217 96 / 0.4), 0 14px 34px -26px rgb(82 194 76 / 0.5);
+    }
+
+    .genesis-panel::before {
+      content: '';
+      position: absolute;
+      left: 2rem;
+      right: 2rem;
+      top: -1px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--bl-lime), transparent);
+    }
+
+    /* Coverage map -------------------------------------------------------- */
+    .barn-stage {
+      position: relative;
+      margin-inline: auto;
+      width: 100%;
+      max-width: 74rem;
+      aspect-ratio: 1.98;
+    }
+
+    /* The artwork sits in the middle so the callouts have margin to live in,
+       the way they do in the source infographic. */
+    .barn-art {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 54%;
+      height: auto;
+      transform: translate(-50%, -50%);
+      filter: drop-shadow(0 26px 46px rgb(16 32 74 / 0.14));
+    }
+
+    /* Pulsing marker on the feature the callout points at. Hovering it drives
+       the same state as hovering the icon in the margin. */
+    .barn-anchor {
+      position: absolute;
+      display: grid;
+      height: 1.6rem;
+      width: 1.6rem;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+      z-index: 3;
+    }
+
+    .barn-dot {
+      position: relative;
+      display: block;
+      height: 0.8rem;
+      width: 0.8rem;
+      border-radius: 999px;
+      background: var(--bl-green);
+      box-shadow: 0 0 0 0.28rem rgb(82 169 77 / 0.22), 0 1px 4px rgb(16 32 74 / 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .barn-dot::after {
+      content: '';
+      position: absolute;
+      inset: -0.28rem;
+      border-radius: 999px;
+      border: 1.5px solid rgb(82 169 77 / 0.6);
+      animation: barn-ping 2.8s ease-out infinite;
+    }
+
+    .barn-anchor:nth-of-type(2) .barn-dot::after { animation-delay: 0.45s; }
+    .barn-anchor:nth-of-type(3) .barn-dot::after { animation-delay: 0.9s; }
+    .barn-anchor:nth-of-type(4) .barn-dot::after { animation-delay: 1.35s; }
+    .barn-anchor:nth-of-type(5) .barn-dot::after { animation-delay: 1.8s; }
+    .barn-anchor:nth-of-type(6) .barn-dot::after { animation-delay: 2.25s; }
+
+    .barn-anchor:hover .barn-dot,
+    .barn-anchor.is-active .barn-dot {
+      transform: scale(1.3);
+      background: var(--bl-blue);
+      box-shadow: 0 0 0 0.5rem rgb(29 63 214 / 0.26), 0 2px 8px rgb(16 32 74 / 0.4);
+    }
+
+    @keyframes barn-ping {
+      0% { transform: scale(1); opacity: 0.8; }
+      70% { transform: scale(2.4); opacity: 0; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    .barn-callout {
+      position: absolute;
+      display: flex;
+      width: 13.5rem;
+      align-items: flex-start;
+      gap: 0.8rem;
+      outline: none;
+    }
+
+    /* Right-hand callouts mirror: ring on the outer edge, text facing in. */
+    .barn-callout-right {
+      transform: translateX(-100%);
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    .barn-ring {
+      display: flex;
+      height: 3.4rem;
+      width: 3.4rem;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1.5px solid rgb(29 63 214 / 0.5);
+      background: #fff;
+      color: var(--bl-blue);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .barn-callout:hover .barn-ring,
+    .barn-callout:focus-visible .barn-ring,
+    .barn-callout.is-active .barn-ring {
+      border-color: var(--bl-blue);
+      color: var(--bl-blue);
+      box-shadow: 0 0 0 0.35rem rgb(29 63 214 / 0.24);
+      transform: scale(1.06);
+    }
+
+    .barn-text {
+      flex: 1;
+    }
+
+    /* Only the label carries the rule, so its height — and therefore where the
+       leader line has to meet it — never changes when the detail expands. */
+    .barn-label {
+      display: block;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgb(29 63 214 / 0.38);
+      transition: border-color 0.25s ease;
+    }
+
+    .barn-callout:hover .barn-label,
+    .barn-callout:focus-visible .barn-label,
+    .barn-callout.is-active .barn-label {
+      border-color: var(--bl-blue);
+    }
+
+    .barn-name {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bl-ink);
+    }
+
+    .barn-sub {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--bl-blue);
+    }
+
+    /* Detail is the hover payoff. */
+    .barn-detail {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--bl-body);
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease, margin-top 0.4s ease,
+        padding-top 0.4s ease;
+    }
+
+    .barn-callout:hover .barn-detail,
+    .barn-callout:focus-visible .barn-detail,
+    .barn-callout.is-active .barn-detail {
+      max-height: 12rem;
+      margin-top: 0.5rem;
+      opacity: 1;
+    }
+
+    /* Below 1280px there is not enough margin for the callouts (15.5rem a side
+       plus the barn), so the artwork runs full width and the points become a
+       list beneath it. */
+    @media (max-width: 1279px) {
+      .barn-stage {
+        aspect-ratio: auto;
+      }
+
+      .barn-art {
+        position: static;
+        width: 100%;
+        transform: none;
+      }
+
+      .barn-anchor {
+        display: none;
+      }
+
+      .barn-callout {
+        position: static;
+        width: 100%;
+        transform: none;
+        margin: 0;
+        border-top: 1px solid var(--bl-hairline);
+        padding: 1rem 0;
+      }
+
+      .barn-ring {
+        height: 2.75rem;
+        width: 2.75rem;
+      }
+
+      .barn-detail {
+        max-height: none;
+        margin-top: 0.4rem;
+        opacity: 1;
+        overflow: visible;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .barn-ring,
+      .barn-detail {
+        transition: opacity 0.2s ease;
+      }
+
+      .barn-dot::after {
+        animation: none;
+      }
+    }
+
+    .stat-rule {
+      background: linear-gradient(90deg, var(--bl-blue) 0%, rgb(29 63 214 / 0) 100%);
+      height: 3px;
+      border-radius: 999px;
+    }
+  </style>
+
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <!-- MODULE 1 — hero. Shaped like the homepage hero: centred, one line of
+           support, one CTA. The deck's longer argument sits in the band below,
+           on a solid ground, rather than fighting the footage for legibility. -->
+      <section class="relative isolate overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime);">
+        <video
+          class="absolute inset-0 h-full w-full object-cover"
+          src={swineVideo}
+          poster={swinePoster.src}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          aria-hidden="true"
+        ></video>
+        <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
+
+        <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
+          <div class="mx-auto max-w-3xl">
+            <p class="bl-eyebrow">Hogs &amp; Livestock</p>
+            <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+              Complete Coverage.<br /><span class="text-lime-400">Healthier Pigs.</span>
+            </h1>
+            <p class="mx-auto mt-6 max-w-xl text-lg font-medium leading-8 text-white/75">
+              Proactive pathogen control at every point in every pig's life cycle.
+            </p>
+            <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- The deck's Module 1 argument. Half image, half dark panel — the copy
+           needed a header that lands the "pathogens are everywhere" idea, and
+           the paragraphs needed to stop floating on a bare band. -->
+      <section class="relative isolate overflow-hidden bg-brand-100">
+        <div class="grid lg:grid-cols-2">
+          <div class="relative min-h-[22rem] lg:min-h-full">
+            <Image
+              src={pigBarn}
+              alt="Piglets nursing alongside the sow in a farrowing pen"
+              class="absolute inset-0 h-full w-full object-cover"
+              widths={[640, 960, 1280]}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
+            <span class="absolute inset-0" aria-hidden="true" style="background: linear-gradient(105deg, rgb(16 32 74 / 0.42) 0%, rgb(16 32 74 / 0.28) 58%, rgb(16 32 74 / 0.06) 100%);"></span>
+
+            <!-- The stat rides on the photograph rather than sitting in a card
+                 of its own, so the section reads as one idea. -->
+            <div class="absolute bottom-0 left-0 p-8 text-white sm:p-10">
+              <p class="text-6xl font-extrabold leading-none sm:text-7xl">38%</p>
+              <div class="stat-rule mt-4 w-32"></div>
+              <p class="mt-4 max-w-[15rem] text-base font-semibold text-white/75">
+                of pigs born on U.S. farms never reach market.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
+            <p class="bl-eyebrow">The Reality In Every Barn</p>
+            <h2 class="bl-h2 mt-4">Pathogens Don’t Respect Walls.</h2>
+            <div class="mt-7 space-y-6 text-base leading-8 text-brand-body sm:text-lg">
+              <p>
+                PRRS and other pathogens cost the U.S. hog industry billions of dollars every year and cause massive
+                supply chain and market disruptions. It’s a call for proactive pathogen control and healthier spaces at
+                every point in every pig’s life cycle.
+              </p>
+              <p>
+                That’s where Secure Logic comes in: its Genesis360 automated distribution platform and EPA-registered
+                BotaniMax botanical solution combine to create healthier environments for every animal, helping ensure
+                more animals make it to market. This new standard for herd health means better ROI for every barn and
+                more money in producers’ pockets.
+              </p>
+            </div>
+            <div class="mt-9">
+              <a href="#deployments" class="bl-pill-outline border-[1.5px] border-brand-600">See The Systems <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 2 — three device sizes, one per facility type. -->
+      <section id="deployments" class="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div class="particle-field particle-field-light" aria-hidden="true">
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+        </div>
+        <div class="container-page relative">
+          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+            <h2 class="bl-h2">One Platform. Three Ways To Deploy It.</h2>
+            <p class="mt-5 text-base leading-7 text-brand-body">
+              Every point in the pig’s life cycle has a different footprint. Genesis360 scales to each one — from a unit
+              you carry to a system engineered into the barn.
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-6 md:grid-cols-3">
+            {deployments.map(({ facility, facilityCopy, icon: Icon, device, deviceCopy, image, imageAlt }) => (
+              <div class="product-card flex flex-col overflow-hidden rounded-2xl border border-brand-200/55 bg-white shadow-lift">
+                <div class="flex h-52 items-center justify-center bg-white p-6">
+                  <Image src={image} alt={imageAlt} class="max-h-40 w-auto object-contain mix-blend-multiply" widths={[150, 300]} sizes="180px" />
+                </div>
+                <div class="flex flex-1 flex-col p-7">
+                  <p class="bl-eyebrow">Genesis360</p>
+                  <h3 class="mt-1 text-2xl">{device}</h3>
+                  <p class="mt-3 text-sm leading-6 text-brand-body">{deviceCopy}</p>
+                  <div class="mt-6 flex items-start gap-3 border-t border-brand-200/55 pt-5">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-100">
+                      <Icon class="h-4 w-4 text-brand-600" aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span class="block text-sm font-bold text-brand-900">{facility}</span>
+                      <span class="mt-1 block text-sm leading-6 text-brand-muted">{facilityCopy}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MODULE 3 — the cost of the status quo, and what changes.
+           Runs on the dark ground so the two figures carry, and the comparison
+           inverts: "Today" stays muted on the dark, "With Genesis360" is the lit
+           white panel, so the shift reads visually and not just in the copy. -->
+      <section class="relative overflow-hidden py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(160deg, var(--bl-ink) 0%, var(--bl-ink-mid) 58%, var(--bl-ink-deep) 100%);">
+        <div class="pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" style="background: radial-gradient(circle at 84% 8%, rgb(82 194 76 / 0.14), transparent 44%), radial-gradient(circle at 6% 92%, rgb(62 103 232 / 0.4), transparent 46%);"></div>
+
+        <div class="container-page relative">
+          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">The Cost Of Waiting</p>
+            <h2 class="bl-h2 mt-4">When Margins Tighten, Small Losses Decide The Year.</h2>
+            <p class="mt-6 text-base leading-8 text-white/75 sm:text-lg">
+              Even small losses or performance lags can mean the difference between a profit and a loss.
+            </p>
+          </div>
+
+          <!-- The two figures, unboxed, separated by a hairline. -->
+          <div class="reveal mx-auto mt-14 grid max-w-2xl gap-10 border-y border-white/15 py-10 sm:grid-cols-2 sm:gap-0" x-intersect.once="$el.classList.add('is-visible')">
+            <div class="sm:pr-8">
+              <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">$4.67</p>
+              <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">Per head, PRRS alone</p>
+              <p class="mt-3 max-w-sm text-sm leading-6 text-white/55">
+                Charged against every hog marketed in the country — whether or not the disease has hit your barns.
+              </p>
+            </div>
+            <div class="sm:border-l sm:border-white/15 sm:pl-8">
+              <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">$1.2B</p>
+              <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">Industry cost per year</p>
+              <p class="mt-3 max-w-sm text-sm leading-6 text-white/55">
+                What PRRS alone takes out of U.S. pork production annually, before any other pathogen is counted.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-12 grid gap-6 lg:grid-cols-2">
+            <!-- Today: recedes into the dark. -->
+            <div class="rounded-2xl border border-white/15 bg-white/[0.07] p-8">
+              <p class="text-sm font-bold uppercase tracking-[0.12em] text-white">Today</p>
+              <p class="mt-2 text-lg text-white">Keeping pigs healthy and facilities clean means:</p>
+              <ul class="mt-7 space-y-5">
+                {todayReality.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500/20">
+                      <X class="h-3 w-3 text-red-400" aria-hidden="true" />
+                    </span>
+                    <span class="text-sm leading-7 text-white">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- With Genesis360: the lit panel. -->
+            <div class="genesis-panel rounded-2xl border border-white/15 bg-white/[0.07] p-8">
+              <p class="text-sm font-bold uppercase tracking-[0.12em] text-lime-400">With Genesis360</p>
+              <p class="mt-2 text-lg text-white">You have the ability to:</p>
+              <ul class="mt-7 space-y-5">
+                {withGenesis.map((item) => (
+                  <li class="flex gap-3">
+                    <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime-400/20">
+                      <Check class="h-3 w-3 text-lime-400" aria-hidden="true" />
+                    </span>
+                    <span class="text-sm leading-7 text-white">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Coverage map, following the source infographic: ringed icons in the
+           margins, leader lines onto the feature, detail on hover. -->
+      <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-brand-100 py-20 sm:py-24">
+        <div class="container-page">
+          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Coverage Map</p>
+            <h2 class="bl-h2 mt-4">A Protective Cloud, Everywhere The Pathogens Are.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">
+              Billions of microscopic droplets suspend in the air column and settle across floors, walls, gates, pen
+              dividers, and equipment — reducing airborne and surface pathogens throughout the barn.
+            </p>
+          </div>
+
+          <div class="barn-stage mt-6" x-data="{ active: null }">
+            <Image
+              src={transparentBarn}
+              alt="Cutaway render of a hog barn filled with a fine mist of disinfectant droplets"
+              class="barn-art"
+              widths={[720, 1080, 1440]}
+              sizes="(min-width: 1280px) 40rem, 100vw"
+            />
+
+
+            {coveragePoints.map(({ key, label, anchor }) => (
+              <button
+                type="button"
+                class="barn-anchor"
+                style={`left: ${anchor.x}%; top: ${anchor.y}%;`}
+                tabindex="-1"
+                aria-hidden="true"
+                x-on:mouseenter={`active = '${key}'`}
+                x-on:mouseleave="active = null"
+                x-on:click={`active = active === '${key}' ? null : '${key}'`}
+                x-bind:class={`active === '${key}' && 'is-active'`}
+              >
+                <span class="barn-dot" aria-hidden="true"></span>
+              </button>
+            ))}
+
+            {coveragePoints.map(({ key, label, copy, icon: Icon, callout, side }) => (
+              <button
+                type="button"
+                class:list={['barn-callout', `barn-callout-${side}`]}
+                style={`left: ${callout.x}%; top: ${callout.y}%;`}
+                aria-label={`${label} coverage`}
+                x-bind:aria-expanded={`(active === '${key}').toString()`}
+                x-on:mouseenter={`active = '${key}'`}
+                x-on:mouseleave="active = null"
+                x-on:focus={`active = '${key}'`}
+                x-on:blur="active = null"
+                x-on:click={`active = active === '${key}' ? null : '${key}'`}
+                x-bind:class={`active === '${key}' && 'is-active'`}
+              >
+                <span class="barn-ring">
+                  <Icon class="h-6 w-6" aria-hidden="true" />
+                </span>
+                <span class="barn-text">
+                  <span class="barn-label">
+                    <span class="barn-name">{label}</span>
+                    <span class="barn-sub">Coverage</span>
+                  </span>
+                  <span class="barn-detail">{copy}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <AgPostsRow posts={relatedPosts} />
+
+      <AgCta
+        eyebrow="Your Barns. Your Coverage Plan."
+        heading="Start With The Barns You Run Hardest."
+        copy="Tell us how the site runs — farrowing, nursery, grow-finish, or all three — and our team will map the right handheld, fixed, or custom deployment and build a coverage plan around it."
+      />
+
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

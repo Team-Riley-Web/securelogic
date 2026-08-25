@@ -1,6 +1,32 @@
 @import "tailwindcss";
 @config "../../tailwind.config.cjs";
 
+/* Brand tokens. On :root, not on .bl — site-wide chrome like the header renders
+   outside the page wrapper and still needs them. */
+:root {
+  --bl-blue: #1d3fd6;
+  --bl-blue-dark: #142e9e;
+  --bl-ink: #10204a;
+  --bl-sky: #e3edff;
+  /* Body neutral derived from the ink so the greys stay in the blue family
+     instead of drifting warm against the sky bands. */
+  --bl-body: #3d4d72;
+  /* Muted body. --bl-body was picked to be exactly strong enough at full
+     strength, so every percentage taken off it lands under AA — use this
+     instead of an opacity. Clears AA on white, brand-50 and brand-100. */
+  --bl-muted: #5a6a8d;
+  /* One hairline value; the page had three within 8 points of each other. */
+  --bl-hairline: #dde6fb;
+  /* Dark-ramp stops. Tailwind's legacy JS config doesn't emit --color-brand-*
+     custom properties, so the gradients need their own tokens. --bl-ink-deep is
+     brand-800: ending every dark ramp here keeps text-white/55 above AA. */
+  --bl-ink-mid: #122369;
+  --bl-ink-deep: #0f2470;
+  /* Accent greens, named so inline custom-property hooks don't carry raw hex. */
+  --bl-lime: #a6d960;
+  --bl-green: #52a94d;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -25,6 +51,98 @@
 }
 
 @layer components {
+
+  /* Brand-blue design language. The tokens live on :root (see the top of this
+     file) so site-wide chrome can use them; `.bl` is the opt-in typographic
+     layer a page wraps itself in. */
+  .bl {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    color: var(--bl-ink);
+  }
+
+  .bl h1,
+  .bl h2,
+  .bl h3 {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* Section furniture. Hand-rolling these is how the eyebrows drifted into
+     three sizes; the colour hooks off a variable so a dark band can retint the
+     whole section at once instead of per element. */
+  .bl-eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.16em];
+    color: var(--bl-eyebrow-color, var(--bl-blue));
+  }
+
+  .bl-h2 {
+    @apply text-3xl sm:text-4xl;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .bl-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: var(--bl-blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.9rem;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .bl-pill:hover {
+    background: var(--bl-blue-dark);
+    transform: translateY(-1px);
+  }
+
+  /* White-on-dark variant. This used to be an inline `background: #fff`, which
+     outranked the hover rule and left the button dead on hover. */
+  .bl-pill-invert {
+    background: #fff;
+    color: var(--bl-blue);
+  }
+
+  .bl-pill-invert:hover {
+    background: var(--bl-sky);
+    color: var(--bl-blue-dark);
+  }
+
+  .bl-pill-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--bl-blue);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.8rem 1.7rem;
+    box-shadow: 0 1px 2px rgb(16 32 74 / 0.08);
+    transition: background 0.2s ease;
+  }
+
+  .bl-pill-outline:hover {
+    background: var(--bl-sky);
+  }
+
+  /* The pills were the only controls without a focus ring of their own. */
+  .bl-pill:focus-visible,
+  .bl-pill-outline:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--bl-blue);
+  }
+
   .container-page {
     @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
   }

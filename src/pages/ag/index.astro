@@ -1,0 +1,427 @@
+---
+// Agriculture hub — built from the client copy deck
+// (securelogic-files/webcopy/SL_main-ag-page-copy_08-19-26.docx).
+//
+// Design notes from the deck, and where each landed:
+//  - "Use the 'blue box' design element from sweetwatertechnologies.com. Place
+//    hog, poultry and greenhouse copy blocks here as 'back of the card'."
+//    → the full-bleed sector row: photo under a deep navy wash with a large
+//      white title, flipping to the economic copy block for that sector.
+//  - "Also define what they'll see at the 'solutions' pages."
+//    → the guides / ROI data / resources line under each Explore link.
+//  - "Use iconography or some visuals to illustrate these two (buttons, etc.)."
+//    → the two icon buttons in the closing CTA.
+import { ArrowRight, ClipboardList, FileText, TrendingUp } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AgCta from '../../components/AgCta.astro';
+import AnimatedStatIcon from '../../components/AnimatedStatIcon.astro';
+import AgPostsRow from '../../components/AgPostsRow.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { posts } from '../../data/blog-posts';
+import { agMarkets } from '../../data/ag-markets';
+import hogBarn from '../../assets/images/blog-pig-farming.png';
+import poultryBarn from '../../assets/images/blog-poultry-biosecurity.png';
+import greenhouse from '../../assets/images/blog-greenhouse.png';
+import logoMark from '../../assets/images/logo-icon-no-words.png';
+import heroVideo from '../../assets/videos/farm.mp4';
+import heroPoster from '../../assets/images/hero-farm-poster.jpg';
+
+// The three sector cards. Front is the sector, back is that sector's economic
+// case — verbatim from the deck.
+const sectors = [
+  {
+    title: 'Hogs',
+    tagline: 'Protecting herds from farrowing to market.',
+    href: '/ag/hogs-livestock/',
+    linkLabel: 'Explore hog solutions',
+    image: hogBarn,
+    imageAlt: 'Indoor hog barn with pigs in pens',
+    stat: 'PRRS alone costs hog producers an estimated $1.2 billion a year, with growers averaging an outbreak every four years. Thirty-eight percent of pigs born in the U.S. never reach market.',
+  },
+  {
+    title: 'Poultry',
+    tagline: 'Keeping flocks in production and outbreaks out of every barn.',
+    href: '/ag/poultry/',
+    linkLabel: 'Explore poultry solutions',
+    image: poultryBarn,
+    imageAlt: 'Poultry house interior where biosecurity protocols protect the flock',
+    stat: 'Since 2022, highly pathogenic avian influenza (HPAI) has cost the U.S. poultry industry more than $1.4 billion and claimed more than 200 million birds. And the outbreaks keep coming back.',
+  },
+  {
+    title: 'Indoor Crops',
+    tagline: 'Protecting every plant, every room and every cycle, from clone to harvest.',
+    href: '/ag/indoor-growing/',
+    linkLabel: 'Explore greenhouse solutions',
+    image: greenhouse,
+    imageAlt: 'Indoor greenhouse growing facility with rows of crops',
+    stat: 'An estimated one in five U.S. cannabis crops grown in greenhouses is hit by flower-infecting pathogens like powdery mildew, turning a harvest into a write-off overnight.',
+  },
+];
+
+// What each sector's solutions page holds, per the deck's parentheticals.
+const solutionsContents = [
+  { icon: FileText, label: 'Product & system use guides' },
+  { icon: TrendingUp, label: 'Economic and ROI data' },
+  { icon: ClipboardList, label: 'Industry resources' },
+];
+
+// The mechanism, broken out of the deck's "Deployment Is the Difference"
+// paragraph so the section has something to look at.
+const deploymentPoints: { icon: 'droplet' | 'coverage' | 'cycle' | 'shield'; title: string; copy: string }[] = [
+  {
+    icon: 'coverage',
+    title: 'Air and surfaces, at once',
+    copy: 'Sub-10-micron vapor stays suspended in the room, controlling pathogens at the source rather than only where a cloth has been.',
+  },
+  {
+    icon: 'droplet',
+    title: 'Reaches what sprayers miss',
+    copy: 'Corners, crates, cages and canopy — the places a hand-held pass never fully covers, treated the same way every cycle.',
+  },
+  {
+    icon: 'cycle',
+    title: 'Minutes of runtime a day',
+    copy: 'Programmable cycles run on their own schedule with minimal hands-on management, so coverage does not depend on labor.',
+  },
+];
+
+const agPosts = posts.filter(
+  (p) =>
+    agMarkets.some((m) => m.postSlugs.includes(p.slug)) ||
+    p.slug === 'secure-logic-newfields-ag-botanical-disinfection-partnership',
+).slice(0, 3);
+---
+
+<BaseLayout
+  title="Secure Logic | Agriculture"
+  description="One platform for every barn, greenhouse and field. Genesis360 pairs an automated distribution platform with EPA-registered BotaniMax to control pathogens across hogs, poultry and indoor crop production."
+>
+  <style>
+    /* Sector cards.
+       Mobile has no hover, so the card is laid out as picture-then-panel with
+       everything visible. From 768px up the panel goes transparent and sits over
+       the image, the copy hides, and hovering reveals it — the title grows and
+       rides up as the revealed block pushes it. */
+    .sector-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      isolation: isolate;
+      /* Mobile: reserve the top of the card for the photograph, then let the
+         panel below grow to fit its copy — picture first, then the card. */
+      padding-top: 13rem;
+    }
+
+    .sector-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      z-index: -2;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sector-card:hover .sector-image {
+      transform: scale(1.05);
+    }
+
+    .sector-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgb(16 32 74 / 0.5) 0%, rgb(16 32 74 / 0.82) 58%, rgb(11 20 55 / 0.95) 100%);
+      transition: opacity 0.45s ease;
+    }
+
+    .sector-content {
+      display: flex;
+      flex-direction: column;
+      padding: 1.75rem;
+      background: linear-gradient(180deg, rgb(12 25 60 / 0.92) 0%, rgb(16 32 74 / 0.96) 100%);
+      color: #fff;
+    }
+
+    .sector-title {
+      display: block;
+      font-size: clamp(2.15rem, 1.35rem + 2.6vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.03;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      transition: font-size 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sector-tagline {
+      display: block;
+      margin-top: 0.9rem;
+      max-width: 22rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: rgb(255 255 255 / 0.75);
+    }
+
+    .sector-reveal {
+      display: block;
+      margin-top: 1.4rem;
+    }
+
+    /* Geometry only — the pill treatment itself comes from .bl-pill-invert. */
+    .sector-explore {
+      margin-top: 1.6rem;
+      align-self: flex-start;
+    }
+
+    /* The hover choreography is gated on a real pointer. Without the gate,
+       touch devices ≥768px landed in the hover layout, where the stat was
+       unreachable — tapping the card navigates instead of revealing. */
+    @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+      .sector-card {
+        min-height: 30rem;
+        padding-top: 0;
+      }
+
+      .sector-content {
+        background: transparent;
+      }
+
+      /* Resting shows title, tagline and the CTA; only the stat block waits
+         for hover. */
+      .sector-reveal {
+        margin-top: 0;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(0.5rem);
+        transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.55s ease,
+          margin-top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .sector-card:hover .sector-scrim,
+      .sector-card:focus-visible .sector-scrim {
+        opacity: 1;
+      }
+
+      .sector-card:hover .sector-reveal,
+      .sector-card:focus-visible .sector-reveal {
+        max-height: 26rem;
+        margin-top: 1.3rem;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* The title grows into the space, per the note. */
+      .sector-card:hover .sector-title,
+      .sector-card:focus-visible .sector-title {
+        font-size: clamp(2.6rem, 1.6rem + 3.1vw, 4rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sector-image,
+      .sector-title,
+      .sector-reveal,
+      .sector-tagline,
+      .sector-explore {
+        transition: opacity 0.2s ease;
+      }
+
+      .sector-card:hover .sector-image {
+        transform: none;
+      }
+    }
+  </style>
+
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <!-- MODULE 1 -->
+      <section class="relative overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(150deg, var(--bl-ink) 0%, var(--bl-ink-mid) 52%, var(--bl-ink-deep) 100%);">
+        <!-- Media panel on the right. It fades into the brand gradient well before
+             the text column, so the headline never sits on moving footage. -->
+        <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] lg:block" aria-hidden="true">
+          <video
+            class="h-full w-full object-cover"
+            style="mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);"
+            src={heroVideo}
+            poster={heroPoster.src}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+          <div class="absolute inset-0" style="background: linear-gradient(90deg, transparent 0%, rgb(16 32 74 / 0.28) 45%, rgb(16 32 74 / 0.42) 100%);"></div>
+        </div>
+        <div class="pointer-events-none absolute inset-0 opacity-40" style="background: radial-gradient(circle at 78% 12%, rgb(120 210 160 / 0.22), transparent 42%), radial-gradient(circle at 8% 92%, rgb(80 130 255 / 0.28), transparent 44%);"></div>
+
+        <div class="container-page relative py-20 sm:py-24">
+          <p class="bl-eyebrow">Agriculture</p>
+          <h1 class="mt-5 max-w-4xl text-4xl leading-[1.06] sm:text-5xl lg:text-6xl">
+            Healthier Herds.<br />Healthier Flocks.<br /><span class="text-lime-400">Healthier Plants.</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg font-semibold text-white/75 sm:text-xl">
+            One Platform. Every Barn. Every Greenhouse. Every Field.
+          </p>
+          <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">
+            Pathogens don’t stop at a single species. Neither does Genesis360. Whether it’s a sow barn, poultry building
+            or indoor growing facility, the same invisible threats are at work. But the same proven, proactive system is
+            also built to stop it.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href="/get-a-quote/" class="bl-pill">Get A Quote</a>
+            <a href="#sectors" class="bl-pill-outline">Explore By Sector <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mission + the platform. -->
+      <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div class="particle-field particle-field-light" aria-hidden="true">
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+        </div>
+        <div class="container-page relative">
+          <h2 class="bl-h2 reveal mx-auto text-center" x-intersect.once="$el.classList.add('is-visible')">
+            Our mission is simple.<br /><span class="text-brand-600">Genesis360 makes agricultural spaces safer.</span>
+          </h2>
+
+          <div class="reveal mx-auto mt-14 grid max-w-5xl gap-10 md:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="text-base leading-8 text-brand-body">
+              Pathogens don’t respect species lines any more than they respect walls. PRRS moves through a hog barn.
+              Avian influenza moves through a poultry house. Powdery mildew and botrytis move through a greenhouse.
+              Different pathogens, different animals, different crops, but the same story: an invisible threat that
+              spreads fast, hits hard and drains revenue before anyone even knows it’s there.
+            </p>
+            <p class="text-base leading-8 text-brand-body">
+              Genesis360 is engineered for every operation. An automated distribution platform pairs with BotaniMax, a
+              100% botanical, EPA-registered disinfectant, to deliver a sub-10 micron dry vapor that reaches every
+              surface and treats the air at the same time. No harsh chemistry. No guesswork. Just continuous, precise
+              pathogen control built for hogs, poultry, indoor crops and a lot more.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The blue box row. Full-bleed, one column per sector, flipping to that
+           sector's economic case. -->
+      <section id="sectors" class="pb-4 bg-brand-900">
+        <div class="reveal container-page pb-12 pt-20 text-center sm:pt-24" x-intersect.once="$el.classList.add('is-visible')">
+          <h2 class="bl-h2 mx-auto max-w-3xl text-white">
+            Across the industry, the math is brutal. And it doesn’t discriminate by species.
+          </h2>
+          <p class="mx-auto mt-5 max-w-xl text-sm font-semibold uppercase tracking-[0.12em] text-white/55">
+            Select a sector to see what it costs
+          </p>
+        </div>
+
+        <div class="grid gap-px bg-white/10 lg:grid-cols-3">
+          {sectors.map(({ title, tagline, href, linkLabel, image, imageAlt, stat }) => (
+            <a href={href} class="sector-card group">
+              <Image
+                src={image}
+                alt={imageAlt}
+                class="sector-image"
+                widths={[480, 720, 1080]}
+                sizes="(min-width: 640px) 33vw, 100vw"
+              />
+              <span class="sector-scrim" aria-hidden="true"></span>
+
+              <span class="sector-content">
+                <span class="sector-title">{title}</span>
+                <span class="sector-tagline">{tagline}</span>
+
+                <span class="sector-reveal">
+                  <span class="block text-base leading-6 text-white">{stat}</span>
+                  <span class="mt-5 block space-y-1.5">
+                    {solutionsContents.map(({ icon: Icon, label }) => (
+                      <span class="flex items-center gap-2 text-xs text-white/55">
+                        <Icon class="h-3.5 w-3.5 shrink-0 text-lime-400" aria-hidden="true" /> {label}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+
+                <span class="sector-explore bl-pill bl-pill-invert">
+                  {linkLabel} <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
+
+      </section>
+
+      <!-- Mechanism. NOTE: the deck marks this block "to be moved to 'resources'
+           pages for each of the three sectors" — it stays here until those
+           per-sector resources pages exist. -->
+      <section class="relative overflow-hidden py-20 sm:py-24 bg-brand-100">
+        <div class="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" style="background: radial-gradient(circle at 88% 6%, rgb(29 63 214 / 0.1), transparent 46%), radial-gradient(circle at 4% 96%, rgb(82 194 76 / 0.09), transparent 44%);"></div>
+        <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <Image src={logoMark} alt="" class="absolute -top-40 w-[60rem] max-w-none opacity-[0.06]" style="right: calc(var(--spacing) * -60);" widths={[560, 840, 960]} sizes="960px" />
+        </div>
+
+        <div class="container-page relative">
+          <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">The Difference</p>
+            <h2 class="bl-h2 mt-4">Deployment Is The Difference.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">
+              Genesis360 suspends BotaniMax sub-10-micron vapor in the air of your barn, house or grow room, controlling
+              pathogens at the source by treating surfaces and air simultaneously.
+            </p>
+          </div>
+
+          <div class="reveal mt-14 grid gap-5 md:grid-cols-3" x-intersect.once="$el.classList.add('is-visible')">
+            {deploymentPoints.map(({ icon, title, copy }, i) => (
+              <div class="relative flex flex-col rounded-2xl bg-white p-8 shadow-lift">
+                <span class="absolute right-7 top-7 text-5xl font-extrabold leading-none text-brand-100" aria-hidden="true">
+                  0{i + 1}
+                </span>
+                <span class="flex h-14 w-14 items-center justify-center text-brand-600" style="--ai-accent: var(--bl-green);">
+                  <AnimatedStatIcon kind={icon} class="h-14 w-14" />
+                </span>
+                <h3 class="mt-6 text-xl">{title}</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">{copy}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-12 grid items-center gap-8 rounded-2xl p-8 text-white sm:p-10 lg:grid-cols-[1.25fr_1fr]" style="background: linear-gradient(135deg, var(--bl-ink) 0%, var(--bl-ink-mid) 62%, var(--bl-ink-deep) 100%);">
+            <p class="text-xl leading-9 sm:text-2xl">
+              The result: a measurably cleaner environment, a lighter pathogen load and animals or plants that perform
+              the way they’re supposed to.
+            </p>
+            <p class="text-sm leading-7 text-white/75 lg:border-l lg:border-white/20 lg:pl-8">
+              Every barn, every house, every greenhouse is carrying the same risk. Genesis360 gives you a way to get
+              ahead of it instead of cleaning up after it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <AgPostsRow posts={agPosts} />
+
+      <AgCta
+        eyebrow="Your Operation. Your Coverage Plan."
+        heading="Put Genesis360 To Work Across Your Operation."
+        copy="Tell us what you are protecting and how the operation runs. Our team will map the right handheld, fixed, or custom deployment and build a practical coverage plan around it."
+      />
+
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

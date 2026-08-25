@@ -1,62 +1,69 @@
 ---
-import { Mail, Phone } from '@lucide/astro';
+// Sitewide footer. This is the homepage's footer, promoted to a component so
+// every page ends the same way — interior pages used to render a different,
+// darker footer entirely.
+//
+// It needs the .bl token layer for its eyebrows and gradient, so pages that use
+// it should sit inside a `.bl` wrapper (all of them currently do).
+import { ArrowRight, Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
-import logo from '../assets/images/logo.png';
+import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
 ---
 
-<footer class="bg-slate-900 text-white">
-  <div class="container-page grid gap-10 py-14 max-md:text-center md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
-    <div class="max-w-sm max-md:mx-auto">
-      <Image src={logo} alt="Secure Logic logo" class="h-24 w-24 object-contain brightness-0 invert max-md:mx-auto" widths={[120, 180, 240]} sizes="96px" />
-      <p class="mt-5 text-sm leading-7 text-slate-300">
-        We believe that the path to a cleaner, healthier indoor environment should be rooted in the very essence of nature itself.
-      </p>
-    </div>
-
+<footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
+  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <Image src={logoIconNoWords} alt="" class="absolute -bottom-64 right-[8%] w-[38rem] max-w-none brightness-0 invert opacity-[0.05] blur-[0.2px]" widths={[480, 640]} sizes="608px" />
+  </div>
+  <div class="relative mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
     <div>
-      <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-botanical-300">Quick Links</h2>
-      <div class="mt-4 grid gap-3 text-sm text-slate-300">
-        <a href="/" class="hover:text-white">Home</a>
-        <a href="/about-us/" class="hover:text-white">About Us</a>
-        <a href="/resources/faqs/" class="hover:text-white">FAQs</a>
-        <a href="/contact-us/" class="hover:text-white">Contact Us</a>
+      <h3 class="text-2xl text-white">Even Our Reports Are Clean.</h3>
+      <p class="mt-3 max-w-sm text-sm leading-6 text-white/75">Ask for a facility walkthrough and coverage plan — no spam, no pressure, just a straight answer on fit.</p>
+      <a href="/get-a-quote/" class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">Get A Quote <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+    </div>
+    <div>
+      <p class="bl-eyebrow">Shop</p>
+      <div class="mt-4 grid gap-2 text-sm text-white/75">
+        <a href="/human/" class="hover:text-white">Human</a>
+        <a href="/hvac/" class="hover:text-white">HVAC</a>
+        <a href="/ag/" class="hover:text-white">Ag</a>
+        <a href="/genesis360mistingsystems/" class="hover:text-white">Genesis 360</a>
+        <a href="/botanimax/" class="hover:text-white">BotaniMax</a>
       </div>
     </div>
-
     <div>
-      <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-botanical-300">Legal</h2>
-      <div class="mt-4 grid gap-3 text-sm text-slate-300">
-        <a href="/get-a-quote/" class="hover:text-white">Terms & Conditions</a>
+      <p class="bl-eyebrow">About</p>
+      <div class="mt-4 grid gap-2 text-sm text-white/75">
+        <a href="/about-us/" class="hover:text-white">About Us</a>
+        <a href="/about-us/technology/" class="hover:text-white">Technology</a>
+        <a href="/blogs/" class="hover:text-white">Blog</a>
+        <a href="/resources/faqs/" class="hover:text-white">FAQs</a>
+      </div>
+    </div>
+    <div>
+      <p class="bl-eyebrow">Help</p>
+      <div class="mt-4 grid gap-2 text-sm text-white/75">
+        <a href="/contact-us/" class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
+        <a href="mailto:info@securelogicUSA.com" class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />info@securelogicUSA.com</a>
         <a href="/privacy-policy/" class="hover:text-white">Privacy Policies</a>
       </div>
-    </div>
-
-    <div>
-      <h2 class="text-sm font-semibold uppercase tracking-[0.18em] text-botanical-300">Contact</h2>
-      <div class="mt-4 grid gap-3 text-sm text-slate-300">
-        <a href="tel:18889974310" class="inline-flex items-center gap-3 hover:text-white max-md:justify-center"><Phone class="h-4 w-4 text-botanical-300" />1-888-997-4310</a>
-        <a href="mailto:info@securelogicUSA.com" class="inline-flex items-center gap-3 hover:text-white max-md:justify-center"><Mail class="h-4 w-4 text-botanical-300" />info@securelogicUSA.com</a>
-      </div>
-      <div class="mt-6 flex gap-3 max-md:justify-center">
-        <a href="http://facebook.com/SecureLogicUSA" aria-label="Facebook" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-200 transition hover:bg-white/20 hover:text-white">
+      <div class="mt-5 flex gap-3">
+        <a href="http://facebook.com/SecureLogicUSA" aria-label="Facebook" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-white/20 hover:text-white">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.75c0-.5.1-.85.32-1.06.21-.22.57-.33 1.08-.33H17V2.2C16.23 2.1 15.49 2 14.78 2c-1.53 0-2.75.45-3.65 1.34-.9.9-1.35 2.16-1.35 3.79V8.5H7v3.55h2.78V22h4.03v-9.95h2.98l.46-3.55H14Z"/></svg>
         </a>
-        <a href="https://www.instagram.com/securelogicusa/" aria-label="Instagram" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-200 transition hover:bg-white/20 hover:text-white">
+        <a href="https://www.instagram.com/securelogicusa/" aria-label="Instagram" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-white/20 hover:text-white">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
         </a>
-        <a href="https://www.youtube.com/@SecureLogic-Genesis360" aria-label="YouTube" class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-slate-200 transition hover:bg-white/20 hover:text-white">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.58 7.2a3 3 0 0 0-2.11-2.12C17.61 4.58 12 4.58 12 4.58s-5.61 0-7.47.5A3 3 0 0 0 2.42 7.2 31.3 31.3 0 0 0 1.92 12c0 1.64.17 3.26.5 4.8a3 3 0 0 0 2.11 2.12c1.86.5 7.47.5 7.47.5s5.61 0 7.47-.5a3 3 0 0 0 2.11-2.12c.33-1.54.5-3.16.5-4.8 0-1.64-.17-3.26-.5-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+        <a href="https://www.youtube.com/@SecureLogic-Genesis360" aria-label="YouTube" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-white/20 hover:text-white">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.58 7.2a3 3 0 0 0-2.11-2.12C17.61 4.58 12 4.58 12 4.58s-5.61 0-7.47.5A3 3 0 0 0 2.42 7.2 31.3 31.3 0 0 0 1.92 12c0 1.64.17 3.26.5 4.8a3 3 0 0 0 2.11 2.12c1.86.5 7.47.5 7.47.5s5.61 0 7.47-.5a3 3 0 0 0 2.11-2.12c.33-1.54.5-3.16.5-4.8 0-1.64-.17-3.26-.5-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
         </a>
       </div>
     </div>
   </div>
-  <div class="border-t border-white/10 py-5">
-    <div class="container-page flex flex-col gap-3 text-xs text-slate-400 max-sm:items-center max-sm:text-center sm:flex-row sm:items-center sm:justify-between">
-      <p>Copyright 2026 © Secure Logic</p>
-      <p>
-        Crafted by
-        <a href="https://teamrileyweb.com" class="font-semibold text-slate-200 underline decoration-botanical-300/70 underline-offset-4 transition hover:text-white">Team Riley</a>
-      </p>
-    </div>
+  <div class="relative mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-white/20 pt-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+    <p>Copyright 2026 © Secure Logic</p>
+    <p class="sm:text-right">
+      Crafted by
+      <a href="https://teamrileyweb.com" class="font-semibold text-slate-200 underline decoration-botanical-300/70 underline-offset-4 transition hover:text-white">Team Riley</a>
+    </p>
   </div>
 </footer>

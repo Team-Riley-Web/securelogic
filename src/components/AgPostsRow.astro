@@ -1,0 +1,58 @@
+---
+// "From The Field" for the agriculture pages. Was duplicated across /ag/ and
+// /ag/hogs-livestock/, which is how the two ended up on different grounds
+// (bg-white vs bg-slate-50 — the one warm neutral left on either page).
+import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import type { BlogPost } from '../data/blog-posts';
+
+interface Props {
+  posts: BlogPost[];
+  /** Shown when there is more to read than the three shown here. */
+  showReadMore?: boolean;
+}
+
+const { posts, showReadMore = true } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="bg-white py-20 sm:py-24">
+    <div class="container-page">
+      <h2 class="bl-h2 reveal" x-intersect.once="$el.classList.add('is-visible')">From The Field</h2>
+
+      <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a
+            href={`/blogs/${post.slug}/`}
+            class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-lift transition hover:-translate-y-1"
+          >
+            <Image
+              src={post.image}
+              alt={post.imageAlt}
+              class="aspect-[16/9] w-full object-cover"
+              widths={[420, 640, 860]}
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            />
+            <div class="flex flex-1 flex-col p-6">
+              <time datetime={post.isoDate} class="text-xs font-bold uppercase tracking-[0.14em] text-brand-muted">
+                {post.date}
+              </time>
+              <h3 class="mt-3 text-lg leading-7">{post.title}</h3>
+              <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-600">
+                Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {showReadMore && (
+        <div class="mt-10 text-center">
+          <a href="/blogs/" class="bl-pill-outline border-[1.5px] border-brand-600">
+            Read More <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+)}

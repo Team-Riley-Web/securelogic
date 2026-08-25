@@ -43,10 +43,39 @@ module.exports = {
           DEFAULT: 'hsl(160 34% 14%)',
           light: 'hsl(154 36% 20%)',
         },
+        // Brand ramp, generated around the existing --bl-blue / --bl-ink /
+        // --bl-sky so naming the colours doesn't shift any of them.
+        brand: {
+          50: '#f2f6ff',
+          100: '#e3edff',
+          200: '#c8daff',
+          300: '#9db8ff',
+          400: '#5f8cff',
+          500: '#3e67e8',
+          600: '#1d3fd6',
+          700: '#142e9e',
+          800: '#0f2470',
+          900: '#10204a',
+          950: '#07102f',
+          // Body neutral: the ink lightened with its hue held, so copy stays in
+          // the blue family instead of drifting warm on the sky bands.
+          body: '#3d4d72',
+          // Never apply opacity to `body`; step to `muted` instead.
+          muted: '#5a6a8d',
+        },
+        // Two accent greens: the lime reads on dark grounds, the mid on light.
+        lime: {
+          400: '#a6d960',
+          500: '#52c24c',
+          600: '#52a94d',
+          700: '#43893f',
+        },
       },
       boxShadow: {
         lift: '0 18px 45px hsl(222 35% 11% / 0.12), 0 2px 8px hsl(222 35% 11% / 0.08)',
         deep: '0 26px 70px hsl(222 35% 11% / 0.20), 0 4px 12px hsl(222 35% 11% / 0.12)',
+        'lift-dark': '0 28px 70px -36px rgb(0 0 0 / .78), 0 3px 12px rgb(0 0 0 / .2)',
+        'lift-brand': '0 18px 36px -18px rgb(29 63 214 / .45), 0 2px 6px rgb(16 32 74 / .12)',
       },
       fontFamily: {
         sans: [
