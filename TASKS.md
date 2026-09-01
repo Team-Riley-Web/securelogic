@@ -27,6 +27,13 @@ unchecked task unless you are starting it.
       public/_redirects with host-scoped rules, so securelogic.netlify.app
       stays fully browsable and only the live domain is blocked
 - [x] Un-park the full homepage to /home-full/ so it stays reviewable on Netlify
+- [x] REDO of the landing page — the first attempt was built from scratch and
+      threw away the homepage design. Rebuilt src/pages/index.astro as a copy of
+      the real homepage with every interior link retargeted at the on-page
+      #contact block reading "Contact Us To Learn More". Added a `minimal` prop
+      to Header.astro and Footer.astro so the shared chrome renders identically
+      minus the gated nav links; the full site is unaffected. Dropped only the
+      blog teaser, whose every card linked to a gated post
 - [ ] GoDaddy: point securelogicusa.com at Netlify. The gate arms itself on DNS
       cutover — no redeploy needed. Then verify it actually fired:
         curl -sI https://www.securelogicusa.com/ag/ | grep -i '^location'
@@ -36,11 +43,14 @@ unchecked task unless you are starting it.
       If /ag/ returns 200 instead of a 302 the host-scoped rules did not match.
       Check the exact canonical hostname Netlify assigned and make the left
       column of public/_redirects match it.
-- [ ] Decide whether securelogic.netlify.app should stay publicly browsable.
-      It is the trade-off for keeping interior pages visible for review: anyone
-      with that URL can read the old messaging, and search engines can index it.
-      Options are Netlify password protection (paid plan), or accept it because
-      the URL is obscure. No action taken either way.
+- [ ] Really minor changes on https://securelogic.netlify.app/ag/indoor-growing/:
+    ```
+    - Module 1:
+    - Reword body copy slightly: "Controlled environments give growers consistency that outdoor farming can't. But the same stable conditions that help plants thrive can also support unwanted microbial growth that can rob yields and revenue potential. Automated misting reduces that risk without wetting foliage or disrupting crop production."
+    - Given the emphasis on cannabis production, do we want the hero image to be a cannabis greenhouse instead of strawberries?
+    
+    In general, I think a graphic showing a greenhouse similar to the "Coverage map" module on the hog page would be a good addition to this page too, as that will help advance site viewers through the sales funnel.
+    ```
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

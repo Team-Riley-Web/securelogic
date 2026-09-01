@@ -8,42 +8,59 @@
 import { ArrowRight, Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
+
+interface Props {
+  // `minimal` drops the Shop and About link columns, which point at interior
+  // pages, and retargets the CTA at the on-page contact block. Everything
+  // visual stays put. Used only by the interim landing page.
+  minimal?: boolean;
+  // The landing page routes enquiries to Marty directly rather than the
+  // general inbox, so the address is a prop instead of a hardcoded string.
+  contactEmail?: string;
+}
+
+const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.props;
 ---
 
 <footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
     <Image src={logoIconNoWords} alt="" class="absolute -bottom-36 -right-16 w-[38rem] max-w-none brightness-0 invert opacity-[0.035] blur-[0.2px]" widths={[480, 640]} sizes="608px" />
   </div>
-  <div class="relative mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-[1.3fr_1fr_1fr_1fr] md:gap-10">
+  <div class:list={['relative mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:gap-10', minimal ? 'md:grid-cols-[1.6fr_1fr]' : 'md:grid-cols-[1.3fr_1fr_1fr_1fr]']}>
     <div class="col-span-2 md:col-span-1">
       <h3 class="text-2xl text-white">Even Our Reports Are Clean.</h3>
       <p class="mt-3 max-w-sm text-sm leading-6 text-white/75">Ask for a facility walkthrough and coverage plan — no spam, no pressure, just a straight answer on fit.</p>
-      <a href="/get-a-quote/" class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">Get A Quote <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+      <a href={minimal ? '#contact' : '/get-a-quote/'} class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">{minimal ? 'Contact Us' : 'Get A Quote'} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
     </div>
-    <div>
-      <p class="bl-eyebrow">Shop</p>
-      <div class="mt-4 grid gap-2 text-sm text-white/75">
-        <a href="/human/" class="hover:text-white">Human</a>
-        <a href="/hvac/" class="hover:text-white">HVAC</a>
-        <a href="/ag/" class="hover:text-white">Ag</a>
-        <a href="/genesis360mistingsystems/" class="hover:text-white">Genesis 360</a>
-        <a href="/botanimax/" class="hover:text-white">BotaniMax</a>
+    {!minimal && (
+      <>
+      <div>
+        <p class="bl-eyebrow">Shop</p>
+        <div class="mt-4 grid gap-2 text-sm text-white/75">
+          <a href="/human/" class="hover:text-white">Human</a>
+          <a href="/hvac/" class="hover:text-white">HVAC</a>
+          <a href="/ag/" class="hover:text-white">Ag</a>
+          <a href="/genesis360mistingsystems/" class="hover:text-white">Genesis 360</a>
+          <a href="/botanimax/" class="hover:text-white">BotaniMax</a>
+        </div>
       </div>
-    </div>
-    <div>
-      <p class="bl-eyebrow">About</p>
-      <div class="mt-4 grid gap-2 text-sm text-white/75">
-        <a href="/about-us/" class="hover:text-white">About Us</a>
-        <a href="/about-us/technology/" class="hover:text-white">Technology</a>
-        <a href="/blogs/" class="hover:text-white">Blog</a>
-        <a href="/resources/faqs/" class="hover:text-white">FAQs</a>
+      <div>
+        <p class="bl-eyebrow">About</p>
+        <div class="mt-4 grid gap-2 text-sm text-white/75">
+          <a href="/about-us/" class="hover:text-white">About Us</a>
+          <a href="/about-us/technology/" class="hover:text-white">Technology</a>
+          <a href="/blogs/" class="hover:text-white">Blog</a>
+          <a href="/resources/faqs/" class="hover:text-white">FAQs</a>
+        </div>
       </div>
-    </div>
+      </>
+    )}
+
     <div class="col-span-2 md:col-span-1">
       <p class="bl-eyebrow">Help</p>
       <div class="mt-4 grid gap-2 text-sm text-white/75">
-        <a href="/contact-us/" class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
-        <a href="mailto:info@securelogicUSA.com" class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />info@securelogicUSA.com</a>
+        <a href={minimal ? 'tel:+18889974310' : '/contact-us/'} class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
+        <a href={`mailto:${contactEmail}`} class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />{contactEmail}</a>
         <a href="/privacy-policy/" class="hover:text-white">Privacy Policies</a>
       </div>
       <div class="mt-5 flex gap-3">

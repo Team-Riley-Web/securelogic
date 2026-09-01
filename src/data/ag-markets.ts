@@ -40,7 +40,7 @@ export const agMarkets: Market[] = [
     title: 'Indoor Growing',
     icon: Sprout,
     summary: 'Microbial risk reduction for cannabis, greenhouse, and vertical farming operations under controlled conditions.',
-    heroCopy: 'Controlled environments give growers consistency that outdoor farming cannot, but the same stable conditions that help plants thrive can also support unwanted microbial growth. Automated misting reduces that risk without wetting foliage or disrupting production.',
+    heroCopy: "Controlled environments give growers consistency that outdoor farming can't. But the same stable conditions that help plants thrive can also support unwanted microbial growth that can rob yields and revenue potential. Automated misting reduces that risk without wetting foliage or disrupting crop production.",
     image: greenhouse,
     imageAlt: 'Indoor greenhouse growing facility with rows of leafy crops',
     postSlugs: ['indoor-growing-facilities-microbial-risk-prevention', 'reducing-microbial-risk-to-improve-cannabis-crop-yield'],
