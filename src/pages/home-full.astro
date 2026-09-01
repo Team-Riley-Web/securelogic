@@ -13,10 +13,11 @@ import { posts } from '../data/blog-posts';
 import logo from '../assets/images/logo.png';
 import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
 import farmVideo from '../assets/videos/farm.mp4';
-import farmPoster from '../assets/images/hero-farm-poster.jpg';
 import cannabisVideo from '../assets/videos/cannabis.mp4';
 import gymVideo from '../assets/videos/gym.mp4';
 import swineVideo from '../assets/videos/swine.mp4';
+import chickensVideo from '../assets/videos/chickens.mp4';
+import swinePoster from '../assets/images/hero-swine-poster.jpg';
 import applicationHumanVideo from '../assets/videos/application-human.mp4';
 import applicationHvacVideo from '../assets/videos/application-hvac.mp4';
 import applicationAgricultureVideo from '../assets/videos/application-agriculture.mp4';
@@ -565,11 +566,17 @@ const recentPosts = posts.slice(0, 3);
     <section
       class="relative isolate overflow-visible bg-canopy text-white"
     >
+      <!-- Hero carousel. Order is deliberate: pigs, chickens, cannabis, weight
+           room, farm last. Slide 0 is the only one that preloads and the only
+           one carrying a poster, because it is what paints before any video is
+           ready — so the poster has to match slide 0's footage or the hero
+           flashes the wrong scene on load. The gym clip keeps its own
+           bottom-left framing; the others are centred. -->
       <div class="absolute inset-0">
         <video
           class="absolute inset-0 h-full w-full object-cover opacity-95 transition-opacity duration-1000 ease-in-out"
-          src={farmVideo}
-          poster={farmPoster.src}
+          src={swineVideo}
+          poster={swinePoster.src}
           autoplay
           muted
           loop
@@ -580,13 +587,23 @@ const recentPosts = posts.slice(0, 3);
         ></video>
         <video
           class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
-          src={cannabisVideo}
+          src={chickensVideo}
           muted
           loop
           playsinline
           preload="none"
           aria-hidden="true"
           data-hero-slide="1"
+        ></video>
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={cannabisVideo}
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-hidden="true"
+          data-hero-slide="2"
         ></video>
         <video
           class="absolute bottom-0 left-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
@@ -596,17 +613,17 @@ const recentPosts = posts.slice(0, 3);
           playsinline
           preload="none"
           aria-hidden="true"
-          data-hero-slide="2"
+          data-hero-slide="3"
         ></video>
         <video
           class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
-          src={swineVideo}
+          src={farmVideo}
           muted
           loop
           playsinline
           preload="none"
           aria-hidden="true"
-          data-hero-slide="3"
+          data-hero-slide="4"
         ></video>
       </div>
       <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_18%/.82)_0%,hsl(229_76%_46%/.48)_48%,hsl(221_82%_34%/.38)_100%)]"></div>

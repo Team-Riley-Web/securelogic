@@ -43,14 +43,57 @@ unchecked task unless you are starting it.
       If /ag/ returns 200 instead of a 302 the host-scoped rules did not match.
       Check the exact canonical hostname Netlify assigned and make the left
       column of public/_redirects match it.
-- [ ] Really minor changes on https://securelogic.netlify.app/ag/indoor-growing/:
-    ```
-    - Module 1:
-    - Reword body copy slightly: "Controlled environments give growers consistency that outdoor farming can't. But the same stable conditions that help plants thrive can also support unwanted microbial growth that can rob yields and revenue potential. Automated misting reduces that risk without wetting foliage or disrupting crop production."
-    - Given the emphasis on cannabis production, do we want the hero image to be a cannabis greenhouse instead of strawberries?
-    
-    In general, I think a graphic showing a greenhouse similar to the "Coverage map" module on the hog page would be a good addition to this page too, as that will help advance site viewers through the sales funnel.
-    ```
+- [x] /ag/indoor-growing/ Module 1: reworded the hero body copy to the supplied
+      text. Lives in src/data/ag-markets.ts (the page runs on the shared
+      ag/[slug].astro template, not a custom page like the hog one). Verified it
+      only affects this page — /ag/index.astro has its own separate copy
+- [x] /ag/indoor-growing/ hero: resolved by giving the page the hog-page video
+      hero treatment instead of a still. Promoted the market off the shared
+      ag/[slug].astro template onto its own static route
+      (src/pages/ag/indoor-growing.astro) so it can carry a full-bleed video
+      hero; Astro gives static routes precedence, so /ag/poultry/ still renders
+      from the template untouched. Uses Joshua's cannabis-indoor.mp4 with a
+      poster frame extracted to src/assets/images/hero-cannabis-poster.jpg.
+      The strawberry image is no longer rendered anywhere on this page. Body
+      copy reads from market.heroCopy so ag-markets.ts stays the single source
+- [ ] BACKLOG — greenhouse coverage-map module for /ag/indoor-growing/, matching
+      the hog page's. Deferred by Joshua 2026-09-01. The module code in
+      ag/hogs-livestock.astro is fully reusable (percentage-positioned callouts
+      + anchor dots); the blocker is artwork — it needs a photoreal 3D greenhouse
+      cutaway with mist visualised, equivalent to transparent-barn.png
+      (1448x1086). Callouts would be canopy, benches, irrigation lines,
+      walkways, air handling, floor. Revisit when art can be commissioned
+- [x] Homepage hero video order: pigs, chickens, cannabis, weight room, farm
+      last. Added chickens.mp4 as slide 1. Applied to BOTH src/pages/index.astro
+      (live) and src/pages/home-full.astro (the parked original) so the change
+      survives the site restore. Slide 0's poster was swapped from
+      hero-farm-poster to hero-swine-poster — slide 0 is the only slide that
+      preloads and carries a poster, so it has to match its own footage or the
+      hero flashes a farm frame before cutting to pigs. Carousel needed no
+      change: it reads heroSlides.length, so 5 slides cycle automatically at
+      5.2s each
+- [x] chickens.mp4 replaced by Joshua with a commercial brooder-house clip:
+      1.7MB (was 6.0MB) and a wide warm-toned environment shot, so it now reads
+      under the hero gradient instead of washing out. Same filename, so no code
+      change was needed — only a rebuild. Both earlier concerns are closed
+- [x] /ag/poultry/ given the same hog-style video hero treatment, using
+      chickens-alt.mp4 (so that clip is now in use, not spare). Promoted onto
+      its own static route src/pages/ag/poultry.astro; poster frame extracted to
+      src/assets/images/hero-poultry-poster.jpg. Body copy reads from
+      market.heroCopy so ag-markets.ts stays the single source
+- [x] ag/[slug].astro: all three ag markets now have bespoke static pages, so
+      the template emitted routes that collided with them. Astro gives static
+      files precedence so nothing was broken, but the file already had an
+      explicit exclusion for hogs-livestock — extended that to a BESPOKE set
+      covering all three, so the behaviour is stated rather than relying on
+      shadowing. The template now emits nothing and is kept for the next ag
+      market added before it earns a bespoke page. human/[slug].astro and
+      hvac/[slug].astro are separate files and still fully in use
+- [ ] /ag/ index card for Indoor Growing still uses blog-greenhouse.png
+      (strawberries). Now inconsistent with the cannabis-led indoor-growing
+      page. Note it is NOT driven by ag-markets.ts — /ag/index.astro has its own
+      local `sectors` array with its own images. hero-cannabis-poster.jpg could
+      be reused there
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

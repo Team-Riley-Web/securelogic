@@ -9,11 +9,19 @@ import { agMarkets } from '../../data/ag-markets';
 import { posts } from '../../data/blog-posts';
 
 export function getStaticPaths() {
-  // hogs-livestock has its own bespoke page at ag/hogs-livestock.astro, built
-  // from the client copy deck. It stays in ag-markets.ts for the nav and the
-  // cross-links, but this shared template must not also emit that route.
+  // Every ag market now has its own bespoke page with a video hero:
+  // ag/hogs-livestock.astro, ag/poultry.astro, ag/indoor-growing.astro. They all
+  // stay in ag-markets.ts for the nav and the cross-links, but this shared
+  // template must not also emit those routes.
+  //
+  // Astro would give the static files precedence anyway, but listing the
+  // exclusions keeps it explicit rather than relying on shadowing — that is the
+  // convention this file already used for hogs-livestock. The filter currently
+  // matches every market, so this template emits nothing; it is kept for the
+  // next ag market added before it earns a bespoke page.
+  const BESPOKE = new Set(['hogs-livestock', 'poultry', 'indoor-growing']);
   return agMarkets
-    .filter((market) => market.slug !== 'hogs-livestock')
+    .filter((market) => !BESPOKE.has(market.slug))
     .map((market) => ({ params: { slug: market.slug }, props: { market } }));
 }
 

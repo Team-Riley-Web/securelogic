@@ -1,0 +1,129 @@
+---
+// Indoor Growing — promoted out of the shared ag/[slug].astro template onto its
+// own static route so it can carry the same video-hero treatment as
+// /ag/hogs-livestock/. Astro gives a static route precedence over the dynamic
+// [slug] one, so this file shadows the template for this market only; /ag/poultry/
+// still renders from the template untouched. Same pattern hogs-livestock.astro
+// already uses.
+//
+// Structure deliberately mirrors the hog page: the hero stays at one line of
+// support so the footage keeps its legibility, and the longer argument sits in
+// a band below on a solid ground rather than fighting the video for contrast.
+//
+// The body copy is read from `market.heroCopy` rather than retyped here, so the
+// wording Joshua supplied stays canonical in src/data/ag-markets.ts and there is
+// only one place to edit it.
+import AgCta from '../../components/AgCta.astro';
+import AgPostsRow from '../../components/AgPostsRow.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ArrowRight } from '@lucide/astro';
+import { agMarkets } from '../../data/ag-markets';
+import { posts } from '../../data/blog-posts';
+import cannabisIndoorVideo from '../../assets/videos/cannabis-indoor.mp4';
+import cannabisPoster from '../../assets/images/hero-cannabis-poster.jpg';
+
+const market = agMarkets.find((m) => m.slug === 'indoor-growing')!;
+
+// Same ordering rule as the hog page: this market's own posts lead, then the ag
+// press release, then whatever other ag posts are needed to fill the row.
+const PRESS_RELEASE = 'secure-logic-newfields-ag-botanical-disinfection-partnership';
+const agSlugs = new Set(agMarkets.flatMap((m) => m.postSlugs));
+const relatedRank = (slug: string) =>
+  market.postSlugs.includes(slug) ? 0 : slug === PRESS_RELEASE ? 1 : 2;
+const relatedPosts = posts
+  .filter((p) => market.postSlugs.includes(p.slug) || p.slug === PRESS_RELEASE || agSlugs.has(p.slug))
+  .sort((a, b) => relatedRank(a.slug) - relatedRank(b.slug))
+  .slice(0, 3);
+
+const otherMarkets = agMarkets.filter((m) => m.slug !== market.slug);
+---
+
+<BaseLayout
+  title="Secure Logic | Agriculture | Indoor Growing"
+  description={market.summary}
+>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <!-- MODULE 1 — hero. Same treatment as the hog page: full-bleed footage
+           under a heavy blue gradient, lime eyebrow, two-line headline with the
+           payoff in lime, one line of support, one pill CTA. -->
+      <section class="relative isolate overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime);">
+        <video
+          class="absolute inset-0 h-full w-full object-cover"
+          src={cannabisIndoorVideo}
+          poster={cannabisPoster.src}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          aria-hidden="true"
+        ></video>
+        <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
+
+        <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
+          <div class="mx-auto max-w-3xl">
+            <p class="bl-eyebrow">Indoor Growing</p>
+            <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+              Complete Coverage.<br /><span class="text-lime-400">Healthy Crops.</span>
+            </h1>
+            <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
+              Proactive microbial control at every stage of every grow cycle.
+            </p>
+            <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 2 — the argument, on a solid ground. Mirrors the hog page's
+           "The Reality In Every Barn" band. -->
+      <section class="bg-brand-100 py-20 sm:py-24">
+        <div class="container-page">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="bl-eyebrow">The Reality In Every Grow</p>
+            <h2 class="bl-h2 mt-4 text-balance">Stable Conditions Cut Both Ways.</h2>
+            <p class="mx-auto mt-7 text-balance text-base leading-8 text-brand-body sm:text-lg">
+              {market.heroCopy}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <AgPostsRow posts={relatedPosts} />
+
+      <!-- Other ag markets, carried over from the shared template so nothing is
+           lost in the promotion to a static route. -->
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page">
+          <h2 class="bl-h2">Other Agriculture Markets</h2>
+          <div class="mt-10 grid gap-6 sm:grid-cols-2">
+            {otherMarkets.map(({ icon: Icon, slug, title, summary }) => (
+              <a href={`/ag/${slug}/`} class="group rounded-2xl border border-brand-200/55 bg-white p-7 shadow-lift transition hover:-translate-y-1">
+                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100">
+                  <Icon class="h-5 w-5 text-brand-600" aria-hidden="true" />
+                </span>
+                <h3 class="mt-5 text-xl text-brand-900">{title}</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">{summary}</p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-600">
+                  Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <AgCta
+        eyebrow="Your Rooms. Your Coverage Plan."
+        heading="Start With The Rooms That Carry The Most Risk."
+        copy="Tell us how the operation runs — propagation, veg, flower, drying, or all of it — and our team will map the right fixed, compact, or custom deployment and build a coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
