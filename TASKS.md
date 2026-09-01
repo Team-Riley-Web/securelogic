@@ -13,27 +13,38 @@ unchecked task unless you are starting it.
 - Do not combine unrelated tasks into one implementation.
 
 ## Queue
-- [x] For now on all the pre-footers, make the CTA just get a quote that leads to the contact page. In other words, remove, call your sales rep, place an order now.
-- [x] `/ag/hogs-livestock/` make the heatmap circles green, then turn blue on hover
-- [x] did we add a beige, off-white color to nav and `/ag/hogs-livestock/`? if so, revert it to pure white
-- [x] Center every typed phrase in the homepage hero as its width changes
-- [x] Redesign the mobile header and menu behavior: put a phone icon on the left and the hamburger on the right; make the open menu slide over the page without moving its content; and add a centered phone-number button below Get a Quote
-- [x] Refine the mobile menu styling and navigation behavior so primary labels such as Ag navigate to their landing pages while only the adjacent arrow opens the submenu
-- [x] On mobile, replace the five-item Certifications and Compliance stack with a slow, continuously scrolling horizontal row
-- [x] On the homepage mobile BotaniMax section, center the BotaniMax icon and Shop BotaniMax CTA, and reduce the excessive space between the CTA area and bottle image
-- [x] On mobile, make each Customer Stories testimonial occupy the full carousel width so neighboring testimonials do not peek into view
-- [x] Center the Learn About the Platform button on mobile
-- [x] Fix the mobile blog-post carousel by removing the unintended gray background, allowing the final card to scroll fully into view, and adding horizontal scroll snapping
-- [x] Repair the mobile footer: place About as a second column beside Shop, make the decorative icon more transparent and move it up and right, and center the copyright and Crafted by Team Riley text
-- [x] On the `/ag/` mobile page, enlarge the hog, poultry, and indoor-crop images without cropping them, remove the ghosted image behind the Deployment Is the Difference section, and center the See the Systems button
-- [x] On `/ag/hogs-livestock/` mobile, center the See the Systems button
-- [x] On `/ag/hogs-livestock/` mobile, center the monetary statistics in the Cost of Waiting section
-- [x] Completely redesign the `/ag/hogs-livestock/` Protective Cloud section for mobile so its content and icons form a clear, intentional layout
-- [x] Make the phone-number button in the open mobile menu the same full width as the Get A Quote button
-- [x] On mobile, keep announcement-bar links unbroken on their own line and slow both the slide transition and automatic rotation
+- [x] Hog page M1: change "Healthier Pigs." to "Healthy Pigs." in the hero
+- [x] Hog page M1: fix the hero subhead orphan (sizing/measure/balance)
+- [x] Hog page M2: enlarge the 38% figure to ~1/4 of the image, keep lower-left
+- [x] Hog page M3: reword the copy under "One Platform. Three Ways To Deploy It."
+- [x] Hog page M4: fix the "Even small losses..." orphan (sizing/measure/balance)
+- [x] Interim landing page: park full homepage as `_home-full.astro`, build one-page
+      landing (who we are / what we do / what's coming + phone & email)
+- [x] Gate every interior page behind 302 redirects in netlify.toml; pages still
+      build and stay in the repo. /privacy-policy left reachable on purpose
+- [x] Swap `CONTACT_EMAIL` to marty@securelogicusa.com
+- [x] Scope the gate to production only — moved from netlify.toml to
+      public/_redirects with host-scoped rules, so securelogic.netlify.app
+      stays fully browsable and only the live domain is blocked
+- [x] Un-park the full homepage to /home-full/ so it stays reviewable on Netlify
+- [ ] GoDaddy: point securelogicusa.com at Netlify. The gate arms itself on DNS
+      cutover — no redeploy needed. Then verify it actually fired:
+        curl -sI https://www.securelogicusa.com/ag/ | grep -i '^location'
+          -> expect  location: /
+        curl -sI https://www.securelogicusa.com/ | head -1
+          -> expect  HTTP/2 200   (landing page must NOT redirect)
+      If /ag/ returns 200 instead of a 302 the host-scoped rules did not match.
+      Check the exact canonical hostname Netlify assigned and make the left
+      column of public/_redirects match it.
+- [ ] Decide whether securelogic.netlify.app should stay publicly browsable.
+      It is the trade-off for keeping interior pages visible for review: anyone
+      with that URL can read the old messaging, and search engines can index it.
+      Options are Netlify password protection (paid plan), or accept it because
+      the URL is obscure. No action taken either way.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
 - Find video of Mist spraying the camera 
 - Does Marty want to pay for Slack? I recommend it. even if it's just for a few of the key players. 30 day pro trial
 - Is the videographer actually using the proper equipment - gimbal? That means things can't be shaky. need PRO smooth
+- GMB

@@ -1,0 +1,1197 @@
+---
+// Homepage. Bold rounded-pill CTAs, a saturated royal-blue palette, light-blue
+// trust bands, deep-blue testimonial + footer blocks, and a centered hero over
+// full-bleed video. The header/nav lives in Header.astro and is shared sitewide.
+import { ArrowLeft, ArrowRight, Info, Mail, Phone, Quote, Star } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AnimatedStatIcon from '../components/AnimatedStatIcon.astro';
+import CertMark from '../components/CertMark.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { posts } from '../data/blog-posts';
+import logo from '../assets/images/logo.png';
+import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
+import farmVideo from '../assets/videos/farm.mp4';
+import farmPoster from '../assets/images/hero-farm-poster.jpg';
+import cannabisVideo from '../assets/videos/cannabis.mp4';
+import gymVideo from '../assets/videos/gym.mp4';
+import swineVideo from '../assets/videos/swine.mp4';
+import applicationHumanVideo from '../assets/videos/application-human.mp4';
+import applicationHvacVideo from '../assets/videos/application-hvac.mp4';
+import applicationAgricultureVideo from '../assets/videos/application-agriculture.mp4';
+import botanimaxBottle from '../assets/images/botanimax-bottle.png';
+import botanimaxLogo from '../assets/images/botanimax-logo.png';
+import compact from '../assets/images/genesis-compact.png';
+import genesisWallMountedGym from '../assets/images/genesis360-wall-mounted-gym.jpg';
+import portableMist from '../assets/images/portable-mist.png';
+import farmer1 from '../assets/images/farmer1.png';
+import farmer2 from '../assets/images/farmer2.png';
+import farmer3 from '../assets/images/farmer3.png';
+import medical from '../assets/images/medical.png';
+import biofilmHvac from '../assets/images/blog-biofilm-hvac.png';
+import greenhouse from '../assets/images/blog-greenhouse.png';
+import fitnessAthletics from '../assets/images/fitness-athletics-lineup.jpg';
+
+const categories = [
+  { title: 'Human', href: '/human/', image: medical, video: applicationHumanVideo, copy: 'Protect the shared spaces where people learn, train, recover, and gather.' },
+  { title: 'HVAC', href: '/hvac/', image: biofilmHvac, video: applicationHvacVideo, copy: 'Treat the hidden coils, ducts, and air pathways that shape indoor air quality.' },
+  { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.' },
+];
+
+const trustStats: { label: string; copy: string; icon: 'droplet' | 'coverage' | 'cycle' | 'shield' }[] = [
+  { label: 'Sub-10 μm', copy: 'Dry-mist droplet size that behaves like a vapor', icon: 'droplet' },
+  { label: '360°', copy: 'Air and surface coverage, every cycle', icon: 'coverage' },
+  { label: 'Automated', copy: 'Programmable, repeatable disinfection cycles', icon: 'cycle' },
+  { label: 'EPA 2(c)', copy: 'Registered botanical disinfectant formula', icon: 'shield' },
+];
+
+const systems = [
+  { name: 'In Room Mist', eyebrow: 'Whole-Room Coverage', copy: 'A discreet fixed system for automated, repeatable air and surface treatment.', image: genesisWallMountedGym, imageAlt: 'Genesis 360 In Room Mist system mounted on the wall of a fitness facility' },
+  { name: 'Compact Mist', eyebrow: 'Flexible Deployment', copy: 'Core Genesis 360 performance in a smaller, adaptable footprint.', image: compact },
+  { name: 'Portable Mist', eyebrow: 'Targeted Response', copy: 'A portable option for fast, focused deployment across the facility.', image: portableMist },
+];
+
+const certMarks: { kind: 'epa' | 'evp' | 'usa' | 'patent' | 'botanical'; caption: string }[] = [
+  { kind: 'epa', caption: 'EPA Registered Disinfectant' },
+  { kind: 'evp', caption: 'Emerging Viral Pathogen Claim' },
+  { kind: 'botanical', caption: '150+ Plant-Derived Actives' },
+  { kind: 'patent', caption: 'Patent-Pending Formula' },
+  { kind: 'usa', caption: 'Made in the USA' },
+];
+
+const testimonials = [
+  { quote: "Using BAC Ag has been a huge success in our show pig operation! We went from having sow health issues to bringing in new sows and not having any issues!", name: 'Keaton Kitson', role: 'Owner, Kitson Show Pigs', image: farmer1 },
+  { quote: 'I did a trial where I treated one barn with BAC Ag and not the other. The treated barn had 30% less deads, 30% less culls, and went to market 10 pounds heavier.', name: 'Southwest Iowa Pig Farmer', role: 'Pork Producer', image: farmer2 },
+  { quote: "It's been a game changer for us — not only taking away the terrible smell in the barns, but healthier lambs, no coughing or diarrhea that you see in heated barns.", name: 'David Sark', role: 'Farmer', image: farmer3 },
+];
+
+const switchReasons = [
+  'True whole-room disinfection, not just wiped surfaces',
+  'Automated, remote-capable operation cuts labor dependence',
+  'Environmentally neutral — no residue, no humidity shift',
+  'One platform across HVAC, in-room, medical, and ag use',
+];
+
+
+const recentPosts = posts.slice(0, 3);
+---
+
+<BaseLayout
+  title="Secure Logic | Precision Misting and Botanical Disinfection"
+  description="Secure Logic designs Genesis 360 automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage."
+>
+  <style>
+    .h2o-stage {
+      position: relative;
+      isolation: isolate;
+      width: min(29rem, 82vw);
+      aspect-ratio: 1.08;
+      perspective: 900px;
+      transform-style: preserve-3d;
+    }
+
+    .h2o-stage::before {
+      content: '';
+      position: absolute;
+      inset: 8%;
+      border-radius: 999px;
+      background:
+        repeating-conic-gradient(from 15deg, rgb(255 255 255 / 0.28) 0 0.3deg, transparent 0.3deg 7deg),
+        radial-gradient(circle, rgb(29 63 214 / 0.14), transparent 68%);
+      filter: blur(0.25px);
+      opacity: 0.72;
+    }
+
+    .h2o-formula {
+      position: absolute;
+      left: 3%;
+      top: 3%;
+      z-index: 8;
+      color: var(--bl-blue-dark);
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .h2o-formula sub {
+      position: relative;
+      bottom: -0.18em;
+      font-size: 0.58em;
+    }
+
+    .h2o-aura {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      z-index: -1;
+      width: 72%;
+      aspect-ratio: 1;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgb(116 166 255 / 0.38), rgb(111 202 103 / 0.12) 48%, transparent 72%);
+      filter: blur(18px);
+      transform: translate(-50%, -50%);
+      animation: h2o-aura-pulse 4.8s ease-in-out infinite alternate;
+    }
+
+    .h2o-orbit-field {
+      position: absolute;
+      inset: 1%;
+      z-index: 1;
+      width: 98%;
+      height: 98%;
+      overflow: visible;
+    }
+
+    .h2o-ring-track,
+    .h2o-ring-glow,
+    .h2o-ring-runner {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .h2o-ring-track,
+    .h2o-ring-glow {
+      stroke: currentColor;
+      stroke-dasharray: 21 2.5;
+      stroke-width: 1.35;
+    }
+
+    .h2o-ring-track { opacity: 0.46; }
+
+    .h2o-ring-glow {
+      opacity: 0.32;
+      filter: blur(2.4px);
+      stroke-width: 4;
+    }
+
+    .h2o-ring-runner {
+      stroke: currentColor;
+      stroke-dasharray: 1 99;
+      stroke-linecap: round;
+      stroke-width: 7;
+      filter: drop-shadow(0 0 3px currentColor) drop-shadow(0 0 6px rgb(255 255 255 / 0.75));
+      animation: h2o-ring-orbit var(--ring-speed, 4.8s) linear infinite;
+      animation-delay: var(--ring-delay, 0s);
+    }
+
+    .h2o-ring-blue {
+      --ring-speed: 4.8s;
+      --ring-delay: 0s;
+      color: #4772ea;
+    }
+
+    .h2o-ring-green {
+      --ring-speed: 6.4s;
+      --ring-delay: -2.1s;
+      color: #52a94d;
+    }
+
+    .h2o-ring-sky {
+      --ring-speed: 5.6s;
+      --ring-delay: -3.7s;
+      color: #76a7ff;
+    }
+
+    .h2o-ring-green .h2o-ring-runner { animation-direction: reverse; }
+
+    .h2o-orbit-core {
+      fill: #4772ea;
+      filter: drop-shadow(0 0 12px rgb(71 114 234 / 0.68));
+      opacity: 0.3;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: h2o-core-pulse 2.8s ease-in-out infinite alternate;
+    }
+
+    .h2o-orbit-shadow {
+      fill: #10204a;
+      filter: blur(7px);
+      opacity: 0.12;
+    }
+
+    .h2o-molecule {
+      position: absolute;
+      inset: 8% 6% 12%;
+      z-index: 3;
+      transform-style: preserve-3d;
+      animation: h2o-molecule-float 6s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .h2o-bond {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      width: 37%;
+      height: 0.72rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff, #a9c5ff 35%, #2f5de2 62%, #10204a);
+      box-shadow: 0 8px 18px -8px rgb(16 32 74 / 0.68), inset 0 1px 1px rgb(255 255 255 / 0.85);
+      transform-origin: 0 50%;
+    }
+
+    .h2o-bond-left { transform: rotate(142.25deg); }
+    .h2o-bond-right { transform: rotate(37.75deg); }
+
+    .h2o-atom {
+      --atom-edge-color: rgb(71 114 234 / 0.72);
+      --atom-pulse-delay: 0s;
+      position: absolute;
+      z-index: 4;
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 0.7);
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 800;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgb(5 14 47 / 0.5);
+      transform: translate(-50%, -50%) translateZ(2rem);
+    }
+
+    .h2o-atom::before {
+      content: '';
+      position: absolute;
+      inset: -9%;
+      z-index: -1;
+      border: 1.5px solid var(--atom-edge-color);
+      border-radius: inherit;
+      box-shadow: 0 0 16px var(--atom-edge-color), inset 0 0 10px var(--atom-edge-color);
+      opacity: 0.34;
+      animation: h2o-atom-edge-pulse 2.2s ease-in-out var(--atom-pulse-delay) infinite alternate;
+    }
+
+    .h2o-atom::after {
+      content: '';
+      position: absolute;
+      inset: 9%;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgb(255 255 255 / 0.28), transparent 44%);
+      box-shadow: inset -12px -16px 24px rgb(5 14 47 / 0.18);
+    }
+
+    .h2o-oxygen {
+      --atom-edge-color: rgb(71 114 234 / 0.72);
+      --atom-pulse-delay: -0.8s;
+      left: 50%;
+      top: 50%;
+      width: 27%;
+      background: radial-gradient(circle at 31% 27%, #fff 0 3%, #a9c5ff 7%, #4772ea 27%, #1d3fd6 62%, #10204a 100%);
+      box-shadow: 0 28px 44px -24px rgb(16 32 74 / 0.85), 0 0 34px rgb(29 63 214 / 0.34);
+      font-size: clamp(1.75rem, 6vw, 2.75rem);
+    }
+
+    .h2o-hydrogen {
+      --atom-edge-color: rgb(82 194 76 / 0.68);
+      top: 73%;
+      width: 17%;
+      background: radial-gradient(circle at 31% 27%, #fff 0 5%, #e8f9ce 10%, #a6d960 36%, #52a94d 68%, #205538 100%);
+      box-shadow: 0 22px 34px -22px rgb(32 85 56 / 0.88), 0 0 26px rgb(82 194 76 / 0.3);
+      font-size: clamp(1.1rem, 4vw, 1.75rem);
+    }
+
+    .h2o-hydrogen-left {
+      --atom-pulse-delay: -1.4s;
+      left: 20%;
+    }
+
+    .h2o-hydrogen-right {
+      --atom-pulse-delay: -0.3s;
+      left: 80%;
+    }
+
+    .h2o-angle {
+      position: absolute;
+      bottom: 2%;
+      left: 50%;
+      z-index: 8;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border: 1px solid rgb(29 63 214 / 0.16);
+      border-radius: 999px;
+      background: rgb(255 255 255 / 0.76);
+      padding: 0.45rem 0.8rem;
+      color: var(--bl-blue-dark);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+
+    .h2o-angle::before {
+      content: '';
+      width: 1.1rem;
+      height: 0.55rem;
+      border-top: 2px solid #52a94d;
+      border-right: 2px solid #52a94d;
+      border-radius: 0 999px 0 0;
+    }
+
+    .h2o-angle-info {
+      display: inline-grid;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-left: 0.1rem;
+      place-items: center;
+      border: 1px solid rgb(29 63 214 / 0.24);
+      border-radius: 999px;
+      background: rgb(29 63 214 / 0.08);
+      color: var(--bl-blue);
+      transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .h2o-angle-info:hover,
+    .h2o-angle-info:focus-visible {
+      background: var(--bl-blue);
+      color: #fff;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .h2o-angle-info:focus-visible { box-shadow: 0 0 0 3px rgb(29 63 214 / 0.2); }
+
+    .h2o-angle-tooltip {
+      position: absolute;
+      bottom: calc(100% + 0.75rem);
+      left: 50%;
+      width: min(18rem, calc(82vw - 2rem));
+      border-radius: 0.85rem;
+      background: #10204a;
+      padding: 0.8rem 0.9rem;
+      color: rgb(255 255 255 / 0.88);
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.55;
+      text-align: left;
+      text-transform: none;
+      box-shadow: 0 18px 36px -18px rgb(16 32 74 / 0.72), 0 2px 6px rgb(16 32 74 / 0.22);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 0.3rem);
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+      white-space: normal;
+      pointer-events: none;
+    }
+
+    .h2o-angle-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      border: 0.38rem solid transparent;
+      border-top-color: #10204a;
+      transform: translateX(-50%);
+    }
+
+    .h2o-angle-info:hover + .h2o-angle-tooltip,
+    .h2o-angle-info:focus + .h2o-angle-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    .cert-marquee {
+      overflow: hidden;
+      margin-inline: -1.25rem;
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .cert-marquee-track,
+    .cert-marquee-set {
+      display: flex;
+      width: max-content;
+    }
+
+    .cert-marquee-track {
+      animation: cert-marquee-scroll 34s linear infinite;
+    }
+
+    .cert-marquee-set {
+      flex: none;
+      gap: 1rem;
+      padding-right: 1rem;
+    }
+
+    .cert-marquee-item {
+      display: flex;
+      width: 9rem;
+      flex: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    @keyframes cert-marquee-scroll {
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes h2o-ring-orbit {
+      0% { stroke-dashoffset: 0; stroke-width: 7; }
+      50% { stroke-width: 4; }
+      100% { stroke-dashoffset: -100; stroke-width: 7; }
+    }
+
+    @keyframes h2o-core-pulse {
+      from { opacity: 0.18; transform: scale(0.82); }
+      to { opacity: 0.42; transform: scale(1.18); }
+    }
+
+    @keyframes h2o-molecule-float {
+      0% { transform: translateY(0.4rem) rotateX(4deg) rotateY(-7deg); }
+      50% { transform: translateY(-0.3rem) rotateX(-2deg) rotateY(3deg); }
+      100% { transform: translateY(-0.65rem) rotateX(5deg) rotateY(8deg); }
+    }
+
+    @keyframes h2o-atom-edge-pulse {
+      from { opacity: 0.2; transform: scale(0.9); }
+      to { opacity: 0.72; transform: scale(1.13); }
+    }
+
+    @keyframes h2o-aura-pulse {
+      from { opacity: 0.56; transform: translate(-50%, -50%) scale(0.92); }
+      to { opacity: 0.88; transform: translate(-50%, -50%) scale(1.08); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .h2o-aura,
+      .h2o-ring-runner,
+      .h2o-orbit-core,
+      .h2o-molecule,
+      .h2o-atom::before { animation: none; }
+
+      .h2o-molecule { transform: rotateX(3deg) rotateY(-4deg); }
+      [data-botanimax-parallax] { transform: translate3d(0, 20px, 0) scale(1.12) !important; }
+      [data-why-switch-parallax] { transform: scale(1.02) !important; will-change: auto; }
+      .cert-marquee { overflow-x: auto; mask-image: none; }
+      .cert-marquee-track { animation: none; }
+      .cert-marquee-set[aria-hidden='true'] { display: none; }
+    }
+
+    @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+      [data-botanimax-parallax] { transform: translate3d(0, 130px, 0) scale(1.12) !important; }
+    }
+  </style>
+
+  <div
+    class="bl bg-white"
+    x-data="{
+      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      scrollFrame: null,
+      updateScrollScaleImages() {
+        if (this.reducedMotion) return;
+
+        const viewportHeight = window.innerHeight;
+
+        document.querySelectorAll('[data-scroll-scale-image]').forEach((image) => {
+          const frame = image.parentElement;
+          if (!frame) return;
+
+          const rect = frame.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+          const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+          image.style.transform = `scale(${1.04 + progress * 0.16})`;
+        });
+      },
+      updateBotaniMaxParallax() {
+        if (this.reducedMotion) return;
+
+        const viewportHeight = window.innerHeight;
+
+        document.querySelectorAll('[data-botanimax-parallax]').forEach((image) => {
+          const frame = image.parentElement;
+          if (!frame) return;
+
+          const rect = frame.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+          const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+          const translateY = window.innerWidth < 1024
+            ? 80 - progress * 80
+            : 240 - progress * 160;
+          image.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.12)`;
+        });
+      },
+      updateWhySwitchParallax() {
+        if (this.reducedMotion) return;
+
+        const viewportHeight = window.innerHeight;
+
+        document.querySelectorAll('[data-why-switch-parallax]').forEach((image) => {
+          const frame = image.parentElement;
+          if (!frame) return;
+
+          const rect = frame.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+          const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
+          const translateY = (progress - 0.5) * 8;
+          image.style.transform = `translate3d(0, ${translateY}%, 0) scale(1.02)`;
+        });
+      },
+      scheduleScrollEffects() {
+        if (this.scrollFrame !== null) return;
+
+        this.scrollFrame = requestAnimationFrame(() => {
+          this.updateScrollScaleImages();
+          this.updateBotaniMaxParallax();
+          this.updateWhySwitchParallax();
+          this.scrollFrame = null;
+        });
+      }
+    }"
+    x-init="
+      document.documentElement.classList.add('reveal-enabled');
+      updateScrollScaleImages();
+      updateBotaniMaxParallax();
+      updateWhySwitchParallax();
+      if (!reducedMotion) {
+        window.addEventListener('scroll', () => scheduleScrollEffects(), { passive: true });
+        window.addEventListener('resize', () => scheduleScrollEffects(), { passive: true });
+      }
+    "
+  >
+    <Header />
+
+    <!-- Hero -->
+    <section
+      class="relative isolate overflow-visible bg-canopy text-white"
+    >
+      <div class="absolute inset-0">
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-95 transition-opacity duration-1000 ease-in-out"
+          src={farmVideo}
+          poster={farmPoster.src}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          aria-hidden="true"
+          data-hero-slide="0"
+        ></video>
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={cannabisVideo}
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-hidden="true"
+          data-hero-slide="1"
+        ></video>
+        <video
+          class="absolute bottom-0 left-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={gymVideo}
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-hidden="true"
+          data-hero-slide="2"
+        ></video>
+        <video
+          class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out"
+          src={swineVideo}
+          muted
+          loop
+          playsinline
+          preload="none"
+          aria-hidden="true"
+          data-hero-slide="3"
+        ></video>
+      </div>
+      <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_18%/.82)_0%,hsl(229_76%_46%/.48)_48%,hsl(221_82%_34%/.38)_100%)]"></div>
+      <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="absolute -bottom-24 left-0 h-96 w-3/4 rounded-full bg-botanical-300/10 blur-3xl motion-safe:animate-[mist_18s_ease-in-out_infinite_alternate]"></div>
+        <div class="absolute -right-28 top-4 h-96 w-2/3 rounded-full bg-white/10 blur-3xl motion-safe:animate-[mist_24s_ease-in-out_infinite_alternate]"></div>
+      </div>
+      <div class="container-page relative grid min-h-[min(92vh,820px)] place-items-center py-20 text-center">
+        <div>
+          <h1 class="mx-auto max-w-[16ch] text-[clamp(2.75rem,6.5vw,5.75rem)] font-bold leading-[1.05] tracking-tight text-white">
+            <span class="sr-only">Engineering Better Environments.</span>
+            <span aria-hidden="true">
+              Engineering Better
+              <span class="typed-hero-shell mx-auto block" aria-hidden="true">
+                <span class="typed-hero-reserve" aria-hidden="true">Environments.</span>
+                <span class="typed-hero-word" data-typed-hero-word>Environments.</span>
+              </span>
+            </span>
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg font-medium leading-8 text-white/75">Automated dry-mist disinfection engineered for facilities that can't afford inconsistency.</p>
+          <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop by category -->
+    <section id="shop" class="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-white to-brand-50 px-5 sm:px-6 lg:px-8 py-24">
+      <div class="particle-field particle-field-light" aria-hidden="true">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+      </div>
+      <div class="reveal relative mx-auto max-w-6xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+        <p class="bl-eyebrow">Built Around Your Environment</p>
+        <h2 class="mt-4 text-3xl sm:text-4xl">Explore By Application</h2>
+      </div>
+      <div class="reveal relative mx-auto mt-12 grid max-w-7xl gap-5 lg:grid-cols-3 xl:gap-6" x-intersect.once="$el.classList.add('is-visible')">
+        {categories.map(({ title, href, image, video, copy }) => (
+          <a href={href} class="group relative min-h-[30rem] overflow-hidden rounded-2xl bg-slate-900 text-left shadow-deep">
+            <video
+              src={video}
+              poster={image.src}
+              class="absolute inset-0 h-full w-full scale-[1.02] object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              tabindex="-1"
+              aria-hidden="true"
+              data-application-video
+            ></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#071538]/95 via-brand-900/35 to-transparent" aria-hidden="true"></div>
+            <div class="absolute inset-x-0 bottom-0 p-7 sm:p-8">
+              <h3 class="text-3xl text-white">{title}</h3>
+              <p class="mt-3 max-w-[34ch] text-base leading-[1.45] text-white/75">{copy}</p>
+              <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.1em] text-white">
+                Explore {title} <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Trust band -->
+    <section class="px-5 sm:px-6 lg:px-8 py-20 bg-brand-100">
+      <div class="reveal mx-auto max-w-6xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+        <h2 class="bl-h2">Engineered for Facilities That Can't Afford Inconsistency.</h2>
+        <div class="mt-12 grid gap-10 text-brand-600 sm:grid-cols-2 lg:grid-cols-4" style="--ai-accent: var(--bl-green);">
+          {trustStats.map(({ label, copy, icon }) => (
+            <div>
+              <div class="mx-auto flex h-24 w-24 items-center justify-center">
+                <AnimatedStatIcon kind={icon} class="h-24 w-24" />
+              </div>
+              <p class="mt-4 text-xl font-extrabold text-brand-600">{label}</p>
+              <p class="mt-2 text-sm leading-6 text-brand-body">{copy}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform showcase -->
+    <section class="relative overflow-hidden px-5 sm:px-6 lg:px-8 py-24 text-white" style="--bl-eyebrow-color: var(--bl-lime); background: radial-gradient(circle at 12% 8%, rgb(62 103 232 / 0.52), transparent 34%), radial-gradient(circle at 88% 88%, rgb(82 194 76 / 0.18), transparent 32%), linear-gradient(145deg, #10204a 0%, #0b1740 52%, #07102f 100%);">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute -right-40 -top-56 h-[38rem] w-[38rem] rounded-full border-[3rem] border-white/[0.035]"></div>
+        <div class="absolute -bottom-72 -left-44 h-[42rem] w-[42rem] rounded-full border-[5rem] border-lime-500/5"></div>
+      </div>
+      <div class="relative mx-auto max-w-7xl">
+        <div class="reveal flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between" x-intersect.once="$el.classList.add('is-visible')">
+          <div>
+            <p class="bl-eyebrow">One Platform. Every Environment.</p>
+            <h2 class="mt-4 text-3xl text-white sm:text-4xl">The Genesis 360 Platform</h2>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-white/55">Installed whole-room coverage, a compact footprint, or portable deployment—three ways to bring the same precision misting platform into your facility.</p>
+          </div>
+          <a href="/genesis360mistingsystems/" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 sm:px-6 lg:px-8 py-3.5 text-xs font-bold uppercase tracking-[0.1em] text-brand-900 shadow-lift-dark transition hover:-translate-y-0.5 hover:bg-brand-100">
+            Shop All Systems <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+        <div class="reveal mt-10 grid gap-5 lg:grid-cols-12 lg:grid-rows-2" x-intersect.once="$el.classList.add('is-visible')">
+          {systems.map(({ name, eyebrow, copy, image, imageAlt }, index) => (
+            <a
+              href="/genesis360mistingsystems/"
+              class:list={[
+                'group relative isolate overflow-hidden rounded-2xl bg-white/[0.075] shadow-lift-dark ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.11]',
+                index === 0
+                  ? 'min-h-[27rem] lg:col-span-7 lg:row-span-2 lg:min-h-[31rem]'
+                  : 'min-h-[19rem] lg:col-span-5 lg:min-h-0',
+              ]}
+            >
+              <span class:list={['absolute inset-x-0 top-0 z-20 h-1', index % 2 === 0 ? 'bg-lime-500' : 'bg-brand-400']} aria-hidden="true"></span>
+              <div
+                class:list={[
+                  'absolute overflow-hidden',
+                  index === 0
+                    ? 'inset-0'
+                    : 'right-0 top-0 h-full w-[58%]',
+                ]}
+              >
+                <Image
+                  src={image}
+                  alt={imageAlt ?? `Genesis 360 ${name} system`}
+                  class:list={[
+                    'h-full w-full transform-gpu object-center transition-transform duration-700 ease-out [backface-visibility:hidden]',
+                    index === 0
+                      ? 'scale-[1.02] object-cover group-hover:scale-[1.07]'
+                      : 'scale-100 object-contain drop-shadow-lift-dark group-hover:scale-[1.08]',
+                  ]}
+                  widths={[320, 520, 760, 980]}
+                  sizes={index === 0 ? '(min-width: 1024px) 48vw, 100vw' : '(min-width: 1024px) 32vw, 100vw'}
+                />
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-950 via-[#0b1740]/45 to-transparent" aria-hidden="true"></div>
+              <div
+                class:list={[
+                  'relative z-10 flex h-full flex-col justify-end p-6 sm:p-7',
+                  index === 0 ? 'max-w-md sm:p-8' : 'max-w-[62%]',
+                ]}
+              >
+                <p class="bl-eyebrow">{eyebrow}</p>
+                <h3 class:list={['mt-3 text-white', index === 0 ? 'text-3xl sm:text-4xl' : 'text-2xl']}>{name}</h3>
+                <p class:list={['mt-3 leading-[1.55] text-white/55', index === 0 ? 'text-base' : 'text-sm']}>{copy}</p>
+                <span class="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-white">
+                  View System <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="reveal mt-6 flex flex-col gap-4 bg-transparent px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8" x-intersect.once="$el.classList.add('is-visible')">
+          <p class="max-w-3xl text-sm leading-5 text-white">The broader Genesis 360 lineup includes HVAC-integrated, mobile, agricultural, and facility-specific systems built around the same precision platform.</p>
+          <a href="/genesis360mistingsystems/" class="inline-flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-lime-400 transition hover:text-white">
+            Explore The Full Lineup <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications and compliance -->
+    <section class="relative overflow-hidden px-5 sm:px-6 lg:px-8 py-20 bg-brand-100">
+      <div class="reveal mx-auto max-w-6xl" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="text-center">
+          <p class="bl-eyebrow">Certifications &amp; Compliance</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl">Proof, not promises.</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-brand-body">Clear product registrations and independently stated claims make it easier to evaluate what belongs in your facility.</p>
+        </div>
+        <div class="cert-marquee mt-10 sm:hidden">
+          <div class="cert-marquee-track">
+            <div class="cert-marquee-set">
+              {certMarks.map(({ kind, caption }) => (
+                <div class="cert-marquee-item">
+                  <div class="h-20 w-20 text-brand-600">
+                    <CertMark kind={kind} />
+                  </div>
+                  <p class="mt-3 max-w-[15ch] text-[0.8rem] font-semibold leading-[1.35] text-brand-900">{caption}</p>
+                </div>
+              ))}
+            </div>
+            <div class="cert-marquee-set" aria-hidden="true">
+              {certMarks.map(({ kind, caption }) => (
+                <div class="cert-marquee-item">
+                  <div class="h-20 w-20 text-brand-600">
+                    <CertMark kind={kind} />
+                  </div>
+                  <p class="mt-3 max-w-[15ch] text-[0.8rem] font-semibold leading-[1.35] text-brand-900">{caption}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto mt-10 hidden max-w-4xl grid-cols-5 gap-x-5 sm:grid">
+          {certMarks.map(({ kind, caption }) => (
+            <div class="flex flex-col items-center text-center">
+              <div class="h-20 w-20 text-brand-600">
+                <CertMark kind={kind} />
+              </div>
+              <p class="mt-3 max-w-[15ch] text-[0.8rem] font-semibold leading-[1.35] text-brand-900">{caption}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Split feature: BotaniMax -->
+    <section class="relative overflow-hidden px-5 sm:px-6 lg:px-8">
+      <div class="reveal mx-auto grid max-w-6xl gap-0 lg:min-h-[44rem] lg:grid-cols-2 lg:gap-14" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="relative order-2 h-[32rem] lg:order-1 lg:h-auto lg:self-stretch">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <Image src={botanimaxBottle} alt="BotaniMax botanical disinfectant bottle" class="h-[44rem] w-auto max-w-none object-contain will-change-transform sm:h-[48rem]" style="transform: translate3d(0, 80px, 0) scale(1.12);" data-botanimax-parallax widths={[480, 720, 960]} sizes="(min-width: 1024px) 520px, 88vw" />
+          </div>
+        </div>
+        <div class="order-1 self-center pb-4 pt-12 lg:order-2 lg:-translate-y-8 lg:py-24">
+          <Image src={botanimaxLogo} alt="BotaniMax" class="mx-auto h-20 w-20 object-contain lg:mx-0" widths={[120, 180]} sizes="80px" />
+          <p class="bl-eyebrow">Botanical Disinfectant</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl">A Clean the Planet Can Feel Good About.</h2>
+          <p class="mt-5 text-base leading-7 text-brand-body">BotaniMax is crafted from 150+ plant actives — a patent-pending, EPA-registered disinfectant that controls bacteria, viruses, and fungi without harsh synthetics.</p>
+          <div class="mt-8 flex justify-center lg:justify-start">
+            <a href="/botanimax/" class="bl-pill">Shop BotaniMax</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials (deep blue band) -->
+    <section class="px-5 sm:px-6 lg:px-8 py-24 text-white bg-brand-900" style="--bl-eyebrow-color: rgb(255 255 255 / 0.55);">
+      <div class="mx-auto max-w-6xl">
+        <div class="reveal flex items-end justify-between gap-6" x-intersect.once="$el.classList.add('is-visible')">
+          <div>
+            <p class="bl-eyebrow">Customer Stories</p>
+            <h2 class="mt-4 max-w-3xl text-3xl text-white sm:text-4xl">Trusted By The People Who Depend On It.</h2>
+          </div>
+          <div class="flex shrink-0 gap-3">
+            <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-900 shadow-lift-dark transition hover:bg-brand-100 focus:outline-none focus:ring-4 focus:ring-white/25" data-alt-testimonial-prev aria-label="Previous testimonials">
+              <ArrowLeft class="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button type="button" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-brand-900 shadow-lift-dark transition hover:bg-brand-100 focus:outline-none focus:ring-4 focus:ring-white/25" data-alt-testimonial-next aria-label="Next testimonials">
+              <ArrowRight class="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+        <div class="reveal mt-12" x-intersect.once="$el.classList.add('is-visible')">
+          <div class="scrollbar-none flex snap-x snap-mandatory items-stretch gap-5 overflow-x-auto pb-2" data-alt-testimonial-track aria-label="Customer testimonials">
+            {[...testimonials, ...testimonials].map(({ quote, name, role, image }, index) => (
+              <figure class="flex w-full shrink-0 snap-start flex-col rounded-2xl bg-white/10 p-6 ring-1 ring-white/10 sm:w-[22rem] md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]" aria-hidden={index >= testimonials.length ? 'true' : undefined} data-alt-testimonial-card>
+                <div class="flex items-center justify-between gap-4">
+                  <Image src={image} alt={`${name}, Secure Logic customer`} class="h-16 w-16 shrink-0 rounded-full object-cover ring-4 ring-white/10" widths={[64, 128]} sizes="64px" />
+                  <Quote class="h-7 w-7 text-white/25" aria-hidden="true" />
+                </div>
+                <div class="mt-5 flex gap-1" aria-label="Five out of five stars">
+                  {Array.from({ length: 5 }).map(() => <Star class="h-4 w-4 fill-lime-400 text-lime-400" aria-hidden="true" />)}
+                </div>
+                <blockquote class="mt-4 text-sm font-medium leading-6 text-white/75">&ldquo;{quote}&rdquo;</blockquote>
+                <figcaption class="mt-auto pt-6 text-sm font-bold text-white">
+                  {name}<span class="mt-1 block font-medium text-white/55">{role}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="px-5 sm:px-6 lg:px-8 py-24">
+      <div class="reveal mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+        <div>
+          <p class="bl-eyebrow">How It Works</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl">Droplet Behavior Defines Performance.</h2>
+          <p class="mt-5 text-base leading-7 text-brand-body">Every nozzle produces a uniform stream of sub-10 µm dry-mist droplets — small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.</p>
+          <a href="/genesis360mistingsystems/" class="bl-pill mt-8">See How It Works</a>
+        </div>
+        <div class="grid min-h-[30rem] place-items-center overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_center,#fff_0%,#eef4ff_58%,#dce8ff_100%)] p-4 sm:p-8">
+          <div class="h2o-stage" role="group" aria-label="Animated H2O water molecule with one oxygen atom, two hydrogen atoms, and a 104.5 degree bond angle">
+            <span class="h2o-formula" aria-hidden="true">H<sub>2</sub>O</span>
+            <span class="h2o-aura" aria-hidden="true"></span>
+            <svg class="h2o-orbit-field" viewBox="0 0 400 370" aria-hidden="true">
+              <ellipse class="h2o-orbit-shadow" cx="200" cy="346" rx="98" ry="9"></ellipse>
+              <circle class="h2o-orbit-core" cx="200" cy="178" r="15"></circle>
+              <g class="h2o-ring-blue" transform="rotate(-30 200 178)">
+                <ellipse class="h2o-ring-glow" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-track" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-runner" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+              </g>
+              <g class="h2o-ring-green" transform="rotate(30 200 178)">
+                <ellipse class="h2o-ring-glow" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-track" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-runner" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+              </g>
+              <g class="h2o-ring-sky" transform="rotate(90 200 178)">
+                <ellipse class="h2o-ring-glow" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-track" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+                <ellipse class="h2o-ring-runner" cx="200" cy="178" rx="74" ry="156" pathLength="100"></ellipse>
+              </g>
+            </svg>
+            <div class="h2o-molecule" aria-hidden="true">
+              <span class="h2o-bond h2o-bond-left"></span>
+              <span class="h2o-bond h2o-bond-right"></span>
+              <span class="h2o-atom h2o-oxygen">O</span>
+              <span class="h2o-atom h2o-hydrogen h2o-hydrogen-left">H</span>
+              <span class="h2o-atom h2o-hydrogen h2o-hydrogen-right">H</span>
+            </div>
+            <span class="h2o-angle">
+              <span>104.5° bond angle</span>
+              <button type="button" class="h2o-angle-info" aria-label="What does the 104.5-degree bond angle mean?" aria-describedby="h2o-angle-help">
+                <Info class="h-3 w-3" aria-hidden="true" />
+              </button>
+              <span id="h2o-angle-help" class="h2o-angle-tooltip" role="tooltip">Measured at the oxygen atom, this is the angle between water’s two O–H bonds. Oxygen’s two lone electron pairs compress the ideal 109.5° tetrahedral angle to about 104.5°, giving H₂O its bent, polar shape.</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why switch checklist. Dark-blue panel, so the checks use the lime accent
+         this page already uses for green on dark sections. -->
+    <section class="overflow-hidden bg-brand-900">
+      <div class="reveal grid lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="relative min-h-[25rem] overflow-hidden lg:min-h-[42rem]">
+          <Image src={fitnessAthletics} alt="Genesis 360 systems and BotaniMax products arranged inside an athletic training facility" class="absolute -top-[8%] left-0 h-[116%] w-full object-cover object-center will-change-transform [backface-visibility:hidden]" style="transform: translate3d(0, -4%, 0) scale(1.02);" data-why-switch-parallax widths={[640, 960, 1280, 1600]} sizes="(min-width: 1024px) 50vw, 100vw" />
+        </div>
+        <div class="flex items-center px-6 py-20 sm:px-10 lg:px-16 xl:px-24">
+          <div class="max-w-xl">
+            <h2 class="text-3xl text-white sm:text-4xl">Why Facilities Switch To Genesis 360.</h2>
+            <ul class="mt-6 grid gap-4">
+              {switchReasons.map((reason) => (
+                <li class="flex items-start gap-3 text-base leading-7 text-white/75">
+                  <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full" class="bg-lime-400/15 text-lime-400">
+                    <svg viewBox="0 0 20 20" fill="none" class="h-3 w-3" stroke="currentColor" stroke-width="2.5"><path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                  {reason}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8 flex justify-center lg:justify-start">
+              <a href="/genesis360mistingsystems/" class="bl-pill bl-pill-invert">Learn About The Platform</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- From the field (blog teaser) -->
+    <section class="bg-white px-5 py-24 sm:px-6 md:bg-slate-100 lg:px-8">
+      <div class="reveal mx-auto max-w-6xl" x-intersect.once="$el.classList.add('is-visible')">
+        <div>
+          <p class="bl-eyebrow">Resources</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl">From The Field</h2>
+          <p class="mt-3 max-w-xl text-brand-body">Insights on botanical disinfectants, misting systems, and indoor air quality.</p>
+        </div>
+      </div>
+      <div class="mx-auto mt-12 grid max-w-6xl gap-6 max-md:-mx-5 max-md:flex max-md:w-[calc(100%+2.5rem)] max-md:snap-x max-md:snap-mandatory max-md:scroll-px-5 max-md:overflow-x-auto max-md:overscroll-x-contain max-md:px-5 max-md:pb-4 md:grid-cols-3" data-blog-track aria-label="Recent blog posts">
+        {recentPosts.map(({ slug, title, date, image, imageAlt }, index) => (
+          <a href={`/blogs/${slug}/`} class="reveal group overflow-hidden rounded-2xl bg-white shadow-lift ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-lift max-md:w-[calc(100vw-2.5rem)] max-md:shrink-0 max-md:snap-start" style={`transition-delay: ${index * 80}ms`} x-intersect.once="$el.classList.add('is-visible')" data-blog-card>
+            <div class="overflow-hidden">
+              <Image src={image} alt={imageAlt} class="aspect-[16/10] w-full object-cover transition-transform duration-200" style="transform: scale(1.04);" data-scroll-scale-image widths={[360, 520, 700]} sizes="(min-width: 768px) 33vw, 85vw" />
+            </div>
+            <div class="p-5">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-brand-muted">{date}</p>
+              <h3 class="mt-3 text-base font-semibold leading-6 text-brand-900">{title}</h3>
+              <span class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-600">Read more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/blogs/" class="bl-pill-outline border-[1.5px] border-brand-600">View All Posts <ArrowRight class="h-4 w-4" /></a>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-24 text-center bg-brand-100">
+      <div class="reveal relative z-10 mx-auto max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+        <p class="bl-eyebrow">Your Facility. Your Coverage Plan.</p>
+        <h2 class="bl-h2 mt-4">Start Protecting Your Facility.</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
+        <a href="/contact-us/" class="bl-pill mt-8 shadow-lift-brand">Get A Quote</a>
+      </div>
+    </section>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const applicationVideos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-application-video]'));
+
+  if (reduceMotion) {
+    applicationVideos.forEach((video) => video.pause());
+  } else if ('IntersectionObserver' in window) {
+    const applicationVideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { rootMargin: '160px 0px', threshold: 0.08 },
+    );
+
+    applicationVideos.forEach((video) => applicationVideoObserver.observe(video));
+  }
+
+  const heroSlides = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-hero-slide]'));
+  let heroIndex = 0;
+  let heroTimer: number | undefined;
+
+  function selectHero(index: number) {
+    heroIndex = index;
+
+    heroSlides.forEach((slide) => {
+      const isSelected = slide.getAttribute('data-hero-slide') === String(index);
+      slide.classList.toggle('opacity-95', isSelected);
+      slide.classList.toggle('opacity-0', !isSelected);
+
+      if (isSelected && slide.paused) {
+        slide.play().catch(() => {});
+      }
+    });
+
+    // Warm the next slide so its first frame is ready before the cross-fade.
+    const upcoming = heroSlides.find(
+      (slide) => slide.getAttribute('data-hero-slide') === String((index + 1) % heroSlides.length),
+    );
+    if (upcoming && upcoming.preload !== 'auto') {
+      upcoming.preload = 'auto';
+      upcoming.load();
+    }
+
+    // Keep the outgoing video playing through the cross-fade, then pause it.
+    window.setTimeout(() => {
+      heroSlides.forEach((slide) => {
+        if (slide.getAttribute('data-hero-slide') !== String(heroIndex) && !slide.paused) {
+          slide.pause();
+        }
+      });
+    }, 1000);
+  }
+
+  function startHeroCarousel() {
+    window.clearInterval(heroTimer);
+    heroTimer = window.setInterval(() => {
+      selectHero((heroIndex + 1) % heroSlides.length);
+    }, 5200);
+  }
+
+  if (heroSlides.length) startHeroCarousel();
+
+  const typedHeroWord = document.querySelector<HTMLElement>('[data-typed-hero-word]');
+  const typedWords = ['Environments.', 'Barns.', 'Locker Rooms.', 'Air Systems.'];
+  const prefersReducedMotion = reduceMotion;
+  let typedWordIndex = 0;
+  let typedLetterIndex = typedWords[0].length;
+  let typedDirection: 'typing' | 'deleting' | 'holding' = 'holding';
+
+  function cycleTypedHeroWord() {
+    if (!typedHeroWord) return;
+
+    const currentWord = typedWords[typedWordIndex];
+    const setTypedWord = (value: string) => {
+      typedHeroWord.textContent = value || ' ';
+    };
+
+    if (typedDirection === 'holding') {
+      typedDirection = 'deleting';
+      window.setTimeout(cycleTypedHeroWord, 1600);
+      return;
+    }
+
+    if (typedDirection === 'deleting') {
+      typedLetterIndex -= 1;
+      setTypedWord(currentWord.slice(0, typedLetterIndex));
+
+      if (typedLetterIndex <= 0) {
+        typedWordIndex = (typedWordIndex + 1) % typedWords.length;
+        typedDirection = 'typing';
+        window.setTimeout(cycleTypedHeroWord, 320);
+        return;
+      }
+
+      window.setTimeout(cycleTypedHeroWord, 55);
+      return;
+    }
+
+    const nextWord = typedWords[typedWordIndex];
+    typedLetterIndex += 1;
+    setTypedWord(nextWord.slice(0, typedLetterIndex));
+
+    if (typedLetterIndex >= nextWord.length) {
+      typedDirection = 'holding';
+      window.setTimeout(cycleTypedHeroWord, 2200);
+      return;
+    }
+
+    window.setTimeout(cycleTypedHeroWord, 92);
+  }
+
+  if (typedHeroWord && !prefersReducedMotion) {
+    window.setTimeout(cycleTypedHeroWord, 2200);
+  }
+
+  const testimonialTrack = document.querySelector<HTMLElement>('[data-alt-testimonial-track]');
+  const testimonialPrevious = document.querySelector<HTMLButtonElement>('[data-alt-testimonial-prev]');
+  const testimonialNext = document.querySelector<HTMLButtonElement>('[data-alt-testimonial-next]');
+
+  if (testimonialTrack) {
+    const cardStep = () => {
+      const card = testimonialTrack.querySelector<HTMLElement>('[data-alt-testimonial-card]');
+      return card ? card.getBoundingClientRect().width + 20 : testimonialTrack.clientWidth;
+    };
+
+    const loopWidth = () => testimonialTrack.scrollWidth / 2;
+
+    const normalizeTestimonials = () => {
+      const width = loopWidth();
+      if (testimonialTrack.scrollLeft >= width) {
+        testimonialTrack.scrollLeft -= width;
+      } else if (testimonialTrack.scrollLeft < 0) {
+        testimonialTrack.scrollLeft += width;
+      }
+    };
+
+    const showNextTestimonial = () => {
+      normalizeTestimonials();
+      testimonialTrack.scrollBy({ left: cardStep(), behavior: 'smooth' });
+    };
+
+    const showPreviousTestimonial = () => {
+      if (testimonialTrack.scrollLeft <= 1) {
+        testimonialTrack.scrollLeft += loopWidth();
+      }
+      testimonialTrack.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+    };
+
+    let testimonialTimer: number | undefined;
+
+    const startTestimonialAutoplay = () => {
+      window.clearInterval(testimonialTimer);
+      if (reduceMotion) return;
+      testimonialTimer = window.setInterval(showNextTestimonial, 4500);
+    };
+
+    const stopTestimonialAutoplay = () => window.clearInterval(testimonialTimer);
+
+    testimonialNext?.addEventListener('click', () => {
+      showNextTestimonial();
+      startTestimonialAutoplay();
+    });
+
+    testimonialPrevious?.addEventListener('click', () => {
+      showPreviousTestimonial();
+      startTestimonialAutoplay();
+    });
+
+    if ('onscrollend' in window) {
+      testimonialTrack.addEventListener('scrollend', normalizeTestimonials);
+    } else {
+      let scrollSettleTimer: number | undefined;
+      testimonialTrack.addEventListener(
+        'scroll',
+        () => {
+          window.clearTimeout(scrollSettleTimer);
+          scrollSettleTimer = window.setTimeout(normalizeTestimonials, 120);
+        },
+        { passive: true },
+      );
+    }
+
+    testimonialTrack.addEventListener('mouseenter', stopTestimonialAutoplay);
+    testimonialTrack.addEventListener('mouseleave', startTestimonialAutoplay);
+    testimonialTrack.addEventListener('touchstart', stopTestimonialAutoplay, { passive: true });
+    testimonialTrack.addEventListener('touchend', startTestimonialAutoplay, { passive: true });
+
+    startTestimonialAutoplay();
+  }
+</script>
