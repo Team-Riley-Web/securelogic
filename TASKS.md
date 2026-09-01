@@ -107,6 +107,20 @@ unchecked task unless you are starting it.
       Offset downward only; the pinned row is at a higher z-index and paints
       over anything cast upward. Tucked state already sets opacity:0, so the
       shadow disappears with the bar on scroll-down — verified
+- [x] Open Graph / social share meta added in src/layouts/BaseLayout.astro, so
+      every page inherits it. og: + twitter: tags, canonical, and og:image
+      width/height from social-share.png. Per-page `image` prop available to
+      override the card on a single page. Required setting `site:
+      'https://genesis360.com'` in astro.config.mjs — scrapers silently ignore a
+      relative og:image, so the absolute URL has to come from Astro.site. Do not
+      remove that config line or every share preview goes blank
+- [ ] social-share.png is 1000x600. Works (above the 600x315 threshold for a
+      large card) but under the recommended 1200x630, so it upscales slightly on
+      high-DPI and the 1.67:1 ratio can get cropped to 1.91:1 by some platforms.
+      Re-export at 1200x630 when convenient
+- [ ] Confirm og:site_name should stay "Secure Logic" now that genesis360.com is
+      the primary domain — set in BaseLayout.astro. Change if the share cards
+      should read Genesis 360 instead
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
