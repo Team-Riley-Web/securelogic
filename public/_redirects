@@ -1,108 +1,171 @@
 # PRODUCTION-ONLY GATE FOR THE INTERIM LANDING PAGE
 #
 # Marty asked to stop the public site serving messaging that no longer matches
-# where the company is. These rules send every interior page back to the
-# landing page at / -- but ONLY on the live securelogicusa.com domain.
+# where the company is. These rules send every interior page back to the landing
+# page at / -- but ONLY on the live public domains.
 #
 # securelogic.netlify.app is deliberately NOT listed, so the whole site stays
-# browsable there for review while the rebuild continues.
+# browsable there for internal review while the rebuild continues.
 #
-# Right now this file is dormant: securelogicusa.com does not point at Netlify
-# yet, so nothing matches and nothing is blocked. It switches itself on the
-# moment the GoDaddy DNS is repointed. No second deploy needed.
+# DOMAINS
+#   genesis360.com is the primary domain. Both apex and www are listed.
 #
-# TO PUT THE FULL SITE BACK LIVE: delete this file, then move
-# src/pages/home-full.astro back to src/pages/index.astro. Nothing else changes,
-# because nothing was ever removed -- all 42 pages still build on every deploy.
+#   securelogicusa.com is kept here too. It is expected to redirect to
+#   genesis360.com at the registrar, in which case these rules never fire for it
+#   -- traffic lands on genesis360.com before Netlify sees it. They cost nothing
+#   and they are the safety net for the case where securelogicusa.com resolves
+#   to this Netlify site directly instead of being redirected upstream. If that
+#   ever changes, do not delete them without checking where its DNS points.
 #
-# Mechanics worth knowing:
-#   * A full URL in the left column is how Netlify scopes a rule to one host.
-#     A bare path like /ag/* would match every domain, including netlify.app,
+# This file is dormant until a listed domain actually points at Netlify. It
+# switches itself on at DNS cutover with no redeploy needed.
+#
+# TO PUT THE FULL SITE BACK LIVE: delete this file, then copy
+# src/pages/home-full.astro back over src/pages/index.astro. Nothing else
+# changes, because nothing was ever removed -- all 43 pages still build on every
+# deploy.
+#
+# MECHANICS
+#   * A full URL in the left column is how Netlify scopes a rule to one host. A
+#     bare path like /ag/* would match every domain, including netlify.app,
 #     which is exactly what we are avoiding here.
 #   * 302, not 301. A 301 is cached hard by browsers and would keep sending
 #     people to the landing page for weeks after relaunch.
 #   * The trailing ! forces the rule to win over the real page that exists at
 #     that path. Without it Netlify just serves the page and never redirects.
-#   * Apex and www are both listed because either may be the canonical host.
+#   * Each section is listed twice per host, with and without the splat, because
+#     /ag/* does not reliably match a bare /ag.
 #   * /privacy-policy is intentionally absent -- legal page, no product
 #     messaging, and the Facebook and Instagram profiles link to it.
 #
-# UNTESTABLE UNTIL THE DOMAIN IS LIVE. Host-scoped rules cannot fire locally or
-# on netlify.app. Verify with the curl commands in TASKS.md after DNS cuts over.
+# UNTESTABLE UNTIL A DOMAIN IS LIVE. Host-scoped rules cannot fire locally or on
+# netlify.app. Verify with the curl commands in TASKS.md after DNS cutover.
 
 # home-page
+https://genesis360.com/home-page                           /  302!
+https://genesis360.com/home-page/*                         /  302!
+https://www.genesis360.com/home-page                       /  302!
+https://www.genesis360.com/home-page/*                     /  302!
 https://securelogicusa.com/home-page                       /  302!
 https://securelogicusa.com/home-page/*                     /  302!
 https://www.securelogicusa.com/home-page                   /  302!
 https://www.securelogicusa.com/home-page/*                 /  302!
 
 # home-full
+https://genesis360.com/home-full                           /  302!
+https://genesis360.com/home-full/*                         /  302!
+https://www.genesis360.com/home-full                       /  302!
+https://www.genesis360.com/home-full/*                     /  302!
 https://securelogicusa.com/home-full                       /  302!
 https://securelogicusa.com/home-full/*                     /  302!
 https://www.securelogicusa.com/home-full                   /  302!
 https://www.securelogicusa.com/home-full/*                 /  302!
 
 # human
+https://genesis360.com/human                               /  302!
+https://genesis360.com/human/*                             /  302!
+https://www.genesis360.com/human                           /  302!
+https://www.genesis360.com/human/*                         /  302!
 https://securelogicusa.com/human                           /  302!
 https://securelogicusa.com/human/*                         /  302!
 https://www.securelogicusa.com/human                       /  302!
 https://www.securelogicusa.com/human/*                     /  302!
 
 # hvac
+https://genesis360.com/hvac                                /  302!
+https://genesis360.com/hvac/*                              /  302!
+https://www.genesis360.com/hvac                            /  302!
+https://www.genesis360.com/hvac/*                          /  302!
 https://securelogicusa.com/hvac                            /  302!
 https://securelogicusa.com/hvac/*                          /  302!
 https://www.securelogicusa.com/hvac                        /  302!
 https://www.securelogicusa.com/hvac/*                      /  302!
 
 # ag
+https://genesis360.com/ag                                  /  302!
+https://genesis360.com/ag/*                                /  302!
+https://www.genesis360.com/ag                              /  302!
+https://www.genesis360.com/ag/*                            /  302!
 https://securelogicusa.com/ag                              /  302!
 https://securelogicusa.com/ag/*                            /  302!
 https://www.securelogicusa.com/ag                          /  302!
 https://www.securelogicusa.com/ag/*                        /  302!
 
 # blogs
+https://genesis360.com/blogs                               /  302!
+https://genesis360.com/blogs/*                             /  302!
+https://www.genesis360.com/blogs                           /  302!
+https://www.genesis360.com/blogs/*                         /  302!
 https://securelogicusa.com/blogs                           /  302!
 https://securelogicusa.com/blogs/*                         /  302!
 https://www.securelogicusa.com/blogs                       /  302!
 https://www.securelogicusa.com/blogs/*                     /  302!
 
 # genesis360mistingsystems
+https://genesis360.com/genesis360mistingsystems            /  302!
+https://genesis360.com/genesis360mistingsystems/*          /  302!
+https://www.genesis360.com/genesis360mistingsystems        /  302!
+https://www.genesis360.com/genesis360mistingsystems/*      /  302!
 https://securelogicusa.com/genesis360mistingsystems        /  302!
 https://securelogicusa.com/genesis360mistingsystems/*      /  302!
 https://www.securelogicusa.com/genesis360mistingsystems    /  302!
 https://www.securelogicusa.com/genesis360mistingsystems/*  /  302!
 
 # botanimax
+https://genesis360.com/botanimax                           /  302!
+https://genesis360.com/botanimax/*                         /  302!
+https://www.genesis360.com/botanimax                       /  302!
+https://www.genesis360.com/botanimax/*                     /  302!
 https://securelogicusa.com/botanimax                       /  302!
 https://securelogicusa.com/botanimax/*                     /  302!
 https://www.securelogicusa.com/botanimax                   /  302!
 https://www.securelogicusa.com/botanimax/*                 /  302!
 
 # resources
+https://genesis360.com/resources                           /  302!
+https://genesis360.com/resources/*                         /  302!
+https://www.genesis360.com/resources                       /  302!
+https://www.genesis360.com/resources/*                     /  302!
 https://securelogicusa.com/resources                       /  302!
 https://securelogicusa.com/resources/*                     /  302!
 https://www.securelogicusa.com/resources                   /  302!
 https://www.securelogicusa.com/resources/*                 /  302!
 
 # faqs
+https://genesis360.com/faqs                                /  302!
+https://genesis360.com/faqs/*                              /  302!
+https://www.genesis360.com/faqs                            /  302!
+https://www.genesis360.com/faqs/*                          /  302!
 https://securelogicusa.com/faqs                            /  302!
 https://securelogicusa.com/faqs/*                          /  302!
 https://www.securelogicusa.com/faqs                        /  302!
 https://www.securelogicusa.com/faqs/*                      /  302!
 
 # about-us
+https://genesis360.com/about-us                            /  302!
+https://genesis360.com/about-us/*                          /  302!
+https://www.genesis360.com/about-us                        /  302!
+https://www.genesis360.com/about-us/*                      /  302!
 https://securelogicusa.com/about-us                        /  302!
 https://securelogicusa.com/about-us/*                      /  302!
 https://www.securelogicusa.com/about-us                    /  302!
 https://www.securelogicusa.com/about-us/*                  /  302!
 
 # contact-us
+https://genesis360.com/contact-us                          /  302!
+https://genesis360.com/contact-us/*                        /  302!
+https://www.genesis360.com/contact-us                      /  302!
+https://www.genesis360.com/contact-us/*                    /  302!
 https://securelogicusa.com/contact-us                      /  302!
 https://securelogicusa.com/contact-us/*                    /  302!
 https://www.securelogicusa.com/contact-us                  /  302!
 https://www.securelogicusa.com/contact-us/*                /  302!
 
 # get-a-quote
+https://genesis360.com/get-a-quote                         /  302!
+https://genesis360.com/get-a-quote/*                       /  302!
+https://www.genesis360.com/get-a-quote                     /  302!
+https://www.genesis360.com/get-a-quote/*                   /  302!
 https://securelogicusa.com/get-a-quote                     /  302!
 https://securelogicusa.com/get-a-quote/*                   /  302!
 https://www.securelogicusa.com/get-a-quote                 /  302!

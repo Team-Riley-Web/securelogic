@@ -258,6 +258,14 @@ const secondaryLinks = [
   .site-header-sub > div {
     background: var(--bl-sky);
     color: var(--bl-ink);
+    /* Small drop shadow so the bar reads as a layer sitting above the page when
+       it peeks back in on an upward scroll. Offset downward and tightly
+       feathered: the pinned row sits at a higher z-index and paints over
+       anything cast upward, so only the bottom edge is ever seen. It rides on
+       this inner div rather than the positioned wrapper because this is the
+       element that carries the background, and it is display:none below lg —
+       which is what keeps the shadow off mobile, where the bar never shows. */
+    box-shadow: 0 8px 14px -8px rgb(16 32 74 / 0.22);
   }
 
   /* Sticky header. The whole stack pins; the announcement bar and secondary

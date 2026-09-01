@@ -34,13 +34,18 @@ unchecked task unless you are starting it.
       to Header.astro and Footer.astro so the shared chrome renders identically
       minus the gated nav links; the full site is unaffected. Dropped only the
       blog teaser, whose every card linked to a gated post
-- [ ] GoDaddy: point securelogicusa.com at Netlify. The gate arms itself on DNS
-      cutover — no redeploy needed. Then verify it actually fired:
-        curl -sI https://www.securelogicusa.com/ag/ | grep -i '^location'
+- [ ] DNS cutover. genesis360.com is the primary domain; securelogicusa.com is
+      expected to redirect to it at the registrar. The gate in public/_redirects
+      covers apex + www for BOTH domains (104 rules, 26 per host) and arms
+      itself at cutover with no redeploy. After DNS lands, verify it actually
+      fired:
+        curl -sI https://genesis360.com/ag/ | grep -i '^location'
           -> expect  location: /
-        curl -sI https://www.securelogicusa.com/ | head -1
+        curl -sI https://genesis360.com/ | head -1
           -> expect  HTTP/2 200   (landing page must NOT redirect)
-      If /ag/ returns 200 instead of a 302 the host-scoped rules did not match.
+        curl -sI https://securelogicusa.com/ | grep -i '^location'
+          -> expect a redirect to genesis360.com
+      If /ag/ returns 200 instead of a 302, the host-scoped rules did not match.
       Check the exact canonical hostname Netlify assigned and make the left
       column of public/_redirects match it.
 - [x] /ag/indoor-growing/ Module 1: reworded the hero body copy to the supplied
@@ -94,6 +99,14 @@ unchecked task unless you are starting it.
       page. Note it is NOT driven by ag-markets.ts — /ag/index.astro has its own
       local `sectors` array with its own images. hero-cannabis-poster.jpg could
       be reused there
+- [x] Secondary nav (Genesis 360 / BotaniMax / Shop All): small drop shadow
+      beneath it so it reads as a layer above the page when it peeks back in on
+      an upward scroll. Sits on `.site-header-sub > div` in Header.astro — the
+      element that carries the background, and the one that is display:none
+      below lg, which keeps the shadow off mobile where the bar never shows.
+      Offset downward only; the pinned row is at a higher z-index and paints
+      over anything cast upward. Tucked state already sets opacity:0, so the
+      shadow disappears with the bar on scroll-down — verified
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
