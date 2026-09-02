@@ -285,8 +285,17 @@
     width: max-content;
   }
 
+  /* Holds the headline's width. Every candidate word is stacked into one grid
+     cell, so the column sizes to the widest of them and the line never reflows
+     as the word changes. */
   .typed-hero-reserve {
+    display: grid;
     visibility: hidden;
+  }
+
+  .typed-hero-reserve > * {
+    grid-area: 1 / 1;
+    white-space: nowrap;
   }
 
   .typed-hero-word {

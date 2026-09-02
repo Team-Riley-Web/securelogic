@@ -90,19 +90,23 @@ const secondaryLinks = [
   <!-- Announcement bar. Deliberately outside the sticky stack: it scrolls away
        on its own and returns at the top of the page, so the header never
        changes the document height mid-scroll. -->
-  <div class="sh-announce flex min-h-10 items-center justify-center gap-3 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.08em] text-white sm:gap-6">
+  <div class:list={['sh-announce flex min-h-10 items-center justify-center gap-3 px-4 py-2 text-center text-xs font-semibold uppercase tracking-[0.08em] text-white sm:gap-6', minimal && 'sh-announce-compact']}>
     <button type="button" class="rounded-full p-1 opacity-60 transition hover:bg-white/10 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/70" data-announcement-prev aria-label="Previous announcement">
       <ChevronLeft class="h-4 w-4" aria-hidden="true" />
     </button>
+    <!-- On the landing page every one of these links collapsed to the same
+         "Contact Us", which turned the rotation into the same call to action
+         three times over, next to the Contact Us pill in the row below. The
+         minimal build shows the message alone. -->
     <div class="grid min-w-0 flex-1 place-items-center overflow-hidden" aria-live="polite">
       <p class="announcement-slide is-active" data-announcement-slide aria-hidden="false">
-        <span>Automated, Whole-Room Disinfection</span><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href={minimal ? '#contact' : '/get-a-quote/'} class="announcement-link underline decoration-white/50 underline-offset-2">{minimal ? 'Contact Us' : 'Get A Quote'} →</a>
+        <span>Automated, Whole-Room Disinfection</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/get-a-quote/" class="announcement-link underline decoration-white/50 underline-offset-2">Get A Quote →</a></>)}
       </p>
       <p class="announcement-slide" data-announcement-slide aria-hidden="true">
-        <span>Sub-10 <span class="normal-case">μm</span> Dry-Mist Precision</span><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href={minimal ? '#contact' : '/about-us/technology/'} class="announcement-link underline decoration-white/50 underline-offset-2">{minimal ? 'Contact Us' : 'See How It Works'} →</a>
+        <span>Sub-10 <span class="normal-case">μm</span> Dry-Mist Precision</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/about-us/technology/" class="announcement-link underline decoration-white/50 underline-offset-2">See How It Works →</a></>)}
       </p>
       <p class="announcement-slide" data-announcement-slide aria-hidden="true">
-        <span>Botanical Chemistry, Built for Precision</span><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href={minimal ? '#contact' : '/botanimax/'} class="announcement-link underline decoration-white/50 underline-offset-2">{minimal ? 'Contact Us' : 'Explore BotaniMax'} →</a>
+        <span>Botanical Chemistry, Built for Precision</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/botanimax/" class="announcement-link underline decoration-white/50 underline-offset-2">Explore BotaniMax →</a></>)}
       </p>
     </div>
     <button type="button" class="rounded-full p-1 opacity-60 transition hover:bg-white/10 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/70" data-announcement-next aria-label="Next announcement">
@@ -118,11 +122,17 @@ const secondaryLinks = [
       class="site-header-main relative z-50 border-b border-slate-100"
       style="--mm-accent: var(--bl-blue); --mm-ink: var(--bl-ink); --mm-tile-bg: var(--bl-sky); --mm-tile-hover-bg: #d3e0ff; --mm-foot-bg: #f7faff; --mm-row-hover-bg: #f7faff; --mm-border: #e5ecfa; --mm-trigger-size: 0.78rem; --mm-trigger-weight: 700; --mm-trigger-transform: uppercase; --mm-trigger-tracking: 0.07em;"
     >
-      <div class="site-header-row mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-6 px-6">
+      <!-- Three columns on the full site so the logo sits centred between the
+           two nav clusters. The landing page has no left cluster, which left
+           the centred logo hanging over empty space — so `minimal` drops to two
+           columns and anchors the logo at the left edge instead. -->
+      <div class:list={['site-header-row mx-auto grid max-w-7xl items-center gap-6 px-6', minimal ? 'grid-cols-[auto_1fr]' : 'grid-cols-[1fr_auto_1fr]']}>
         {!minimal && <MegaMenu menus={leftMenus} class="col-start-1 row-start-1 justify-self-start font-semibold" />}
-        <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Secure Logic at 1-888-997-4310">
-          <Phone class="h-5 w-5" aria-hidden="true" />
-        </a>
+        {!minimal && (
+          <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Secure Logic at 1-888-997-4310">
+            <Phone class="h-5 w-5" aria-hidden="true" />
+          </a>
+        )}
         {!minimal && (
           <button
             type="button"
@@ -136,11 +146,19 @@ const secondaryLinks = [
             <X class="h-6 w-6" x-show="mobileOpen" x-cloak />
           </button>
         )}
-        <a href="/" class="col-start-2 row-start-1 flex items-center justify-center justify-self-center" aria-label="Secure Logic home">
+        <a href="/" class:list={['row-start-1 flex items-center', minimal ? 'col-start-1 justify-self-start' : 'col-start-2 justify-center justify-self-center']} aria-label="Secure Logic home">
           <Image src={logo} alt="Secure Logic logo" class="header-logo-mark w-auto object-contain" style="height: calc(var(--spacing) * 8.5);" widths={[120, 180]} sizes="120px" />
         </a>
-        <div class:list={['col-start-3 row-start-1 items-center justify-self-end gap-4', minimal ? 'flex' : 'hidden lg:flex']}>
+        <div class:list={['row-start-1 items-center justify-self-end gap-4', minimal ? 'col-start-2 flex' : 'col-start-3 hidden lg:flex']}>
           {!minimal && <MegaMenu menus={rightMenus} class="font-semibold" />}
+          {/* The tap-to-call icon rides with the CTA here rather than sitting in
+              the left column, which the logo now occupies. `.sh-phone` still
+              hides itself at lg and up, so this is the mobile affordance only. */}
+          {minimal && (
+            <a href="tel:18889974310" class="sh-phone" aria-label="Call Secure Logic at 1-888-997-4310">
+              <Phone class="h-5 w-5" aria-hidden="true" />
+            </a>
+          )}
           <a href={minimal ? '#contact' : '/get-a-quote/'} class="bl-pill">{minimal ? 'Contact Us' : 'Get A Quote'}</a>
         </div>
       </div>
@@ -342,24 +360,30 @@ const secondaryLinks = [
     transition: filter 0.32s ease;
   }
 
+  /* Cross-fades in place. The slides used to rise 0.35rem as they came in,
+     which read as a jump in a bar this short — opacity only. */
   .announcement-slide {
     grid-column: 1;
     grid-row: 1;
     opacity: 0;
-    transform: translateY(0.35rem);
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transition: opacity 0.35s ease;
     pointer-events: none;
   }
 
   .announcement-slide.is-active {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
   }
 
   @media (max-width: 639px) {
+    /* Tall enough for the message to wrap with its link on a line of its own.
+       The landing page has no link, so it keeps the base single-line height. */
     .sh-announce {
       min-height: 4.75rem;
+    }
+
+    .sh-announce-compact {
+      min-height: 2.5rem;
     }
 
     .announcement-slide {

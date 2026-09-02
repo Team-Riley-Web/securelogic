@@ -57,11 +57,16 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
     )}
 
     <div class="col-span-2 md:col-span-1">
-      <p class="bl-eyebrow">Help</p>
-      <div class="mt-4 grid gap-2 text-sm text-white/75">
+      {/* The "Help" eyebrow was dropped. In the four-column layout the Shop and
+          About columns still carry one, so an invisible stand-in keeps this
+          column's links on the same baseline as theirs. */}
+      {!minimal && <p class="bl-eyebrow invisible" aria-hidden="true">Contact</p>}
+      <div class:list={['grid gap-2 text-sm text-white/75', !minimal && 'mt-4']}>
         <a href={minimal ? 'tel:+18889974310' : '/contact-us/'} class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
         <a href={`mailto:${contactEmail}`} class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />{contactEmail}</a>
-        <a href="/privacy-policy/" class="hover:text-white">Privacy Policies</a>
+        {/* /privacy-policy/ renders the full site chrome, so the landing page
+            can't link to it while the rest of the site is gated. */}
+        {!minimal && <a href="/privacy-policy/" class="hover:text-white">Privacy Policies</a>}
       </div>
       <div class="mt-5 flex gap-3">
         <a href="http://facebook.com/SecureLogicUSA" aria-label="Facebook" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-white/20 hover:text-white">

@@ -122,6 +122,63 @@ unchecked task unless you are starting it.
       the primary domain — set in BaseLayout.astro. Change if the share cards
       should read Genesis 360 instead
 
+- [x] Landing page footer: dropped the "Privacy Policies" link. /privacy-policy/
+      renders the full site chrome (header + full nav), which defeats the gate,
+      so the link is now hidden whenever Footer.astro is in `minimal` mode. The
+      real link is untouched on every interior page
+- [x] Footer: removed the "Help" eyebrow label sitewide. In the four-column
+      layout an invisible stand-in keeps the contact column's links on the same
+      baseline as the Shop and About columns; the landing page's two-column
+      layout has no eyebrow to align to, so it renders without one
+- [x] Home hero typed headline: dropped the trailing period from every word, and
+      bound the word to the video carousel instead of its own timer. HERO_WORDS
+      in src/pages/index.astro is index-matched to the `data-hero-slide`
+      elements — 0 swine "Barns", 1 chickens "Poultry Houses", 2 cannabis
+      "Grow Rooms", 3 gym "Locker Rooms", 4 farm "Environments". selectHero()
+      now kicks off the delete-and-retype, so the word turns over with the
+      cross-fade. Reordering the <video> elements means reordering that array.
+      The `.typed-hero-reserve` span holds the line width, so it must stay set
+      to the widest word ("Poultry Houses")
+
+- [x] Home hero copy: "Environments" leads the rotation — it is the company
+      catch-phrase, so it shows first even though it sits over the pig clip.
+      Chickens took "Barns", the farm clip took "Farms", and the gym clip went
+      from "Locker Rooms" to "Gyms". HERO_WORDS in src/pages/index.astro
+      frontmatter is now the single source: the markup renders it into the
+      hidden reserve spans and the client script reads its copy back out of
+      those, so the word list exists in exactly one place
+- [x] Home hero: the reserve span that holds the headline's width now stacks
+      every word into one CSS grid cell (.typed-hero-reserve in global.css), so
+      the line sizes itself to the widest word. Replaces the hand-maintained
+      longest-word string that had to be kept in sync by hand
+- [x] Home hero videos: fixed the abrupt mid-shot loop cut. The carousel held
+      every slide for a flat 5200ms while each video resumed where it left off,
+      so on later passes the short clips (chickens 5.84s, cannabis 7.17s, gym
+      7.24s) hit their loop point on screen. Slides now restart at frame 0 on
+      every appearance and hold for min(6500ms, clipLength - 1200ms), so the
+      loop point always lands off-screen — the 1200ms tail covers the 1000ms
+      cross-fade, during which the outgoing clip is still playing. Clip length
+      always beats the 6500ms cap. Also pre-warms every clip's metadata after
+      window load (durations drive the holds, and slide 1 is shown before
+      selectHero has ever warmed it) with a loadedmetadata re-measure as a
+      fallback. swine 15s and farm 16s were never affected — they are long
+      enough that the cap always won
+- [x] Landing page header: logo left-aligned instead of centred. The centred
+      logo assumed a nav cluster on both sides; the landing page has none on the
+      left, so it hung over empty space. `minimal` now uses a two-column grid
+      (logo left, CTA right) and the tap-to-call icon moved into the right-hand
+      group beside the pill, since the left column is now the logo's. Still
+      hidden at lg and up by the existing .sh-phone rule
+- [x] Announcement bar: dropped the trailing link on the landing page. All three
+      rotations collapsed to the same "Contact Us", which repeated the same call
+      to action three times right next to the Contact Us pill below it. Full
+      site keeps Get A Quote / See How It Works / Explore BotaniMax. Mobile
+      min-height drops to 2.5rem there too — the 4.75rem was reserving a second
+      line for the link that no longer exists
+- [x] Announcement bar: rotations now cross-fade in place. They were animating
+      opacity plus a 0.35rem upward translate, which read as a jump in a bar
+      that short. Opacity only
+
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
 - Find video of Mist spraying the camera 

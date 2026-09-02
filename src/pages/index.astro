@@ -61,6 +61,13 @@ import biofilmHvac from '../assets/images/blog-biofilm-hvac.png';
 import greenhouse from '../assets/images/blog-greenhouse.png';
 import fitnessAthletics from '../assets/images/fitness-athletics-lineup.jpg';
 
+// Hero headline words, index-matched to the <video data-hero-slide> elements in
+// the hero carousel below — 0 swine, 1 chickens, 2 cannabis, 3 gym, 4 farm. The
+// client script reads these back out of the DOM in this order, so the array is
+// the only place the copy lives. Reordering the videos means reordering this.
+// "Environments" leads because it is the company catch-phrase.
+const HERO_WORDS = ['Environments', 'Barns', 'Grow Rooms', 'Gyms', 'Farms'];
+
 const categories = [
   { title: 'Human', href: '/human/', image: medical, video: applicationHumanVideo, copy: 'Protect the shared spaces where people learn, train, recover, and gather.' },
   { title: 'HVAC', href: '/hvac/', image: biofilmHvac, video: applicationHvacVideo, copy: 'Treat the hidden coils, ducts, and air pathways that shape indoor air quality.' },
@@ -660,12 +667,18 @@ const switchReasons = [
       <div class="container-page relative grid min-h-[min(92vh,820px)] place-items-center py-20 text-center">
         <div>
           <h1 class="mx-auto max-w-[16ch] text-[clamp(2.75rem,6.5vw,5.75rem)] font-bold leading-[1.05] tracking-tight text-white">
-            <span class="sr-only">Engineering Better Environments.</span>
+            <span class="sr-only">Engineering Better Environments</span>
             <span aria-hidden="true">
               Engineering Better
+              {/* Every word is rendered hidden into a single grid cell, so the
+                  line reserves the width of the widest one on its own — no
+                  hand-maintained longest-word string to fall out of sync. The
+                  client script reads its copy back from these same spans. */}
               <span class="typed-hero-shell mx-auto block" aria-hidden="true">
-                <span class="typed-hero-reserve" aria-hidden="true">Environments.</span>
-                <span class="typed-hero-word" data-typed-hero-word>Environments.</span>
+                <span class="typed-hero-reserve" aria-hidden="true">
+                  {HERO_WORDS.map((word) => <span data-hero-word>{word}</span>)}
+                </span>
+                <span class="typed-hero-word" data-typed-hero-word>{HERO_WORDS[0]}</span>
               </span>
             </span>
           </h1>
@@ -1067,23 +1080,132 @@ const switchReasons = [
   let heroIndex = 0;
   let heroTimer: number | undefined;
 
+  // The headline word is bound to the hero carousel rather than running on its
+  // own clock: one word per slide, in slide order, so the copy always names the
+  // setting that is on screen. The words come from the hidden reserve spans in
+  // the markup, which are rendered from HERO_WORDS in the frontmatter — edit
+  // the copy there, not here.
+  const heroWords = Array.from(document.querySelectorAll<HTMLElement>('[data-hero-word]')).map(
+    (node) => node.textContent?.trim() ?? '',
+  );
+  const typedHeroWord = document.querySelector<HTMLElement>('[data-typed-hero-word]');
+  const prefersReducedMotion = reduceMotion;
+  let typedTimer: number | undefined;
+
+  // Delete-then-retype has to finish well inside the shortest slide hold. At 12
+  // characters that is 12*55 + 320 + 12*92 = ~2.1s against a ~4.6s floor, so the
+  // finished word still sits still for over half the slide.
+  function typeHeroWord(word: string) {
+    if (!typedHeroWord) return;
+
+    window.clearTimeout(typedTimer);
+
+    if (prefersReducedMotion) {
+      typedHeroWord.textContent = word;
+      return;
+    }
+
+    const outgoing = typedHeroWord.textContent?.trim() ?? '';
+    let cut = outgoing.length;
+
+    // An empty string collapses the line box and drags the caret with it.
+    const write = (value: string) => {
+      typedHeroWord.textContent = value || ' ';
+    };
+
+    const typeIn = () => {
+      cut += 1;
+      write(word.slice(0, cut));
+      if (cut < word.length) typedTimer = window.setTimeout(typeIn, 92);
+    };
+
+    const deleteOut = () => {
+      cut -= 1;
+      write(outgoing.slice(0, cut));
+      typedTimer = window.setTimeout(cut > 0 ? deleteOut : typeIn, cut > 0 ? 55 : 320);
+    };
+
+    if (cut > 0) deleteOut();
+    else typeIn();
+  }
+
+  // Cross-fade length, matched to the duration-1000 class on the slides.
+  const HERO_CROSSFADE_MS = 1000;
+  // Longest a single slide may hold, so a 16s clip does not stall the hero.
+  const HERO_HOLD_MAX_MS = 6500;
+  // Unplayed tail left on every clip. The outgoing video keeps running for the
+  // whole cross-fade, so it has to still have footage left the entire time it
+  // is visible — hence the cross-fade plus a margin.
+  const HERO_HOLD_TAIL_MS = HERO_CROSSFADE_MS + 200;
+
+  // How long the given slide stays up. Clip length wins over HERO_HOLD_MAX_MS,
+  // never the other way round: holding past a clip's end is exactly the hard
+  // cut this exists to prevent. Current clips yield roughly
+  // 6.5 / 4.6 / 6.0 / 6.0 / 6.5 seconds. A clip under ~2.5s would flip
+  // uncomfortably fast — fix that in the edit, not here.
+  function heroHoldFor(slide: HTMLVideoElement | undefined) {
+    const seconds = slide?.duration;
+
+    // Metadata has not landed yet for a slide that was never warmed.
+    if (!slide || !Number.isFinite(seconds) || (seconds as number) <= 0) return HERO_HOLD_MAX_MS;
+
+    const playable = (seconds as number) * 1000 - HERO_HOLD_TAIL_MS;
+    if (playable <= 0) return HERO_HOLD_MAX_MS;
+
+    return Math.min(HERO_HOLD_MAX_MS, playable);
+  }
+
+  function heroSlideAt(index: number) {
+    return heroSlides.find((slide) => slide.getAttribute('data-hero-slide') === String(index));
+  }
+
+  function scheduleNextHero() {
+    window.clearTimeout(heroTimer);
+
+    const slide = heroSlideAt(heroIndex);
+    const advance = () => selectHero((heroIndex + 1) % heroSlides.length);
+
+    // With no duration yet the hold falls back to the maximum, which can outrun
+    // a short clip. Take the measurement again the moment metadata lands, minus
+    // the time already spent on screen so a late answer cannot overshoot.
+    if (slide && !Number.isFinite(slide.duration)) {
+      const shownAt = Date.now();
+      slide.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (heroSlideAt(heroIndex) !== slide) return;
+          window.clearTimeout(heroTimer);
+          heroTimer = window.setTimeout(advance, Math.max(heroHoldFor(slide) - (Date.now() - shownAt), 400));
+        },
+        { once: true },
+      );
+    }
+
+    heroTimer = window.setTimeout(advance, heroHoldFor(slide));
+  }
+
   function selectHero(index: number) {
     heroIndex = index;
+
+    typeHeroWord(heroWords[index] ?? heroWords[0] ?? '');
 
     heroSlides.forEach((slide) => {
       const isSelected = slide.getAttribute('data-hero-slide') === String(index);
       slide.classList.toggle('opacity-95', isSelected);
       slide.classList.toggle('opacity-0', !isSelected);
 
-      if (isSelected && slide.paused) {
+      // Restart every appearance from the first frame. Left to resume, a short
+      // clip picks up near its end and hits its loop point on screen, which
+      // reads as a hard cut mid-shot.
+      if (isSelected) {
+        slide.currentTime = 0;
         slide.play().catch(() => {});
       }
     });
 
-    // Warm the next slide so its first frame is ready before the cross-fade.
-    const upcoming = heroSlides.find(
-      (slide) => slide.getAttribute('data-hero-slide') === String((index + 1) % heroSlides.length),
-    );
+    // Warm the next slide so its first frame — and its duration, which the next
+    // hold is computed from — are ready before the cross-fade.
+    const upcoming = heroSlideAt((index + 1) % heroSlides.length);
     if (upcoming && upcoming.preload !== 'auto') {
       upcoming.preload = 'auto';
       upcoming.load();
@@ -1096,69 +1218,33 @@ const switchReasons = [
           slide.pause();
         }
       });
-    }, 1000);
+    }, HERO_CROSSFADE_MS);
+
+    scheduleNextHero();
   }
 
   function startHeroCarousel() {
-    window.clearInterval(heroTimer);
-    heroTimer = window.setInterval(() => {
-      selectHero((heroIndex + 1) % heroSlides.length);
-    }, 5200);
+    window.clearTimeout(heroTimer);
+    scheduleNextHero();
   }
 
-  if (heroSlides.length) startHeroCarousel();
-
-  const typedHeroWord = document.querySelector<HTMLElement>('[data-typed-hero-word]');
-  const typedWords = ['Environments.', 'Barns.', 'Locker Rooms.', 'Air Systems.'];
-  const prefersReducedMotion = reduceMotion;
-  let typedWordIndex = 0;
-  let typedLetterIndex = typedWords[0].length;
-  let typedDirection: 'typing' | 'deleting' | 'holding' = 'holding';
-
-  function cycleTypedHeroWord() {
-    if (!typedHeroWord) return;
-
-    const currentWord = typedWords[typedWordIndex];
-    const setTypedWord = (value: string) => {
-      typedHeroWord.textContent = value || ' ';
-    };
-
-    if (typedDirection === 'holding') {
-      typedDirection = 'deleting';
-      window.setTimeout(cycleTypedHeroWord, 1600);
-      return;
-    }
-
-    if (typedDirection === 'deleting') {
-      typedLetterIndex -= 1;
-      setTypedWord(currentWord.slice(0, typedLetterIndex));
-
-      if (typedLetterIndex <= 0) {
-        typedWordIndex = (typedWordIndex + 1) % typedWords.length;
-        typedDirection = 'typing';
-        window.setTimeout(cycleTypedHeroWord, 320);
-        return;
-      }
-
-      window.setTimeout(cycleTypedHeroWord, 55);
-      return;
-    }
-
-    const nextWord = typedWords[typedWordIndex];
-    typedLetterIndex += 1;
-    setTypedWord(nextWord.slice(0, typedLetterIndex));
-
-    if (typedLetterIndex >= nextWord.length) {
-      typedDirection = 'holding';
-      window.setTimeout(cycleTypedHeroWord, 2200);
-      return;
-    }
-
-    window.setTimeout(cycleTypedHeroWord, 92);
+  // Every hold is computed from a clip's duration, so the browser needs each
+  // one's metadata before its turn comes up — slide 1 in particular is shown
+  // before selectHero() has ever had a chance to warm it. Deferred past load so
+  // these small header requests do not compete with the hero's first paint.
+  function warmHeroMetadata() {
+    heroSlides.forEach((slide) => {
+      if (slide.preload !== 'none') return;
+      slide.preload = 'metadata';
+      slide.load();
+    });
   }
 
-  if (typedHeroWord && !prefersReducedMotion) {
-    window.setTimeout(cycleTypedHeroWord, 2200);
+  if (heroSlides.length) {
+    startHeroCarousel();
+
+    if (document.readyState === 'complete') warmHeroMetadata();
+    else window.addEventListener('load', warmHeroMetadata, { once: true });
   }
 
   const testimonialTrack = document.querySelector<HTMLElement>('[data-alt-testimonial-track]');
