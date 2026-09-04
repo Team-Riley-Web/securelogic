@@ -1,0 +1,26 @@
+---
+// Single source of truth for the Pipedrive (LeadBooster) web form. Every embed
+// on the site renders through here, so the form URL changes in one place.
+//
+// The loader rewrites the inner div in place, which is why it needs that exact
+// class name and data attribute. `is:inline` stops Astro from trying to bundle
+// a third-party URL at build time.
+//
+// The iframe boots at ~150px and postMessage-resizes to full height a few
+// seconds later, so never assume its height is settled on first paint.
+const FORM_URL =
+  'https://webforms.pipedrive.com/f/72tPovd7eOhh8gcmcU1FhmmVTjjbStqMZATa1yhl3wO3PtMLGXkST73ROtDkdQusV5';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['pd-form', className]}>
+  <div class="pipedriveWebForms" data-pd-webforms={FORM_URL}></div>
+</div>
+
+<script src="https://webforms.pipedrive.com/f/loader" is:inline></script>
+

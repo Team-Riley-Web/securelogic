@@ -1,5 +1,6 @@
 ---
-import { ArrowRight, Check, Mail, Phone } from '@lucide/astro';
+import { Check, Mail, Phone } from '@lucide/astro';
+import PipedriveForm from './PipedriveForm.astro';
 
 interface Props {
   title?: string;
@@ -14,11 +15,6 @@ const points = [
   'Fixed, portable, or HVAC-integrated options',
 ];
 
-const products = [
-  'BotaniMax - Botanical Disinfectant',
-  'Genesis 360 Misting System',
-  'BotaniMax + Genesis 360 Misting System',
-];
 ---
 
 <div class="@container">
@@ -68,81 +64,15 @@ const products = [
       </aside>
     )}
 
-    <form
-      name="secure-logic-quote"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      class:list={['grid content-start gap-5 p-6', compact ? '@lg:p-8' : '@2xl:p-10']}
-    >
-      <input type="hidden" name="form-name" value="secure-logic-quote" />
-      <p class="hidden">
-        <label>Do not fill this out <input name="bot-field" /></label>
-      </p>
-
+    <div class:list={['content-start p-6', compact ? '@lg:p-8' : '@2xl:p-10']}>
       {compact && (
-        <div>
+        <div class="mb-6">
           <p class="eyebrow">Genesis 360</p>
           <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900">{title}</h2>
         </div>
       )}
 
-      <div class="grid gap-5 @lg:grid-cols-2">
-        <label class="field-label">
-          <span>First <span class="field-required">*</span></span>
-          <input class="field" name="first" placeholder="Jane" autocomplete="given-name" required />
-        </label>
-        <label class="field-label">
-          <span>Last <span class="field-required">*</span></span>
-          <input class="field" name="last" placeholder="Doe" autocomplete="family-name" required />
-        </label>
-      </div>
-
-      <div class="grid gap-5 @lg:grid-cols-2">
-        <label class="field-label">
-          <span>Email <span class="field-required">*</span></span>
-          <input class="field" type="email" name="email" placeholder="jane@company.com" autocomplete="email" required />
-        </label>
-        <label class="field-label">
-          <span>Phone</span>
-          <input class="field" type="tel" name="phone" placeholder="(555) 123-4567" autocomplete="tel" />
-        </label>
-      </div>
-
-      <label class="field-label">
-        <span>Product Requested</span>
-        <div class="relative">
-          <select class="field appearance-none pr-11" name="product">
-            {products.map((product) => <option>{product}</option>)}
-          </select>
-          <svg
-            class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            aria-hidden="true"
-          >
-            <path d="m6 8 4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </div>
-      </label>
-
-      <label class="field-label">
-        <span>Message</span>
-        <textarea
-          class="field min-h-32 resize-y"
-          name="message"
-          placeholder="Tell us about your facility, square footage, and timeline."></textarea>
-      </label>
-
-      <button class="button-primary group mt-1 w-full py-3.5" type="submit">
-        Request my quote
-        <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
-      </button>
-      <p class="text-xs leading-5 text-slate-500">
-        We only use your details to respond to this request. No spam, ever.
-      </p>
-    </form>
+      <PipedriveForm />
+    </div>
   </div>
 </div>

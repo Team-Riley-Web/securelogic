@@ -23,6 +23,7 @@
 import { ArrowLeft, ArrowRight, Info, Mail, Phone, Quote, Star } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PipedriveForm from '../components/PipedriveForm.astro';
 import AnimatedStatIcon from '../components/AnimatedStatIcon.astro';
 import CertMark from '../components/CertMark.astro';
 import Footer from '../components/Footer.astro';
@@ -1027,34 +1028,47 @@ const switchReasons = [
          page asks for anything. Phone and email are plain links rather than a
          form: the form posts to a gated page, and Marty wants these reaching
          him directly while the rebuild is in flight. -->
-    <section id="contact" class="relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 text-center bg-brand-100">
-      <div class="reveal relative z-10 mx-auto max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
-        <p class="bl-eyebrow">Your Facility. Your Coverage Plan.</p>
-        <h2 class="bl-h2 mt-4">Start Protecting Your Facility.</h2>
-        <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
-        <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-brand-body">Our full site is being rebuilt right now. Until it is live, the fastest way to get product detail, pricing, or a straight answer is to call or email us.</p>
+    <section id="contact" class="relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 bg-brand-100">
+      <div class="reveal relative z-10 mx-auto max-w-6xl" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="bl-eyebrow">Your Facility. Your Coverage Plan.</p>
+          <h2 class="bl-h2 mt-4">Start Protecting Your Facility.</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
+        </div>
 
-        <div class="mx-auto mt-10 grid max-w-2xl gap-5 sm:grid-cols-2">
-          <a
-            href={CONTACT_PHONE_HREF}
-            class="flex flex-col items-center rounded-2xl bg-white p-8 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
-          >
-            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-100">
-              <Phone class="h-6 w-6 text-brand-600" aria-hidden="true" />
-            </span>
-            <span class="bl-eyebrow mt-5">Office Line</span>
-            <span class="mt-2 text-2xl font-bold text-brand-900">{CONTACT_PHONE}</span>
-          </a>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            class="flex flex-col items-center rounded-2xl bg-white p-8 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
-          >
-            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-100">
-              <Mail class="h-6 w-6 text-brand-600" aria-hidden="true" />
-            </span>
-            <span class="bl-eyebrow mt-5">Email</span>
-            <span class="mt-2 text-base font-bold text-brand-900 sm:text-lg">{CONTACT_EMAIL}</span>
-          </a>
+        <!-- The hosted form paints white fields, so the card behind it is
+             tinted rather than white. Direct contact sits directly beneath. -->
+        <div class="mx-auto mt-12 max-w-2xl">
+          <div class="rounded-2xl border border-brand-900/10 bg-white/60 p-6 shadow-lift sm:p-8">
+            <PipedriveForm />
+          </div>
+
+          <div class="mt-6 grid gap-5 sm:grid-cols-2">
+            <a
+              href={CONTACT_PHONE_HREF}
+              class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
+            >
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
+                <Phone class="h-5 w-5 text-brand-600" aria-hidden="true" />
+              </span>
+              <span class="min-w-0">
+                <span class="bl-eyebrow block">Office Line</span>
+                <span class="mt-1 block text-lg font-bold text-brand-900">{CONTACT_PHONE}</span>
+              </span>
+            </a>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
+            >
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
+                <Mail class="h-5 w-5 text-brand-600" aria-hidden="true" />
+              </span>
+              <span class="min-w-0">
+                <span class="bl-eyebrow block">Email</span>
+                <span class="mt-1 block break-all text-sm font-bold text-brand-900">{CONTACT_EMAIL}</span>
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
