@@ -24,12 +24,12 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
 
 <footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <Image src={footerMark} alt="" class="absolute -bottom-20 -right-12 h-[24rem] w-auto max-w-none brightness-0 invert opacity-[0.045] blur-[0.2px]" widths={[280, 420]} sizes="280px" />
+    <Image src={footerMark} alt="" class:list={['absolute -bottom-20 -right-12 h-[24rem] w-auto max-w-none brightness-0 invert opacity-[0.045] blur-[0.2px]', minimal && 'hidden md:block']} widths={[280, 420]} sizes="280px" />
   </div>
   <div class:list={['relative mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:gap-10', minimal ? 'md:grid-cols-[1.6fr_1fr]' : 'md:grid-cols-[1.3fr_1fr_1fr_1fr]']}>
-    <div class="col-span-2 md:col-span-1">
+    <div class:list={['col-span-2 md:col-span-1', minimal && 'text-center md:text-left']}>
       <h3 class="text-2xl text-white">Even Our Reports Are Clean.</h3>
-      <p class="mt-3 max-w-sm text-sm leading-6 text-white/75">Ask for a facility walkthrough and coverage plan — no spam, no pressure, just a straight answer on fit.</p>
+      <p class:list={['mt-3 max-w-sm text-sm leading-6 text-white/75', minimal && 'mx-auto md:mx-0']}>Ask for a facility walkthrough and coverage plan. No spam, no pressure, just a straight answer on fit.</p>
       <a href={minimal ? '#contact' : '/get-a-quote/'} class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">{minimal ? 'Contact Us' : 'Get A Quote'} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
     </div>
     {!minimal && (
@@ -56,19 +56,19 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
       </>
     )}
 
-    <div class="col-span-2 md:col-span-1">
+    <div class:list={['col-span-2 md:col-span-1', minimal && 'text-center md:text-left']}>
       {/* The "Help" eyebrow was dropped. In the four-column layout the Shop and
           About columns still carry one, so an invisible stand-in keeps this
           column's links on the same baseline as theirs. */}
       {!minimal && <p class="bl-eyebrow invisible" aria-hidden="true">Contact</p>}
-      <div class:list={['grid gap-2 text-sm text-white/75', !minimal && 'mt-4']}>
+      <div class:list={['grid gap-2 text-sm text-white/75', !minimal && 'mt-4', minimal && 'justify-items-center md:justify-items-start']}>
         <a href={minimal ? 'tel:+18889974310' : '/contact-us/'} class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
         <a href={`mailto:${contactEmail}`} class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />{contactEmail}</a>
         {/* /privacy-policy/ renders the full site chrome, so the landing page
             can't link to it while the rest of the site is gated. */}
         {!minimal && <a href="/privacy-policy/" class="hover:text-white">Privacy Policies</a>}
       </div>
-      <div class="mt-5 flex gap-3">
+      <div class:list={['mt-5 flex gap-3', minimal && 'justify-center md:justify-start']}>
         <a href="http://facebook.com/SecureLogicUSA" aria-label="Facebook" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/75 transition hover:bg-white/20 hover:text-white">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8.5V6.75c0-.5.1-.85.32-1.06.21-.22.57-.33 1.08-.33H17V2.2C16.23 2.1 15.49 2 14.78 2c-1.53 0-2.75.45-3.65 1.34-.9.9-1.35 2.16-1.35 3.79V8.5H7v3.55h2.78V22h4.03v-9.95h2.98l.46-3.55H14Z"/></svg>
         </a>

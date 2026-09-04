@@ -40,6 +40,7 @@ const CONTACT_PHONE_HREF = 'tel:+18889974310';
 const CTA_LABEL = 'Contact Us To Learn More';
 import logo from '../assets/images/logo.png';
 import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
+import contactMark from '../assets/images/Genesis360-icon.png';
 import farmVideo from '../assets/videos/farm.mp4';
 import cannabisVideo from '../assets/videos/cannabis.mp4';
 import gymVideo from '../assets/videos/gym.mp4';
@@ -99,13 +100,13 @@ const certMarks: { kind: 'epa' | 'evp' | 'usa' | 'patent' | 'botanical'; caption
 const testimonials = [
   { quote: "Using BAC Ag has been a huge success in our show pig operation! We went from having sow health issues to bringing in new sows and not having any issues!", name: 'Keaton Kitson', role: 'Owner, Kitson Show Pigs', image: farmer1 },
   { quote: 'I did a trial where I treated one barn with BAC Ag and not the other. The treated barn had 30% less deads, 30% less culls, and went to market 10 pounds heavier.', name: 'Southwest Iowa Pig Farmer', role: 'Pork Producer', image: farmer2 },
-  { quote: "It's been a game changer for us — not only taking away the terrible smell in the barns, but healthier lambs, no coughing or diarrhea that you see in heated barns.", name: 'David Sark', role: 'Farmer', image: farmer3 },
+  { quote: "It's been a game changer for us, not only taking away the terrible smell in the barns, but healthier lambs, no coughing or diarrhea that you see in heated barns.", name: 'David Sark', role: 'Farmer', image: farmer3 },
 ];
 
 const switchReasons = [
   'True whole-room disinfection, not just wiped surfaces',
   'Automated, remote-capable operation cuts labor dependence',
-  'Environmentally neutral — no residue, no humidity shift',
+  'Environmentally neutral: no residue, no humidity shift',
   'One platform across HVAC, in-room, medical, and ag use',
 ];
 
@@ -513,6 +514,14 @@ const switchReasons = [
     @media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
       [data-botanimax-parallax] { transform: translate3d(0, 130px, 0) scale(1.12) !important; }
     }
+
+    /* The bottle is 44rem tall inside a 32rem cell, so centred it hung 96px above
+       its own grid cell - and that cell sits directly under the text column, so
+       the overflow landed on the CTA. Below lg the parallax is off entirely and
+       the bottle is top-anchored, leaving it cropped at the bottom instead. */
+    @media (max-width: 1023px) {
+      [data-botanimax-parallax] { transform: none !important; }
+    }
   </style>
 
   <div
@@ -548,10 +557,10 @@ const switchReasons = [
           const rect = frame.getBoundingClientRect();
           if (rect.bottom < 0 || rect.top > viewportHeight) return;
 
+          if (window.innerWidth < 1024) { image.style.transform = ''; return; }
+
           const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight + rect.height)));
-          const translateY = window.innerWidth < 1024
-            ? 80 - progress * 80
-            : 240 - progress * 160;
+          const translateY = 240 - progress * 160;
           image.style.transform = `translate3d(0, ${translateY}px, 0) scale(1.12)`;
         });
       },
@@ -594,7 +603,7 @@ const switchReasons = [
       }
     "
   >
-    <Header minimal />
+    <Header minimal contactEmail={CONTACT_EMAIL} />
 
     <!-- Hero -->
     <section
@@ -694,7 +703,7 @@ const switchReasons = [
          it used to end on brand-50 against a brand-100 neighbour. The particle
          field's bottom haze paints over this, so its --particle-fade has to
          match too. If either section's colour changes, change all three. -->
-    <section id="shop" class="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-white to-brand-100 px-5 sm:px-6 lg:px-8 py-24">
+    <section id="shop" class="relative scroll-mt-6 bg-gradient-to-b from-white to-brand-100 px-5 sm:px-6 lg:px-8 pt-24 pb-10 sm:pb-24">
       <div
         class="particle-field particle-field-light"
         {/* Lands the haze on brand-100, the colour the next section starts
@@ -747,8 +756,10 @@ const switchReasons = [
       </div>
     </section>
 
-    <!-- Trust band -->
-    <section class="px-5 sm:px-6 lg:px-8 py-20 bg-brand-100">
+    <!-- Trust band. This section and the one above it both land on
+         brand-100, so their stacked vertical padding read as one dead band
+         on a phone. Trimmed on mobile only; desktop spacing is unchanged. -->
+    <section class="px-5 sm:px-6 lg:px-8 pt-10 pb-20 sm:pt-20 bg-brand-100">
       <div class="reveal mx-auto max-w-6xl text-center" x-intersect.once="$el.classList.add('is-visible')">
         <h2 class="bl-h2">Engineered for Facilities That Can't Afford Inconsistency.</h2>
         <div class="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 text-brand-600 sm:gap-x-10 lg:grid-cols-4" style="--ai-accent: var(--bl-green);">
@@ -768,18 +779,18 @@ const switchReasons = [
     <!-- Platform showcase -->
     <section class="relative overflow-hidden px-5 sm:px-6 lg:px-8 py-24 text-white" style="--bl-eyebrow-color: var(--bl-lime); background: radial-gradient(circle at 12% 8%, rgb(62 103 232 / 0.52), transparent 34%), radial-gradient(circle at 88% 88%, rgb(82 194 76 / 0.18), transparent 32%), linear-gradient(145deg, #10204a 0%, #0b1740 52%, #07102f 100%);">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute -right-40 -top-56 h-[38rem] w-[38rem] rounded-full border-[3rem] border-white/[0.035]"></div>
-        <div class="absolute -bottom-72 -left-44 h-[42rem] w-[42rem] rounded-full border-[5rem] border-lime-500/5"></div>
+        <div class="absolute -right-40 -top-56 hidden h-[38rem] w-[38rem] rounded-full border-[3rem] border-white/[0.035] sm:block"></div>
+        <div class="absolute -bottom-72 -left-44 hidden h-[42rem] w-[42rem] rounded-full border-[5rem] border-lime-500/5 sm:block"></div>
       </div>
       <div class="relative mx-auto max-w-7xl">
         <div class="reveal flex flex-col gap-7 sm:flex-row sm:items-end sm:justify-between" x-intersect.once="$el.classList.add('is-visible')">
           <div>
-            <p class="bl-eyebrow">One Platform. Every Environment.</p>
-            <h2 class="mt-4 text-3xl text-white sm:text-4xl">The Genesis 360 Platform</h2>
-            <p class="mt-4 max-w-2xl text-base leading-7 text-white/55">Installed whole-room coverage, a compact footprint, or portable deployment—three ways to bring the same precision misting platform into your facility.</p>
+            <p class="bl-eyebrow text-center sm:text-left">One Platform. Every Environment.</p>
+            <h2 class="mt-4 text-center text-3xl text-white sm:text-left sm:text-4xl">The Genesis 360 Platform</h2>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-white/55">Installed whole-room coverage, a compact footprint, or portable deployment: three ways to bring the same precision misting platform into your facility.</p>
           </div>
-          <a href="#contact" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 sm:px-6 lg:px-8 py-3.5 text-xs font-bold uppercase tracking-[0.1em] text-brand-900 shadow-lift-dark transition hover:-translate-y-0.5 hover:bg-brand-100">
-            {CTA_LABEL} <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          <a href="#contact" class="inline-flex shrink-0 self-center items-center rounded-full bg-white px-5 sm:px-6 lg:px-8 py-3.5 text-xs font-bold uppercase tracking-[0.1em] text-brand-900 shadow-lift-dark transition hover:-translate-y-0.5 hover:bg-brand-100 sm:self-auto">
+            {CTA_LABEL}
           </a>
         </div>
         <div class="reveal mt-10 grid gap-5 lg:grid-cols-12 lg:grid-rows-2" x-intersect.once="$el.classList.add('is-visible')">
@@ -889,16 +900,16 @@ const switchReasons = [
     <!-- Split feature: BotaniMax -->
     <section class="relative overflow-hidden px-5 sm:px-6 lg:px-8">
       <div class="reveal mx-auto grid max-w-6xl gap-0 lg:min-h-[44rem] lg:grid-cols-2 lg:gap-14" x-intersect.once="$el.classList.add('is-visible')">
-        <div class="relative order-2 h-[32rem] lg:order-1 lg:h-auto lg:self-stretch">
-          <div class="absolute inset-0 flex items-center justify-center">
+        <div class="relative order-2 h-[32rem] overflow-hidden lg:order-1 lg:h-auto lg:self-stretch lg:overflow-visible">
+          <div class="absolute inset-0 flex items-start justify-center lg:items-center">
             <Image src={botanimaxBottle} alt="BotaniMax botanical disinfectant bottle" class="h-[44rem] w-auto max-w-none object-contain will-change-transform sm:h-[48rem]" style="transform: translate3d(0, 80px, 0) scale(1.12);" data-botanimax-parallax widths={[480, 720, 960]} sizes="(min-width: 1024px) 520px, 88vw" />
           </div>
         </div>
-        <div class="order-1 self-center pb-4 pt-12 lg:order-2 lg:-translate-y-8 lg:py-24">
-          <Image src={botanimaxLogo} alt="BotaniMax" class="mx-auto h-20 w-20 object-contain lg:mx-0" widths={[120, 180]} sizes="80px" />
+        <div class="order-1 self-center pb-4 pt-12 text-center lg:order-2 lg:-translate-y-8 lg:py-24 lg:text-left">
+          <Image src={botanimaxLogo} alt="BotaniMax" class="mx-auto h-40 w-40 object-contain lg:mx-0" widths={[160, 320]} sizes="160px" />
           <p class="bl-eyebrow">Botanical Disinfectant</p>
           <h2 class="mt-3 text-3xl sm:text-4xl">A Clean the Planet Can Feel Good About.</h2>
-          <p class="mt-5 text-base leading-7 text-brand-body">BotaniMax is crafted from 150+ plant actives — a patent-pending, EPA-registered disinfectant that controls bacteria, viruses, and fungi without harsh synthetics.</p>
+          <p class="mt-5 text-base leading-7 text-brand-body">BotaniMax is crafted from 150+ plant actives: a patent-pending, EPA-registered disinfectant that controls bacteria, viruses, and fungi without harsh synthetics.</p>
           <div class="mt-8 flex justify-center lg:justify-start">
             <a href="#contact" class="bl-pill">{CTA_LABEL}</a>
           </div>
@@ -949,10 +960,14 @@ const switchReasons = [
     <section class="px-5 sm:px-6 lg:px-8 py-24">
       <div class="reveal mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
         <div>
-          <p class="bl-eyebrow">How It Works</p>
-          <h2 class="mt-3 text-3xl sm:text-4xl">Droplet Behavior Defines Performance.</h2>
-          <p class="mt-5 text-base leading-7 text-brand-body">Every nozzle produces a uniform stream of sub-10 µm dry-mist droplets — small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.</p>
-          <a href="#contact" class="bl-pill mt-8">{CTA_LABEL}</a>
+          <p class="bl-eyebrow text-center lg:text-left">How It Works</p>
+          <h2 class="mt-3 text-center text-3xl sm:text-4xl lg:text-left">Droplet Behavior Defines Performance.</h2>
+          <p class="mt-5 text-base leading-7 text-brand-body">Every nozzle produces a uniform stream of sub-10 µm dry-mist droplets: small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.</p>
+          {/* .bl-pill is inline-flex, so it centres via a flex wrapper - same
+              pattern the BotaniMax block above uses. */}
+          <div class="mt-8 flex justify-center lg:justify-start">
+            <a href="#contact" class="bl-pill">{CTA_LABEL}</a>
+          </div>
         </div>
         <div class="grid min-h-[30rem] place-items-center overflow-hidden rounded-2xl bg-[radial-gradient(circle_at_center,#fff_0%,#eef4ff_58%,#dce8ff_100%)] p-4 sm:p-8">
           <div class="h2o-stage" role="group" aria-label="Animated H2O water molecule with one oxygen atom, two hydrogen atoms, and a 104.5 degree bond angle">
@@ -1029,24 +1044,47 @@ const switchReasons = [
          form: the form posts to a gated page, and Marty wants these reaching
          him directly while the rebuild is in flight. -->
     <section id="contact" class="relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 bg-brand-100">
+      <!-- Same treatment as the Genesis 360 Platform section, retuned for a
+           light ground: two radial washes plus a ring, with the mark ghosted
+           in behind. Decoration only, so it is inert and hidden from AT. -->
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div
+          class="absolute inset-0"
+          style="background: radial-gradient(circle at 12% 8%, rgb(62 103 232 / 0.16), transparent 38%), radial-gradient(circle at 88% 88%, rgb(116 166 255 / 0.30), transparent 34%);"
+        >
+        </div>
+        <div class="absolute -right-40 -top-56 hidden h-[38rem] w-[38rem] rounded-full border-[3rem] border-white/30 sm:block"></div>
+        <!-- Same Genesis 360 mark the footer ghosts in. The footer inverts it
+             white for its dark ground; here it keeps its own colour against the
+             light one. -->
+        <Image
+          src={contactMark}
+          alt=""
+          class="absolute -bottom-26 -left-15 hidden h-[55rem] w-auto max-w-none opacity-[0.05] sm:block"
+          widths={[560]}
+          sizes="560px"
+        />
+      </div>
+
       <div class="reveal relative z-10 mx-auto max-w-6xl" x-intersect.once="$el.classList.add('is-visible')">
-        <div class="mx-auto max-w-3xl text-center">
+        <div class="mx-auto max-w-4xl text-center">
           <p class="bl-eyebrow">Your Facility. Your Coverage Plan.</p>
           <h2 class="bl-h2 mt-4">Start Protecting Your Facility.</h2>
-          <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
+          <p class="mx-auto mt-5 max-w-4xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
         </div>
 
         <!-- The hosted form paints white fields, so the card behind it is
-             tinted rather than white. Direct contact sits directly beneath. -->
+             tinted rather than white. Extra top padding keeps the first label
+             off the card edge, since the iframe carries no padding of its own. -->
         <div class="mx-auto mt-12 max-w-2xl">
-          <div class="rounded-2xl border border-brand-900/10 bg-white/60 p-6 shadow-lift sm:p-8">
+          <div class="rounded-2xl border border-brand-900/10 bg-white/80 px-6 pb-6 pt-10 shadow-lift sm:px-8 sm:pb-8 sm:pt-12">
             <PipedriveForm />
           </div>
 
           <div class="mt-6 grid gap-5 sm:grid-cols-2">
             <a
               href={CONTACT_PHONE_HREF}
-              class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
+              class="flex items-center gap-4 rounded-2xl border border-brand-900/10 bg-white/80 p-6 shadow-lift transition hover:-translate-y-1 hover:bg-white hover:shadow-deep"
             >
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
                 <Phone class="h-5 w-5 text-brand-600" aria-hidden="true" />
@@ -1058,7 +1096,7 @@ const switchReasons = [
             </a>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-lift transition hover:-translate-y-1 hover:shadow-deep"
+              class="flex items-center gap-4 rounded-2xl border border-brand-900/10 bg-white/80 p-6 shadow-lift transition hover:-translate-y-1 hover:bg-white hover:shadow-deep"
             >
               <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
                 <Mail class="h-5 w-5 text-brand-600" aria-hidden="true" />

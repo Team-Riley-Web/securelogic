@@ -34,6 +34,49 @@ const SITE_NAME = 'Genesis 360';
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- First-touch attribution. document.referrer only ever names the page
+         viewed immediately before this one, so by the time someone browses to
+         the contact form the referrer is our own domain and the original
+         source (Google, LinkedIn) is gone. Capturing it once on first landing
+         and holding it in a cookie survives that internal navigation; the
+         Pipedrive form reads the cookie into a hidden field on submit.
+
+         First-party, no PII, no cross-site tracking, so no consent banner is
+         required. `is:inline` keeps Astro from bundling and deferring it -
+         this has to run before the visitor can navigate away. -->
+    <script is:inline>
+      (function () {
+        var NAME = 'g360_first_touch';
+        var DAYS = 90;
+        try {
+          // First touch wins. Never overwrite a source already captured.
+          if (document.cookie.indexOf(NAME + '=') !== -1) return;
+
+          var utm = new URLSearchParams(window.location.search).get('utm_source');
+          var here = window.location.hostname.replace(/^www\./, '');
+          var value = 'direct';
+
+          if (utm) {
+            value = utm;
+          } else if (document.referrer) {
+            var from = new URL(document.referrer).hostname.replace(/^www\./, '');
+            // An internal referrer means we missed the real entry point, so
+            // record 'direct' rather than crediting ourselves for the lead.
+            if (from && from !== here) value = from;
+          }
+
+          value = value.replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 60) || 'direct';
+
+          document.cookie =
+            NAME + '=' + value +
+            ';path=/;max-age=' + DAYS * 86400 + ';SameSite=Lax' +
+            (window.location.protocol === 'https:' ? ';Secure' : '');
+        } catch (e) {
+          // Attribution is best effort. It must never break the page.
+        }
+      })();
+    </script>
+
     <!-- Open Graph. Facebook, LinkedIn, Slack, iMessage and WhatsApp all read
          these. Width and height are emitted so a scraper can lay the card out
          on first pass without waiting to fetch and measure the image. -->

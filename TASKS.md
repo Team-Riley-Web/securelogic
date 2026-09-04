@@ -517,6 +517,143 @@ unchecked task unless you are starting it.
       1440 are 4x1, gaps at sm+ identical to before at 40px both axes.
       Applied to home-full.astro as well as index.astro, per the standing note
       in this file about keeping the parked original in sync.
+- [x] Homepage header: change the CTA label from 'Contact Us' to 'Contact'
+      Done 2026-09-04: Header.astro:167. The label lives inside the `minimal`
+      ternary, so this is naturally scoped to the landing page only - interior
+      pages still read 'Get A Quote'. Applies at all widths, not just mobile,
+      since a label that changes by breakpoint would be worse.
+- [x] Homepage header: the Genesis 360 logo is not quite vertically centered, while the CTA button is perfectly centered
+      Done 2026-09-04: Header.astro. Not a layout bug - both boxes already
+      centred at the same midpoint. line-height equals font-size (33/33) and
+      'Genesis360' has no descenders, so measured glyph ink sat 1.41px below its
+      own box centre. Added `relative -top-[1.4px]` to the wordmark span; logo
+      ink midpoint and pill midpoint now agree to 0.01px. Safe alongside
+      .animated-text, which animates background-position, not transform.
+- [x] Reduce the space above the 'Engineered For Facilities' section (the gap between it and the section above)
+      Done 2026-09-04: index.astro. #shop was py-24 and the trust band py-20, so
+      176px of stacked padding on mobile - and both sides sit on brand-100, so it
+      read as one dead band. Now pb-10 sm:pb-24 and pt-10 sm:pt-20: 80px on
+      mobile, desktop still 176px.
+- [x] Mobile: center the eyebrow and title in the Genesis 360 Platform section
+      Done 2026-09-04: index.astro. text-center sm:text-left on the eyebrow and
+      h2 only. NOTE: the paragraph under them is still left-aligned, which looks
+      inconsistent under a centred heading. Left as-is because the task named
+      only the eyebrow and title - flagged to Joshua for a call.
+- [x] Mobile: the 'Contact Us To Learn More' button in the Genesis 360 Platform section goes full width in a strange way
+      Done 2026-09-04: index.astro. Cause was align-items:stretch - the anchor is
+      inline-flex but sits as a direct child of a flex-col parent, so it stretched
+      edge to edge. Added self-center sm:self-auto. Mobile 350px -> 274px and
+      centred under the now-centred heading; desktop align-self back to auto,
+      width unchanged at 298px.
+- [x] Mobile: remove the ghosted circle in the Genesis 360 Platform background
+      Done 2026-09-04: index.astro. There were two decorative rings, not one (the
+      white one top-right and a lime one bottom-left). Hid both below sm with
+      `hidden sm:block`; both still render on desktop. Radial washes untouched.
+- [x] Mobile: center the BotaniMax eyebrow, title, and paragraph
+      Done 2026-09-04: index.astro. One change - `text-center lg:text-left` on the
+      text column wrapper, which covers all three. lg is the right breakpoint here
+      (the grid and the logo's mx-auto already switch there). The CTA was already
+      justify-center lg:justify-start.
+- [x] Increase the BotaniMax logo size from 20 width/height to 40 width/height
+      Done 2026-09-04: index.astro. h-20 w-20 -> h-40 w-40 (160px rendered) and
+      bumped the srcset to widths [160,320] / sizes 160px so it is not upscaled;
+      source is 500x500. NOTE: there is no lg: override on that class, so this
+      grew the logo on desktop too, not just mobile. Flagged to Joshua.
+- [x] CRITICAL mobile fix: the BotaniMax spray bottle scroll effect is not working and covers up the button. Make that never happen on mobile; the bottle should still be cut off at the bottom
+      Done 2026-09-04: index.astro. Root cause: the bottle is h-[44rem] (704px)
+      centred inside an h-[32rem] (512px) cell, so it hung 96px above its own
+      cell - and that cell sits directly under the text column, so the overflow
+      landed on the CTA. The parallax then walked it further up (mobile translateY
+      ran 80 -> 0 on scroll). Three-part fix, all below lg: cell gets
+      overflow-hidden, the bottle is top-anchored (items-start), and the transform
+      is forced to `none` in CSS with !important so it beats both the inline style
+      and the script (no first-paint flash). Script now early-returns under 1024.
+      Used `none` rather than scale(1.12) deliberately - scale grows from the
+      element centre and would push the top edge back over the button.
+      Verified: zero overlap across 11 scroll positions; desktop parallax still
+      animates (translateY 80/188/125).
+- [x] Mobile: center the How It Works / Droplet Performance eyebrow, title, and Contact Us button
+      Done 2026-09-04: index.astro. text-center lg:text-left on the eyebrow and h2;
+      the CTA is .bl-pill (inline-flex) so it got a flex justify-center
+      lg:justify-start wrapper, matching the BotaniMax block's existing pattern.
+      Pill stays 272px at both widths - it does not stretch. NOTE: as with the
+      Platform section, the paragraph here is still left-aligned under a centred
+      heading, since the task named only eyebrow/title/button.
+- [x] Keep the hamburger menu for mobile on the current home page: give it a dropdown with 'Contact' linking to the form, and show the phone number and email address
+      Done 2026-09-04: Header.astro + index.astro. The burger and drawer machinery
+      already existed, just gated behind !minimal. Added a burger inside the
+      minimal right-hand cluster (minimal collapses the row to two columns and the
+      logo owns the first, so it could not reuse the full header's col-start-3
+      placement) and a three-item drawer: Contact -> #contact, tel link, mailto.
+      Header now takes a contactEmail prop mirroring Footer, and index.astro passes
+      CONTACT_EMAIL, so the drawer shows marty@ not the general inbox.
+      DECISION: the header's Contact pill is now hidden below lg on the minimal
+      header. Logo + pill + burger overflowed a 390px row (417px scrollWidth), and
+      the drawer already carries Contact, so the pill was both redundant and the
+      thing breaking the layout. Mobile = burger, desktop = pill. Flagged to
+      Joshua in case he wants both kept and the logo shrunk instead.
+      Verified: no overflow at 390 or 1440, drawer opens/closes, Contact closes the
+      drawer and lands on #contact, scroll lock releases, one #sh-mobile-nav per
+      page, /hvac/ drawer still has its full 28 links, build passes 43 pages.
+- [x] Remove the em dash from the paragraph in the footer
+      Done 2026-09-04: Footer.astro:32. '...coverage plan - no spam...' became
+      '...coverage plan. No spam...'. The only em dash left in the file is in a
+      code comment on line 3, not user-facing copy, so it was left alone.
+- [x] Mobile nav drawer: make all the buttons the same styling (the Contact button is white, the others are light blue), and give the drop-down a darker background
+      Done 2026-09-04: Header.astro. Contact was .bl-pill (solid brand blue, white
+      text) while phone/email were .sh-mobile-phone (light blue). All three now use
+      .sh-mobile-phone - identical background rgb(227,237,255) and text
+      rgb(20,46,158), verified equal at runtime.
+      Dark panel added as a scoped modifier .sh-mobile-nav--dark rather than a
+      change to .sh-mobile-nav, because that base class is shared with the
+      interior-page drawer whose mega-menu links are dark-on-light and would have
+      vanished on navy. Confirmed /hvac/ still renders the light panel.
+      Navy reuses --bl-ink / the footer gradient rather than a new colour. Also
+      zeroed the first pill's top margin so the three gaps are even (0/12/12px).
+      NOTE: Contact has no icon while phone and email do. Styling is identical;
+      the icon difference is content, not style. Flagged to Joshua.
+- [x] Remove all em dashes on the homepage, replacing them with commas or alternative punctuation
+      Done 2026-09-04: index.astro, 5 strings. Found them by diffing the RENDERED
+      text rather than grepping source - source has 44 em dashes across the
+      homepage's files but 39 are code/CSS comments, and only 5 ever reach a
+      visitor. Header, AnimatedStatIcon, CertMark and Footer needed no change.
+      Replacements (colon where the following clause is itself a comma list, so a
+      comma would have been ambiguous):
+        'portable deployment-three ways'      -> colon
+        '150+ plant actives - a patent-pending' -> colon
+        'dry-mist droplets - small enough'     -> colon
+        'Environmentally neutral - no residue' -> colon
+        testimonial 'game changer for us - not only' -> comma
+      NOTE: that last one is a customer quote (David Sark). Punctuation only, no
+      wording changed, but flagged since it is attributed speech.
+      Verified 0 em dashes in both the served HTML and the live DOM (the DOM check
+      also covers the JS-rendered hero words and announcement slides).
+      NOT touched: /home-full/ (home-full.astro), which is a separate reviewable
+      copy of the old homepage and still contains its own em dashes.
+- [x] Remove the arrow from the 'Contact Us To Learn More' button in the Genesis 360 Platform section
+      Done 2026-09-04: index.astro:793. Dropped the <ArrowRight> and the now-dead
+      gap-2 on the anchor.
+      Worth knowing: the pattern `{CTA_LABEL} <ArrowRight ... />` appears 4 times
+      in this file, so a string replace would have stripped the arrow from three
+      other CTAs as well. Edited by line number instead. Verified after: platform
+      CTA has no svg and its text is intact, and 7 other CTAs still have arrows.
+      ArrowRight import stays - still 3 other uses.
+- [x] Make the background flow seamlessly from the Explore By Application section into 'Engineered for Facilities That Can't Afford Inconsistency'. On mobile there is a shadow under the agriculture card and the spacing is unbalanced. Options: reduce the padding above Engineered so it matches the padding below the card, reduce the shadow on mobile, or make the shadow overflow visible
+      Done 2026-09-04: index.astro:706. Root cause was the third option, and it
+      was a clipping bug rather than a spacing one. shadow-deep on the cards is
+      `0 26px 70px`, so it needs ~96px below the card to fade out, but there were
+      only 24px before the section ended AND #shop carried overflow-hidden. The
+      shadow was cut mid-fade, leaving a hard horizontal step exactly at the
+      boundary - which is what read as 'not seamless'.
+      Fix: dropped overflow-hidden from #shop. Safe because .particle-field
+      already has its own `absolute inset-0 overflow-hidden`, so the particles
+      stay clipped, and each card clips its own hover-scaled image. Verified:
+      particle-field overflow still hidden, 0 media escaping the section bounds,
+      no horizontal overflow at 390 or 1440.
+      Did NOT change padding or shadow size - the other two options you offered
+      were alternatives to the same symptom, and the clip was the real cause.
+      Spacing now measures: card -> heading 80px, heading -> stat grid 48px.
+      Flagged to Joshua in case he still wants that 80 pulled closer to 48.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
