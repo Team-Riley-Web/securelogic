@@ -466,8 +466,57 @@ unchecked task unless you are starting it.
       Left notes on both section tags: the section gradient end, the neighbour's
       background, and --particle-fade are three values that have to move
       together.
-- [ ] Announcement bar is too wide on desktop — it should be fairly small and centered, only as wide as necessary so the lines aren't breaking into 2.
-- [ ] Announcement bar rotates too fast — slow it down.
+- [x] Announcement bar is too wide on desktop — it should be fairly small and centered, only as wide as necessary so the lines aren't breaking into 2.
+      Done 2026-09-03: my doing, from the slider work. The track was flex-1 so
+      it spanned the whole bar — 1312px at 1440 — and since the slides fill the
+      track (width: 100%, which is what makes translateX(100%) mean one bar
+      across), that was also the distance every message had to travel.
+      From sm up the track is now `flex: 0 1 auto; width: 34rem; max-width:
+      100%` — a compact centred window with the two arrows closed in either
+      side of it instead of pinned to the screen edges.
+      34rem is sized off the copy, not picked by eye: measured each message's
+      natural width with a width:auto clone — 397, 384 and 451px — so 544px
+      clears the longest by ~90px and none of the three wraps. Confirmed by
+      cycling all three and checking rendered height stayed at one line (16px).
+      Below sm the track still stretches: the message is MEANT to wrap there and
+      the bar is already sized for two lines plus the link. Mobile is unchanged
+      at 286px track / 76px bar.
+      Checked 640 / 700 / 768 / 1024 / 1920 and the minimal landing-page header:
+      centred at every one, no overflow, one line throughout. At 640 max-width
+      pulls the track to 512px, still clear of the 451px longest message.
+- [x] Announcement bar rotates too fast — slow it down.
+      Done 2026-09-03: rotation interval 5200 -> 8200ms desktop, 7600 -> 10400ms
+      mobile. Measured the live gap afterwards at 8075 and 8273ms, so ~58%
+      longer to read each message.
+      The motion itself also calmed down without touching the transition: the
+      width fix above cut the travel from 1312px to 544px, and the duration is
+      still 0.55s, so each message now crosses less than half the distance in
+      the same time. Left the duration alone deliberately — 544px in 0.55s is a
+      good glide, and slowing it further would have the message still moving
+      when the eye is ready to read it.
+- [x] On mobile, remove the phone icon from the home page for right now.
+      Done 2026-09-03: gated behind `const SHOW_LANDING_PHONE = false` at the
+      top of Header.astro rather than deleted, because this was asked for "just
+      right now" — flip the one word to bring it back.
+      It only touches the `minimal` header, which is the landing page alone
+      (index.astro is the only <Header minimal /> in the repo). The interior
+      pages have their OWN tap-to-call icon in the left column, on the other
+      branch of the same component; verified it still renders and is still
+      visible on /genesis360mistingsystems/.
+      No desktop effect either way — .sh-phone is display:none at lg and up, so
+      the icon only ever showed on mobile.
+- [x] "Engineered for Facilities That Can't Afford Inconsistency" stats: lay them out as a 2x2 grid on mobile instead of all stacked.
+      Done 2026-09-03: was `grid gap-10 sm:grid-cols-2 lg:grid-cols-4`, so the
+      base case was one column. Now `grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-10
+      lg:grid-cols-4` — 2x2 from the smallest width up, 4-across at lg as before.
+      The column gap is the only other change: 40px between two columns at 390px
+      leaves 155px per cell, which crowds the 96px icons and the two-line copy
+      under them. 20px below sm gives 165px cells and reads properly; sm and up
+      goes back to 40px so nothing above mobile moved.
+      Verified the computed layout at each step — 390 and 640 are 2x2, 1024 and
+      1440 are 4x1, gaps at sm+ identical to before at 40px both axes.
+      Applied to home-full.astro as well as index.astro, per the standing note
+      in this file about keeping the parked original in sync.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

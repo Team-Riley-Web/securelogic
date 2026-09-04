@@ -712,7 +712,7 @@ const recentPosts = posts.slice(0, 3);
     <section class="px-5 sm:px-6 lg:px-8 py-20 bg-brand-100">
       <div class="reveal mx-auto max-w-6xl text-center" x-intersect.once="$el.classList.add('is-visible')">
         <h2 class="bl-h2">Engineered for Facilities That Can't Afford Inconsistency.</h2>
-        <div class="mt-12 grid gap-10 text-brand-600 sm:grid-cols-2 lg:grid-cols-4" style="--ai-accent: var(--bl-green);">
+        <div class="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 text-brand-600 sm:gap-x-10 lg:grid-cols-4" style="--ai-accent: var(--bl-green);">
           {trustStats.map(({ label, copy, icon }) => (
             <div>
               <div class="mx-auto flex h-24 w-24 items-center justify-center">

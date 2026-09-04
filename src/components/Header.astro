@@ -21,6 +21,13 @@ interface Props {
 
 const { minimal = false } = Astro.props;
 
+// Tap-to-call on the landing page, parked 2026-09-03 at Joshua's request —
+// "remove the phone icon from the home page for just right now". Flip to true to
+// bring it back. Only affects the `minimal` header; the interior-page icon in
+// the left column is untouched. `.sh-phone` is mobile-only either way, so this
+// changes nothing at lg and up.
+const SHOW_LANDING_PHONE = false;
+
 // Nav splits around the centred logo, so the menus split too.
 const leftMenus = megaMenus.filter((m) => ['Human', 'HVAC', 'Ag'].includes(m.label));
 const rightMenus = megaMenus
@@ -152,7 +159,7 @@ const secondaryLinks = [
           {/* The tap-to-call icon rides with the CTA here rather than sitting in
               the left column, which the logo now occupies. `.sh-phone` still
               hides itself at lg and up, so this is the mobile affordance only. */}
-          {minimal && (
+          {minimal && SHOW_LANDING_PHONE && (
             <a href="tel:18889974310" class="sh-phone" aria-label="Call Genesis 360 at 1-888-997-4310">
               <Phone class="h-5 w-5" aria-hidden="true" />
             </a>
@@ -417,6 +424,23 @@ const secondaryLinks = [
      translateX(100%) would move it by that text width, leaving it still partly
      inside the wrapper. Filling the cell makes 100% mean "exactly one bar
      across". */
+  /* From sm up the track stops stretching and becomes a compact centred
+     window. It was flex-1, so it spanned the full bar — 1312px at 1440 for a
+     message that only needs ~450 — and because the slides fill the track, that
+     was also the distance each one had to travel. 34rem clears the longest of
+     the three messages (451px measured) with enough slack that none of them
+     wraps to a second line, and the two arrows close in to sit either side of
+     it instead of being pinned to the edges of the screen.
+     Below sm the track keeps stretching: the message is meant to wrap there and
+     the bar is already sized for two lines plus the link. */
+  @media (min-width: 640px) {
+    [data-announcement-track] {
+      flex: 0 1 auto;
+      width: 34rem;
+      max-width: 100%;
+    }
+  }
+
   .announcement-slide {
     grid-column: 1;
     grid-row: 1;
@@ -781,7 +805,9 @@ const secondaryLinks = [
   function startAnnouncementRotation() {
     if (reduceMotion || announcementSlides.length < 2) return;
     window.clearInterval(announcementTimer);
-    const rotationDelay = mobileAnnouncement.matches ? 7600 : 5200;
+    // Time to read the message, not just to see it. 5200 desktop was too quick
+    // to finish the line and take in the link before it moved on.
+    const rotationDelay = mobileAnnouncement.matches ? 10400 : 8200;
     announcementTimer = window.setInterval(() => showAnnouncement(announcementIndex + 1), rotationDelay);
   }
 
