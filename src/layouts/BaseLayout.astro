@@ -11,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = 'Secure Logic | Precision Misting and Botanical Disinfection',
-  description = 'Secure Logic designs Genesis 360 automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage.',
+  title = 'Genesis 360 | Precision Misting and Botanical Disinfection',
+  description = 'Genesis 360 builds automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage.',
   image = socialShare,
 } = Astro.props;
 
@@ -22,7 +22,7 @@ const {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image.src, Astro.site);
 
-const SITE_NAME = 'Secure Logic';
+const SITE_NAME = 'Genesis 360';
 ---
 
 <!doctype html>
@@ -54,12 +54,12 @@ const SITE_NAME = 'Secure Logic';
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageURL} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-    />
+    <!-- TeX Gyre Heros is self-hosted (see the @font-face block in
+         global.css), so there is no font CDN to preconnect to. Preloading the
+         two faces the chrome always paints in stops the swap flash on first
+         view; the italics load on demand. -->
+    <link rel="preload" href="/fonts/texgyreheros-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/texgyreheros-bold.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
   </head>
   <body class="min-h-screen">

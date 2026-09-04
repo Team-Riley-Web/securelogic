@@ -79,8 +79,8 @@ const recentPosts = posts.slice(0, 3);
 ---
 
 <BaseLayout
-  title="Secure Logic | Precision Misting and Botanical Disinfection"
-  description="Secure Logic designs Genesis 360 automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage."
+  title="Genesis 360 | Precision Misting and Botanical Disinfection"
+  description="Genesis 360 builds automated misting systems and BotaniMax botanical disinfectant for precise whole-room environmental coverage."
 >
   <style>
     .h2o-stage {
@@ -650,8 +650,20 @@ const recentPosts = posts.slice(0, 3);
     </section>
 
     <!-- Shop by category -->
-    <section id="shop" class="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-white to-brand-50 px-5 sm:px-6 lg:px-8 py-24">
-      <div class="particle-field particle-field-light" aria-hidden="true">
+    <!-- Shop by category. The gradient MUST land on the same colour the next
+         section starts with (brand-100) or a hard line shows at the boundary —
+         it used to end on brand-50 against a brand-100 neighbour. The particle
+         field's bottom haze paints over this, so its --particle-fade has to
+         match too. If either section's colour changes, change all three. -->
+    <section id="shop" class="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-white to-brand-100 px-5 sm:px-6 lg:px-8 py-24">
+      <div
+        class="particle-field particle-field-light"
+        {/* Lands the haze on brand-100, the colour the next section starts
+            with, so the two meet without a line. See the note on the
+            section tag above. */}
+        style="--particle-fade: #e3edff; --particle-fade-out: rgb(227 237 255 / 0);"
+        aria-hidden="true"
+      >
         <span class="particle"></span>
         <span class="particle"></span>
         <span class="particle"></span>
@@ -877,7 +889,7 @@ const recentPosts = posts.slice(0, 3);
             {[...testimonials, ...testimonials].map(({ quote, name, role, image }, index) => (
               <figure class="flex w-full shrink-0 snap-start flex-col rounded-2xl bg-white/10 p-6 ring-1 ring-white/10 sm:w-[22rem] md:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]" aria-hidden={index >= testimonials.length ? 'true' : undefined} data-alt-testimonial-card>
                 <div class="flex items-center justify-between gap-4">
-                  <Image src={image} alt={`${name}, Secure Logic customer`} class="h-16 w-16 shrink-0 rounded-full object-cover ring-4 ring-white/10" widths={[64, 128]} sizes="64px" />
+                  <Image src={image} alt={`${name}, Genesis 360 customer`} class="h-16 w-16 shrink-0 rounded-full object-cover ring-4 ring-white/10" widths={[64, 128]} sizes="64px" />
                   <Quote class="h-7 w-7 text-white/25" aria-hidden="true" />
                 </div>
                 <div class="mt-5 flex gap-1" aria-label="Five out of five stars">

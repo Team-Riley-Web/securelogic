@@ -152,7 +152,7 @@ const entries: Omit<BlogPost, 'body'>[] = [
     excerpt:
       'Marine vessels present unique infection control challenges. Close quarters, shared spaces, and limited medical access let one illness become many.',
     description:
-      'Confined ships and offshore platforms are hotspots for outbreaks. Discover how Secure Logic disinfection systems help stop infections before they spread.',
+      'Confined ships and offshore platforms are hotspots for outbreaks. Discover how Genesis 360 disinfection systems help stop infections before they spread.',
     image: infectionsAtSea,
     imageAlt: 'Marine vessel at sea where confined spaces increase infection risk',
     tags: ['Ship Disinfection', 'Marine Health Safety', 'Norovirus Prevention'],

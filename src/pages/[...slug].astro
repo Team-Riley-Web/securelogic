@@ -56,7 +56,7 @@ const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
 const systems: { name: string; image: ImageMetadata; alt: string }[] = [
   { name: 'InRoomMist', image: inroom, alt: 'Genesis 360 InRoom Mist' },
   { name: 'HVACMist', image: hvac, alt: 'Genesis 360 HVAC misting system image' },
-  { name: 'Compact Mist', image: compact, alt: 'Secure Logic Genesis Compact' },
+  { name: 'Compact Mist', image: compact, alt: 'Genesis 360 Compact misting unit' },
   { name: 'MobileMist', image: mobile, alt: 'Genesis 360 Mobile Mist' },
   { name: 'MedicalMist', image: medical, alt: 'Kinetic Systems Medical Mist' },
   { name: 'PortableMist', image: portable, alt: 'Kinetic Systems Portable Mist' },
@@ -243,12 +243,12 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 ];
 ---
 
-<BaseLayout title={`Secure Logic | ${canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home'}`}>
+<BaseLayout title={`Genesis 360 | ${canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home'}`}>
   <Header />
   <main>
     {canonicalSlug === 'home-page' && (
       <>
-        <PageHero eyebrow="Secure Logic" title="Precision Misting. Automated Efficiency. 360-Degree Coverage." copy="The current Secure Logic homepage is available at the site root." />
+        <PageHero eyebrow="Genesis 360" title="Precision Misting. Automated Efficiency. 360-Degree Coverage." copy="The current Genesis 360 homepage is available at the site root." />
         <section class="bg-white py-20">
           <div class="container-page">
             <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
@@ -418,7 +418,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'resources' && (
       <>
-        <PageHero eyebrow="Resources" title="Welcome to the Secure Logic Resource Center" copy="Discover everything you need to know about botanical disinfectants and innovative HVAC misting systems in one place." />
+        <PageHero eyebrow="Resources" title="Welcome to the Genesis 360 Resource Center" copy="Discover everything you need to know about botanical disinfectants and innovative HVAC misting systems in one place." />
         <section class="bg-white py-20">
           <div class="container-page">
             <div class="mx-auto max-w-3xl text-center">
@@ -448,10 +448,10 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'resources/brochures' && (
       <>
-        <PageHero eyebrow="Brochures" title="Download Secure Logic Brochures" copy="Learn how the Genesis 360 Misting System and BotaniMax keep your friends, family, staff, and customers healthy." />
+        <PageHero eyebrow="Brochures" title="Download Genesis 360 Brochures" copy="Learn how the Genesis 360 Misting System and BotaniMax keep your friends, family, staff, and customers healthy." />
         <section class="bg-white py-20">
           <div class="container-page">
-            <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">To learn more about Secure Logic's Genesis 360 Misting System and BotaniMax® — or to see how they can be used to keep the people around you healthy — download our brochures below. Don't see a brochure that meets your needs? <a href="/contact-us/" class="font-semibold text-primary-700 underline decoration-botanical-400 underline-offset-4">Reach out to our team</a> for more information.</p>
+            <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">To learn more about the Genesis 360 Misting System and BotaniMax® — or to see how they can be used to keep the people around you healthy — download our brochures below. Don't see a brochure that meets your needs? <a href="/contact-us/" class="font-semibold text-primary-700 underline decoration-botanical-400 underline-offset-4">Reach out to our team</a> for more information.</p>
             <div class="mt-14 grid gap-6 md:grid-cols-3">
               {brochures.map(({ title, image, file, summary }) => (
                 <article class="card flex flex-col p-6 text-center">
@@ -696,15 +696,15 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'contact-us' && (
       <>
-        <PageHero eyebrow="Contact Us" title="Connect Directly to the Secure Logic Team" copy="If you have questions about products, need assistance with a quote, or want to explore a partnership, the team is here to help." />
+        <PageHero eyebrow="Contact Us" title="Connect Directly to the Genesis 360 Team" copy="If you have questions about products, need assistance with a quote, or want to explore a partnership, the team is here to help." />
         <section class="bg-white py-20">
           <div class="container-page grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
             <div class="rounded-lg bg-slate-900 p-8 text-white shadow-deep">
-              <Image src={contactBg} alt="Clean indoor environment for Secure Logic contact page" class="-mx-8 -mt-8 mb-8 h-56 w-[calc(100%+4rem)] rounded-t-lg object-cover opacity-80" widths={[520, 760]} sizes="(min-width: 1024px) 36vw, 100vw" />
+              <Image src={contactBg} alt="Clean indoor environment for Genesis 360 contact page" class="-mx-8 -mt-8 mb-8 h-56 w-[calc(100%+4rem)] rounded-t-lg object-cover opacity-80" widths={[520, 760]} sizes="(min-width: 1024px) 36vw, 100vw" />
               <a href="tel:18889974310" class="flex items-center gap-3"><Phone class="h-5 w-5 text-botanical-300" />1-888-997-4310</a>
               <a href="mailto:info@securelogicUSA.com" class="mt-4 flex items-center gap-3"><Mail class="h-5 w-5 text-botanical-300" />info@securelogicUSA.com</a>
             </div>
-            <QuoteForm title="Contact Secure Logic" />
+            <QuoteForm title="Contact Genesis 360" />
           </div>
         </section>
       </>
@@ -712,7 +712,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'get-a-quote' && (
       <>
-        <PageHero eyebrow="Get a Quote" title="Elevate Your Health and Safety and Get A Quote Today" copy="Request a quote to evaluate Secure Logic botanical disinfection and automated misting systems." />
+        <PageHero eyebrow="Get a Quote" title="Elevate Your Health and Safety and Get A Quote Today" copy="Request a quote to evaluate Genesis 360 botanical disinfection and automated misting systems." />
         <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}

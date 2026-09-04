@@ -7,7 +7,7 @@
 // it should sit inside a `.bl` wrapper (all of them currently do).
 import { ArrowRight, Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
-import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
+import footerMark from '../assets/images/Genesis360-icon.png';
 
 interface Props {
   // `minimal` drops the Shop and About link columns, which point at interior
@@ -24,7 +24,7 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
 
 <footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <Image src={logoIconNoWords} alt="" class="absolute -bottom-36 -right-16 w-[38rem] max-w-none brightness-0 invert opacity-[0.035] blur-[0.2px]" widths={[480, 640]} sizes="608px" />
+    <Image src={footerMark} alt="" class="absolute -bottom-20 -right-12 h-[24rem] w-auto max-w-none brightness-0 invert opacity-[0.045] blur-[0.2px]" widths={[280, 420]} sizes="280px" />
   </div>
   <div class:list={['relative mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:gap-10', minimal ? 'md:grid-cols-[1.6fr_1fr]' : 'md:grid-cols-[1.3fr_1fr_1fr_1fr]']}>
     <div class="col-span-2 md:col-span-1">
@@ -82,7 +82,14 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
     </div>
   </div>
   <div class="relative mx-auto mt-12 flex max-w-6xl flex-col items-center gap-3 border-t border-white/20 pt-6 text-center text-xs text-white/55 sm:flex-row sm:justify-between sm:text-left">
-    <p>Copyright 2026 © Secure Logic</p>
+    {/* Genesis 360 is the brand the site leads with everywhere else; Secure
+        Logic is the company that owns it and the platform's IP. This is the one
+        place the relationship is stated outright, so it rides with the
+        copyright rather than needing its own block. */}
+    <p>
+      Copyright 2026 © Secure Logic
+      <span class="mt-1 block sm:mt-0 sm:ml-2 sm:inline">Genesis 360 is a Secure Logic brand.</span>
+    </p>
     <p class="text-center sm:text-right">
       Crafted by
       <a href="https://teamrileyweb.com" class="font-semibold text-slate-200 underline decoration-botanical-300/70 underline-offset-4 transition hover:text-white">Team Riley</a>

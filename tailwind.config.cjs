@@ -79,6 +79,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          'TeX Gyre Heros',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',

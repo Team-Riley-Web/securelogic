@@ -8,10 +8,8 @@
 // Below 1024px the mega-menus hide themselves, so the row swaps to a hamburger
 // that opens an accordion drawer covering the same taxonomy.
 import { ChevronDown, ChevronLeft, ChevronRight, Menu, Phone, X } from '@lucide/astro';
-import { Image } from 'astro:assets';
 import MegaMenu from './MegaMenu.astro';
 import { megaMenus } from '../data/mega-menus';
-import logo from '../assets/images/logo-tight.png';
 
 interface Props {
   // `minimal` strips every link that points at an interior page and leaves the
@@ -98,7 +96,7 @@ const secondaryLinks = [
          "Contact Us", which turned the rotation into the same call to action
          three times over, next to the Contact Us pill in the row below. The
          minimal build shows the message alone. -->
-    <div class="grid min-w-0 flex-1 place-items-center overflow-hidden" aria-live="polite">
+    <div class="grid min-w-0 flex-1 place-items-center overflow-hidden" aria-live="polite" data-announcement-track>
       <p class="announcement-slide is-active" data-announcement-slide aria-hidden="false">
         <span>Automated, Whole-Room Disinfection</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/get-a-quote/" class="announcement-link underline decoration-white/50 underline-offset-2">Get A Quote →</a></>)}
       </p>
@@ -129,7 +127,7 @@ const secondaryLinks = [
       <div class:list={['site-header-row mx-auto grid max-w-7xl items-center gap-6 px-6', minimal ? 'grid-cols-[auto_1fr]' : 'grid-cols-[1fr_auto_1fr]']}>
         {!minimal && <MegaMenu menus={leftMenus} class="col-start-1 row-start-1 justify-self-start font-semibold" />}
         {!minimal && (
-          <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Secure Logic at 1-888-997-4310">
+          <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Genesis 360 at 1-888-997-4310">
             <Phone class="h-5 w-5" aria-hidden="true" />
           </a>
         )}
@@ -146,8 +144,8 @@ const secondaryLinks = [
             <X class="h-6 w-6" x-show="mobileOpen" x-cloak />
           </button>
         )}
-        <a href="/" class:list={['row-start-1 flex items-center', minimal ? 'col-start-1 justify-self-start' : 'col-start-2 justify-center justify-self-center']} aria-label="Secure Logic home">
-          <Image src={logo} alt="Secure Logic logo" class="header-logo-mark w-auto object-contain" style="height: calc(var(--spacing) * 8.5);" widths={[120, 180]} sizes="120px" />
+        <a href="/" class:list={['row-start-1 flex items-center', minimal ? 'col-start-1 justify-self-start' : 'col-start-2 justify-center justify-self-center']} aria-label="Genesis 360 home">
+          <span class="header-logo-mark animated-text">Genesis360</span>
         </a>
         <div class:list={['row-start-1 items-center justify-self-end gap-4', minimal ? 'col-start-2 flex' : 'col-start-3 hidden lg:flex']}>
           {!minimal && <MegaMenu menus={rightMenus} class="font-semibold" />}
@@ -155,7 +153,7 @@ const secondaryLinks = [
               the left column, which the logo now occupies. `.sh-phone` still
               hides itself at lg and up, so this is the mobile affordance only. */}
           {minimal && (
-            <a href="tel:18889974310" class="sh-phone" aria-label="Call Secure Logic at 1-888-997-4310">
+            <a href="tel:18889974310" class="sh-phone" aria-label="Call Genesis 360 at 1-888-997-4310">
               <Phone class="h-5 w-5" aria-hidden="true" />
             </a>
           )}
@@ -251,7 +249,7 @@ const secondaryLinks = [
      scroll away on interior pages. */
   .sh {
     display: contents;
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'TeX Gyre Heros', ui-sans-serif, system-ui, sans-serif;
     color: var(--bl-ink);
   }
 
@@ -342,8 +340,27 @@ const secondaryLinks = [
     box-shadow: 0 16px 36px -24px rgb(8 21 86 / 0.7);
   }
 
+  /* On the dark bar the wordmark reads mostly white, with the brand gradient
+     passing through it at intervals rather than tinting it the whole time.
+     White dominates the ramp and the two colour stops sit in the middle third,
+     so with background-size 300% the visible window is white at rest and the
+     colour band sweeps across as the animation carries it. Both ends of the
+     ramp are white, so the loop has no seam.
+     Overriding background-image and -size only; the clip and the animation
+     still come from .animated-text. `color` is the fallback for anything
+     without background-clip: text — white, to match the resting state. */
   .site-header.is-scrolled .header-logo-mark {
-    filter: brightness(0) invert(1);
+    background-image: linear-gradient(
+      90deg,
+      #fff 0%,
+      #fff 16%,
+      var(--bl-brand-green-light) 33%,
+      var(--bl-brand-blue-light) 50%,
+      #fff 67%,
+      #fff 100%
+    );
+    background-size: 300% 100%;
+    color: #fff;
   }
 
   .site-header.is-scrolled .site-header-main .bl-pill {
@@ -356,23 +373,93 @@ const secondaryLinks = [
     color: var(--bl-blue-dark);
   }
 
+  /* The wordmark is live text now, not a bitmap. TeX Gyre Heros Bold is a
+     near-exact match for the logo's letterforms (compared glyph by glyph
+     against Genesis360-full-logo.png). 33px lands the cap height at ~25px, the
+     same ink height the bitmap had, so swapping to text moved nothing in the
+     row.
+     letter-spacing is -0.005em, fitted not guessed: rendered the wordmark at a
+     grid of tracking values, scaled each to the logo's cap height, aligned
+     baselines and scored pixel overlap against the artwork. -0.005em peaks at
+     0.87 IoU across "Genesis" and falls off cleanly either side (0 -> 0.82,
+     -0.01em -> 0.81). It was +0.012em before, which was fitted to total width
+     and so came out too loose — see the note in TASKS.md about the digits.
+     No synthetic weight: the stems already match. Measured vertical stem as a
+     share of cap height, the logo is 0.1866 and Heros Bold 0.1848, 1% apart.
+     Adding -webkit-text-stroke on top would overshoot. */
   .header-logo-mark {
-    transition: filter 0.32s ease;
+    font-family: 'TeX Gyre Heros', ui-sans-serif, system-ui, sans-serif;
+    font-size: 33px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    /* Paints if background-clip: text is unsupported, and is the colour the
+       scrolled state overrides. */
+    color: #225a8f;
+    transition: color 0.32s ease;
   }
 
-  /* Cross-fades in place. The slides used to rise 0.35rem as they came in,
-     which read as a jump in a bar this short — opacity only. */
+  /* Between lg and xl the two nav clusters and the CTA leave the centred
+     wordmark only ~28px of air on its right. Step it down so it reads as a
+     logo with room around it rather than something wedged into the gap. */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .header-logo-mark {
+      font-size: 29px;
+    }
+  }
+
+  /* Travels like a slider: the outgoing message leaves to the left, the
+     incoming one arrives from the right. All three slides sit in the same grid
+     cell and the wrapper clips them, so only the active one is ever on screen.
+     width: 100% matters more than it looks — the grid is justify-items: center,
+     so without it each <p> would be only as wide as its own text and
+     translateX(100%) would move it by that text width, leaving it still partly
+     inside the wrapper. Filling the cell makes 100% mean "exactly one bar
+     across". */
   .announcement-slide {
     grid-column: 1;
     grid-row: 1;
-    opacity: 0;
-    transition: opacity 0.35s ease;
+    width: 100%;
+    text-align: center;
+    /* Position only, no fade. Cross-fading a slider leaves a beat where the
+       outgoing message has faded out and the incoming one has not arrived, and
+       the bar reads empty mid-travel. Slides stay fully opaque and the
+       wrapper's overflow clip is what hides the parked ones. */
+    transform: translateX(100%);
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
   }
 
   .announcement-slide.is-active {
-    opacity: 1;
+    transform: translateX(0);
     pointer-events: auto;
+  }
+
+  /* The one being replaced, mid-exit. Parked slides sit off to the right
+     waiting to come in; this is the only one on the left. */
+  .announcement-slide.is-exit {
+    transform: translateX(-100%);
+  }
+
+  /* Prev button: the whole thing runs the other way, so the exiting slide
+     leaves right and the arriving one comes from the left. */
+  .sh-announce.is-reversed .announcement-slide {
+    transform: translateX(-100%);
+  }
+
+  .sh-announce.is-reversed .announcement-slide.is-active {
+    transform: translateX(0);
+  }
+
+  .sh-announce.is-reversed .announcement-slide.is-exit {
+    transform: translateX(100%);
+  }
+
+  /* Set for one frame while a spent slide is moved back to the entry side, so
+     it teleports instead of sliding back across the bar in view. */
+  .announcement-slide.no-anim {
+    transition: none;
   }
 
   @media (max-width: 639px) {
@@ -590,6 +677,31 @@ const secondaryLinks = [
     .site-header-main,
     .site-header-sub,
     .header-logo-mark { transition: none; }
+
+    /* The sweep is decoration. Stopping it parks the gradient at 0% 50%, which
+       is exactly the logo's own green-to-blue — so the mark still looks right,
+       it just holds still. */
+    .header-logo-mark {
+      animation: none;
+      background-position: 0% 50%;
+    }
+
+    /* The arrows still work under reduced motion, so the slides still change —
+       they just cross-fade in place instead of travelling. Opacity has to come
+       back here: with the travel removed, all three would otherwise sit on top
+       of each other at translateX(0) and render at once. */
+    .announcement-slide,
+    .sh-announce.is-reversed .announcement-slide,
+    .sh-announce.is-reversed .announcement-slide.is-exit {
+      transform: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .announcement-slide.is-active,
+    .sh-announce.is-reversed .announcement-slide.is-active {
+      opacity: 1;
+    }
   }
 </style>
 
@@ -603,12 +715,66 @@ const secondaryLinks = [
   let announcementIndex = 0;
   let announcementTimer: number | undefined;
 
-  function showAnnouncement(index: number) {
-    announcementIndex = (index + announcementSlides.length) % announcementSlides.length;
+  const announcementBar = document.querySelector<HTMLElement>('.sh-announce');
+  const SLIDE_MS = 600;
+
+  // A slide that has finished exiting has to get back to the entry side to be
+  // reusable. Moving it there with the transition live would drag it back
+  // across the bar in full view, so kill transitions for one frame. Reading
+  // offsetWidth between the two class changes is what forces the browser to
+  // commit the jump before animation is allowed again.
+  function parkAnnouncement(slide: HTMLElement) {
+    if (slide.classList.contains('is-active')) return;
+    slide.classList.add('no-anim');
+    slide.classList.remove('is-exit');
+    void slide.offsetWidth;
+    slide.classList.remove('no-anim');
+  }
+
+  // Direction lives on the bar, not the slide, because it has to flip the
+  // resting position of every parked slide at once — otherwise the incoming one
+  // would still be waiting on the right during a backwards move.
+  //
+  // Flipping it has to be instant. These slides transition their transform, so
+  // toggling the class with animation live sends every parked slide gliding
+  // from one side to the other in full view — a message that is not involved in
+  // the change sails across the bar. Suppress, flip, flush, restore.
+  function setAnnouncementDirection(back: boolean) {
+    if (!announcementBar) return;
+    if (announcementBar.classList.contains('is-reversed') === back) return;
+    announcementSlides.forEach((slide) => slide.classList.add('no-anim'));
+    announcementBar.classList.toggle('is-reversed', back);
+    void announcementBar.offsetWidth;
+    announcementSlides.forEach((slide) => slide.classList.remove('no-anim'));
+  }
+
+  function showAnnouncement(index: number, back = false) {
+    const total = announcementSlides.length;
+    const previousIndex = announcementIndex;
+    announcementIndex = (index + total) % total;
+    if (announcementIndex === previousIndex) return;
+
+    // Before anything moves, so the incoming slide starts from the correct side.
+    setAnnouncementDirection(back);
+
     announcementSlides.forEach((slide, slideIndex) => {
       const isActive = slideIndex === announcementIndex;
-      slide.classList.toggle('is-active', isActive);
       slide.setAttribute('aria-hidden', String(!isActive));
+      // Parked slides are only hidden by the wrapper's clip, so their links stay
+      // in the tab order. Tabbing into one makes the browser scroll the clipped
+      // box to reveal it, which shoves the visible message out of the bar.
+      slide.inert = !isActive;
+
+      if (isActive) {
+        slide.classList.remove('is-exit');
+        slide.classList.add('is-active');
+      } else if (slideIndex === previousIndex) {
+        slide.classList.remove('is-active');
+        slide.classList.add('is-exit');
+        window.setTimeout(() => parkAnnouncement(slide), SLIDE_MS);
+      } else {
+        slide.classList.remove('is-active');
+      }
     });
   }
 
@@ -620,13 +786,25 @@ const secondaryLinks = [
   }
 
   announcementPrevious?.addEventListener('click', () => {
-    showAnnouncement(announcementIndex - 1);
+    showAnnouncement(announcementIndex - 1, true);
     startAnnouncementRotation();
   });
 
   announcementNext?.addEventListener('click', () => {
     showAnnouncement(announcementIndex + 1);
     startAnnouncementRotation();
+  });
+
+  // Set the initial inert state; showAnnouncement maintains it from here.
+  announcementSlides.forEach((slide, slideIndex) => {
+    slide.inert = slideIndex !== announcementIndex;
+  });
+
+  // Backstop for browsers without inert: if anything does manage to scroll the
+  // track, snap it straight back. The bar has no legitimate scroll of its own.
+  const announcementTrack = document.querySelector<HTMLElement>('[data-announcement-track]');
+  announcementTrack?.addEventListener('scroll', () => {
+    if (announcementTrack.scrollLeft !== 0) announcementTrack.scrollLeft = 0;
   });
 
   startAnnouncementRotation();

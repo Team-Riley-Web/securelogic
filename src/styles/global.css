@@ -1,6 +1,44 @@
 @import "tailwindcss";
 @config "../../tailwind.config.cjs";
 
+/* TeX Gyre Heros, self-hosted from public/fonts (GUST e-foundry licence sits
+   next to the source OTFs in src/assets/fonts). Replaces the Google-hosted
+   Poppins, so there is no third-party font request left on any page.
+   The family ships only 400 and 700 — CSS font matching rounds 500 down to 400
+   and 600 down to... no, up to 700, so anything asking for semibold renders
+   bold. That is the intended trade; do not add synthetic weights. */
+@font-face {
+  font-family: 'TeX Gyre Heros';
+  src: url('/fonts/texgyreheros-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeX Gyre Heros';
+  src: url('/fonts/texgyreheros-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeX Gyre Heros';
+  src: url('/fonts/texgyreheros-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeX Gyre Heros';
+  src: url('/fonts/texgyreheros-bolditalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Brand tokens. On :root, not on .bl — site-wide chrome like the header renders
    outside the page wrapper and still needs them. */
 :root {
@@ -25,6 +63,21 @@
   /* Accent greens, named so inline custom-property hooks don't carry raw hex. */
   --bl-lime: #a6d960;
   --bl-green: #52a94d;
+  /* The logo's own gradient endpoints, sampled off Genesis360-full-logo.png:
+     it is a plain sRGB interpolation from this green at the left of the
+     wordmark to this blue at the right. Anything claiming to be "the brand
+     gradient" uses these two, left to right. */
+  --bl-brand-green: #6eb251;
+  --bl-brand-blue: #225a8f;
+  /* Tinted brand pair for the dark bar, where the full-strength colours go
+     muddy — #225a8f on --bl-ink is nowhere near legible. Fully opaque: these
+     are the COLOUR STOPS in a white-dominant gradient (see .header-logo-mark
+     in Header.astro), not the whole fill, so the wordmark reads white most of
+     the time and picks these up as the sweep carries them across. Keep them
+     saturated enough to register as green and blue in that brief pass —
+     washing them out further just gives a white logo that shimmers grey. */
+  --bl-brand-green-light: #a9d495;
+  --bl-brand-blue-light: #9dbbd8;
 }
 
 @layer base {
@@ -52,18 +105,60 @@
 
 @layer components {
 
+  /* Brand gradient sweep. The gradient is the logo's green -> blue -> green so
+     it can loop seamlessly: at background-position 0% the visible half is
+     exactly green -> blue (the logo as drawn), at 100% it is the mirror, and
+     the animation crosses between them. A two-stop gradient cannot do that —
+     it would either snap at the loop point or spend most of the cycle showing
+     a slice that is not the brand pair at all.
+     Used by the header wordmark (see Header.astro). */
+  .animated-text {
+    background: linear-gradient(
+      90deg,
+      var(--bl-brand-green),
+      var(--bl-brand-blue),
+      var(--bl-brand-green)
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animated_text 10s ease-in-out infinite;
+  }
+
+  /* Same sweep, painted rather than clipped, for a band or panel that wants the
+     brand gradient moving under it. Slower because it covers far more area. */
+  .animated-background {
+    background: linear-gradient(
+      270deg,
+      var(--bl-brand-green),
+      var(--bl-brand-blue),
+      var(--bl-brand-green)
+    );
+    background-size: 400% 400%;
+    animation: animated_text 30s ease infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animated-text,
+    .animated-background {
+      animation: none;
+      background-position: 0% 50%;
+    }
+  }
+
   /* Brand-blue design language. The tokens live on :root (see the top of this
      file) so site-wide chrome can use them; `.bl` is the opt-in typographic
      layer a page wraps itself in. */
   .bl {
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'TeX Gyre Heros', ui-sans-serif, system-ui, sans-serif;
     color: var(--bl-ink);
   }
 
   .bl h1,
   .bl h2,
   .bl h3 {
-    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'TeX Gyre Heros', ui-sans-serif, system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
@@ -372,8 +467,22 @@
     background: linear-gradient(180deg, #fff 0%, rgb(255 255 255 / 0) 100%);
   }
 
+  /* Bottom haze. This sits ON TOP of whatever the section's own background is,
+     so it — not the section — is what the eye reads at the very bottom edge.
+     If the section is meant to fade into the one below it, THIS is the colour
+     that has to match, and the section's gradient end has to match it too.
+     Both stops are variables because the four places using .particle-field-light
+     sit above different-coloured sections. Two of them rather than one because
+     the fade-out stop has to be the same hue at zero alpha — fading to the
+     `transparent` keyword is fading to transparent BLACK, which greys the
+     middle of the ramp. */
+  .particle-field-light {
+    --particle-fade: hsl(210 38% 95%);
+    --particle-fade-out: hsl(210 38% 95% / 0);
+  }
+
   .particle-field-light::after {
-    background: linear-gradient(0deg, hsl(210 38% 95%) 0%, hsl(210 38% 95% / 0) 100%);
+    background: linear-gradient(0deg, var(--particle-fade) 0%, var(--particle-fade-out) 100%);
   }
 
   .particle-field-light .particle {
@@ -525,5 +634,19 @@
 
   .typed-hero-word::after {
     animation: none;
+  }
+}
+
+@keyframes animated_text {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
   }
 }

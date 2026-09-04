@@ -60,7 +60,7 @@ export const megaMenus: MegaMenuGroup[] = [
     gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
     items: [
       { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis 360’s sub-10 micron dry mist.', href: '/about-us/technology/' },
-      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Secure Logic team.', href: '/contact-us/' },
+      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Genesis 360 team.', href: '/contact-us/' },
       { icon: SprayCan, title: 'Genesis 360', summary: 'Automated misting systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
       { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
     ],
