@@ -118,9 +118,13 @@ unchecked task unless you are starting it.
       large card) but under the recommended 1200x630, so it upscales slightly on
       high-DPI and the 1.67:1 ratio can get cropped to 1.91:1 by some platforms.
       Re-export at 1200x630 when convenient
-- [ ] Confirm og:site_name should stay "Secure Logic" now that genesis360.com is
+- [x] Confirm og:site_name should stay "Secure Logic" now that genesis360.com is
       the primary domain — set in BaseLayout.astro. Change if the share cards
       should read Genesis 360 instead
+      Done 2026-09-06: Joshua confirmed it should read "Genesis 360". No code
+      change needed — SITE_NAME in BaseLayout.astro:25 was already 'Genesis 360'
+      (the earlier sitewide rename caught it); the question outlived the fix.
+      Verified in the served HTML: og:site_name content="Genesis 360".
 
 - [x] Landing page footer: dropped the "Privacy Policies" link. /privacy-policy/
       renders the full site chrome (header + full nav), which defeats the gate,
@@ -654,6 +658,15 @@ unchecked task unless you are starting it.
       were alternatives to the same symptom, and the clip was the real cause.
       Spacing now measures: card -> heading 80px, heading -> stat grid 48px.
       Flagged to Joshua in case he still wants that 80 pulled closer to 48.
+- [x] Product cards (Compact Mist / Portable Mist) look bad on mobile - stack the text and image vertically instead of splitting the horizontal space 50-50
+      Done 2026-09-05: the two side cards in the systems grid had the image
+      absolutely positioned at w-[58%] with the copy capped at max-w-[62%], so a
+      390px phone got two ~210px columns. Below sm they now stack (card is
+      flex-col, image is a relative h-52 band on top, copy full width beneath);
+      at sm and up the original absolute split is restored unchanged. Applied to
+      both src/pages/index.astro and src/pages/home-full.astro. Verified at 390,
+      640, 820, 1440 - desktop geometry identical to before (522x238, image at
+      x=219).
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
