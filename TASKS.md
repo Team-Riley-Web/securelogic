@@ -99,7 +99,7 @@ unchecked task unless you are starting it.
       page. Note it is NOT driven by ag-markets.ts — /ag/index.astro has its own
       local `sectors` array with its own images. hero-cannabis-poster.jpg could
       be reused there
-- [x] Secondary nav (Genesis 360 / BotaniMax / Shop All): small drop shadow
+- [x] Secondary nav (Genesis360 / BotaniMax / Shop All): small drop shadow
       beneath it so it reads as a layer above the page when it peeks back in on
       an upward scroll. Sits on `.site-header-sub > div` in Header.astro — the
       element that carries the background, and the one that is display:none
@@ -120,11 +120,11 @@ unchecked task unless you are starting it.
       Re-export at 1200x630 when convenient
 - [x] Confirm og:site_name should stay "Secure Logic" now that genesis360.com is
       the primary domain — set in BaseLayout.astro. Change if the share cards
-      should read Genesis 360 instead
-      Done 2026-09-06: Joshua confirmed it should read "Genesis 360". No code
-      change needed — SITE_NAME in BaseLayout.astro:25 was already 'Genesis 360'
+      should read Genesis360 instead
+      Done 2026-09-06: Joshua confirmed it should read "Genesis360". No code
+      change needed — SITE_NAME in BaseLayout.astro:25 was already 'Genesis360'
       (the earlier sitewide rename caught it); the question outlived the fix.
-      Verified in the served HTML: og:site_name content="Genesis 360".
+      Verified in the served HTML: og:site_name content="Genesis360".
 
 - [x] Landing page footer: dropped the "Privacy Policies" link. /privacy-policy/
       renders the full site chrome (header + full nav), which defeats the gate,
@@ -205,15 +205,15 @@ unchecked task unless you are starting it.
       menu; it now has 39px. No layout overflow at any width from 390 to 1920.
       Verified: 1024/1200/1440 desktop, 390 mobile, and the scrolled dark state
       where the gradient wordmark flattens to solid white.
-- [x] Rename Secure Logic to Genesis 360 across the entire website, including the Open Graph metadata and the browser tab title. Leave email addresses and the footer copyright line as Secure Logic.
+- [x] Rename Secure Logic to Genesis360 across the entire website, including the Open Graph metadata and the browser tab title. Leave email addresses and the footer copyright line as Secure Logic.
       Done 2026-09-03: 66 automated replacements across 28 files plus 8 hand
       rewrites. Ran as a masked substitution — URLs, emails, and any token
       containing "securelogic" were stashed before the replace and restored
       after, so a line could carry both prose to rename and a link that must not
       move. Every page title, og:/twitter: tag, PageHero eyebrow, alt, aria-label,
-      nav summary, blog title/excerpt and body now reads Genesis 360.
+      nav summary, blog title/excerpt and body now reads Genesis360.
       Also closes the earlier "confirm og:site_name" item above: it is now
-      "Genesis 360". And the earlier "social-share.png is 1000x600" item — the
+      "Genesis360". And the earlier "social-share.png is 1000x600" item — the
       old card was the SECURE LOGIC wordmark on a gradient, which would have
       shown Secure Logic on every share regardless of the meta tags. Rebuilt it
       from the flame + wordmark on a light mint field at the recommended
@@ -237,7 +237,7 @@ unchecked task unless you are starting it.
           CertMark.astro's header. Harmless, and correct either way.
       FLAG FOR JOSHUA: the Newfields Ag press release is dated July 7 2025 and
       carries a direct quote attributed to "Marty Boquet, CEO and Co-Founder of
-      Secure Logic". The blanket rename rewrote that attribution to Genesis 360.
+      Secure Logic". The blanket rename rewrote that attribution to Genesis360.
       Rewriting the attribution inside a quote in a dated release changes a
       matter of record — say the word and that one post reverts to Secure Logic
       while the rest of the site stays renamed.
@@ -298,12 +298,12 @@ unchecked task unless you are starting it.
       Verified: 390 / 1024 / 1280 / 1440, landing + interior, scrolled state,
       the sweep at three points in its cycle, and a clean single page load with
       zero console messages and exactly two font requests.
-- [x] Secure Logic is the parent company that owns the intellectual property that is Genesis 360. It will still be used, but Genesis 360 should be the brand recognized on the home/consumer-facing side.
+- [x] Secure Logic is the parent company that owns the intellectual property that is Genesis360. It will still be used, but Genesis360 should be the brand recognized on the home/consumer-facing side.
       Done 2026-09-03: this corrected two factual errors the earlier blanket
-      rename introduced — the site was claiming Genesis 360 IS the company, and
+      rename introduced — the site was claiming Genesis360 IS the company, and
       had rewritten a quote attribution to match. Joshua chose the corporate +
       press release scope and a footer ownership line.
-      THE RULE NOW IN FORCE: Genesis 360 leads everywhere consumer-facing. Secure
+      THE RULE NOW IN FORCE: Genesis360 leads everywhere consumer-facing. Secure
       Logic is used wherever the LEGAL ENTITY is speaking or being named.
       Restored to Secure Logic:
         - About page ([...slug].astro): eyebrow "About Secure Logic", the hero's
@@ -315,13 +315,13 @@ unchecked task unless you are starting it.
           Co-Founder of Secure Logic, which is what the July 2025 release
           actually said). Same in blog-posts.ts: title, excerpt, description,
           imageAlt.
-      Product names inside that release stayed Genesis 360 on purpose — "Genesis
-      360 HVAC", "our Genesis 360 platform", "Genesis 360 Misting Systems" are
+      Product names inside that release stayed Genesis360 on purpose — "Genesis
+      360 HVAC", "our Genesis360 platform", "Genesis360 Misting Systems" are
       products, not the company. Checked each of the 13 mentions individually
       rather than running another blanket pass.
-      New footer line under the copyright, all 43 pages: "Genesis 360 is a Secure
+      New footer line under the copyright, all 43 pages: "Genesis360 is a Secure
       Logic brand." Inline after the copyright on desktop, stacked on mobile.
-      Unchanged and still Genesis 360: every page title bar the press release's
+      Unchanged and still Genesis360: every page title bar the press release's
       own headline, og:site_name, the header wordmark, nav, product pages,
       homepage, marketing copy, blog CTAs, contact page.
       Also saved to project memory (brand-architecture) so a future session does
@@ -526,7 +526,7 @@ unchecked task unless you are starting it.
       ternary, so this is naturally scoped to the landing page only - interior
       pages still read 'Get A Quote'. Applies at all widths, not just mobile,
       since a label that changes by breakpoint would be worse.
-- [x] Homepage header: the Genesis 360 logo is not quite vertically centered, while the CTA button is perfectly centered
+- [x] Homepage header: the Genesis360 logo is not quite vertically centered, while the CTA button is perfectly centered
       Done 2026-09-04: Header.astro. Not a layout bug - both boxes already
       centred at the same midpoint. line-height equals font-size (33/33) and
       'Genesis360' has no descenders, so measured glyph ink sat 1.41px below its
@@ -538,18 +538,18 @@ unchecked task unless you are starting it.
       176px of stacked padding on mobile - and both sides sit on brand-100, so it
       read as one dead band. Now pb-10 sm:pb-24 and pt-10 sm:pt-20: 80px on
       mobile, desktop still 176px.
-- [x] Mobile: center the eyebrow and title in the Genesis 360 Platform section
+- [x] Mobile: center the eyebrow and title in the Genesis360 Platform section
       Done 2026-09-04: index.astro. text-center sm:text-left on the eyebrow and
       h2 only. NOTE: the paragraph under them is still left-aligned, which looks
       inconsistent under a centred heading. Left as-is because the task named
       only the eyebrow and title - flagged to Joshua for a call.
-- [x] Mobile: the 'Contact Us To Learn More' button in the Genesis 360 Platform section goes full width in a strange way
+- [x] Mobile: the 'Contact Us To Learn More' button in the Genesis360 Platform section goes full width in a strange way
       Done 2026-09-04: index.astro. Cause was align-items:stretch - the anchor is
       inline-flex but sits as a direct child of a flex-col parent, so it stretched
       edge to edge. Added self-center sm:self-auto. Mobile 350px -> 274px and
       centred under the now-centred heading; desktop align-self back to auto,
       width unchanged at 298px.
-- [x] Mobile: remove the ghosted circle in the Genesis 360 Platform background
+- [x] Mobile: remove the ghosted circle in the Genesis360 Platform background
       Done 2026-09-04: index.astro. There were two decorative rings, not one (the
       white one top-right and a lime one bottom-left). Hid both below sm with
       `hidden sm:block`; both still render on desktop. Radial washes untouched.
@@ -634,7 +634,7 @@ unchecked task unless you are starting it.
       also covers the JS-rendered hero words and announcement slides).
       NOT touched: /home-full/ (home-full.astro), which is a separate reviewable
       copy of the old homepage and still contains its own em dashes.
-- [x] Remove the arrow from the 'Contact Us To Learn More' button in the Genesis 360 Platform section
+- [x] Remove the arrow from the 'Contact Us To Learn More' button in the Genesis360 Platform section
       Done 2026-09-04: index.astro:793. Dropped the <ArrowRight> and the now-dead
       gap-2 on the anchor.
       Worth knowing: the pattern `{CTA_LABEL} <ArrowRight ... />` appears 4 times
@@ -667,6 +667,42 @@ unchecked task unless you are starting it.
       both src/pages/index.astro and src/pages/home-full.astro. Verified at 390,
       640, 820, 1440 - desktop geometry identical to before (522x238, image at
       x=219).
+- [x] Replace marty@ email on the page with info@genesis360.com
+      Done 2026-09-10: src/pages/index.astro:35 - CONTACT_EMAIL flipped from
+      marty@securelogicusa.com to info@genesis360.com. It was the only marty@ in
+      src/ or public/, and it feeds the minimal Header, the minimal Footer, and
+      the contact card's mailto + visible label (6 spots in the rendered page).
+      Updated the comment above it, which still claimed enquiries route to Marty
+      rather than the general info@ inbox. genesis360.com MX resolves to
+      Microsoft 365, so mail is configured for the domain - mailbox existence not
+      verified. Note the rest of the site still uses info@securelogicUSA.com
+      (Footer, Header, QuoteForm, [...slug].astro); those flip at DNS cutover.
+- [x] All "mist" terminology needs to be "dry fog"
+      Done 2026-09-10: 24 files. Joshua chose the full sweep including SKUs, so
+      product names went too: InRoomMist/HVACMist/MobileMist/MedicalMist/
+      PortableMist/Compact Mist -> "InRoom Dry Fog" etc, AgMist -> "Ag Dry Fog",
+      AGriGuardMist -> "AGriGuard Dry Fog", "Misting System(s)" -> "Dry Fog
+      System(s)", and all prose/alt-text/meta uses of mist, misting and dry mist
+      -> dry fog. 0 visible occurrences left across all 43 rendered pages
+      (verified by stripping tags from dist/ and grepping the text content).
+      Deliberately NOT renamed, all invisible to visitors: the /genesis360-
+      mistingsystems/ URL (223 refs - moves at DNS cutover, not before), the
+      --mist-* CSS custom properties and .mist-field/.mist-particle classes in
+      MistField.astro, the mistPresets/portableMist/hvacMist/medicalMist JS
+      identifiers, the *-mist.png asset filenames, and the Genesis-misting-Trial
+      PDF. "chemistry"/"chemistries" also masked - it contains the letters mist.
+      Two substitutions were semantically wrong and got hand-fixed: "misting
+      bottles" (a handheld spray bottle for gear, not the platform) became
+      "spray bottles", and greenhouse "overhead misting lines maintain
+      consistent humidity" (humidification, not disinfection) became "overhead
+      humidification lines". Also: normalized "In Room Dry Fog" to "InRoom Dry
+      Fog" so the homepage lineup matches the systems page, and added a
+      TITLE_OVERRIDES map in [...slug].astro because that page derives its tab
+      title from the raw slug and was rendering "Genesis360 |
+      genesis360mistingsystems" - now "Genesis360 | Dry Fog Systems".
+      Build passes (43 pages). npm run check has 8 pre-existing errors in
+      index.astro/home-full.astro from an unclosed {/* */} comment inside a div
+      attribute list - identical to HEAD, unrelated to this change.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

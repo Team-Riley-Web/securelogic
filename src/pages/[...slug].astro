@@ -54,21 +54,21 @@ const slug = Astro.params.slug ?? '';
 const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
 
 const systems: { name: string; image: ImageMetadata; alt: string }[] = [
-  { name: 'InRoomMist', image: inroom, alt: 'Genesis 360 InRoom Mist' },
-  { name: 'HVACMist', image: hvac, alt: 'Genesis 360 HVAC misting system image' },
-  { name: 'Compact Mist', image: compact, alt: 'Genesis 360 Compact misting unit' },
-  { name: 'MobileMist', image: mobile, alt: 'Genesis 360 Mobile Mist' },
-  { name: 'MedicalMist', image: medical, alt: 'Kinetic Systems Medical Mist' },
-  { name: 'PortableMist', image: portable, alt: 'Kinetic Systems Portable Mist' },
-  { name: 'AgriGuard', image: agri, alt: 'Genesis 360 Grey AgriGuard' },
+  { name: 'InRoom Dry Fog', image: inroom, alt: 'Genesis360 InRoom Dry Fog' },
+  { name: 'HVAC Dry Fog', image: hvac, alt: 'Genesis360 HVAC dry fog system image' },
+  { name: 'Compact Dry Fog', image: compact, alt: 'Genesis360 Compact dry fog unit' },
+  { name: 'Mobile Dry Fog', image: mobile, alt: 'Genesis360 Mobile Dry Fog' },
+  { name: 'Medical Dry Fog', image: medical, alt: 'Kinetic Systems Medical Dry Fog' },
+  { name: 'Portable Dry Fog', image: portable, alt: 'Kinetic Systems Portable Dry Fog' },
+  { name: 'AgriGuard', image: agri, alt: 'Genesis360 Grey AgriGuard' },
 ];
 
 const differentiators = [
-  ['True whole-room disinfection', 'Sub-10-micron dry mist behaves like a vapor, filling the entire room volume and treating air, surfaces, and hard-to-access areas for genuine 360-degree coverage.'],
+  ['True whole-room disinfection', 'Sub-10-micron dry fog behaves like a vapor, filling the entire room volume and treating air, surfaces, and hard-to-access areas for genuine 360-degree coverage.'],
   ['Automation and remote operation', 'Industrial-grade controls run pre-programmed cycles automatically, with options for centralized or remote control so staff don’t need to be in the room.'],
   ['Faster reentry times', 'Integrated air movement and drying accelerate clear-out, allowing rooms to return to service more quickly than with many traditional fogging or vapor systems.'],
-  ['Environmentally neutral and safer than competitors', 'Dry mist leaves no residue, does not change humidity or temperature, and uses tightly controlled dosing — reducing chemical waste, material compatibility issues, and risk to sensitive equipment and surfaces.'],
-  ['Sub-10 micron, dry-mist technology', 'Ultra-fine droplets stay suspended longer and move with airflow, wrapping around objects and reaching shadowed zones that line-of-sight UV and large-droplet sprayers miss.'],
+  ['Environmentally neutral and safer than competitors', 'Dry fog leaves no residue, does not change humidity or temperature, and uses tightly controlled dosing — reducing chemical waste, material compatibility issues, and risk to sensitive equipment and surfaces.'],
+  ['Sub-10 micron, dry fog technology', 'Ultra-fine droplets stay suspended longer and move with airflow, wrapping around objects and reaching shadowed zones that line-of-sight UV and large-droplet sprayers miss.'],
   ['Precision-engineered nozzle system', 'Custom nozzles deliver consistent droplet size and low, predictable flow rates, maximizing coverage while minimizing product consumption and oversaturation.'],
   ['Platform, not a single device', 'A modular family of systems — HVAC, in-room, medical, mobile, agricultural — built on the same core technology, enabling standardized physics and logic across very different facility types.'],
   ['Engineered reliability and low maintenance', 'Minimal moving parts and simple periodic checks deliver high uptime, long service life, and a lower total cost of ownership.'],
@@ -125,9 +125,9 @@ const techSections: { title: string; image: ImageMetadata; alt: string; paragrap
   {
     title: 'Physics-Based Precision',
     image: physics,
-    alt: 'Physics-based precision misting icon',
+    alt: 'Physics-based precision dry fog icon',
     paragraphs: [
-      'At the core of the Genesis360™ platform is a simple truth: droplet behavior defines performance. Every nozzle produces a uniform stream of sub-10 µm dry-mist droplets — small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.',
+      'At the core of the Genesis360™ platform is a simple truth: droplet behavior defines performance. Every nozzle produces a uniform stream of sub-10 µm dry fog droplets — small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.',
       'Unlike conventional foggers or sprayers that produce 30–120 µm droplets which fall rapidly and leave gaps, Genesis360™ micro-droplets remain suspended long enough to reach hidden zones, under equipment, and behind obstacles — achieving true volumetric saturation.',
     ],
   },
@@ -136,7 +136,7 @@ const techSections: { title: string; image: ImageMetadata; alt: string; paragrap
     image: nozzle,
     alt: 'Intelligent nozzle architecture icon',
     paragraphs: [
-      'Each precision nozzle atomizes fluid at roughly ⅓ oz per minute, maintaining consistent particle size distribution and eliminating over-application. The result is a mist that is perfectly even — dry to the touch, residue-free, and safe for electronics, optics, and sensitive surfaces.',
+      'Each precision nozzle atomizes fluid at roughly ⅓ oz per minute, maintaining consistent particle size distribution and eliminating over-application. The result is a dry fog that is perfectly even — dry to the touch, residue-free, and safe for electronics, optics, and sensitive surfaces.',
     ],
     bullets: [
       'Tapered orifice geometry for uniform atomization',
@@ -147,9 +147,9 @@ const techSections: { title: string; image: ImageMetadata; alt: string; paragrap
   {
     title: 'Automated Intelligence',
     image: compact,
-    alt: 'Genesis 360 automated controller',
+    alt: 'Genesis360 automated controller',
     paragraphs: [
-      'Genesis 360™ replaces human variability with programmable logic. An industrial-grade PLC controller regulates misting duration, interval, and density. Once configured, each cycle runs autonomously — set the schedule, press start, walk away.',
+      'Genesis360™ replaces human variability with programmable logic. An industrial-grade PLC controller regulates dry fog duration, interval, and density. Once configured, each cycle runs autonomously — set the schedule, press start, walk away.',
       'Every cycle delivers identical results — drop for drop, second for second — removing training, supervision, and inconsistency from the equation. This automation ensures predictable operation across multi-zone facilities, reducing chemical waste and energy use.',
     ],
   },
@@ -157,8 +157,8 @@ const techSections: { title: string; image: ImageMetadata; alt: string; paragrap
 
 const microDynamics: { title: string; copy: string }[] = [
   { title: 'Extended Suspension', copy: 'Smaller droplets remain airborne 10–20× longer, maximizing contact time.' },
-  { title: 'Omnidirectional Movement', copy: 'Vapor-phase mist diffuses through convection currents, wrapping around every surface.' },
-  { title: 'No Oversaturation', copy: 'The mist evaporates before pooling — ideal for climate-sensitive spaces like labs, data centers, and greenhouses.' },
+  { title: 'Omnidirectional Movement', copy: 'Vapor-phase dry fog diffuses through convection currents, wrapping around every surface.' },
+  { title: 'No Oversaturation', copy: 'The dry fog evaporates before pooling — ideal for climate-sensitive spaces like labs, data centers, and greenhouses.' },
   { title: 'Surface Adhesion', copy: 'Droplets form at a low contact angle (≈ 4–12%), clinging evenly across vertical, horizontal, and underside planes.' },
 ];
 
@@ -171,15 +171,15 @@ const envSafe = [
 
 const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   {
-    question: 'What is the Genesis 360™ Misting System Platform?',
-    answer: 'Genesis 360 is an automated environmental misting platform that uses sub-10 micron dry mist droplets and intelligent controls to deliver consistent 360-degree coverage in the air and on surfaces — the same way, every cycle.',
+    question: 'What is the Genesis360™ Dry Fog System Platform?',
+    answer: 'Genesis360 is an automated environmental dry fog platform that uses sub-10 micron dry fog droplets and intelligent controls to deliver consistent 360-degree coverage in the air and on surfaces — the same way, every cycle.',
   },
   {
-    question: 'How is Genesis 360 different from traditional foggers or spray systems?',
-    answer: 'Traditional foggers and pump sprayers produce larger wet droplets (30–120 microns) that fall quickly and leave gaps. Genesis 360 droplets remain suspended long enough to fill the room or duct volume, wrap around objects, and reach hidden zones — without relying on a person to aim the sprayer.',
+    question: 'How is Genesis360 different from traditional foggers or spray systems?',
+    answer: 'Traditional foggers and pump sprayers produce larger wet droplets (30–120 microns) that fall quickly and leave gaps. Genesis360 droplets remain suspended long enough to fill the room or duct volume, wrap around objects, and reach hidden zones — without relying on a person to aim the sprayer.',
   },
   {
-    question: 'What problems does Genesis 360 solve for facilities?',
+    question: 'What problems does Genesis360 solve for facilities?',
     answer: 'It removes the human variability that undermines manual disinfection, addressing the issues facilities struggle with most:',
     bullets: [
       'Inconsistent coverage from manual cleaning',
@@ -193,7 +193,7 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   },
   {
     question: 'What is meant by "360-degree coverage"?',
-    answer: 'The system treats the entire three-dimensional space rather than just the surfaces a person can reach. In practice, the mist works to:',
+    answer: 'The system treats the entire three-dimensional space rather than just the surfaces a person can reach. In practice, the dry fog works to:',
     bullets: [
       'Fill the entire room or duct volume',
       'Wrap around and underneath surfaces',
@@ -201,8 +201,8 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
     ],
   },
   {
-    question: 'Can Genesis 360 products be customized for different buildings or processes?',
-    answer: 'Yes. Genesis 360 is a configurable platform, not a single fixed device. Deployments can be tuned by:',
+    question: 'Can Genesis360 products be customized for different buildings or processes?',
+    answer: 'Yes. Genesis360 is a configurable platform, not a single fixed device. Deployments can be tuned by:',
     bullets: [
       'Number and placement of nozzles',
       'Flow rates and droplet density',
@@ -213,10 +213,10 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   },
   {
     question: 'Is the technology safe for electronics, medical equipment, and sensitive surfaces?',
-    answer: 'The dry mist is engineered to remain vapor-phase and evaporate quickly without standing moisture, condensation, or pooling when installed and operated as directed — making it suitable for electronics, optics, and other sensitive equipment.',
+    answer: 'The dry fog is engineered to remain vapor-phase and evaporate quickly without standing moisture, condensation, or pooling when installed and operated as directed — making it suitable for electronics, optics, and other sensitive equipment.',
   },
   {
-    question: 'What kind of maintenance does Genesis 360 require?',
+    question: 'What kind of maintenance does Genesis360 require?',
     answer: 'Most systems require low monthly maintenance, such as inspecting filters, verifying nozzle performance, and checking fluid levels.',
   },
 ];
@@ -241,14 +241,24 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
   { icon: Repeat, title: 'Repeatability', copy: 'Automated cycles that deliver identical results run after run, without depending on who is holding the sprayer.' },
   { icon: Wrench, title: 'Practicality', copy: 'Systems that fit real budgets, real mechanical rooms, and the real constraints of working facilities.' },
 ];
+
+// Slugs with no hyphens to split on read as one run-on word in the tab title.
+// The URL stays put until the DNS cutover, so the title is overridden instead.
+const TITLE_OVERRIDES: Record<string, string> = {
+  genesis360mistingsystems: 'Dry Fog Systems',
+};
+
+const pageTitle =
+  TITLE_OVERRIDES[canonicalSlug] ??
+  (canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home');
 ---
 
-<BaseLayout title={`Genesis 360 | ${canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home'}`}>
+<BaseLayout title={`Genesis360 | ${pageTitle}`}>
   <Header />
   <main>
     {canonicalSlug === 'home-page' && (
       <>
-        <PageHero eyebrow="Genesis 360" title="Precision Misting. Automated Efficiency. 360-Degree Coverage." copy="The current Genesis 360 homepage is available at the site root." />
+        <PageHero eyebrow="Genesis360" title="Precision Dry Fog. Automated Efficiency. 360-Degree Coverage." copy="The current Genesis360 homepage is available at the site root." />
         <section class="bg-white py-20">
           <div class="container-page">
             <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
@@ -259,7 +269,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'human' && (
       <>
-        <PageHero eyebrow="Human" title="Protecting People Everywhere They Gather" copy="From wrestling rooms to hospital wings, Genesis 360 and BotaniMax deliver automated, whole-room coverage anywhere infection risk follows close contact." />
+        <PageHero eyebrow="Human" title="Protecting People Everywhere They Gather" copy="From wrestling rooms to hospital wings, Genesis360 and BotaniMax deliver automated, whole-room coverage anywhere infection risk follows close contact." />
         <section class="bg-white py-20">
           <div class="container-page">
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -298,7 +308,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'hvac' && (
       <>
-        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="360HVAC Mist infuses air-handling systems with ultra-fine BotaniMax mist, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
+        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="360HVAC Dry Fog infuses air-handling systems with ultra-fine BotaniMax dry fog, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
         <section class="bg-white py-20">
           <div class="container-page">
             <div class="grid gap-6 sm:grid-cols-2">
@@ -336,11 +346,11 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'genesis360mistingsystems' && (
       <>
-        <PageHero eyebrow="Genesis 360 Systems" title="The Genesis360™ Misting System Family" copy="The Genesis360™ Platform represents the next generation of environmental control. Built around proprietary sub-10 micron droplet technology and precision-engineered nozzles, each system in the Genesis family provides the same level of scientific consistency — adapted for the specific needs of your space." />
+        <PageHero eyebrow="Genesis360 Systems" title="The Genesis360™ Dry Fog System Family" copy="The Genesis360™ Platform represents the next generation of environmental control. Built around proprietary sub-10 micron droplet technology and precision-engineered nozzles, each system in the Genesis family provides the same level of scientific consistency — adapted for the specific needs of your space." />
         <section class="bg-white py-20">
           <div class="container-page">
             <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">Whether integrated into HVAC ducts, mounted in-room, deployed in medical facilities, or configured for agricultural and mobile use, every Genesis360™ system delivers measurable results: 360-degree coverage, predictable performance, and effortless operation.</p>
-            <h2 class="section-title mt-16 text-center">The Genesis 360 System Lineup</h2>
+            <h2 class="section-title mt-16 text-center">The Genesis360 System Lineup</h2>
             <div class="mt-10 flex flex-wrap justify-center gap-6">
             {systems.map(({ name, image, alt }) => (
                 <article class="accent-card grid w-full max-w-[260px] place-items-center gap-4 border-t-4 border-primary-500 p-6 text-center sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
@@ -353,7 +363,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
         </section>
         <section class="bg-slate-100 py-20">
           <div class="container-page">
-            <h2 class="section-title text-center">So, what sets the Genesis 360 Misting System apart?</h2>
+            <h2 class="section-title text-center">So, what sets the Genesis360 Dry Fog System apart?</h2>
             <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {differentiators.map(([title, copy]) => (
                 <article class="card p-6">
@@ -418,7 +428,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'resources' && (
       <>
-        <PageHero eyebrow="Resources" title="Welcome to the Genesis 360 Resource Center" copy="Discover everything you need to know about botanical disinfectants and innovative HVAC misting systems in one place." />
+        <PageHero eyebrow="Resources" title="Welcome to the Genesis360 Resource Center" copy="Discover everything you need to know about botanical disinfectants and innovative HVAC dry fog systems in one place." />
         <section class="bg-white py-20">
           <div class="container-page">
             <div class="mx-auto max-w-3xl text-center">
@@ -428,7 +438,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
           </div>
           <div class="container-page mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
-              ['Blog', '/blogs/', 'Insights on botanical disinfectants, Genesis 360 technology, and indoor environmental quality.'],
+              ['Blog', '/blogs/', 'Insights on botanical disinfectants, Genesis360 technology, and indoor environmental quality.'],
               ['Brochures', '/resources/brochures/', 'Download industry-specific brochures for child care, agriculture, and fitness centers.'],
               ['Documentation', '/resources/documentation/', 'Access labels, SDS sheets, lab reports, and technical papers.'],
               ['FAQs', '/resources/faqs/', 'Review common questions about micro-droplet physics and automated coverage.'],
@@ -448,10 +458,10 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'resources/brochures' && (
       <>
-        <PageHero eyebrow="Brochures" title="Download Genesis 360 Brochures" copy="Learn how the Genesis 360 Misting System and BotaniMax keep your friends, family, staff, and customers healthy." />
+        <PageHero eyebrow="Brochures" title="Download Genesis360 Brochures" copy="Learn how the Genesis360 Dry Fog System and BotaniMax keep your friends, family, staff, and customers healthy." />
         <section class="bg-white py-20">
           <div class="container-page">
-            <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">To learn more about the Genesis 360 Misting System and BotaniMax® — or to see how they can be used to keep the people around you healthy — download our brochures below. Don't see a brochure that meets your needs? <a href="/contact-us/" class="font-semibold text-primary-700 underline decoration-botanical-400 underline-offset-4">Reach out to our team</a> for more information.</p>
+            <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">To learn more about the Genesis360 Dry Fog System and BotaniMax® — or to see how they can be used to keep the people around you healthy — download our brochures below. Don't see a brochure that meets your needs? <a href="/contact-us/" class="font-semibold text-primary-700 underline decoration-botanical-400 underline-offset-4">Reach out to our team</a> for more information.</p>
             <div class="mt-14 grid gap-6 md:grid-cols-3">
               {brochures.map(({ title, image, file, summary }) => (
                 <article class="card flex flex-col p-6 text-center">
@@ -470,7 +480,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'resources/documentation' && (
       <>
-        <PageHero eyebrow="Documentation" title="Supporting Data for Genesis 360 Misting Systems" copy="Explore the scientific backing behind Genesis 360 Misting Systems — lab test results, product labels, white papers, and case studies that prove the effectiveness of our indoor air quality solutions." />
+        <PageHero eyebrow="Documentation" title="Supporting Data for Genesis360 Dry Fog Systems" copy="Explore the scientific backing behind Genesis360 Dry Fog Systems — lab test results, product labels, white papers, and case studies that prove the effectiveness of our indoor air quality solutions." />
         <section class="bg-white py-20">
           <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
             <Image src={label} alt="BotaniMax Label image" class="h-max rounded-lg bg-slate-100 shadow-lift lg:sticky lg:top-28" widths={[640, 960, 1200]} sizes="(min-width: 1024px) 42vw, 100vw" />
@@ -547,8 +557,8 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
               </ul>
               <p>COVID did not create those issues. It exposed them. Even when Marty's team used highly effective disinfectants and saw outbreaks stop in building after building, one flaw remained. People still had to do the spraying — and that meant inconsistency, higher cost, and unpredictable results.</p>
               <p>After the pandemic, Marty teamed up with Co-Founder and COO Josh Morvant, who brings more than 20 years of experience in construction, engineering, and systems design. Together, they set a simple but ambitious goal:</p>
-              <blockquote class="rounded-lg border-l-4 border-botanical-500 bg-botanical-50 p-6 text-lg font-medium leading-8 text-slate-800">Create an automated, physics-driven system that converts liquid into an ultra-dry, sub-10 micron mist that fills a space, wraps 360 degrees around every surface, and does it the same way every time.</blockquote>
-              <p>Through extensive R&D and testing with more than 20 nozzle designs, that vision became the Genesis 360™ Misting System Platform and the foundation of Secure Logic.</p>
+              <blockquote class="rounded-lg border-l-4 border-botanical-500 bg-botanical-50 p-6 text-lg font-medium leading-8 text-slate-800">Create an automated, physics-driven system that converts liquid into an ultra-dry, sub-10 micron dry fog that fills a space, wraps 360 degrees around every surface, and does it the same way every time.</blockquote>
+              <p>Through extensive R&D and testing with more than 20 nozzle designs, that vision became the Genesis360™ Dry Fog System Platform and the foundation of Secure Logic.</p>
             </div>
             <div class="grid gap-6 lg:sticky lg:top-28">
               <Image src={nozzles} alt="Two nozzles spraying towards each other" class="rounded-lg shadow-lift" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
@@ -596,12 +606,12 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
           <div class="container-page grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
             <div class="grid gap-6 text-base leading-8 text-slate-600">
               <h2 class="section-title">The Path Forward</h2>
-              <p>Pathogens are evolving. Expectations around indoor air and surface quality are rising. At Secure Logic, we are committed to pushing misting and environmental control technology forward so that buildings of every size can access the same level of intelligent protection.</p>
-              <p class="text-lg font-semibold text-slate-900">Genesis 360™ is our first platform. It will not be our last.</p>
+              <p>Pathogens are evolving. Expectations around indoor air and surface quality are rising. At Secure Logic, we are committed to pushing dry fog and environmental control technology forward so that buildings of every size can access the same level of intelligent protection.</p>
+              <p class="text-lg font-semibold text-slate-900">Genesis360™ is our first platform. It will not be our last.</p>
               <p>If you are ready to rethink how your facility treats its air and surfaces, we would like to talk.</p>
               <a href="/get-a-quote/" class="button-primary w-max">Get a Quote <ArrowRight class="h-4 w-4" /></a>
             </div>
-            <Image src={pathogen} alt="Micro-droplet mist enveloping a surface" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
+            <Image src={pathogen} alt="Micro-droplet dry fog enveloping a surface" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
           </div>
         </section>
 
@@ -611,7 +621,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'about-us/technology' && (
       <>
-        <PageHero eyebrow="Technology" title="The Science Behind Genesis 360™" copy="Micro-Droplet Physics. Macro-Level Protection." />
+        <PageHero eyebrow="Technology" title="The Science Behind Genesis360™" copy="Micro-Droplet Physics. Macro-Level Protection." />
 
         <section class="bg-white py-20">
           <div class="container-page grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
@@ -621,7 +631,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
               <p>In physics terms, it leverages <strong class="text-slate-900">impaction, interception, and diffusion</strong> forces simultaneously — delivering measurable control over both air and surface domains.</p>
               <p class="text-lg font-semibold text-slate-900">The outcome is not just disinfection — it's engineered environmental equilibrium.</p>
             </div>
-            <Image src={pathogen} alt="Micro-droplet mist surrounding an airborne particle" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
+            <Image src={pathogen} alt="Micro-droplet dry fog surrounding an airborne particle" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
           </div>
         </section>
 
@@ -668,7 +678,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
           <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
             <div class="grid gap-5 text-base leading-8 text-slate-600">
               <h2 class="text-2xl font-semibold text-slate-900">Environmental Neutrality</h2>
-              <p>Because Genesis 360™ droplets exist in a vapor-phase state, they cause no humidity or temperature change in the treated environment. No wet surfaces. No corrosion. No condensation — just consistent performance, cycle after cycle.</p>
+              <p>Because Genesis360™ droplets exist in a vapor-phase state, they cause no humidity or temperature change in the treated environment. No wet surfaces. No corrosion. No condensation — just consistent performance, cycle after cycle.</p>
               <p class="font-semibold text-slate-900">That stability makes the system safe for:</p>
             </div>
             <div class="grid gap-3 sm:grid-cols-2">
@@ -685,7 +695,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
         <section class="bg-slate-900 py-20 text-white">
           <div class="container-page max-w-3xl text-center">
             <h2 class="text-3xl font-semibold">Why It Matters</h2>
-            <p class="mt-6 text-lg leading-8 text-white/75">Precision misting isn't about adding complexity; it's about removing uncertainty. Genesis 360™ brings laboratory-grade consistency to real-world environments, ensuring safer air, cleaner surfaces, and smarter operations.</p>
+            <p class="mt-6 text-lg leading-8 text-white/75">Precision dry fog isn't about adding complexity; it's about removing uncertainty. Genesis360™ brings laboratory-grade consistency to real-world environments, ensuring safer air, cleaner surfaces, and smarter operations.</p>
             <a href="/get-a-quote/" class="button-primary mt-8 inline-flex">Get a Quote <ArrowRight class="h-4 w-4" /></a>
           </div>
         </section>
@@ -696,15 +706,15 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'contact-us' && (
       <>
-        <PageHero eyebrow="Contact Us" title="Connect Directly to the Genesis 360 Team" copy="If you have questions about products, need assistance with a quote, or want to explore a partnership, the team is here to help." />
+        <PageHero eyebrow="Contact Us" title="Connect Directly to the Genesis360 Team" copy="If you have questions about products, need assistance with a quote, or want to explore a partnership, the team is here to help." />
         <section class="bg-white py-20">
           <div class="container-page grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
             <div class="rounded-lg bg-slate-900 p-8 text-white shadow-deep">
-              <Image src={contactBg} alt="Clean indoor environment for Genesis 360 contact page" class="-mx-8 -mt-8 mb-8 h-56 w-[calc(100%+4rem)] rounded-t-lg object-cover opacity-80" widths={[520, 760]} sizes="(min-width: 1024px) 36vw, 100vw" />
+              <Image src={contactBg} alt="Clean indoor environment for Genesis360 contact page" class="-mx-8 -mt-8 mb-8 h-56 w-[calc(100%+4rem)] rounded-t-lg object-cover opacity-80" widths={[520, 760]} sizes="(min-width: 1024px) 36vw, 100vw" />
               <a href="tel:18889974310" class="flex items-center gap-3"><Phone class="h-5 w-5 text-botanical-300" />1-888-997-4310</a>
               <a href="mailto:info@securelogicUSA.com" class="mt-4 flex items-center gap-3"><Mail class="h-5 w-5 text-botanical-300" />info@securelogicUSA.com</a>
             </div>
-            <QuoteForm title="Contact Genesis 360" />
+            <QuoteForm title="Contact Genesis360" />
           </div>
         </section>
       </>
@@ -712,7 +722,7 @@ const principles: { icon: typeof Target; title: string; copy: string }[] = [
 
     {canonicalSlug === 'get-a-quote' && (
       <>
-        <PageHero eyebrow="Get a Quote" title="Elevate Your Health and Safety and Get A Quote Today" copy="Request a quote to evaluate Genesis 360 botanical disinfection and automated misting systems." />
+        <PageHero eyebrow="Get a Quote" title="Elevate Your Health and Safety and Get A Quote Today" copy="Request a quote to evaluate Genesis360 botanical disinfection and automated dry fog systems." />
         <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}

@@ -48,7 +48,7 @@ export const megaMenus: MegaMenuGroup[] = [
     href: '/resources/',
     gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
     items: [
-      { icon: Newspaper, title: 'Blog', summary: 'Insights on botanical disinfectants, misting systems, and indoor air quality.', href: '/blogs/' },
+      { icon: Newspaper, title: 'Blog', summary: 'Insights on botanical disinfectants, dry fog systems, and indoor air quality.', href: '/blogs/' },
       { icon: FileText, title: 'Brochures', summary: 'Download industry-specific brochures for agriculture, child care, and fitness.', href: '/resources/brochures/' },
       { icon: FileCheck, title: 'Documentation', summary: 'Labels, SDS sheets, lab reports, and technical white papers.', href: '/resources/documentation/' },
       { icon: CircleQuestionMark, title: 'FAQs', summary: 'Answers about micro-droplet physics, coverage, and maintenance.', href: '/resources/faqs/' },
@@ -59,9 +59,9 @@ export const megaMenus: MegaMenuGroup[] = [
     href: '/about-us/',
     gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
     items: [
-      { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis 360’s sub-10 micron dry mist.', href: '/about-us/technology/' },
-      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Genesis 360 team.', href: '/contact-us/' },
-      { icon: SprayCan, title: 'Genesis 360', summary: 'Automated misting systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
+      { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis360’s sub-10 micron dry fog.', href: '/about-us/technology/' },
+      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Genesis360 team.', href: '/contact-us/' },
+      { icon: SprayCan, title: 'Genesis360', summary: 'Automated dry fog systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
       { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
     ],
   },

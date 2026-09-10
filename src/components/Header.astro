@@ -38,7 +38,7 @@ const rightMenus = megaMenus
   .map((m) => (m.label === 'About Us' ? { ...m, label: 'About' } : m));
 
 const secondaryLinks = [
-  { label: 'Genesis 360', href: '/genesis360mistingsystems/' },
+  { label: 'Genesis360', href: '/genesis360mistingsystems/' },
   { label: 'BotaniMax', href: '/botanimax/' },
   { label: 'Shop All', href: '#shop' },
 ];
@@ -111,7 +111,7 @@ const secondaryLinks = [
         <span>Automated, Whole-Room Disinfection</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/get-a-quote/" class="announcement-link underline decoration-white/50 underline-offset-2">Get A Quote →</a></>)}
       </p>
       <p class="announcement-slide" data-announcement-slide aria-hidden="true">
-        <span>Sub-10 <span class="normal-case">μm</span> Dry-Mist Precision</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/about-us/technology/" class="announcement-link underline decoration-white/50 underline-offset-2">See How It Works →</a></>)}
+        <span>Sub-10 <span class="normal-case">μm</span> Dry Fog Precision</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/about-us/technology/" class="announcement-link underline decoration-white/50 underline-offset-2">See How It Works →</a></>)}
       </p>
       <p class="announcement-slide" data-announcement-slide aria-hidden="true">
         <span>Botanical Chemistry, Built for Precision</span>{!minimal && (<><span class="announcement-separator"> &nbsp;|&nbsp; </span><a href="/botanimax/" class="announcement-link underline decoration-white/50 underline-offset-2">Explore BotaniMax →</a></>)}
@@ -137,7 +137,7 @@ const secondaryLinks = [
       <div class:list={['site-header-row mx-auto grid max-w-7xl items-center gap-6 px-6', minimal ? 'grid-cols-[auto_1fr]' : 'grid-cols-[1fr_auto_1fr]']}>
         {!minimal && <MegaMenu menus={leftMenus} class="col-start-1 row-start-1 justify-self-start font-semibold" />}
         {!minimal && (
-          <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Genesis 360 at 1-888-997-4310">
+          <a href="tel:18889974310" class="sh-phone col-start-1 row-start-1 justify-self-start" aria-label="Call Genesis360 at 1-888-997-4310">
             <Phone class="h-5 w-5" aria-hidden="true" />
           </a>
         )}
@@ -154,7 +154,7 @@ const secondaryLinks = [
             <X class="h-6 w-6" x-show="mobileOpen" x-cloak />
           </button>
         )}
-        <a href="/" class:list={['row-start-1 flex items-center', minimal ? 'col-start-1 justify-self-start' : 'col-start-2 justify-center justify-self-center']} aria-label="Genesis 360 home">
+        <a href="/" class:list={['row-start-1 flex items-center', minimal ? 'col-start-1 justify-self-start' : 'col-start-2 justify-center justify-self-center']} aria-label="Genesis360 home">
           {/* line-height equals font-size here and "Genesis360" carries no
               descenders, so the glyph ink sits 1.4px below the centre of its
               own line box while the box itself centres perfectly. The nudge
@@ -167,7 +167,7 @@ const secondaryLinks = [
               the left column, which the logo now occupies. `.sh-phone` still
               hides itself at lg and up, so this is the mobile affordance only. */}
           {minimal && SHOW_LANDING_PHONE && (
-            <a href="tel:18889974310" class="sh-phone" aria-label="Call Genesis 360 at 1-888-997-4310">
+            <a href="tel:18889974310" class="sh-phone" aria-label="Call Genesis360 at 1-888-997-4310">
               <Phone class="h-5 w-5" aria-hidden="true" />
             </a>
           )}

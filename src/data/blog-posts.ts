@@ -124,9 +124,9 @@ const entries: Omit<BlogPost, 'body'>[] = [
     date: 'July 15, 2025',
     isoDate: '2025-07-15',
     excerpt:
-      'Secure Logic has partnered with Newfields Ag to launch a breakthrough solution for pathogen control in agriculture, combining BotaniMax with automated misting.',
+      'Secure Logic has partnered with Newfields Ag to launch a breakthrough solution for pathogen control in agriculture, combining BotaniMax with automated dry fog.',
     description:
-      'Secure Logic and Newfields Ag partner to launch BotaniMax, a 100% botanical disinfectant and automated misting system transforming agricultural biosecurity.',
+      'Secure Logic and Newfields Ag partner to launch BotaniMax, a 100% botanical disinfectant and automated dry fog system transforming agricultural biosecurity.',
     image: newfieldsAg,
     imageAlt: 'Secure Logic and Newfields Ag partnership announcement graphic',
     tags: ['Press Release', 'Agricultural Disinfection', 'BotaniMax'],
@@ -152,7 +152,7 @@ const entries: Omit<BlogPost, 'body'>[] = [
     excerpt:
       'Marine vessels present unique infection control challenges. Close quarters, shared spaces, and limited medical access let one illness become many.',
     description:
-      'Confined ships and offshore platforms are hotspots for outbreaks. Discover how Genesis 360 disinfection systems help stop infections before they spread.',
+      'Confined ships and offshore platforms are hotspots for outbreaks. Discover how Genesis360 disinfection systems help stop infections before they spread.',
     image: infectionsAtSea,
     imageAlt: 'Marine vessel at sea where confined spaces increase infection risk',
     tags: ['Ship Disinfection', 'Marine Health Safety', 'Norovirus Prevention'],
@@ -204,7 +204,7 @@ const entries: Omit<BlogPost, 'body'>[] = [
     excerpt:
       'Pathogens such as highly pathogenic avian influenza can devastate flocks and harm human health. Rigorous protocols are essential to mitigate the threat.',
     description:
-      'Improve poultry farm biosecurity with eco-friendly disinfection solutions like BotaniMax and AgMist to protect flocks, workers, and productivity.',
+      'Improve poultry farm biosecurity with eco-friendly disinfection solutions like BotaniMax and Ag Dry Fog to protect flocks, workers, and productivity.',
     image: poultryBiosecurity,
     imageAlt: 'Poultry farm interior where biosecurity protocols protect the flock',
     tags: ['Poultry Biosecurity', 'HPAI Prevention', 'Farm Sanitation'],
@@ -217,7 +217,7 @@ const entries: Omit<BlogPost, 'body'>[] = [
     excerpt:
       'Your HVAC system maintains comfort, regulates air quality, and impacts energy efficiency. Like any major appliance, it needs proper care to last.',
     description:
-      'Prolong your HVAC system lifespan while saving on costs with botanical disinfectant and the Genesis 360 Misting System.',
+      'Prolong your HVAC system lifespan while saving on costs with botanical disinfectant and the Genesis360 Dry Fog System.',
     image: hvacLifespan,
     imageAlt: 'Technician servicing an outdoor HVAC condenser unit',
     tags: ['HVAC Maintenance', 'Duct Cleaning', 'Energy Efficiency'],
