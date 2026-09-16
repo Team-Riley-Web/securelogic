@@ -1,0 +1,138 @@
+---
+// src/pages/human/index.astro
+// Human Health hub. Mirrors the ag hub (src/pages/ag/index.astro) on the shared
+// sector blocks. Sources: SL_master-site-page-copy_08-19-26.docx (mission
+// block, "Applies everywhere pathogens can threaten people"); Genesis360
+// Athletic E-Brochure.pdf ("The Genesis360 Difference" list); Laboratory
+// Validation and Field Performance ... Tarleton State.pdf (the four failure
+// modes of manual cleaning). Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
+import { ClipboardList, FileText, TrendingUp } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import SectorCards from '../../components/sector/SectorCards.astro';
+import DifferenceGrid from '../../components/sector/DifferenceGrid.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { humanMarkets } from '../../data/human-markets';
+import { posts } from '../../data/blog-posts';
+import heroVideo from '../../assets/videos/gym.mp4';
+import heroPoster from '../../assets/images/human-d1-gym.png';
+
+// Hub order: the flagship first, then the rest as listed in the data file.
+const ordered = [
+  humanMarkets.find((m) => m.slug === 'athletics')!,
+  ...humanMarkets.filter((m) => m.slug !== 'athletics'),
+];
+
+const sectorCards = ordered.map((m) => ({
+  title: m.title,
+  tagline: m.tagline,
+  href: `/human/${m.slug}/`,
+  linkLabel: `Explore ${m.title.toLowerCase()} solutions`,
+  image: m.hero.poster,
+  imageAlt: m.imageAlt,
+  stat: m.stat,
+}));
+
+// What each sector page holds — same three lines as the ag hub.
+const checklist = [
+  { icon: FileText, label: 'Product & system use guides' },
+  { icon: TrendingUp, label: 'Field results and case studies' },
+  { icon: ClipboardList, label: 'Industry resources' },
+];
+
+// Source: Athletic E-Brochure "The Genesis360 Difference", reduced to the
+// three points that apply to every human-health room.
+const points: { icon: 'droplet' | 'coverage' | 'cycle' | 'shield'; title: string; copy: string }[] = [
+  { icon: 'cycle', title: 'Automated operation', copy: 'Programmable misting cycles run on their own schedule, so coverage does not depend on staff hours or stamina.' },
+  { icon: 'droplet', title: 'Dry-mist technology', copy: 'Ultra-fine droplets deliver broad coverage without wetness, dripping, or pooling. Dry to the touch, wet to a microbe.' },
+  { icon: 'coverage', title: '360-degree coverage', copy: 'The mist moves through the environment, reaching around, under, behind, and across every exposed area, and the air itself.' },
+];
+
+const humanPosts = posts.filter((p) => humanMarkets.some((m) => m.postSlugs.includes(p.slug))).slice(0, 3);
+---
+
+<BaseLayout
+  title="Genesis360 | Human Health"
+  description="Wherever people gather, train, learn, or heal, Genesis360 pairs automated dry-mist delivery with EPA-registered BotaniMax to control pathogens in the air and on every surface."
+>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <!-- Source: master copy deck mission block. -->
+      <SectorHero
+        layout="split"
+        eyebrow="Human Health"
+        headline={['Healthier Rooms. Healthier Teams.', 'Healthier People.']}
+        support="One Platform. Every Room People Share."
+        lede="Pathogens don’t respect boundaries. They move through a wrestling room, a clinic, or a classroom the same way they move through a barn. They are invisible, relentless, and costly. Conventional disinfection fights them after an outbreak. Genesis360 is a proven, proactive system that helps prevent the outbreak in the first place."
+        poster={heroPoster}
+        video={heroVideo}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+        secondaryCta={{ href: '#sectors', label: 'Explore By Sector' }}
+      />
+
+      <!-- Mission band, same pattern as the ag hub. Sources: master copy deck;
+           lab validation report (the four failure modes). -->
+      <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div class="particle-field particle-field-light" aria-hidden="true">
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+          <span class="particle"></span>
+        </div>
+        <div class="container-page relative">
+          <h2 class="bl-h2 reveal mx-auto text-center" x-intersect.once="$el.classList.add('is-visible')">
+            Our mission is simple.<br /><span class="text-brand-600">Genesis360 makes the rooms people share safer.</span>
+          </h2>
+
+          <div class="reveal mx-auto mt-14 grid max-w-5xl gap-10 md:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="text-base leading-8 text-brand-body">
+              Manual cleaning was designed for surfaces, and it leaves the same four gaps in every building: the air people breathe, the irregular and hard-to-reach surfaces a cloth never meets, the recontamination that starts the moment the room is back in use, and the plain inconsistency of people doing a repetitive job under time pressure.
+            </p>
+            <p class="text-base leading-8 text-brand-body">
+              Genesis360 is engineered for every room. An automated distribution platform pairs with BotaniMax, a 100% botanical, EPA-registered disinfectant, to deliver a sub-10 micron dry vapor that flows on, around, under and behind every surface and treats the air column at the same time. No harsh chemistry. No surprises. Precise pathogen control that runs whether or not anyone remembers to.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <SectorCards
+        heading="Different rooms, different people, the same invisible problem."
+        prompt="Select a sector to see what it costs"
+        cards={sectorCards}
+        checklist={checklist}
+      />
+
+      <DifferenceGrid
+        eyebrow="The Difference"
+        heading="Delivery Is The Difference."
+        lede="Genesis360 suspends BotaniMax sub-10-micron vapor in the air of the room, controlling pathogens at the source by treating surfaces and air simultaneously."
+        points={points}
+        closing={{
+          lead: 'The result: a measurably cleaner room, a lighter pathogen load, and people who stay healthy enough to train, learn, work, and heal.',
+          aside: 'Every gym, every clinic, every classroom is carrying the same risk. Genesis360 gives you a way to get ahead of it instead of cleaning up after it.',
+        }}
+      />
+
+      <PostsRow posts={humanPosts} heading="From The Field" />
+
+      <SectorCta
+        eyebrow="Your Building. Your Coverage Plan."
+        heading="Put Genesis360 To Work Where People Gather."
+        copy="Tell us what you are protecting and how the building runs. Our team will map the right portable, fixed, or Compact Pro deployment and build a practical coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
