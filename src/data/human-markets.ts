@@ -45,6 +45,7 @@ export const humanMarkets: Market[] = [
     postSlugs: ['why-air-quality-in-schools-matters-more-than-you-think', 'how-to-identify-sick-building-syndrome-and-improve-indoor-air-quality-in-your-building'],
     tagline: 'Healthy classrooms, from the first bell to the last bus.',
     stat: 'Shared desks, shared air, and a room that turns over every period. Illness moves through a school faster than any wipe-down schedule can follow, and every sick day is a day of learning lost.',
+    // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
     hero: { poster: classroomScene },
   },
@@ -60,6 +61,7 @@ export const humanMarkets: Market[] = [
     tagline: 'Keeping athletes on the mat, in the weight room, and in the game.',
     // Source: Athletics Competitive Comparison.pdf ("Wrestling Infection Statistics").
     stat: 'Between 60% and 100% of wrestlers pick up at least one skin infection in a typical season, and skin infections are the number one reported cause of lost time in the sport.',
+    // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
     hero: { poster: gymScene },
   },
@@ -74,6 +76,7 @@ export const humanMarkets: Market[] = [
     postSlugs: ['how-to-stop-infections-before-they-spread-at-sea'],
     tagline: 'Ready personnel in the spaces they share.',
     stat: 'Close quarters, shared equipment, and constant turnover make barracks and common rooms the fastest route an outbreak can take through a unit.',
+    // Source: Genesis360 Pricing Model - External.docx lists no package for this market.
     package: null,
     hero: { poster: policeScene },
   },
@@ -88,6 +91,7 @@ export const humanMarkets: Market[] = [
     postSlugs: ['regular-surface-disinfection-in-businesses-is-an-essential-component-in-building-customer-trust'],
     tagline: 'Consistent infection control that does not depend on who is on shift.',
     stat: 'Infection control in a clinic is only as consistent as the last person who cleaned the room. Automated whole-room cycles take the variability, and the labor, out of it.',
+    // Source: Genesis360 Pricing Model - External.docx — MediGuard Pro: healthcare, urgent care, dialysis, aging care, outpatient, family practice, dental / orthodontics.
     package: 'MediGuard Pro',
     hero: { poster: compactIso },
   },
