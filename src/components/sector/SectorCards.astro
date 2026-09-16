@@ -160,7 +160,10 @@ const { id = 'sectors', heading, prompt, cards, checklist } = Astro.props;
 
     .sector-card:hover .sector-title,
     .sector-card:focus-visible .sector-title {
-      font-size: clamp(2.3rem, 1.5rem + 2.2vw, 3rem);
+      /* Same 2.75rem ceiling as the resting state (not larger): at 3rem
+         "Healthcare" still clipped its card on hover, caught by the
+         hover-probe QA in Task 12's fix round. */
+      font-size: clamp(2.3rem, 1.5rem + 1.7vw, 2.75rem);
     }
   }
 

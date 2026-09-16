@@ -832,19 +832,21 @@ unchecked task unless you are starting it.
       This umbrella entry is superseded by the five sub-project entries
       appended below; it stays unchecked until all five are done.
 - [x] Build-out 1/5 — Human section to ag/hog quality: /human/ hub + athletics (flagship), healthcare, schools, military. Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
-      Done 2026-09-16: five pages shipped. /human/ hub follows the ag-hub
-      pattern — split hero with gym footage, mission band, four flip sector
-      cards, Delivery Is The Difference grid, posts row, CTA. /human/athletics/
-      is the flagship: video hero, argument band with the 72+ hr stat, three
-      deployment cards (Battery Powered Fogger / EnviroGuard / Compact Pro),
-      a cost-of-waiting stat band (Today vs. With Genesis360), the Tarleton
-      State case-study band with six at-a-glance figures and three verbatim
-      quotes, posts, other markets, CTA. /human/healthcare/ uses clinic
+      Done 2026-09-16: five pages shipped. /human/ hub (tier: hub) follows
+      the ag-hub pattern — split hero with gym footage, mission band, four
+      flip sector cards, Delivery Is The Difference grid, posts row, CTA.
+      /human/athletics/ (tier: flagship) is the flagship: video hero,
+      argument band with the 72+ hr stat, three deployment cards (Battery
+      Powered Fogger / EnviroGuard / Compact Pro), a cost-of-waiting stat
+      band (Today vs. With Genesis360), the Tarleton State case-study band
+      with six at-a-glance figures and three verbatim quotes, posts, other
+      markets, CTA. /human/healthcare/ (tier: standard+) uses clinic
       footage, MediGuard Pro + fogger cards, and lab-validation claims.
-      /human/schools/ uses library-aisle footage with EnviroGuard + fogger
-      cards. /human/military/ uses a still hero (the police-station scene, no
-      acceptable clip found), Compact Wall Mount + fogger cards, and no
-      package name from the pricing guide.
+      /human/schools/ (tier: standard+) uses library-aisle footage with
+      EnviroGuard + fogger cards. /human/military/ (tier: standard, lean)
+      uses a still hero (the police-station scene, no acceptable clip
+      found), Compact Wall Mount + fogger cards, and no package name from
+      the pricing guide.
       Eleven shared components live under src/components/sector/ (SectorHero,
       ArgumentBand, StatBand, CompareBand, DeploymentCards, DifferenceGrid,
       CaseStudyBand, SectorCards, OtherMarkets, PostsRow, SectorCta).
@@ -910,6 +912,10 @@ unchecked task unless you are starting it.
 - [ ] Athletics case-study band: shorten the title (e.g. "The Case Of Ringworm At Tarleton State") and reduce the line height of the intro paragraph beneath it.
 - [ ] Athletics case-study band: the at-a-glance stats are not vertically centered and "Eliminated / Daily Mopping" doesn't look right; fix the stat tiles.
 - [ ] Athletics case-study band: pull in the actual video from the coach instead of three quotes; keep just one quote, the most impactful (screenshot 2026-09-16 3:57pm).
+- [ ] Athletics page argument band: the updated "G360 in a D1 Gym" photo (replaced in reference-files with the same name) is not showing; the page still renders the old photo. Re-copy it into src/assets/images/human-d1-gym.png (the page imports the copied asset, not the reference file).
+- [ ] Athletics page argument band: move the 72+ stat from the bottom-left corner of the photo to the bottom-right corner; it gets a little lost on the left.
+- [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
+- [ ] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
