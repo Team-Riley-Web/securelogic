@@ -1,0 +1,95 @@
+---
+// src/pages/human/military.astro
+// Military — standard tier. The only source is the existing market copy plus
+// the infections-at-sea post; the Sales Pricing Guide has no package for this
+// market, so the deployment cards name the base products only. Composed from
+// the shared sector blocks; see
+// docs/superpowers/specs/2026-09-16-human-section-design.md.
+import { Truck, Warehouse } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { humanMarkets } from '../../data/human-markets';
+import { posts } from '../../data/blog-posts';
+import fogger from '../../assets/images/human-fogger.png';
+import compactFront from '../../assets/images/human-compact-front.png';
+
+const market = humanMarkets.find((m) => m.slug === 'military')!;
+const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
+
+// Source: Genesis360 AthleticGuard.pdf (Compact Wall Mount sheet) for the
+// Compact description; the Sales Pricing Guide for the fogger.
+const deployments = [
+  {
+    device: 'Battery Powered Fogger',
+    deviceCopy: 'A portable, cordless fogger for spot treatment wherever a unit is working: vehicles, tents, and gear that moves between sites.',
+    image: fogger,
+    imageAlt: 'Genesis360 Battery Powered Fogger',
+    facility: 'Mobile & Field',
+    facilityCopy: 'Transport, temporary quarters, and shared equipment that never sits in one room long enough for a fixed system.',
+    icon: Truck,
+  },
+  {
+    device: 'Compact Wall Mount',
+    deviceCopy: 'A fixed, automated dry-mist system that runs scheduled cycles on its own timer. Wall-mount it, or rotate one unit between rooms on brackets.',
+    image: compactFront,
+    imageAlt: 'Genesis360 Compact Wall Mount unit',
+    facility: 'Barracks & Common Rooms',
+    facilityCopy: 'Sleeping quarters, day rooms, and fitness spaces where close quarters do the spreading.',
+    icon: Warehouse,
+  },
+];
+---
+
+<BaseLayout title="Genesis360 | Human | Military" description={market.summary}>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <SectorHero
+        eyebrow="Military & First Responders"
+        headline={['Complete Coverage.', 'Ready Personnel.']}
+        support="Automated, no-touch disinfection for the spaces a unit shares."
+        poster={market.hero.poster}
+        video={market.hero.video}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
+
+      <!-- Source: existing market copy (src/data/human-markets.ts heroCopy). No new claims. -->
+      <ArgumentBand
+        eyebrow="The Reality In Close Quarters"
+        heading="An Outbreak Moves At The Speed Of A Shared Room."
+        paragraphs={[
+          market.heroCopy,
+          'Genesis360 fills the room with a sub-10-micron dry mist that treats the air and every surface at once, on a schedule, without anyone spraying or wiping. It runs while the room is empty and is dry to the touch by the time it is not.',
+        ]}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <DeploymentCards
+        heading="One Platform. Two Ways To Deploy It."
+        intro="Fixed where people sleep and gather, portable for everything that moves."
+        cards={deployments}
+      />
+
+      <PostsRow posts={relatedPosts} heading="From The Field" />
+
+      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
+
+      <SectorCta
+        eyebrow="Your Quarters. Your Coverage Plan."
+        heading="Start With The Rooms Everyone Shares."
+        copy="Tell us how the installation runs and where people spend their time, and our team will map the right portable or fixed deployment and build a coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
