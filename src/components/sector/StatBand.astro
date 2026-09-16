@@ -1,0 +1,48 @@
+---
+// src/components/sector/StatBand.astro
+// Two big figures on the dark gradient — the hog page's "The Cost Of Waiting".
+// Whatever is slotted in renders below the figures; CompareBand is the usual
+// occupant, exactly as on the hog page.
+interface Figure {
+  value: string;
+  label: string;
+  copy: string;
+}
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  figures: [Figure, Figure];
+}
+
+const { eyebrow, heading, lede, figures } = Astro.props;
+---
+
+<section class="relative overflow-hidden py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(160deg, var(--bl-ink) 0%, var(--bl-ink-mid) 58%, var(--bl-ink-deep) 100%);">
+  <div class="pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" style="background: radial-gradient(circle at 84% 8%, rgb(82 194 76 / 0.14), transparent 44%), radial-gradient(circle at 6% 92%, rgb(62 103 232 / 0.4), transparent 46%);"></div>
+
+  <div class="container-page relative">
+    <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h2 class="bl-h2 mt-4">{heading}</h2>
+      <p class="mx-auto mt-6 max-w-lg text-balance text-base leading-8 text-white/75 sm:max-w-xl sm:text-lg sm:leading-9">{lede}</p>
+    </div>
+
+    <!-- The two figures, unboxed, separated by a hairline. -->
+    <div class="reveal mx-auto mt-14 grid max-w-2xl gap-10 border-y border-white/15 py-10 sm:grid-cols-2 sm:gap-0" x-intersect.once="$el.classList.add('is-visible')">
+      <div class="text-center sm:pr-8 sm:text-left">
+        <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[0].value}</p>
+        <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[0].label}</p>
+        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">{figures[0].copy}</p>
+      </div>
+      <div class="text-center sm:border-l sm:border-white/15 sm:pl-8 sm:text-left">
+        <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[1].value}</p>
+        <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[1].label}</p>
+        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">{figures[1].copy}</p>
+      </div>
+    </div>
+
+    <slot />
+  </div>
+</section>

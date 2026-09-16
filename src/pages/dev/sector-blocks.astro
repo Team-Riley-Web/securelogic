@@ -8,6 +8,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import gymVideo from '../../assets/videos/gym.mp4';
 import gymScene from '../../assets/images/human-d1-gym.png';
 import classroomScene from '../../assets/images/human-classroom.png';
@@ -35,6 +38,36 @@ import classroomScene from '../../assets/images/human-classroom.png';
         cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
         secondaryCta={{ href: '#sectors', label: 'Explore By Sector' }}
       />
+      <ArgumentBand
+        eyebrow="Kitchen Sink"
+        heading="Argument With Image."
+        paragraphs={['First paragraph of the argument.', 'Second paragraph of the argument.']}
+        image={gymScene}
+        imageAlt="Genesis360 unit in a college gym"
+        stat={{ value: '72+', caption: 'hours bacteria survive on mats' }}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+      <ArgumentBand
+        eyebrow="Kitchen Sink"
+        heading="Argument Centered."
+        paragraphs={['Text-only variant.']}
+      />
+      <StatBand
+        eyebrow="Kitchen Sink"
+        heading="Two Figures."
+        lede="Lede under the heading."
+        figures={[
+          { value: '60–100%', label: 'Figure one label', copy: 'Figure one copy.' },
+          { value: '#1', label: 'Figure two label', copy: 'Figure two copy.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="Today means:"
+          today={['Today item one', 'Today item two']}
+          withIntro="You have the ability to:"
+          with={['With item one', 'With item two']}
+        />
+      </StatBand>
     </main>
     <Footer />
   </div>
