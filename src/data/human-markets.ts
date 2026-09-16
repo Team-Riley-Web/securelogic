@@ -1,18 +1,36 @@
+import type { ImageMetadata } from 'astro';
 import { Dumbbell, GraduationCap, HeartPulse, ShieldCheck } from '@lucide/astro';
 import schoolAirQuality from '../assets/images/blog-school-air-quality.png';
 import wrestling from '../assets/images/blog-wrestling.png';
 import portableMist from '../assets/images/portable-mist.png';
 import medicalMist from '../assets/images/medical-mist.png';
+import gymScene from '../assets/images/human-d1-gym.png';
+import classroomScene from '../assets/images/human-classroom.png';
+import policeScene from '../assets/images/human-police-station.png';
+import compactIso from '../assets/images/human-compact-iso.png';
+
+/** Sales Pricing Guide application package that covers a market, or null. */
+export type HumanPackage = 'EnviroGuard' | 'MediGuard Pro' | null;
 
 export interface Market {
   slug: string;
   title: string;
   icon: typeof GraduationCap;
+  /** One line for the mega-menu and other-markets cards. */
   summary: string;
+  /** Opening paragraph; the sector page's argument band starts from it. */
   heroCopy: string;
-  image: typeof schoolAirQuality;
+  /** Thumbnail used by the mega-menu and older cross-links. */
+  image: ImageMetadata;
   imageAlt: string;
   postSlugs: string[];
+  /** Under the title on the hub's sector card. */
+  tagline: string;
+  /** The sector card's flip side: the economic case, one or two sentences. */
+  stat: string;
+  package: HumanPackage;
+  /** Hero media. `video` is a Vite asset URL string; absent = still hero. */
+  hero: { poster: ImageMetadata; video?: string };
 }
 
 export const humanMarkets: Market[] = [
@@ -25,6 +43,10 @@ export const humanMarkets: Market[] = [
     image: schoolAirQuality,
     imageAlt: 'School entrance sign, a setting for indoor air quality treatment',
     postSlugs: ['why-air-quality-in-schools-matters-more-than-you-think', 'how-to-identify-sick-building-syndrome-and-improve-indoor-air-quality-in-your-building'],
+    tagline: 'Healthy classrooms, from the first bell to the last bus.',
+    stat: 'Shared desks, shared air, and a room that turns over every period. Illness moves through a school faster than any wipe-down schedule can follow, and every sick day is a day of learning lost.',
+    package: 'EnviroGuard',
+    hero: { poster: classroomScene },
   },
   {
     slug: 'athletics',
@@ -35,6 +57,11 @@ export const humanMarkets: Market[] = [
     image: wrestling,
     imageAlt: 'Two wrestlers training in a gym with illustrated pathogens nearby',
     postSlugs: ['are-you-missing-these-3-high-risk-hotspots', 'dont-let-infections-bench-your-team'],
+    tagline: 'Keeping athletes on the mat, in the weight room, and in the game.',
+    // Source: Athletics Competitive Comparison.pdf ("Wrestling Infection Statistics").
+    stat: 'Between 60% and 100% of wrestlers pick up at least one skin infection in a typical season, and skin infections are the number one reported cause of lost time in the sport.',
+    package: 'EnviroGuard',
+    hero: { poster: gymScene },
   },
   {
     slug: 'military',
@@ -45,15 +72,23 @@ export const humanMarkets: Market[] = [
     image: portableMist,
     imageAlt: 'Portable Genesis360 dry fog system unit',
     postSlugs: ['how-to-stop-infections-before-they-spread-at-sea'],
+    tagline: 'Ready personnel in the spaces they share.',
+    stat: 'Close quarters, shared equipment, and constant turnover make barracks and common rooms the fastest route an outbreak can take through a unit.',
+    package: null,
+    hero: { poster: policeScene },
   },
   {
     slug: 'healthcare',
     title: 'Healthcare',
     icon: HeartPulse,
     summary: 'Patient rooms, clinics, and isolation areas where infection control is non-negotiable.',
-    heroCopy: 'Patient rooms, dialysis clinics, and isolation areas demand infection control that does not depend on manual consistency. Genesis360 Medical Dry Fog delivers automated, programmable cycles built for clinical environments.',
+    heroCopy: 'Patient rooms, dialysis clinics, and isolation areas demand infection control that does not depend on manual consistency. Genesis360 delivers automated, programmable cycles built for clinical environments.',
     image: medicalMist,
-    imageAlt: 'Genesis360 Medical Dry Fog system product',
+    imageAlt: 'Genesis360 Compact dry fog system in a clinical setting',
     postSlugs: ['regular-surface-disinfection-in-businesses-is-an-essential-component-in-building-customer-trust'],
+    tagline: 'Consistent infection control that does not depend on who is on shift.',
+    stat: 'Infection control in a clinic is only as consistent as the last person who cleaned the room. Automated whole-room cycles take the variability, and the labor, out of it.',
+    package: 'MediGuard Pro',
+    hero: { poster: compactIso },
   },
 ];
