@@ -894,6 +894,15 @@ unchecked task unless you are starting it.
       exists. Queue entries appended today already ask for a different
       healthcare clip, a new athletics headline, and case-study band changes
       — those are known follow-ups, not part of this record.
+      Final whole-branch review 2026-09-16: clean after one fix commit
+      (c19bf01): closing CTAs on all five pages now go to /get-a-quote/ like
+      the hero CTA; hub cards and the athletics band got dedicated poster alt
+      text; gym and military hero posters are 1280-wide JPEGs instead of 2 MB
+      PNGs; hub pill label shortened; two unused renders removed. Deferred
+      minors carried in the review: hero video has no reduced-motion fallback
+      (site-wide pass later), the `[...slug].astro` product list still says
+      "Kinetic Systems" (pre-existing), and mobile QA was at 500px because
+      headless Chrome on this Mac clamps narrower captures.
 - [ ] Build-out 2/5 — HVAC section to ag/hog quality: /hvac/ hub + residential, commercial, industrial, reusing the Human section's sector blocks. Needs its own spec.
 - [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
 - [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
