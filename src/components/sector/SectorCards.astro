@@ -1,0 +1,215 @@
+---
+// src/components/sector/SectorCards.astro
+// The hub's "blue box" row. Full-bleed, one column per sector, flipping to
+// that sector's economic case on hover (everything visible on touch).
+// Extracted from the ag hub.
+import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+// Value import (not `import type`): `typeof FileText` needs the runtime binding.
+import { FileText } from '@lucide/astro';
+
+interface Card {
+  title: string;
+  tagline: string;
+  href: string;
+  linkLabel: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  stat: string;
+}
+
+interface Props {
+  id?: string;
+  heading: string;
+  prompt: string;
+  cards: Card[];
+  checklist: { icon: typeof FileText; label: string }[];
+}
+
+const { id = 'sectors', heading, prompt, cards, checklist } = Astro.props;
+---
+
+<style>
+  /* Sector cards.
+     Mobile has no hover, so the card is laid out as picture-then-panel with
+     everything visible. From 1024px up (real pointer only) the panel goes
+     transparent and sits over the image, the copy hides, and hovering reveals
+     it — the title grows and rides up as the revealed block pushes it. */
+  .sector-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .sector-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    flex: none;
+    overflow: hidden;
+    background: #0c193c;
+  }
+
+  .sector-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sector-card:hover .sector-image {
+    transform: scale(1.05);
+  }
+
+  .sector-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(16 32 74 / 0.5) 0%, rgb(16 32 74 / 0.82) 58%, rgb(11 20 55 / 0.95) 100%);
+    transition: opacity 0.45s ease;
+  }
+
+  .sector-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem;
+    background: linear-gradient(180deg, rgb(12 25 60 / 0.92) 0%, rgb(16 32 74 / 0.96) 100%);
+    color: #fff;
+  }
+
+  .sector-title {
+    display: block;
+    font-size: clamp(2.15rem, 1.35rem + 2.6vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.03;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    transition: font-size 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sector-tagline {
+    display: block;
+    margin-top: 0.9rem;
+    max-width: 22rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  .sector-reveal {
+    display: block;
+    margin-top: 1.4rem;
+  }
+
+  .sector-explore {
+    margin-top: 1.6rem;
+    align-self: flex-start;
+  }
+
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    .sector-card {
+      min-height: 30rem;
+    }
+
+    .sector-media {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      aspect-ratio: auto;
+    }
+
+    .sector-image {
+      object-fit: cover;
+    }
+
+    .sector-content {
+      background: transparent;
+    }
+
+    .sector-reveal {
+      margin-top: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(0.5rem);
+      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, transform 0.55s ease,
+        margin-top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sector-card:hover .sector-scrim,
+    .sector-card:focus-visible .sector-scrim {
+      opacity: 1;
+    }
+
+    .sector-card:hover .sector-reveal,
+    .sector-card:focus-visible .sector-reveal {
+      max-height: 26rem;
+      margin-top: 1.3rem;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .sector-card:hover .sector-title,
+    .sector-card:focus-visible .sector-title {
+      font-size: clamp(2.6rem, 1.6rem + 3.1vw, 4rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sector-image,
+    .sector-title,
+    .sector-reveal,
+    .sector-tagline,
+    .sector-explore {
+      transition: opacity 0.2s ease;
+    }
+
+    .sector-card:hover .sector-image {
+      transform: none;
+    }
+  }
+</style>
+
+<section id={id} class="pb-4 bg-brand-900">
+  <div class="reveal container-page pb-12 pt-20 text-center sm:pt-24" x-intersect.once="$el.classList.add('is-visible')">
+    <h2 class="bl-h2 mx-auto max-w-3xl text-white">{heading}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-sm font-semibold uppercase tracking-[0.12em] text-white/55">{prompt}</p>
+  </div>
+
+  <div class:list={['grid gap-px bg-white/10', cards.length === 4 ? 'md:grid-cols-2 lg:grid-cols-4' : 'lg:grid-cols-3']}>
+    {cards.map(({ title, tagline, href, linkLabel, image, imageAlt, stat }) => (
+      <a href={href} class="sector-card group">
+        <span class="sector-media">
+          <Image src={image} alt={imageAlt} class="sector-image" widths={[480, 720, 1080]} sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw" />
+        </span>
+        <span class="sector-scrim" aria-hidden="true"></span>
+
+        <span class="sector-content">
+          <span class="sector-title">{title}</span>
+          <span class="sector-tagline">{tagline}</span>
+
+          <span class="sector-reveal">
+            <span class="block text-base leading-6 text-white">{stat}</span>
+            <span class="mt-5 block space-y-1.5">
+              {checklist.map(({ icon: Icon, label }) => (
+                <span class="flex items-center gap-2 text-xs text-white/55">
+                  <Icon class="h-3.5 w-3.5 shrink-0 text-lime-400" aria-hidden="true" /> {label}
+                </span>
+              ))}
+            </span>
+          </span>
+
+          <span class="sector-explore bl-pill bl-pill-invert">
+            {linkLabel} <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+          </span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>

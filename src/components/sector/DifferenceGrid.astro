@@ -1,0 +1,52 @@
+---
+// src/components/sector/DifferenceGrid.astro
+// Three numbered mechanism cards and a closing two-column panel — the ag hub's
+// "Deployment Is The Difference" section.
+import AnimatedStatIcon from '../AnimatedStatIcon.astro';
+
+interface Point {
+  icon: 'droplet' | 'coverage' | 'cycle' | 'shield';
+  title: string;
+  copy: string;
+}
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  points: Point[];
+  closing: { lead: string; aside: string };
+}
+
+const { eyebrow, heading, lede, points, closing } = Astro.props;
+---
+
+<section class="relative overflow-hidden py-20 sm:py-24 bg-brand-100">
+  <div class="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" style="background: radial-gradient(circle at 88% 6%, rgb(29 63 214 / 0.1), transparent 46%), radial-gradient(circle at 4% 96%, rgb(82 194 76 / 0.09), transparent 44%);"></div>
+
+  <div class="container-page relative">
+    <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h2 class="bl-h2 mt-4">{heading}</h2>
+      <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">{lede}</p>
+    </div>
+
+    <div class="reveal mt-14 grid gap-5 md:grid-cols-3" x-intersect.once="$el.classList.add('is-visible')">
+      {points.map(({ icon, title, copy }, i) => (
+        <div class="relative flex flex-col rounded-2xl bg-white p-8 shadow-lift">
+          <span class="absolute right-7 top-7 text-5xl font-extrabold leading-none text-brand-100" aria-hidden="true">0{i + 1}</span>
+          <span class="flex h-14 w-14 items-center justify-center text-brand-600" style="--ai-accent: var(--bl-green);">
+            <AnimatedStatIcon kind={icon} class="h-14 w-14" />
+          </span>
+          <h3 class="mt-6 text-xl">{title}</h3>
+          <p class="mt-3 text-sm leading-6 text-brand-body">{copy}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 grid items-center gap-8 rounded-2xl p-8 text-white sm:p-10 lg:grid-cols-[1.25fr_1fr]" style="background: linear-gradient(135deg, var(--bl-ink) 0%, var(--bl-ink-mid) 62%, var(--bl-ink-deep) 100%);">
+      <p class="text-xl leading-9 sm:text-2xl">{closing.lead}</p>
+      <p class="text-sm leading-7 text-white/75 lg:border-l lg:border-white/20 lg:pl-8">{closing.aside}</p>
+    </div>
+  </div>
+</section>

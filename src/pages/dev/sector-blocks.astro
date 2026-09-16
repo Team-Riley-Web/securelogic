@@ -11,9 +11,18 @@ import SectorHero from '../../components/sector/SectorHero.astro';
 import ArgumentBand from '../../components/sector/ArgumentBand.astro';
 import StatBand from '../../components/sector/StatBand.astro';
 import CompareBand from '../../components/sector/CompareBand.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import DifferenceGrid from '../../components/sector/DifferenceGrid.astro';
+import CaseStudyBand from '../../components/sector/CaseStudyBand.astro';
+import SectorCards from '../../components/sector/SectorCards.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import { Dumbbell, FileText, Truck, Warehouse } from '@lucide/astro';
+import { humanMarkets } from '../../data/human-markets';
 import gymVideo from '../../assets/videos/gym.mp4';
 import gymScene from '../../assets/images/human-d1-gym.png';
 import classroomScene from '../../assets/images/human-classroom.png';
+import compactFront from '../../assets/images/human-compact-front.png';
+import fogger from '../../assets/images/human-fogger.png';
 ---
 
 <BaseLayout title="DEV | Sector blocks" description="Temporary kitchen sink for the sector block components.">
@@ -68,6 +77,40 @@ import classroomScene from '../../assets/images/human-classroom.png';
           with={['With item one', 'With item two']}
         />
       </StatBand>
+      <DeploymentCards
+        heading="Two Cards."
+        intro="Two-card layout centres itself."
+        cards={[
+          { device: 'Battery Powered Fogger', deviceCopy: 'Fogger copy.', image: fogger, imageAlt: 'Genesis360 Battery Powered Fogger', facility: 'Vehicles', facilityCopy: 'Facility copy.', icon: Truck },
+          { device: 'Compact Wall Mount', deviceCopy: 'Compact copy.', image: compactFront, imageAlt: 'Genesis360 Compact Wall Mount', facility: 'Rooms', facilityCopy: 'Facility copy.', icon: Warehouse },
+        ]}
+      />
+      <DifferenceGrid
+        eyebrow="Kitchen Sink"
+        heading="Difference Grid."
+        lede="Lede."
+        points={[
+          { icon: 'coverage', title: 'Point one', copy: 'Copy one.' },
+          { icon: 'droplet', title: 'Point two', copy: 'Copy two.' },
+          { icon: 'cycle', title: 'Point three', copy: 'Copy three.' },
+        ]}
+        closing={{ lead: 'Closing lead.', aside: 'Closing aside.' }}
+      />
+      <CaseStudyBand
+        eyebrow="Kitchen Sink"
+        heading="Case Study."
+        intro="Intro."
+        glance={[{ label: 'Facility', value: '10,000 sq ft' }, { label: 'Athletes', value: '70+' }, { label: 'Ringworm', value: '1 case' }]}
+        quotes={[{ text: 'Quote one.', attribution: 'Attribution one' }, { text: 'Quote two.', attribution: 'Attribution two' }]}
+        source="Source line."
+      />
+      <SectorCards
+        heading="Four Sector Cards."
+        prompt="Select a sector"
+        cards={humanMarkets.map((m) => ({ title: m.title, tagline: m.tagline, href: `/human/${m.slug}/`, linkLabel: `Explore ${m.title.toLowerCase()}`, image: m.hero.poster, imageAlt: m.imageAlt, stat: m.stat }))}
+        checklist={[{ icon: FileText, label: 'Checklist item' }]}
+      />
+      <OtherMarkets heading="Other Markets." basePath="/human/" markets={humanMarkets.slice(0, 3)} />
     </main>
     <Footer />
   </div>
