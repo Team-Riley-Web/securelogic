@@ -1,0 +1,41 @@
+---
+// src/pages/dev/sector-blocks.astro
+// TEMPORARY. Exercises every sector block while they are being built so each
+// one has a built page to assert against. Deleted in the last task of
+// docs/superpowers/plans/2026-09-16-human-section.md. Gated in production
+// like every interior page.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import gymVideo from '../../assets/videos/gym.mp4';
+import gymScene from '../../assets/images/human-d1-gym.png';
+import classroomScene from '../../assets/images/human-classroom.png';
+---
+
+<BaseLayout title="DEV | Sector blocks" description="Temporary kitchen sink for the sector block components.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <SectorHero
+        eyebrow="Kitchen Sink"
+        headline={['Center Layout.', 'With Video.']}
+        support="Sector page hero with footage."
+        poster={gymScene}
+        video={gymVideo}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
+      <SectorHero
+        layout="split"
+        eyebrow="Kitchen Sink"
+        headline={['Split Layout.', 'Still Fallback.']}
+        support="Hub hero without footage."
+        lede="A longer paragraph that only the split layout renders."
+        poster={classroomScene}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+        secondaryCta={{ href: '#sectors', label: 'Explore By Sector' }}
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

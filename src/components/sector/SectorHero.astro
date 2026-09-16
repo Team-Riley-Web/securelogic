@@ -1,0 +1,109 @@
+---
+// src/components/sector/SectorHero.astro
+// Sector page hero. `center` is the hog/poultry treatment (full-bleed footage,
+// centred copy). `split` is the ag hub treatment (copy left, media panel
+// right, masked into the gradient). Both fall back to the poster as a still
+// when no video is passed, with the same overlay, so a page without footage
+// still reads as part of the set.
+import { ArrowRight } from '@lucide/astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  layout?: 'center' | 'split';
+  eyebrow: string;
+  /** Two lines; the second renders in lime. */
+  headline: [string, string];
+  support: string;
+  poster: ImageMetadata;
+  video?: string;
+  cta: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  /** split only: the longer paragraph under the support line. */
+  lede?: string;
+}
+
+const { layout = 'center', eyebrow, headline, support, poster, video, cta, secondaryCta, lede } = Astro.props;
+---
+
+{layout === 'center' ? (
+  <section class="relative isolate overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime);">
+    {video ? (
+      <video
+        class="absolute inset-0 h-full w-full object-cover"
+        src={video}
+        poster={poster.src}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+    ) : (
+      <img class="absolute inset-0 h-full w-full object-cover" src={poster.src} alt="" aria-hidden="true" />
+    )}
+    <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
+
+    <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
+      <div class="mx-auto max-w-3xl">
+        <p class="bl-eyebrow">{eyebrow}</p>
+        <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+          {headline[0]}<br /><span class="text-lime-400">{headline[1]}</span>
+        </h1>
+        <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
+          {support}
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href={cta.href} class="bl-pill">{cta.label}</a>
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="bl-pill-outline border-[1.5px] border-white/60">{secondaryCta.label} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+) : (
+  <section class="relative overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(150deg, var(--bl-ink) 0%, var(--bl-ink-mid) 52%, var(--bl-ink-deep) 100%);">
+    <!-- Media panel on the right. It fades into the brand gradient well before
+         the text column, so the headline never sits on moving footage. -->
+    <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] lg:block" aria-hidden="true">
+      {video ? (
+        <video
+          class="h-full w-full object-cover"
+          style="mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);"
+          src={video}
+          poster={poster.src}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+        ></video>
+      ) : (
+        <img
+          class="h-full w-full object-cover"
+          style="mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);"
+          src={poster.src}
+          alt=""
+        />
+      )}
+      <div class="absolute inset-0" style="background: linear-gradient(90deg, transparent 0%, rgb(16 32 74 / 0.28) 45%, rgb(16 32 74 / 0.42) 100%);"></div>
+    </div>
+    <div class="pointer-events-none absolute inset-0 opacity-40" style="background: radial-gradient(circle at 78% 12%, rgb(120 210 160 / 0.22), transparent 42%), radial-gradient(circle at 8% 92%, rgb(80 130 255 / 0.28), transparent 44%);"></div>
+
+    <div class="container-page relative py-20 sm:py-24">
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h1 class="mt-5 max-w-4xl text-4xl leading-[1.06] sm:text-5xl lg:text-6xl">
+        {headline[0]}<br /><span class="text-lime-400">{headline[1]}</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg font-semibold text-white/75 sm:text-xl">{support}</p>
+      {lede && <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">{lede}</p>}
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href={cta.href} class="bl-pill">{cta.label}</a>
+        {secondaryCta && (
+          <a href={secondaryCta.href} class="bl-pill-outline">{secondaryCta.label} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+        )}
+      </div>
+    </div>
+  </section>
+)}
