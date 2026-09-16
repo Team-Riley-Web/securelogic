@@ -37,3 +37,6 @@ reference-files/
 # distribution and the repo is public, so it is kept out of git. It is the
 # source of truth for how Genesis360 is packaged; see TASKS.md 2026-09-16.
 src/assets/brochures/*.docx
+
+# Subagent-driven-development scratch (ledgers, briefs, review packages)
+.superpowers/
