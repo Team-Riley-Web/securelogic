@@ -85,7 +85,10 @@ const { id = 'sectors', heading, prompt, cards, checklist } = Astro.props;
 
   .sector-title {
     display: block;
-    font-size: clamp(2.15rem, 1.35rem + 2.6vw, 3.4rem);
+    /* Max capped at 2.75rem (not the wider 3.4rem the ag hub's shorter titles
+       allowed) so the longest sector word ("Healthcare") still fits inside a
+       single card at the 4-up desktop breakpoint instead of clipping. */
+    font-size: clamp(2.15rem, 1.35rem + 2vw, 2.75rem);
     font-weight: 800;
     line-height: 1.03;
     letter-spacing: -0.015em;
@@ -157,7 +160,7 @@ const { id = 'sectors', heading, prompt, cards, checklist } = Astro.props;
 
     .sector-card:hover .sector-title,
     .sector-card:focus-visible .sector-title {
-      font-size: clamp(2.6rem, 1.6rem + 3.1vw, 4rem);
+      font-size: clamp(2.3rem, 1.5rem + 2.2vw, 3rem);
     }
   }
 

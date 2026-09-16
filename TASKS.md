@@ -831,11 +831,85 @@ unchecked task unless you are starting it.
       Joshua's read-through before the implementation plan is written).
       This umbrella entry is superseded by the five sub-project entries
       appended below; it stays unchecked until all five are done.
-- [ ] Build-out 1/5 — Human section to ag/hog quality: /human/ hub + athletics (flagship), healthcare, schools, military. Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
+- [x] Build-out 1/5 — Human section to ag/hog quality: /human/ hub + athletics (flagship), healthcare, schools, military. Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
+      Done 2026-09-16: five pages shipped. /human/ hub follows the ag-hub
+      pattern — split hero with gym footage, mission band, four flip sector
+      cards, Delivery Is The Difference grid, posts row, CTA. /human/athletics/
+      is the flagship: video hero, argument band with the 72+ hr stat, three
+      deployment cards (Battery Powered Fogger / EnviroGuard / Compact Pro),
+      a cost-of-waiting stat band (Today vs. With Genesis360), the Tarleton
+      State case-study band with six at-a-glance figures and three verbatim
+      quotes, posts, other markets, CTA. /human/healthcare/ uses clinic
+      footage, MediGuard Pro + fogger cards, and lab-validation claims.
+      /human/schools/ uses library-aisle footage with EnviroGuard + fogger
+      cards. /human/military/ uses a still hero (the police-station scene, no
+      acceptable clip found), Compact Wall Mount + fogger cards, and no
+      package name from the pricing guide.
+      Eleven shared components live under src/components/sector/ (SectorHero,
+      ArgumentBand, StatBand, CompareBand, DeploymentCards, DifferenceGrid,
+      CaseStudyBand, SectorCards, OtherMarkets, PostsRow, SectorCta).
+      AgPostsRow and AgCta are now one-line wrappers around PostsRow/SectorCta;
+      the ag pages were verified byte-identical after whitespace normalization
+      in Task 1.
+      human-markets.ts gained tagline, stat, package (pricing-guide names,
+      each with a source comment), and hero {poster, video?}; the retired name
+      "Medical Dry Fog" was removed.
+      Footage: clinic.mp4 and classroom.mp4 sourced from Mixkit (sources in
+      src/assets/videos/STOCK-SOURCES.md). Military has no acceptable clip and
+      uses a still image instead.
+      Deleted human/[slug].astro and the catch-all's human branch. The
+      temporary kitchen-sink dev page (src/pages/dev/sector-blocks.astro) was
+      deleted in this task. Build is back to 43 pages; astro check is still at
+      the 8 pre-existing errors; brand check passes; no pricing appears
+      anywhere on any of the five pages (checked with a grep sweep of the
+      built HTML).
+      Everything stays behind the soft-launch gate until full launch. All
+      commits are local; nothing pushed.
+      QA: screenshots at 500px (headless Chrome on this machine clamps
+      requested widths below ~500px to an internal 500px viewport before
+      cropping the screenshot, so 500px is the accurate stand-in for "phone
+      width" here — verified with an injected scrollWidth/innerWidth probe)
+      and 1280px for all five pages, captured to the session scratchpad under
+      qa/ and reviewed by eye. One real defect found and fixed: at 1280px the
+      hub's "HEALTHCARE" sector-card title overflowed its card and got
+      clipped by the card's own overflow:hidden (the word is longer than the
+      ag hub's original card titles, which is why the shared component's font
+      size headroom hadn't been hit before). Fixed by capping the title's
+      clamp() max font-size lower in src/components/sector/SectorCards.astro
+      (both the resting and hover states); rebuilt and re-verified the title
+      now renders in full, and re-ran the Task 11 assert-html.mjs check
+      against dist/human/index.html (all lines pass). No other layout,
+      overlap, or broken-image issues found on any page at either width; no
+      genuine browser console errors (only macOS Chrome-headless system
+      noise: CVDisplayLink/task_policy_set warnings, not page JS errors).
+      Hover states on the sector cards were not exercised (static screenshots
+      only show the resting state).
+      FLAG FOR MARTY: every page's copy is Claude-drafted from the brochures
+      and needs his read. The three Tarleton quotes are attributed to
+      "Tarleton State University Wrestling" rather than named individuals.
+      The Military hero is the police-station render and the Schools hero
+      uses a school-library-aisle clip — both are stand-ins until better art
+      exists. Queue entries appended today already ask for a different
+      healthcare clip, a new athletics headline, and case-study band changes
+      — those are known follow-ups, not part of this record.
 - [ ] Build-out 2/5 — HVAC section to ag/hog quality: /hvac/ hub + residential, commercial, industrial, reusing the Human section's sector blocks. Needs its own spec.
 - [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
 - [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
 - [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
+- [ ] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
+- [ ] Clarifies the hog-page nav task above: this will be a "soft-launch nav" - I don't want to get rid of the old nav design. Keep the full mega-menu design for the full launch; the soft-launch nav is a temporary variant.
+- [ ] Hog page: reduce the spacing between the coverage-map section and the closing "Start With The Barns You Run Hardest." CTA (large empty band between them on desktop, see screenshot 2026-09-16).
+- [ ] Hog page: the "Start With The Barns You Run Hardest." CTA section should probably have a white background and some other sort of photo, graphic, or design to it.
+- [ ] Sector landing pages (Human, HVAC hubs): use videos like the ag page (pictures work too, but they all should match the agricultural design). Pull out as much of the similar content as possible: the ag page breaks down each of its three sub pages, do that within Human and HVAC too.
+- [ ] Sector sub pages (human and HVAC markets): match the design of the hog page as closely as possible, with consistency across every one of these internal pages (healthcare, schools, athletics; then residential, commercial, industrial).
+- [ ] Blogs / From The Field rows: always show three posts, even if the second and third are not closely related; fill with something more generic rather than showing fewer.
+- [ ] The "Other Human Health Markets" block should come last, after the pre-footer CTA, and should be a different design from the current card grid.
+- [ ] Really pull from any of the brochures we have (reference-files) for the copy and content of the Human and HVAC sections.
+- [ ] Find a different video for the hero of /human/healthcare/ - ideally someone cleaning medical equipment or a surgical room (replaces the current doctor-walking-a-hallway clip).
+- [ ] On /human/athletics/, make the hero headline "Athletes Fight For You. We Fight For Your Athletes" (currently "Your Athletes Fight For Wins. / We Fight For Your Athletes.").
+- [ ] Athletics case-study band: shorten the title (e.g. "The Case Of Ringworm At Tarleton State") and reduce the line height of the intro paragraph beneath it.
+- [ ] Athletics case-study band: the at-a-glance stats are not vertically centered and "Eliminated / Daily Mopping" doesn't look right; fix the stat tiles.
+- [ ] Athletics case-study band: pull in the actual video from the coach instead of three quotes; keep just one quote, the most impactful (screenshot 2026-09-16 3:57pm).
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
