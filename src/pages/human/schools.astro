@@ -1,0 +1,98 @@
+---
+// src/pages/human/schools.astro
+// Schools & childcare — standard tier plus deployment cards. Sources: existing
+// market copy; Genesis360 AthleticGuard.pdf (the Compact Wall Mount sheet,
+// which lists schools, daycare spaces, gyms and breakrooms among its rooms);
+// the Sales Pricing Guide (EnviroGuard is the daycare / early childcare
+// package); the school air-quality blog post.
+import { Bus, School } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { humanMarkets } from '../../data/human-markets';
+import { posts } from '../../data/blog-posts';
+import fogger from '../../assets/images/human-fogger.png';
+import compactFront from '../../assets/images/human-compact-front.png';
+
+const market = humanMarkets.find((m) => m.slug === 'schools')!;
+const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
+
+const deployments = [
+  {
+    // Source: Sales Pricing Guide, Market-Specific Application Packages —
+    // EnviroGuard, "Daycare / early childcare, athletics ... and other human
+    // spaces", Compact Base, 1 nozzle / digital timer.
+    device: 'EnviroGuard',
+    deviceCopy: 'The Compact Wall Mount configured for childcare and school spaces: a fixed, automated dry-mist system on a digital timer. Install brackets in several rooms and rotate one unit where it is needed.',
+    image: compactFront,
+    imageAlt: 'Genesis360 EnviroGuard compact wall mount unit',
+    facility: 'Classrooms, Gyms & Cafeterias',
+    facilityCopy: 'The rooms that turn over every period and hold the most children for the longest.',
+    icon: School,
+  },
+  {
+    device: 'Battery Powered Fogger',
+    deviceCopy: 'A portable, cordless fogger for spot treatment between uses: the nurse\'s office after a sick visit, a bus at the end of a route, shared PE equipment.',
+    image: fogger,
+    imageAlt: 'Genesis360 Battery Powered Fogger',
+    facility: 'Buses & Between-Use Spaces',
+    facilityCopy: 'Transport and the small rooms that see a different child every hour.',
+    icon: Bus,
+  },
+];
+---
+
+<BaseLayout title="Genesis360 | Human | Schools" description={market.summary}>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <SectorHero
+        eyebrow="Schools & Childcare"
+        headline={['Complete Coverage.', 'Healthy Classrooms.']}
+        support="Automated, whole-room air and surface treatment that runs when the room is empty."
+        poster={market.hero.poster}
+        video={market.hero.video}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
+
+      <!-- Sources: existing market copy; Genesis360 AthleticGuard.pdf ("scheduled
+           room treatment after hours, between uses, overnight"; "dry to the
+           touch"); why-air-quality-in-schools-matters-more-than-you-think post. -->
+      <ArgumentBand
+        eyebrow="The Reality In Every Classroom"
+        heading="Every Sick Day Is A Day Of Learning Lost."
+        paragraphs={[
+          market.heroCopy,
+          'Wipe-downs reach desks and door handles. They do not reach the air a class of thirty breathes for an hour, or the underside of a table, or a cafeteria between lunch periods. Genesis360 fills the room with a sub-10-micron dry mist that treats the air and every surface at once, after hours or between uses, and is dry to the touch when the next class walks in.',
+        ]}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <DeploymentCards
+        heading="One Platform. Two Ways To Deploy It."
+        intro="Fixed in the rooms children spend the day in, portable for everything in between."
+        cards={deployments}
+      />
+
+      <PostsRow posts={relatedPosts} heading="From The Field" />
+
+      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
+
+      <SectorCta
+        eyebrow="Your School. Your Coverage Plan."
+        heading="Start With The Rooms That Never Sit Empty."
+        copy="Tell us how the building runs, from the first bell to the last bus, and our team will map the right EnviroGuard and portable deployment and build a coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
