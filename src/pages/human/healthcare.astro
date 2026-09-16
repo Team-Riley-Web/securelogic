@@ -1,0 +1,105 @@
+---
+// src/pages/human/healthcare.astro
+// Healthcare — standard tier plus deployment cards. Sources: existing market
+// copy; Laboratory Validation and Field Performance ... Tarleton State.pdf
+// (pathogen classes, "human inconsistency in cleaning practices", ≥5-log /
+// ≥6-log reductions); the Sales Pricing Guide (MediGuard Pro = Compact Pro, 2
+// nozzles + PLC Smart Board/App; Rolling Stand "especially valuable in medical
+// settings"); Genesis360 AthleticGuard.pdf for the Compact description.
+import { Stethoscope, BedDouble } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { humanMarkets } from '../../data/human-markets';
+import { posts } from '../../data/blog-posts';
+import rollingStand from '../../assets/images/human-rolling-stand.png';
+import fogger from '../../assets/images/human-fogger.png';
+
+const market = humanMarkets.find((m) => m.slug === 'healthcare')!;
+const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
+
+const deployments = [
+  {
+    // Source: Sales Pricing Guide — MediGuard Pro: Compact Pro, 2 nozzles /
+    // PLC/App, "Healthcare, urgent care, dialysis, aging care, outpatient,
+    // family practice, dental / orthodontics"; Rolling Stand upgrade.
+    device: 'MediGuard Pro',
+    deviceCopy: 'The Compact Pro configured for clinical spaces: two nozzles and PLC Smart Board/App control, so cycles are scheduled and monitored from a phone. Put it on the Rolling Stand to move room to room without carrying it.',
+    image: rollingStand,
+    imageAlt: 'Genesis360 MediGuard Pro unit on its rolling stand',
+    facility: 'Patient Rooms, Clinics & Dialysis',
+    facilityCopy: 'Exam rooms, treatment bays, waiting areas, and aging-care common rooms, on a schedule that does not depend on who is on shift.',
+    icon: BedDouble,
+  },
+  // Source: Sales Pricing Guide (Genesis360 Pricing Model - External.docx) — Battery Powered Fogger,
+  // "Portable spot-treatment device", sold standalone or as a system add-on. The clinical use cases
+  // (exam room turnover, dental operatory, transport equipment) are illustrative applications.
+  {
+    device: 'Battery Powered Fogger',
+    deviceCopy: 'A portable, cordless fogger for spot treatment between patients: an exam room after a sick visit, a dental operatory between appointments, transport equipment.',
+    image: fogger,
+    imageAlt: 'Genesis360 Battery Powered Fogger',
+    facility: 'Between-Patient Turnover',
+    facilityCopy: 'The minutes between one patient leaving and the next one sitting down.',
+    icon: Stethoscope,
+  },
+];
+---
+
+<BaseLayout title="Genesis360 | Human | Healthcare" description={market.summary}>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <SectorHero
+        eyebrow="Healthcare"
+        headline={['Complete Coverage.', 'Consistent Infection Control.']}
+        support="Automated, programmable whole-room cycles built for clinical environments."
+        poster={market.hero.poster}
+        video={market.hero.video}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
+
+      <!-- Sources: existing market copy; Laboratory Validation and Field
+           Performance of the Genesis360 @ Tarleton State.pdf — pathogen list
+           (Staphylococcus aureus, MRSA, Pseudomonas aeruginosa, influenza,
+           non-enveloped viruses, Clostridioides difficile spores) and the four
+           failure modes of manual cleaning. -->
+      <ArgumentBand
+        eyebrow="The Reality In Every Clinic"
+        heading="Infection Control Is Only As Consistent As The Last Person Who Cleaned The Room."
+        paragraphs={[
+          market.heroCopy,
+          'Manual wiping and spraying leave the same gaps everywhere: the air itself, irregular and hard-to-reach surfaces, recontamination between cleanings, and the ordinary inconsistency of people doing a repetitive job. The organisms that matter here, MRSA and other staph, Pseudomonas, influenza and non-enveloped viruses, C. diff spores, live in exactly those gaps.',
+          'Genesis360 fills the room with a sub-10-micron dry mist of BotaniMax, an EPA-registered botanical disinfectant, treating the air column and every surface in the same cycle. Independent laboratory testing of the platform has shown bacterial reductions of five log or better and viral reductions of six log or better.',
+        ]}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <DeploymentCards
+        heading="One Platform. Two Ways To Deploy It."
+        intro="Scheduled and monitored where patients stay, portable for the turnover in between."
+        cards={deployments}
+      />
+
+      <PostsRow posts={relatedPosts} heading="From The Field" />
+
+      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
+
+      <SectorCta
+        eyebrow="Your Facility. Your Coverage Plan."
+        heading="Start With The Rooms That Turn Over Fastest."
+        copy="Tell us how the facility runs, from exam rooms to dialysis chairs, and our team will map the right MediGuard Pro and portable deployment and build a coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
