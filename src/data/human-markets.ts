@@ -5,9 +5,11 @@ import wrestling from '../assets/images/blog-wrestling.png';
 import portableMist from '../assets/images/portable-mist.png';
 import medicalMist from '../assets/images/medical-mist.png';
 import gymScene from '../assets/images/human-d1-gym.png';
-import classroomScene from '../assets/images/human-classroom.png';
 import policeScene from '../assets/images/human-police-station.png';
-import compactIso from '../assets/images/human-compact-iso.png';
+import classroomVideo from '../assets/videos/classroom.mp4';
+import classroomPoster from '../assets/images/hero-classroom-poster.jpg';
+import clinicVideo from '../assets/videos/clinic.mp4';
+import clinicPoster from '../assets/images/hero-clinic-poster.jpg';
 
 /** Sales Pricing Guide application package that covers a market, or null. */
 export type HumanPackage = 'EnviroGuard' | 'MediGuard Pro' | null;
@@ -47,7 +49,7 @@ export const humanMarkets: Market[] = [
     stat: 'Shared desks, shared air, and a room that turns over every period. Illness moves through a school faster than any wipe-down schedule can follow, and every sick day is a day of learning lost.',
     // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
-    hero: { poster: classroomScene },
+    hero: { poster: classroomPoster, video: classroomVideo },
   },
   {
     slug: 'athletics',
@@ -93,6 +95,6 @@ export const humanMarkets: Market[] = [
     stat: 'Infection control in a clinic is only as consistent as the last person who cleaned the room. Automated whole-room cycles take the variability, and the labor, out of it.',
     // Source: Genesis360 Pricing Model - External.docx — MediGuard Pro: healthcare, urgent care, dialysis, aging care, outpatient, family practice, dental / orthodontics.
     package: 'MediGuard Pro',
-    hero: { poster: compactIso },
+    hero: { poster: clinicPoster, video: clinicVideo },
   },
 ];
