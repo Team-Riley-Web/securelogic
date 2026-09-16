@@ -34,7 +34,7 @@ unchecked task unless you are starting it.
       to Header.astro and Footer.astro so the shared chrome renders identically
       minus the gated nav links; the full site is unaffected. Dropped only the
       blog teaser, whose every card linked to a gated post
-- [ ] DNS cutover. genesis360.com is the primary domain; securelogicusa.com is
+- [x] DNS cutover. genesis360.com is the primary domain; securelogicusa.com is
       expected to redirect to it at the registrar. The gate in public/_redirects
       covers apex + www for BOTH domains (104 rules, 26 per host) and arms
       itself at cutover with no redeploy. After DNS lands, verify it actually
@@ -48,6 +48,12 @@ unchecked task unless you are starting it.
       If /ag/ returns 200 instead of a 302, the host-scoped rules did not match.
       Check the exact canonical hostname Netlify assigned and make the left
       column of public/_redirects match it.
+      Done 2026-09-16: verified live. Netlify's canonical host is
+      www.genesis360.com (apex 301s to www). www.genesis360.com/ -> 200,
+      www.genesis360.com/ag/ -> 302 location: /, securelogicusa.com and
+      www.securelogicusa.com -> 301 https://genesis360.com/ (registrar
+      forwarding; it answers 405 to HEAD, so probe with GET). The host-scoped
+      gate fired with no changes needed.
 - [x] /ag/indoor-growing/ Module 1: reworded the hero body copy to the supplied
       text. Lives in src/data/ag-markets.ts (the page runs on the shared
       ag/[slug].astro template, not a custom page like the hog one). Verified it
@@ -94,11 +100,16 @@ unchecked task unless you are starting it.
       shadowing. The template now emits nothing and is kept for the next ag
       market added before it earns a bespoke page. human/[slug].astro and
       hvac/[slug].astro are separate files and still fully in use
-- [ ] /ag/ index card for Indoor Growing still uses blog-greenhouse.png
+- [x] /ag/ index card for Indoor Growing still uses blog-greenhouse.png
       (strawberries). Now inconsistent with the cannabis-led indoor-growing
       page. Note it is NOT driven by ag-markets.ts — /ag/index.astro has its own
       local `sectors` array with its own images. hero-cannabis-poster.jpg could
       be reused there
+      Done 2026-09-16: the Indoor Crops card in /ag/index.astro now uses
+      hero-cannabis-poster.jpg (1280x720, the same frame as the
+      /ag/indoor-growing/ hero) with a matching alt. Only the import and alt
+      changed; blog-greenhouse.png is still used by the blog post itself.
+      Page is behind the gate, so this is visible on netlify.app only for now.
 - [x] Secondary nav (Genesis360 / BotaniMax / Shop All): small drop shadow
       beneath it so it reads as a layer above the page when it peeks back in on
       an upward scroll. Sits on `.site-header-sub > div` in Header.astro — the
@@ -114,10 +125,17 @@ unchecked task unless you are starting it.
       'https://genesis360.com'` in astro.config.mjs — scrapers silently ignore a
       relative og:image, so the absolute URL has to come from Astro.site. Do not
       remove that config line or every share preview goes blank
-- [ ] social-share.png is 1000x600. Works (above the 600x315 threshold for a
+- [x] social-share.png is 1000x600. Works (above the 600x315 threshold for a
       large card) but under the recommended 1200x630, so it upscales slightly on
       high-DPI and the 1.67:1 ratio can get cropped to 1.91:1 by some platforms.
       Re-export at 1200x630 when convenient
+      Done 2026-09-16: the file on disk was actually 1375x825 (same 1.67:1
+      ratio). Cropped it centred to 1375x720 (1.91:1) and resized to 1200x630
+      with sips; only gradient background was lost top and bottom, the
+      wordmark is untouched. BaseLayout reads width/height from the asset, so
+      og:image:width/height now emit 1200x630 with no code change. Previous
+      version is in git history if a re-export from the design source is
+      preferred.
 - [x] Confirm og:site_name should stay "Secure Logic" now that genesis360.com is
       the primary domain — set in BaseLayout.astro. Change if the share cards
       should read Genesis360 instead
@@ -703,6 +721,121 @@ unchecked task unless you are starting it.
       Build passes (43 pages). npm run check has 8 pre-existing errors in
       index.astro/home-full.astro from an unclosed {/* */} comment inside a div
       attribute list - identical to HEAD, unrelated to this change.
+- [x] Launch the hog page: make only the home page and the hog page available. All other pages, including the Ag page, should not be available at this time (same approach as the previous soft launch).
+      Done 2026-09-16: /ag/hogs-livestock/ is the one interior page opened
+      behind the existing gate; everything else (incl. /ag/) still 302s to /.
+      * public/_redirects: a `200!` rewrite-to-itself block for
+        /ag/hogs-livestock (bare + splat, all 4 hosts) placed ABOVE the `# ag`
+        splat, since Netlify takes the first matching rule. Mechanics verified
+        on a throwaway draft deploy: hog page 200, /ag/poultry/ + /ag/ 302 -> /.
+      * New src/data/launch-gate.ts (SOFT_LAUNCH, CONTACT_EMAIL, CONTACT_HREF,
+        CTA_LABEL). index.astro now imports the email + label from it.
+      * Hog page renders Header/Footer `minimal` while SOFT_LAUNCH is true, the
+        hero CTA and closing AgCta point at /#contact, and the related-posts
+        row (all gated blog links) is hidden. Built HTML checked: the only
+        internal links are /, /#contact, #deployments, tel:, mailto:.
+      * Header, Footer, AgCta grew a `contactHref`/`href` prop so the minimal
+        chrome can point at the landing page's #contact from another page.
+      * Landing page: the Agriculture card in "Explore By Application" now
+        links to /ag/hogs-livestock/ ("Explore Hogs & Livestock"); Human and
+        HVAC cards still go to #contact. That is the only way in from the
+        landing page; the minimal header deliberately has no nav.
+      * Observed: DNS cutover has landed. www.genesis360.com is served by
+        Netlify and the gate is firing (/ag/ -> 302 /). Apex 301s to www.
+      NOT pushed. Goes live on the next push to master (Netlify builds from
+      the repo). After deploy, verify:
+        curl -sI https://www.genesis360.com/ag/hogs-livestock/ | head -1  -> 200
+        curl -sI https://www.genesis360.com/ag/ | grep -i location        -> /
+- [x] Make "One platform, three ways to deploy it" and anywhere else on the website that describes how Genesis360 is delivered/deployed accurate to the new source of truth: brochures/Genesis360 Pricing Model - External.
+      Done 2026-09-16: source read from src/assets/brochures/Genesis360 Pricing
+      Model - External.docx (the Sales Pricing Guide). Its packaging: core
+      platforms Compact Wall Mount, AeroGuard, Battery Powered Fogger; market
+      packages EnviroGuard / MediGuard Pro / AgriGuard Mini Pro / GrowGuard
+      Pro / AeroGuard; AgriGuard large-barn custom builds (8/16/24 nozzles).
+      * Hog page "One Platform. Three Ways To Deploy It." cards renamed and
+        re-described to the guide: Handheld -> Battery Powered Fogger;
+        Mini -> AgriGuard Mini Pro (Compact Wall Mount Pro: 2 nozzles + PLC
+        Smart Board/App, small rooms in livestock zones); Custom -> AgriGuard
+        (custom-built, 8/16/24 app-controlled nozzles, up to ~45,000 sq. ft.,
+        after an on-site evaluation). Intro sentence and image alts updated.
+        Heading kept. This re-words the M3 copy from the earlier deck pass.
+        No prices on the page — the guide is marked not for customer
+        distribution.
+      * AgCta closing copy on the hog page and /ag/: "handheld, fixed, or
+        custom deployment" -> "portable, fixed, or custom AgriGuard deployment".
+      * Fixed the product-name misspellings AGriGuard / AgGriGuard -> AgriGuard
+        in two blog bodies (incl. the Newfields press release) and the
+        hogs-livestock heroCopy in ag-markets.ts.
+      * Checked and left alone as already consistent: landing + home-full
+        "two core platforms" cards (Compact Wall Mount, AeroGuard) and the
+        lineup note (portable foggers, mobile stands, large-barn builds).
+      * Not changed, flag for Marty: "BAC Ag" is still named as the livestock
+        liquid in a homepage testimonial quote, ag-markets.ts, and two blog
+        bodies. The guide calls the livestock liquid BioSecure AP. The quote is
+        a customer's words, so I did not rewrite it.
+      * Also noticed: the unused `systems` list in src/pages/[...slug].astro
+        still carries old names (InRoom / Compact / Mobile / Medical Dry Fog,
+        "Kinetic Systems"). It never renders, so left as-is.
+- [x] Project reference files live at /Users/joshuariley/Sites/securelogic-files (not in GitHub). Optionally move them into this repo for ease and gitignore them.
+      Done 2026-09-16: moved the whole folder (~180MB: images, logos, webcopy
+      decks, OneDrive dump, "Joshua Riley") to ./reference-files/ and added
+      `reference-files/` to .gitignore. The two source-comment paths in
+      ag/index.astro and ag/hogs-livestock.astro updated to the new location.
+      ALSO gitignored `src/assets/brochures/*.docx`: the pricing guide is
+      stamped "CONFIDENTIAL — NOT FOR CUSTOMER DISTRIBUTION" and this GitHub
+      repo (Team-Riley-Web/securelogic) is PUBLIC. The file stays where you
+      put it on disk, it just will not be committed. Delete that .gitignore
+      line if you do want it in the repo; the three brochure PDFs are
+      unaffected and still tracked.
+- [x] Soft launch: if someone goes to Ag (e.g. adjusts the URL to /ag/), send them to the hog page instead of the landing page. Make note of this so we don't keep it when we undo the gate for the full launch.
+      Done 2026-09-16: the `# ag` block in public/_redirects now 302s /ag,
+      /ag/ and every /ag/* page (poultry, indoor-growing, ...) to
+      /ag/hogs-livestock/ on all four live hosts. Verified on a draft deploy:
+      /ag -> 302 -> hog page 200; /ag/poultry/ -> 302 -> hog page.
+      UNDO NOTE, recorded in three places so it cannot be missed: the comment
+      on the `# ag` block itself, the OPEN PAGES header in _redirects, and
+      src/data/launch-gate.ts. Full launch deletes public/_redirects outright
+      (that has always been the plan), which removes this rule with it. If the
+      gate ever outlives the hog launch, point the `# ag` block back at /.
+      Not pushed; ships with the rest of today's soft-launch changes.
+- [ ] Build out the entire site. It should match the quality of the ag and hogs page.
+      Blocked 2026-09-16 (awaiting Joshua's answers, design not yet approved).
+      Scoped as architectural: ~25 non-blog pages + the blog templates.
+      Inventory: the ag section (4 pages) is the new standard; everything else
+      is older — 15 pages share one 755-line catch-all template
+      (src/pages/[...slug].astro: about, technology, botanimax, dry fog
+      systems, resources x4, faqs, contact, quote, privacy, and the human +
+      hvac hubs), human/[slug] and hvac/[slug] are 80-line hero + copy +
+      related-posts templates over 7 markets, blogs are a 93-line template.
+      Copy source gap: the only page-copy decks are the hog and ag ones. The
+      master deck (reference-files/webcopy/SL_master-site-page-copy_08-19-26
+      .docx) is 258 words: a nav (Home / Ag-greenhouse / HVAC / Human health /
+      Resources / Shopping Cart, sub-pages Barn, Greenhouse, Athletic,
+      Hospital, Commercial, Residential) plus a homepage mission block. That
+      IA differs from the live site (human: schools/athletics/military/
+      healthcare; hvac: residential/commercial/industrial; about, technology,
+      botanimax...). Brochures/PDFs in reference-files/OneDrive_1_8-13-2026
+      (Athletic e-brochure, AthleticGuard, HVAC, Technology Explainer,
+      Tarleton case study, BotaniMax docs) can feed copy.
+      Needs decided before design: (1) which IA governs, (2) whether Claude
+      drafts copy from brochures + current pages or waits for decks,
+      (3) build order, (4) whether "Shopping Cart" is in scope.
+      Update 2026-09-16 (later): Joshua decided all four — current IA and
+      mega-menu design stay (the deck's 5-item nav is a soft-launch nav
+      only); Claude drafts copy from brochures + existing pages; order is
+      Human, HVAC, product/about/technology, resources/utility, blog; shop is
+      out of scope. Approach approved: shared sector blocks composed per
+      page; Military kept as a lean standard page; athletics ROI qualitative
+      only, no dollar figures. Design spec written:
+      docs/superpowers/specs/2026-09-16-human-section-design.md (awaiting
+      Joshua's read-through before the implementation plan is written).
+      This umbrella entry is superseded by the five sub-project entries
+      appended below; it stays unchecked until all five are done.
+- [ ] Build-out 1/5 — Human section to ag/hog quality: /human/ hub + athletics (flagship), healthcare, schools, military. Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
+- [ ] Build-out 2/5 — HVAC section to ag/hog quality: /hvac/ hub + residential, commercial, industrial, reusing the Human section's sector blocks. Needs its own spec.
+- [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
+- [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
+- [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

@@ -38,8 +38,19 @@
 #   * /privacy-policy is intentionally absent -- legal page, no product
 #     messaging, and the Facebook and Instagram profiles link to it.
 #
-# UNTESTABLE UNTIL A DOMAIN IS LIVE. Host-scoped rules cannot fire locally or on
-# netlify.app. Verify with the curl commands in TASKS.md after DNS cutover.
+# UNTESTABLE LOCALLY. Host-scoped rules cannot fire locally or on netlify.app.
+# Verify with curl against www.genesis360.com after each deploy (see TASKS.md).
+#
+# OPEN PAGES (exceptions to the gate)
+#   Netlify takes the FIRST matching rule, so a page is opened by putting a
+#   more specific 200! rewrite-to-itself ABOVE the section splat that would
+#   otherwise catch it. The ! is needed because without it Netlify would treat
+#   the rule as shadowed by the real file and fall through to the 302 below.
+#   Open pages must also render the minimal header/footer, or their nav links
+#   lead straight back into the gate -- see src/data/launch-gate.ts.
+#
+#   2026-09-16  /ag/hogs-livestock/  opened for the hog page launch.
+#   2026-09-16  /ag and /ag/* forward to the hog page instead of / (see # ag).
 
 # home-page
 https://genesis360.com/home-page                           /  302!
@@ -81,15 +92,29 @@ https://securelogicusa.com/hvac/*                          /  302!
 https://www.securelogicusa.com/hvac                        /  302!
 https://www.securelogicusa.com/hvac/*                      /  302!
 
-# ag
-https://genesis360.com/ag                                  /  302!
-https://genesis360.com/ag/*                                /  302!
-https://www.genesis360.com/ag                              /  302!
-https://www.genesis360.com/ag/*                            /  302!
-https://securelogicusa.com/ag                              /  302!
-https://securelogicusa.com/ag/*                            /  302!
-https://www.securelogicusa.com/ag                          /  302!
-https://www.securelogicusa.com/ag/*                        /  302!
+# ag/hogs-livestock -- OPEN. Must stay above the # ag block.
+https://genesis360.com/ag/hogs-livestock                   /ag/hogs-livestock/index.html  200!
+https://genesis360.com/ag/hogs-livestock/*                 /ag/hogs-livestock/index.html  200!
+https://www.genesis360.com/ag/hogs-livestock               /ag/hogs-livestock/index.html  200!
+https://www.genesis360.com/ag/hogs-livestock/*             /ag/hogs-livestock/index.html  200!
+https://securelogicusa.com/ag/hogs-livestock               /ag/hogs-livestock/index.html  200!
+https://securelogicusa.com/ag/hogs-livestock/*             /ag/hogs-livestock/index.html  200!
+https://www.securelogicusa.com/ag/hogs-livestock           /ag/hogs-livestock/index.html  200!
+https://www.securelogicusa.com/ag/hogs-livestock/*         /ag/hogs-livestock/index.html  200!
+
+# ag -- SOFT LAUNCH ONLY: the ag section forwards to the OPEN hog page, not to
+# /. Joshua 2026-09-16: "if someone were to go to Ag it would just send them
+# right back to the hog page". UNDO AT FULL LAUNCH: this whole file goes away
+# then anyway, but if the gate ever outlives the hog launch, point these back
+# at / like every other block.
+https://genesis360.com/ag                                  /ag/hogs-livestock/  302!
+https://genesis360.com/ag/*                                /ag/hogs-livestock/  302!
+https://www.genesis360.com/ag                              /ag/hogs-livestock/  302!
+https://www.genesis360.com/ag/*                            /ag/hogs-livestock/  302!
+https://securelogicusa.com/ag                              /ag/hogs-livestock/  302!
+https://securelogicusa.com/ag/*                            /ag/hogs-livestock/  302!
+https://www.securelogicusa.com/ag                          /ag/hogs-livestock/  302!
+https://www.securelogicusa.com/ag/*                        /ag/hogs-livestock/  302!
 
 # blogs
 https://genesis360.com/blogs                               /  302!

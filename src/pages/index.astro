@@ -29,15 +29,11 @@ import CertMark from '../components/CertMark.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 
-// Enquiries route to the general info@ inbox on the Genesis360 domain, matching
-// the rest of the site. (This page previously pointed at Marty directly to get
-// people confused by the old messaging straight to a decision-maker.)
-const CONTACT_EMAIL = 'info@genesis360.com';
+// Contact address and CTA label are shared with the other pages that are open
+// during the soft launch (see src/data/launch-gate.ts).
+import { CONTACT_EMAIL, CTA_LABEL } from '../data/launch-gate';
 const CONTACT_PHONE = '1-888-997-4310';
 const CONTACT_PHONE_HREF = 'tel:+18889974310';
-
-// Every CTA that used to link into an interior page now says this.
-const CTA_LABEL = 'Contact Us To Learn More';
 import logo from '../assets/images/logo.png';
 import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
 import contactMark from '../assets/images/Genesis360-icon.png';
@@ -69,10 +65,13 @@ import fitnessAthletics from '../assets/images/fitness-athletics-lineup.jpg';
 // "Environments" leads because it is the company catch-phrase.
 const HERO_WORDS = ['Environments', 'Barns', 'Grow Rooms', 'Gyms', 'Farms'];
 
-const categories = [
+// `href` is where the card goes on the full site. `live` is where it goes
+// during the soft launch: the one interior page that is open behind the gate
+// (see public/_redirects). Cards without `live` fall back to #contact.
+const categories: { title: string; href: string; image: ImageMetadata; video: string; copy: string; live?: { href: string; label: string } }[] = [
   { title: 'Human', href: '/human/', image: medical, video: applicationHumanVideo, copy: 'Protect the shared spaces where people learn, train, recover, and gather.' },
   { title: 'HVAC', href: '/hvac/', image: biofilmHvac, video: applicationHvacVideo, copy: 'Treat the hidden coils, ducts, and air pathways that shape indoor air quality.' },
-  { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.' },
+  { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.', live: { href: '/ag/hogs-livestock/', label: 'Explore Hogs & Livestock' } },
 ];
 
 const trustStats: { label: string; copy: string; icon: 'droplet' | 'coverage' | 'cycle' | 'shield' }[] = [
@@ -737,8 +736,8 @@ const switchReasons = [
         <h2 class="mt-4 text-3xl sm:text-4xl">Explore By Application</h2>
       </div>
       <div class="reveal relative mx-auto mt-12 grid max-w-7xl gap-5 lg:grid-cols-3 xl:gap-6" x-intersect.once="$el.classList.add('is-visible')">
-        {categories.map(({ title, href, image, video, copy }) => (
-          <a href="#contact" class="group relative min-h-[30rem] overflow-hidden rounded-2xl bg-slate-900 text-left shadow-deep">
+        {categories.map(({ title, image, video, copy, live }) => (
+          <a href={live?.href ?? '#contact'} class="group relative min-h-[30rem] overflow-hidden rounded-2xl bg-slate-900 text-left shadow-deep">
             <video
               src={video}
               poster={image.src}
@@ -757,7 +756,7 @@ const switchReasons = [
               <h3 class="text-3xl text-white">{title}</h3>
               <p class="mt-3 max-w-[34ch] text-base leading-[1.45] text-white/75">{copy}</p>
               <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.1em] text-white">
-                {CTA_LABEL} <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
+                {live?.label ?? CTA_LABEL} <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" />
               </span>
             </div>
           </a>

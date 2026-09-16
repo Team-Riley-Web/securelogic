@@ -1,6 +1,6 @@
 ---
 // Hogs & Livestock — built from the client copy deck
-// (securelogic-files/webcopy/SL_hog-web-copy_08-13-26.docx). The deck's four
+// (reference-files/webcopy/SL_hog-web-copy_08-13-26.docx). The deck's four
 // modules map 1:1 to the sections below, and its two design notes are honoured:
 // Module 2 uses the requested card-flip (facility on the front, Genesis360 on
 // the back) and Module 4's actions are iconographic buttons.
@@ -8,6 +8,12 @@
 // This static route deliberately shadows /ag/[slug].astro for this one market,
 // so the other two ag markets keep the shared template. ag-markets.ts still
 // lists it, which is what feeds the mega-menu and the cross-links.
+//
+// SOFT LAUNCH: this is the one interior page open behind the gate in
+// public/_redirects. While SOFT_LAUNCH is true the header and footer render in
+// `minimal` mode, every CTA points at the landing page's contact block, and the
+// related-posts row (all gated blog links) is left out. Flip SOFT_LAUNCH in
+// src/data/launch-gate.ts to get the full chrome back.
 import { ArrowLeft, ArrowRight, BrickWall, Check, Cloud, Columns3, Fence, Footprints, Phone, ShoppingCart, Truck, Warehouse, Wrench, X } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import AgCta from '../../components/AgCta.astro';
@@ -16,6 +22,7 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { agMarkets } from '../../data/ag-markets';
+import { CONTACT_EMAIL, CONTACT_HREF, CTA_LABEL, SOFT_LAUNCH } from '../../data/launch-gate';
 import { posts } from '../../data/blog-posts';
 import swineVideo from '../../assets/videos/swine.mp4';
 import swinePoster from '../../assets/images/hero-swine-poster.jpg';
@@ -39,33 +46,46 @@ const relatedPosts = posts
 
 // Module 2 — three device sizes. Front of each card is the facility it serves,
 // back is the Genesis360 unit that covers it.
+//
+// Product names and configurations follow the Genesis360 Sales Pricing Guide
+// (src/assets/brochures/Genesis360 Pricing Model - External.docx, 2026-09-16),
+// the source of truth for how the platform is packaged:
+//   * Battery Powered Fogger — portable spot treatment, standalone or as a
+//     system add-on.
+//   * AgriGuard Mini Pro — the swine & poultry application package: Compact
+//     Wall Mount in the Pro configuration (2 nozzles + PLC Smart Board/App),
+//     for small rooms in livestock zones.
+//   * AgriGuard — large-barn custom build, 8/16/24 PLC/App nozzles, roughly
+//     15,000–45,000 sq. ft., priced only after a site evaluation.
+// Prices are deliberately not on the page; the guide is not for customer
+// distribution.
 const deployments = [
   {
     facility: 'Transport & Equipment',
     facilityCopy: 'Trailers, load-out chutes, boot rooms, and the shared equipment that moves between sites.',
     icon: Truck,
-    device: 'Handheld',
-    deviceCopy: 'Grab-and-go fogging for targeted spots and anything arriving on the farm.',
+    device: 'Battery Powered Fogger',
+    deviceCopy: 'A portable, cordless fogger for targeted spot treatment. Sold on its own or added on to a fixed Genesis360 system.',
     image: handheldUnit,
-    imageAlt: 'Genesis360 handheld fogging unit',
+    imageAlt: 'Genesis360 Battery Powered Fogger',
   },
   {
     facility: 'Farrowing & Nursery',
     facilityCopy: 'Smaller rooms where the youngest, most vulnerable pigs are housed at high density.',
     icon: Warehouse,
-    device: 'Mini',
-    deviceCopy: 'A fixed, programmable unit sized for single rooms and running cycles on its own schedule.',
+    device: 'AgriGuard Mini Pro',
+    deviceCopy: 'A fixed Compact Wall Mount in the Pro configuration: two nozzles with PLC Smart Board/App control, sized for the small rooms in livestock zones.',
     image: miniUnit,
-    imageAlt: 'Genesis360 Mini automated dry fog unit',
+    imageAlt: 'Genesis360 AgriGuard Mini Pro compact wall mount unit',
   },
   {
     facility: 'Grow-Finish Barns',
     facilityCopy: 'Full-length barns and multi-room sites where coverage has to reach every pen.',
     icon: Warehouse,
-    device: 'Custom',
-    deviceCopy: 'Engineered distribution built to the barn, tied into your existing layout and airflow.',
+    device: 'AgriGuard',
+    deviceCopy: 'A large-barn system custom-built to the barn: 8, 16, or 24 app-controlled nozzles covering up to roughly 45,000 sq. ft., designed after an on-site evaluation.',
     image: customUnit,
-    imageAlt: 'Genesis360 custom AgGriGuard distribution unit',
+    imageAlt: 'Genesis360 AgriGuard large-barn distribution unit',
   },
 ];
 
@@ -390,7 +410,7 @@ const withGenesis = [
   </style>
 
   <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
-    <Header />
+    <Header minimal={SOFT_LAUNCH} contactEmail={CONTACT_EMAIL} contactHref={CONTACT_HREF} />
 
     <main>
       <!-- MODULE 1 — hero. Shaped like the homepage hero: centred, one line of
@@ -419,7 +439,7 @@ const withGenesis = [
             <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
               Proactive pathogen control at every point in every pig's life cycle.
             </p>
-            <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
+            <a href={SOFT_LAUNCH ? CONTACT_HREF : '/get-a-quote/'} class="bl-pill mt-8">{SOFT_LAUNCH ? CTA_LABEL : 'Get A Quote'}</a>
           </div>
         </div>
       </section>
@@ -492,7 +512,7 @@ const withGenesis = [
             <h2 class="bl-h2">One Platform. Three Ways To Deploy It.</h2>
             <p class="mt-5 text-base leading-7 text-brand-body">
               Every point in a pig’s life cycle means a different environment and footprint. Genesis360 scales to each
-              one, from a unit you can carry to a system custom-engineered for every barn.
+              one, from a battery-powered fogger you can carry to an AgriGuard system custom-built for the barn.
             </p>
           </div>
 
@@ -686,16 +706,17 @@ const withGenesis = [
         </div>
       </section>
 
-      <AgPostsRow posts={relatedPosts} />
+      {!SOFT_LAUNCH && <AgPostsRow posts={relatedPosts} />}
 
       <AgCta
         eyebrow="Your Barns. Your Coverage Plan."
         heading="Start With The Barns You Run Hardest."
-        copy="Tell us how the site runs — farrowing, nursery, grow-finish, or all three — and our team will map the right handheld, fixed, or custom deployment and build a coverage plan around it."
+        copy="Tell us how the site runs — farrowing, nursery, grow-finish, or all three — and our team will map the right portable, fixed, or custom AgriGuard deployment and build a coverage plan around it."
+        href={SOFT_LAUNCH ? CONTACT_HREF : '/contact-us/'}
       />
 
     </main>
 
-    <Footer />
+    <Footer minimal={SOFT_LAUNCH} contactEmail={CONTACT_EMAIL} contactHref={CONTACT_HREF} />
   </div>
 </BaseLayout>

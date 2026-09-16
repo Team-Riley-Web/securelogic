@@ -27,3 +27,13 @@ Thumbs.db
 .dolt/
 *.db
 .gstack/
+
+# Client reference files (copy decks, logos, source images, OneDrive dump).
+# Moved in from ~/Sites/securelogic-files on 2026-09-16 for convenience; ~180MB
+# of assets that do not belong in the repo, which is PUBLIC on GitHub.
+reference-files/
+
+# Internal sales pricing guide. Marked CONFIDENTIAL / not for customer
+# distribution and the repo is public, so it is kept out of git. It is the
+# source of truth for how Genesis360 is packaged; see TASKS.md 2026-09-16.
+src/assets/brochures/*.docx

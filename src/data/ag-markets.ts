@@ -20,7 +20,7 @@ export const agMarkets: Market[] = [
     title: 'Hogs & Livestock',
     icon: Beef,
     summary: 'Seasonal disinfection strategy for farrowing houses and grow-finish barns, built around ROI and herd health.',
-    heroCopy: 'Seasonal shifts in temperature and humidity change how pathogens behave in farrowing houses and grow-finish barns. AgGriGuard Dry Fog and BAC Ag deliver a disinfection strategy built around herd health and measurable return on investment.',
+    heroCopy: 'Seasonal shifts in temperature and humidity change how pathogens behave in farrowing houses and grow-finish barns. AgriGuard Dry Fog and BAC Ag deliver a disinfection strategy built around herd health and measurable return on investment.',
     image: pigFarming,
     imageAlt: 'Indoor pig farming facility with controlled housing pens',
     postSlugs: ['summer-vs-fall-rethinking-seasonal-cleaning-strategies-in-indoor-pig-farming'],

@@ -20,9 +20,12 @@ interface Props {
   // Same reason Footer takes one: the landing page routes enquiries to Marty
   // directly rather than the general inbox.
   contactEmail?: string;
+  // Where the minimal header's Contact links point. The landing page owns the
+  // #contact block; other pages open during the soft launch pass '/#contact'.
+  contactHref?: string;
 }
 
-const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.props;
+const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref = '#contact' } = Astro.props;
 
 // Tap-to-call on the landing page, parked 2026-09-03 at Joshua's request —
 // "remove the phone icon from the home page for just right now". Flip to true to
@@ -176,7 +179,7 @@ const secondaryLinks = [
               + burger overflowed a 390px row (417px scrollWidth). Pill is
               desktop-only here; the burger is mobile-only via .sh-burger. */}
           <a
-            href={minimal ? '#contact' : '/get-a-quote/'}
+            href={minimal ? contactHref : '/get-a-quote/'}
             class:list={['bl-pill', minimal && 'hidden lg:inline-flex']}
           >{minimal ? 'Contact' : 'Get A Quote'}</a>
           {minimal && (
@@ -280,7 +283,7 @@ const secondaryLinks = [
           <div class="mx-auto max-w-7xl px-5 py-5 sm:px-6">
             {/* All three share .sh-mobile-phone so they read as one set. Contact
                 used to be a .bl-pill, which made it the odd one out. */}
-            <a href="#contact" class="sh-mobile-phone" x-on:click="mobileOpen = false">Contact</a>
+            <a href={contactHref} class="sh-mobile-phone" x-on:click="mobileOpen = false">Contact</a>
             <a href="tel:18889974310" class="sh-mobile-phone" x-on:click="mobileOpen = false">
               <Phone class="h-4 w-4 shrink-0" aria-hidden="true" />
               <span>1-888-997-4310</span>

@@ -17,9 +17,12 @@ interface Props {
   // The landing page routes enquiries to Marty directly rather than the
   // general inbox, so the address is a prop instead of a hardcoded string.
   contactEmail?: string;
+  // Where the minimal footer's Contact CTA points. The landing page owns the
+  // #contact block; other pages open during the soft launch pass '/#contact'.
+  contactHref?: string;
 }
 
-const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.props;
+const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref = '#contact' } = Astro.props;
 ---
 
 <footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
@@ -30,7 +33,7 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com' } = Astro.prop
     <div class:list={['col-span-2 md:col-span-1', minimal && 'text-center md:text-left']}>
       <h3 class="text-2xl text-white">Even Our Reports Are Clean.</h3>
       <p class:list={['mt-3 max-w-sm text-sm leading-6 text-white/75', minimal && 'mx-auto md:mx-0']}>Ask for a facility walkthrough and coverage plan. No spam, no pressure, just a straight answer on fit.</p>
-      <a href={minimal ? '#contact' : '/get-a-quote/'} class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">{minimal ? 'Contact Us' : 'Get A Quote'} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+      <a href={minimal ? contactHref : '/get-a-quote/'} class="mt-5 inline-flex items-center gap-2 border-b border-white/45 pb-1 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:border-white">{minimal ? 'Contact Us' : 'Get A Quote'} <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
     </div>
     {!minimal && (
       <>

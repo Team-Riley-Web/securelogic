@@ -1,6 +1,6 @@
 ---
 // Agriculture hub — built from the client copy deck
-// (securelogic-files/webcopy/SL_main-ag-page-copy_08-19-26.docx).
+// (reference-files/webcopy/SL_main-ag-page-copy_08-19-26.docx).
 //
 // Design notes from the deck, and where each landed:
 //  - "Use the 'blue box' design element from sweetwatertechnologies.com. Place
@@ -23,7 +23,9 @@ import { posts } from '../../data/blog-posts';
 import { agMarkets } from '../../data/ag-markets';
 import hogBarn from '../../assets/images/blog-pig-farming.png';
 import poultryBarn from '../../assets/images/blog-poultry-biosecurity.png';
-import greenhouse from '../../assets/images/blog-greenhouse.png';
+// Same frame as the /ag/indoor-growing/ hero, so the card matches the page it
+// opens (the old blog-greenhouse.png strawberries did not).
+import greenhouse from '../../assets/images/hero-cannabis-poster.jpg';
 import heroVideo from '../../assets/videos/farm.mp4';
 import heroPoster from '../../assets/images/hero-farm-poster.jpg';
 
@@ -54,7 +56,7 @@ const sectors = [
     href: '/ag/indoor-growing/',
     linkLabel: 'Explore greenhouse solutions',
     image: greenhouse,
-    imageAlt: 'Indoor greenhouse growing facility with rows of crops',
+    imageAlt: 'Indoor cannabis grow room with rows of plants under lights',
     stat: 'An estimated one in five U.S. cannabis crops grown in greenhouses is hit by flower-infecting pathogens like powdery mildew, turning a harvest into a write-off overnight.',
   },
 ];
@@ -432,7 +434,7 @@ const agPosts = posts.filter(
       <AgCta
         eyebrow="Your Operation. Your Coverage Plan."
         heading="Put Genesis360 To Work Across Your Operation."
-        copy="Tell us what you are protecting and how the operation runs. Our team will map the right handheld, fixed, or custom deployment and build a practical coverage plan around it."
+        copy="Tell us what you are protecting and how the operation runs. Our team will map the right portable, fixed, or custom AgriGuard deployment and build a practical coverage plan around it."
       />
 
     </main>
