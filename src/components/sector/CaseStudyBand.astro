@@ -30,9 +30,9 @@ const { eyebrow, heading, intro, glance, quotes, source } = Astro.props;
 
     <dl class="reveal mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-3 lg:grid-cols-6" x-intersect.once="$el.classList.add('is-visible')">
       {glance.map(({ label, value }) => (
-        <div class="bg-[rgb(16_32_74_/_0.85)] px-5 py-6 text-center">
+        <div class="flex flex-col-reverse gap-3 bg-[rgb(16_32_74_/_0.85)] px-5 py-6 text-center">
+          <dt class="text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/70">{label}</dt>
           <dd class="text-2xl font-extrabold leading-none text-lime-400 sm:text-3xl">{value}</dd>
-          <dt class="mt-3 text-[0.7rem] font-bold uppercase tracking-[0.12em] text-white/70">{label}</dt>
         </div>
       ))}
     </dl>
