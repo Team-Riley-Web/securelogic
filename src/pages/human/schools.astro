@@ -26,9 +26,11 @@ const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
 
 const deployments = [
   {
-    // Source: Sales Pricing Guide, Market-Specific Application Packages —
-    // EnviroGuard, "Daycare / early childcare, athletics ... and other human
-    // spaces", Compact Base, 1 nozzle / digital timer.
+    // Source: Sales Pricing Guide (Genesis360 Pricing Model - External.docx), Market-Specific
+    // Application Packages — EnviroGuard, "Daycare / early childcare, athletics ... and other human
+    // spaces", Compact Base, 1 nozzle / digital timer. Bracket rotation between rooms:
+    // reference-files/OneDrive_1_8-13-2026/Genesis360 AthleticGuard.pdf ("Wall-mount capable —
+    // install brackets in multiple rooms and rotate one unit where treatment is needed").
     device: 'EnviroGuard',
     deviceCopy: 'The Compact Wall Mount configured for childcare and school spaces: a fixed, automated dry-mist system on a digital timer. Install brackets in several rooms and rotate one unit where it is needed.',
     image: compactFront,
@@ -38,6 +40,9 @@ const deployments = [
     icon: School,
   },
   {
+    // Source: Sales Pricing Guide (Genesis360 Pricing Model - External.docx) — Battery Powered Fogger,
+    // "Portable spot-treatment device", sold standalone or as a system add-on. The school use cases
+    // (nurse's office, bus, PE equipment) are illustrative applications of that description.
     device: 'Battery Powered Fogger',
     deviceCopy: 'A portable, cordless fogger for spot treatment between uses: the nurse\'s office after a sick visit, a bus at the end of a route, shared PE equipment.',
     image: fogger,
