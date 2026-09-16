@@ -1,0 +1,187 @@
+---
+// src/pages/human/athletics.astro
+// Athletics — the Human section's flagship, the way the hog page is the ag
+// section's. Sources, each cited beside the copy it feeds:
+//   E   Genesis360 Athletic E-Brochure.pdf
+//   C   Athletics Competitive Comparison.pdf
+//   T   Tarleton University CaseStudy.pdf
+//   L   Laboratory Validation and Field Performance ... Tarleton State.pdf
+//   G   Genesis360 Pricing Model - External.docx (product names and configurations only; no prices)
+//   A   Genesis360 AthleticGuard.pdf (Compact Wall Mount sheet)
+// Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
+import { Dumbbell, Footprints, Truck } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
+import CaseStudyBand from '../../components/sector/CaseStudyBand.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { humanMarkets } from '../../data/human-markets';
+import { posts } from '../../data/blog-posts';
+import gymVideo from '../../assets/videos/gym.mp4';
+import gymScene from '../../assets/images/human-d1-gym.png';
+import fogger from '../../assets/images/human-fogger.png';
+import compactFront from '../../assets/images/human-compact-front.png';
+import compactIso from '../../assets/images/human-compact-iso.png';
+
+const market = humanMarkets.find((m) => m.slug === 'athletics')!;
+const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
+
+// Source G (package names, configurations), A (Compact behaviour).
+const deployments = [
+  // Source G: Battery Powered Fogger — "Portable spot-treatment device", standalone or system add-on.
+  {
+    device: 'Battery Powered Fogger',
+    deviceCopy: 'A portable, cordless fogger for spot treatment: benches, bags, travel gear, and the visiting locker room. Sold on its own or added on to a fixed system.',
+    image: fogger,
+    imageAlt: 'Genesis360 Battery Powered Fogger',
+    facility: 'Travel & Equipment',
+    facilityCopy: 'Team buses, equipment bags, and the gear that goes on the road and comes back.',
+    icon: Truck,
+  },
+  // Source G: EnviroGuard — Compact Base, 1 nozzle / digital timer, athletics package; Rolling Stand upgrade. Source A: bracket rotation between rooms.
+  {
+    device: 'EnviroGuard',
+    deviceCopy: 'The Compact Wall Mount configured for athletics: a fixed, automated dry-mist system on a digital timer. Mount it in the room, or put it on the Rolling Stand and move it between the mat room, the weight room, and the lockers.',
+    image: compactFront,
+    imageAlt: 'Genesis360 EnviroGuard compact wall mount unit',
+    facility: 'Mat Rooms & Locker Rooms',
+    facilityCopy: 'The rooms where skin meets mat and sweat meets fabric, treated nightly without a mop in sight.',
+    icon: Footprints,
+  },
+  // Source G: Compact Pro — Dual + Smart, 2 nozzles + PLC Smart Board/App.
+  {
+    device: 'Compact Pro',
+    deviceCopy: 'Two nozzles and PLC Smart Board/App control for the largest rooms: faster cycles, more output, scheduled and monitored from a phone.',
+    image: compactIso,
+    imageAlt: 'Genesis360 Compact Pro unit',
+    facility: 'Weight Rooms & Training Centers',
+    facilityCopy: 'Big, open rooms with a lot of equipment, where a single-nozzle unit would run long.',
+    icon: Dumbbell,
+  },
+];
+
+// Source T, "Before Secure Logic" / "After Secure Logic".
+const today = [
+  'Spray disinfectant on the mats before and after practice',
+  'Mop surfaces, often several times a day',
+  'Wait for the mats to dry before anyone can train',
+  'Still smell the room from the hallway, and still see infections',
+];
+const withGenesis = [
+  'One automated cycle every night, on a schedule, with nobody in the room',
+  'No daily mopping of the mats for sanitizing',
+  'Mats dry and ready for the first practice',
+  'Whole-room coverage: mats, walls, benches, weights, and the air itself',
+];
+
+// Source T, "At a glance".
+const glance = [
+  { label: 'Facility', value: '10,000 sq ft' },
+  { label: 'Athletes', value: '70+' },
+  { label: 'Ringworm this season', value: '1 case' },
+  { label: 'New staph / impetigo', value: '0' },
+  { label: 'Daily mopping', value: 'Eliminated' },
+  { label: 'Mat time lost to infection', value: 'None' },
+];
+
+// Source T, verbatim.
+const quotes = [
+  { text: `"We stopped daily mopping the mats for sanitizing and let the system do what it does. The difference is obvious the moment you walk in - our room doesn't smell like a wrestling room anymore."`, attribution: 'Tarleton State University Wrestling' },
+  { text: `"Because we're not dealing with infections, nobody has to sit out practice. That means everyone gets more mat time."`, attribution: 'Tarleton State University Wrestling' },
+  { text: `"The cherry on top when showing recruits the facility."`, attribution: 'Tarleton State University Wrestling' },
+];
+---
+
+<BaseLayout
+  title="Genesis360 | Human | Athletics"
+  description="Skin infections are the number one cause of lost time in wrestling. Genesis360 and BotaniMax bring automated, whole-room disinfection to mat rooms, weight rooms, and locker rooms."
+>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+
+    <main>
+      <!-- Source E: headline verbatim. -->
+      <SectorHero
+        eyebrow="Athletics"
+        headline={['Your Athletes Fight For Wins.', 'We Fight For Your Athletes.']}
+        support="Automated, whole-room disinfection for wrestling rooms, weight rooms, and locker rooms."
+        poster={gymScene}
+        video={gymVideo}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+        secondaryCta={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <!-- Source E ("High-traffic fitness spaces need high-performance
+           disinfection" and its paragraph), C (opening paragraph; "bacteria
+           can survive 72+ hours on sweat-soaked fabrics and rubber floors"). -->
+      <ArgumentBand
+        eyebrow="The Reality In Every Room"
+        heading="High-Traffic Spaces Need High-Performance Disinfection."
+        image={gymScene}
+        imageAlt="Genesis360 Compact unit mounted in a college weight room"
+        stat={{ value: '72+', caption: 'hours bacteria survive on sweat-soaked mats and rubber floors' }}
+        paragraphs={[
+          'Athletic performance training facilities, health and wellness clubs, fitness centers, and recovery and rehabilitation rooms, including weight rooms and locker rooms, are breeding grounds for bacteria, viruses, and fungi, as well as odors. Maintaining a disinfected, odor-free environment is crucial to protecting the health and well-being of your athletes, members, and staff.',
+          'Manual disinfection varies with human effort and leaves gaps. Genesis360 fills the room with an ultra-fine botanical mist that reaches every surface, crack, and crevice, including walls, mats, equipment, and the air, on a schedule, with the same result every cycle. No amount of hired staff can match its speed, precision, or consistency.',
+        ]}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <DeploymentCards
+        heading="One Platform. Three Ways To Deploy It."
+        intro="Every room in an athletic facility has a different footprint and a different problem. Genesis360 scales to each one, from a fogger you can carry to a two-nozzle system scheduled from your phone."
+        cards={deployments}
+      />
+
+      <!-- Source C ("Wrestling Infection Statistics", "Invisible Costs of Poor
+           Disinfection"). Qualitative only; the sheet's dollar figures are
+           deliberately left off the page. -->
+      <StatBand
+        eyebrow="The Cost Of Waiting"
+        heading="Skin Infections Are The #1 Cause Of Lost Time In Wrestling."
+        lede="Athlete downtime, sidelined coaches, missed competitions, and a reputation that follows the program into every recruiting visit."
+        figures={[
+          { value: '60–100%', label: 'Of wrestlers, every season', copy: 'The share of wrestlers who pick up at least one skin infection in a typical season, depending on facility hygiene.' },
+          { value: '72+ hrs', label: 'Bacterial survival on mats', copy: 'How long bacteria persist on sweat-soaked fabrics and rubber floors that are not properly sanitized.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="Keeping a wrestling room clean means:"
+          today={today}
+          withIntro="You have the ability to:"
+          with={withGenesis}
+        />
+      </StatBand>
+
+      <!-- Source T (all figures and quotes), L (lab reductions in the source line). -->
+      <CaseStudyBand
+        eyebrow="From The Field"
+        heading="One Season At Tarleton State. One Case Of Ringworm."
+        intro="A collegiate wrestling program with more than seventy athletes replaced daily mopping with a nightly Genesis360 cycle. This is what the season looked like."
+        glance={glance}
+        quotes={quotes}
+        source='Figures and quotations from the Secure Logic case study "Environmental Hygiene & Athlete Performance, Tarleton State University." Independent laboratory testing of the Genesis360 platform with BotaniMax has shown bacterial reductions of five log or better and viral reductions of six log or better.'
+      />
+
+      <PostsRow posts={relatedPosts} heading="From The Field" />
+
+      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
+
+      <SectorCta
+        eyebrow="Your Rooms. Your Coverage Plan."
+        heading="Start With The Room That Smells Like A Wrestling Room."
+        copy="Tell us how the facility runs, from the mat room to the lockers, and our team will map the right portable, fixed, or Compact Pro deployment and build a coverage plan around it."
+      />
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
