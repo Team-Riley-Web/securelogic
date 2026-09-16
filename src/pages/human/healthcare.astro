@@ -26,10 +26,10 @@ const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
 const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
 
 const deployments = [
+  // Source: Sales Pricing Guide — MediGuard Pro: Compact Pro, 2 nozzles /
+  // PLC/App, "Healthcare, urgent care, dialysis, aging care, outpatient,
+  // family practice, dental / orthodontics"; Rolling Stand upgrade.
   {
-    // Source: Sales Pricing Guide — MediGuard Pro: Compact Pro, 2 nozzles /
-    // PLC/App, "Healthcare, urgent care, dialysis, aging care, outpatient,
-    // family practice, dental / orthodontics"; Rolling Stand upgrade.
     device: 'MediGuard Pro',
     deviceCopy: 'The Compact Pro configured for clinical spaces: two nozzles and PLC Smart Board/App control, so cycles are scheduled and monitored from a phone. Put it on the Rolling Stand to move room to room without carrying it.',
     image: rollingStand,
@@ -68,7 +68,7 @@ const deployments = [
       />
 
       <!-- Sources: existing market copy; Laboratory Validation and Field
-           Performance of the Genesis360 @ Tarleton State.pdf — pathogen list
+           Performance ... Tarleton State.pdf — pathogen list
            (Staphylococcus aureus, MRSA, Pseudomonas aeruginosa, influenza,
            non-enveloped viruses, Clostridioides difficile spores) and the four
            failure modes of manual cleaning. -->
