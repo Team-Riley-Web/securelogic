@@ -4,8 +4,8 @@ import schoolAirQuality from '../assets/images/blog-school-air-quality.png';
 import wrestling from '../assets/images/blog-wrestling.png';
 import portableMist from '../assets/images/portable-mist.png';
 import medicalMist from '../assets/images/medical-mist.png';
-import gymScene from '../assets/images/human-d1-gym.png';
-import policeScene from '../assets/images/human-police-station.png';
+import gymPoster from '../assets/images/hero-gym-poster.jpg';
+import militaryPoster from '../assets/images/hero-military-poster.jpg';
 import classroomVideo from '../assets/videos/classroom.mp4';
 import classroomPoster from '../assets/images/hero-classroom-poster.jpg';
 import clinicVideo from '../assets/videos/clinic.mp4';
@@ -32,7 +32,7 @@ export interface Market {
   stat: string;
   package: HumanPackage;
   /** Hero media. `video` is a Vite asset URL string; absent = still hero. */
-  hero: { poster: ImageMetadata; video?: string };
+  hero: { poster: ImageMetadata; posterAlt: string; video?: string };
 }
 
 export const humanMarkets: Market[] = [
@@ -49,7 +49,7 @@ export const humanMarkets: Market[] = [
     stat: 'Shared desks, shared air, and a room that turns over every period. Illness moves through a school faster than any wipe-down schedule can follow, and every sick day is a day of learning lost.',
     // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
-    hero: { poster: classroomPoster, video: classroomVideo },
+    hero: { poster: classroomPoster, posterAlt: 'Empty school library aisle with tables and bookcases', video: classroomVideo },
   },
   {
     slug: 'athletics',
@@ -65,7 +65,7 @@ export const humanMarkets: Market[] = [
     stat: 'Between 60% and 100% of wrestlers pick up at least one skin infection in a typical season, and skin infections are the number one reported cause of lost time in the sport.',
     // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
-    hero: { poster: gymScene },
+    hero: { poster: gymPoster, posterAlt: 'Genesis360 Compact unit mounted on the wall of a college weight room' },
   },
   {
     slug: 'military',
@@ -80,7 +80,7 @@ export const humanMarkets: Market[] = [
     stat: 'Close quarters, shared equipment, and constant turnover make barracks and common rooms the fastest route an outbreak can take through a unit.',
     // Source: Genesis360 Pricing Model - External.docx lists no package for this market.
     package: null,
-    hero: { poster: policeScene },
+    hero: { poster: militaryPoster, posterAlt: 'Genesis360 Compact unit mounted in a police station briefing room' },
   },
   {
     slug: 'healthcare',
@@ -95,6 +95,6 @@ export const humanMarkets: Market[] = [
     stat: 'Infection control in a clinic is only as consistent as the last person who cleaned the room. Automated whole-room cycles take the variability, and the labor, out of it.',
     // Source: Genesis360 Pricing Model - External.docx — MediGuard Pro: healthcare, urgent care, dialysis, aging care, outpatient, family practice, dental / orthodontics.
     package: 'MediGuard Pro',
-    hero: { poster: clinicPoster, video: clinicVideo },
+    hero: { poster: clinicPoster, posterAlt: 'Hospital corridor with a staff member pushing a cart', video: clinicVideo },
   },
 ];

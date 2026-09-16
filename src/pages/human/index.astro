@@ -18,7 +18,7 @@ import SectorCta from '../../components/sector/SectorCta.astro';
 import { humanMarkets } from '../../data/human-markets';
 import { posts } from '../../data/blog-posts';
 import heroVideo from '../../assets/videos/gym.mp4';
-import heroPoster from '../../assets/images/human-d1-gym.png';
+import heroPoster from '../../assets/images/hero-gym-poster.jpg';
 
 // Hub order: the flagship first, then the rest as listed in the data file.
 const ordered = [
@@ -30,9 +30,9 @@ const sectorCards = ordered.map((m) => ({
   title: m.title,
   tagline: m.tagline,
   href: `/human/${m.slug}/`,
-  linkLabel: `Explore ${m.title.toLowerCase()} solutions`,
+  linkLabel: `Explore ${m.title.toLowerCase()}`,
   image: m.hero.poster,
-  imageAlt: m.imageAlt,
+  imageAlt: m.hero.posterAlt,
   stat: m.stat,
 }));
 
@@ -130,6 +130,7 @@ const humanPosts = posts.filter((p) => humanMarkets.some((m) => m.postSlugs.incl
         eyebrow="Your Building. Your Coverage Plan."
         heading="Put Genesis360 To Work Where People Gather."
         copy="Tell us what you are protecting and how the building runs. Our team will map the right portable, fixed, or Compact Pro deployment and build a practical coverage plan around it."
+        href="/get-a-quote/"
       />
     </main>
 

@@ -25,6 +25,8 @@ import SectorCta from '../../components/sector/SectorCta.astro';
 import { humanMarkets } from '../../data/human-markets';
 import { posts } from '../../data/blog-posts';
 import gymVideo from '../../assets/videos/gym.mp4';
+import gymPoster from '../../assets/images/hero-gym-poster.jpg';
+// The spec's first choice for this band was the locker-room render; it is portrait (1024x1536) and cropped badly at 50vw, so the landscape D1 gym render is used instead.
 import gymScene from '../../assets/images/human-d1-gym.png';
 import fogger from '../../assets/images/human-fogger.png';
 import compactFront from '../../assets/images/human-compact-front.png';
@@ -51,7 +53,7 @@ const deployments = [
     device: 'EnviroGuard',
     deviceCopy: 'The Compact Wall Mount configured for athletics: a fixed, automated dry-mist system on a digital timer. Mount it in the room, or put it on the Rolling Stand and move it between the mat room, the weight room, and the lockers.',
     image: compactFront,
-    imageAlt: 'Genesis360 EnviroGuard compact wall mount unit',
+    imageAlt: 'Genesis360 EnviroGuard Compact Wall Mount unit',
     facility: 'Mat Rooms & Locker Rooms',
     facilityCopy: 'The rooms where skin meets mat and sweat meets fabric, treated nightly without a mop in sight.',
     icon: Footprints,
@@ -70,7 +72,7 @@ const deployments = [
 
 // Source T, "Before Secure Logic" / "After Secure Logic".
 const today = [
-  'Spray disinfectant on the mats before and after practice',
+  'Spray disinfectant on the mats',
   'Mop surfaces, often several times a day',
   'Wait for the mats to dry before anyone can train',
   'Still smell the room from the hallway, and still see infections',
@@ -113,7 +115,7 @@ const quotes = [
         eyebrow="Athletics"
         headline={['Your Athletes Fight For Wins.', 'We Fight For Your Athletes.']}
         support="Automated, whole-room disinfection for wrestling rooms, weight rooms, and locker rooms."
-        poster={gymScene}
+        poster={gymPoster}
         video={gymVideo}
         cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
         secondaryCta={{ href: '#deployments', label: 'See The Systems' }}
@@ -126,7 +128,7 @@ const quotes = [
         eyebrow="The Reality In Every Room"
         heading="High-Traffic Spaces Need High-Performance Disinfection."
         image={gymScene}
-        imageAlt="Genesis360 Compact unit mounted in a college weight room"
+        imageAlt={market.hero.posterAlt}
         stat={{ value: '72+', caption: 'hours bacteria survive on sweat-soaked mats and rubber floors' }}
         paragraphs={[
           'Athletic performance training facilities, health and wellness clubs, fitness centers, and recovery and rehabilitation rooms, including weight rooms and locker rooms, are breeding grounds for bacteria, viruses, and fungi, as well as odors. Maintaining a disinfected, odor-free environment is crucial to protecting the health and well-being of your athletes, members, and staff.',
@@ -179,6 +181,7 @@ const quotes = [
         eyebrow="Your Rooms. Your Coverage Plan."
         heading="Start With The Room That Smells Like A Wrestling Room."
         copy="Tell us how the facility runs, from the mat room to the lockers, and our team will map the right portable, fixed, or Compact Pro deployment and build a coverage plan around it."
+        href="/get-a-quote/"
       />
     </main>
 
