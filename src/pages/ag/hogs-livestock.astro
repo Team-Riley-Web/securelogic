@@ -28,6 +28,10 @@ import swineVideo from '../../assets/videos/swine.mp4';
 import swinePoster from '../../assets/images/hero-swine-poster.jpg';
 import transparentBarn from '../../assets/images/transparent-barn.png';
 import pigBarn from '../../assets/images/baby-pigs-2.jpg';
+// Closing CTA photo (2026-09-17): of baby-pigs-1..5, all landscape except -5
+// (portrait); -3 is a sow nursing a full litter, which reads as the clearest
+// "nursery" scene and works well cropped to the CTA's 4:3 frame.
+import nurseryPhoto from '../../assets/images/baby-pigs-3.jpg';
 import handheldUnit from '../../assets/images/mobile-mist.png';
 import miniUnit from '../../assets/images/genesis-compact.png';
 import customUnit from '../../assets/images/agri-guard.png';
@@ -102,25 +106,29 @@ const todayReality = [
 //
 // `anchor` is the point on the barn; `callout` is where the ringed icon sits.
 // Both are percentages of the stage, so they track the artwork as it scales.
+// `y` values below are calibrated to the .barn-stage aspect-ratio (2.2, see
+// the CSS note). They were rescaled from the original 1.98-ratio numbers by
+// 50 + (2.2/1.98) * (y - 50) so each dot/callout still lands on the same spot
+// on the artwork now that the box is shorter — see the CSS comment for why.
 const coveragePoints = [
   { key: 'air', label: 'Air Space', icon: Cloud, side: 'left',
     copy: 'Billions of droplets suspend in the air column to reduce airborne pathogens.',
-    callout: { x: 1.5, y: 15 }, anchor: { x: 50, y: 23 } },
+    callout: { x: 1.5, y: 11.1 }, anchor: { x: 50, y: 20.0 } },
   { key: 'wall', label: 'Wall Surface', icon: BrickWall, side: 'left',
     copy: 'Droplets contact and coat wall surfaces for extended protection.',
-    callout: { x: 1.5, y: 43 }, anchor: { x: 33, y: 46 } },
+    callout: { x: 1.5, y: 42.2 }, anchor: { x: 33, y: 45.6 } },
   { key: 'gate', label: 'Gate', icon: Fence, side: 'left',
     copy: 'Effective coverage on gates helps reduce contact pathogens.',
-    callout: { x: 1.5, y: 71 }, anchor: { x: 39, y: 66 } },
+    callout: { x: 1.5, y: 73.3 }, anchor: { x: 39, y: 67.8 } },
   { key: 'equipment', label: 'Equipment', icon: Wrench, side: 'right',
     copy: 'Droplets coat feeders, waterers, and fixtures to reduce microbes.',
-    callout: { x: 98.5, y: 15 }, anchor: { x: 57, y: 35 } },
+    callout: { x: 98.5, y: 11.1 }, anchor: { x: 57, y: 33.3 } },
   { key: 'divider', label: 'Pen Divider', icon: Columns3, side: 'right',
     copy: 'Complete coverage on pen dividers helps reduce cross-contamination.',
-    callout: { x: 98.5, y: 43 }, anchor: { x: 60, y: 54 } },
+    callout: { x: 98.5, y: 42.2 }, anchor: { x: 60, y: 54.4 } },
   { key: 'floor', label: 'Floor', icon: Footprints, side: 'right',
     copy: 'Droplets settle on flooring surfaces to reduce pathogens underfoot.',
-    callout: { x: 98.5, y: 71 }, anchor: { x: 64, y: 70 } },
+    callout: { x: 98.5, y: 73.3 }, anchor: { x: 64, y: 72.2 } },
 ];
 
 const withGenesis = [
@@ -184,12 +192,22 @@ const withGenesis = [
     }
 
     /* Coverage map -------------------------------------------------------- */
+    /* 2026-09-17: was aspect-ratio 1.98. The artwork is centred inside this
+       box at a fixed pixel height (54% of box width, artwork's own aspect
+       ratio), so a wider (shorter) box just pads air above and below it —
+       1.98 left ~60px of transparent margin above the art and the same again
+       below, at 1280px. 2.2 keeps the box comfortably wider than the art but
+       tightens both margins to ~30px, so the stage now ends closer to the
+       last callout instead of floating a band above the CTA. Every
+       anchor/callout `y` below was rescaled by 2.2/1.98 around the 50% centre
+       to land on the same spot on the artwork — the box got shorter, so the
+       same pixel offset from centre is now a bigger percentage of it. */
     .barn-stage {
       position: relative;
       margin-inline: auto;
       width: 100%;
       max-width: 74rem;
-      aspect-ratio: 1.98;
+      aspect-ratio: 2.2;
     }
 
     /* The artwork sits in the middle so the callouts have margin to live in,
@@ -616,7 +634,11 @@ const withGenesis = [
       <!-- Coverage map. Mobile uses a dedicated card grid because the barn
            hotspots do not have enough room to communicate clearly; larger
            screens retain the interactive infographic. -->
-      <section id="protective-cloud" class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-brand-100 py-20 sm:py-24">
+      {/* Bottom padding trimmed 2026-09-17 (was py-20 sm:py-24 to match): the
+          barn stage's own aspect-ratio already leaves air below the artwork
+          (see the .barn-stage note below), so full section padding on top of
+          that stacked up into a large band before the closing CTA. */}
+      <section id="protective-cloud" class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-brand-100 pt-20 pb-8 sm:pt-24 sm:pb-10">
         <div class="container-page">
           <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">Coverage Map</p>
@@ -713,6 +735,9 @@ const withGenesis = [
         heading="Start With The Barns You Run Hardest."
         copy="Tell us how the site runs — farrowing, nursery, grow-finish, or all three — and our team will map the right portable, fixed, or custom AgriGuard deployment and build a coverage plan around it."
         href={SOFT_LAUNCH ? CONTACT_HREF : '/contact-us/'}
+        variant="photo"
+        image={nurseryPhoto}
+        imageAlt="Piglets in a clean nursery pen"
       />
 
     </main>

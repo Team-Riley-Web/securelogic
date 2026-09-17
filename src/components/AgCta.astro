@@ -7,6 +7,7 @@
 // sales representative" / "place an order now"). Reduced to a single Get A
 // Quote at the client's request while /get-a-quote/ is unfinished.
 import SectorCta from './sector/SectorCta.astro';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   eyebrow: string;
@@ -14,9 +15,13 @@ interface Props {
   copy: string;
   // Pages open during the soft launch pass '/#contact' so the CTA lands on the landing page's contact block instead of the gated /contact-us/.
   href?: string;
+  // Passed straight through to SectorCta; see that component for what they do.
+  variant?: 'default' | 'photo';
+  image?: ImageMetadata;
+  imageAlt?: string;
 }
 
-const { eyebrow, heading, copy, href = '/contact-us/' } = Astro.props;
+const { eyebrow, heading, copy, href = '/contact-us/', variant, image, imageAlt } = Astro.props;
 ---
 
-<SectorCta eyebrow={eyebrow} heading={heading} copy={copy} href={href} />
+<SectorCta eyebrow={eyebrow} heading={heading} copy={copy} href={href} variant={variant} image={image} imageAlt={imageAlt} />
