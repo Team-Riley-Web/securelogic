@@ -924,12 +924,39 @@ unchecked task unless you are starting it.
       src/assets/videos/STOCK-SOURCES.md. Mixkit had no usable
       sterilization or operating-room footage. Merged from branch
       batch-c-healthcare-clip (09ecbd3).
-- [ ] On /human/athletics/, make the hero headline "Athletes Fight For You. We Fight For Your Athletes" (currently "Your Athletes Fight For Wins. / We Fight For Your Athletes.").
-- [ ] Athletics case-study band: shorten the title (e.g. "The Case Of Ringworm At Tarleton State") and reduce the line height of the intro paragraph beneath it.
-- [ ] Athletics case-study band: the at-a-glance stats are not vertically centered and "Eliminated / Daily Mopping" doesn't look right; fix the stat tiles.
-- [ ] Athletics case-study band: pull in the actual video from the coach instead of three quotes; keep just one quote, the most impactful (screenshot 2026-09-16 3:57pm).
-- [ ] Athletics page argument band: the updated "G360 in a D1 Gym" photo (replaced in reference-files with the same name) is not showing; the page still renders the old photo. Re-copy it into src/assets/images/human-d1-gym.png (the page imports the copied asset, not the reference file).
-- [ ] Athletics page argument band: move the 72+ stat from the bottom-left corner of the photo to the bottom-right corner; it gets a little lost on the left.
+- [x] On /human/athletics/, make the hero headline "Athletes Fight For You. We Fight For Your Athletes" (currently "Your Athletes Fight For Wins. / We Fight For Your Athletes.").
+      Done 2026-09-17: hero reads "Athletes Fight For You. / We Fight For Your
+      Athletes." (trailing period added for consistency with sibling pages;
+      easy to drop). Merged from batch-b-athletics (31b933d).
+- [x] Athletics case-study band: shorten the title (e.g. "The Case Of Ringworm At Tarleton State") and reduce the line height of the intro paragraph beneath it.
+      Done 2026-09-17: heading is "The Case Of Ringworm At Tarleton State.";
+      intro line height tightened (leading-7/8) and capped at max-w-2xl.
+- [x] Athletics case-study band: the at-a-glance stats are not vertically centered and "Eliminated / Daily Mopping" doesn't look right; fix the stat tiles.
+      Done 2026-09-17: tiles get min-h-[7.5rem] + justify-center so one- and
+      three-line labels align; the two awkward tiles now read "Daily mopping
+      for sanitizing: Ended" and "Practices missed to infection: 0" (both facts
+      from the case study).
+- [x] Athletics case-study band: pull in the actual video from the coach instead of three quotes; keep just one quote, the most impactful (screenshot 2026-09-16 3:57pm).
+      Done 2026-09-17: reference-files/video/Coach Grant Leeth @ Tarleton
+      State University.MOV transcoded to src/assets/videos/tarleton-coach.mp4
+      (H.264 portrait 406x720, AAC, 2:16, 9.4 MB) with a poster at 1:55 where
+      the coach faces the camera. CaseStudyBand gained a video prop: video
+      left, one quote right ("We stopped daily mopping..."), stacked on
+      phones; controls, no autoplay (it has speech). Caption "Head coach,
+      Tarleton State University Wrestling"; the coach is NOT named because the
+      case study spells his surname differently from the video file (Marty
+      Q9). Phone-shot, low-res footage; Marty Q11 asks whether a cleaner cut
+      is coming.
+- [x] Athletics page argument band: the updated "G360 in a D1 Gym" photo (replaced in reference-files with the same name) is not showing; the page still renders the old photo. Re-copy it into src/assets/images/human-d1-gym.png (the page imports the copied asset, not the reference file).
+      Done 2026-09-17: re-copied the updated render (1672x941) over
+      src/assets/images/human-d1-gym.png; the page imports the copy, which is
+      why replacing the reference file alone changed nothing. Hero poster is a
+      separate JPEG (your product photo) and was untouched.
+- [x] Athletics page argument band: move the 72+ stat from the bottom-left corner of the photo to the bottom-right corner; it gets a little lost on the left.
+      Done 2026-09-17: ArgumentBand gained a statPosition prop (default left,
+      so the hog page is unchanged); athletics passes right, with the rule and
+      caption right-aligned and the photo scrim mirrored so the dark end sits
+      under the stat.
 - [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
 - [ ] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
 - [x] Read through each piece of content in the new reference-files folder (reference-files/new, 14 PDFs) and update the site as necessary. Break it into subtasks and use subagents if necessary.
