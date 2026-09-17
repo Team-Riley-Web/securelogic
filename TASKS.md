@@ -1134,13 +1134,50 @@ unchecked task unless you are starting it.
       duplicates removed, video + README added); a basename diff confirmed
       nothing else was lost. Source comments in four .astro files updated to
       the new paths (commit 12cd2fd); build and brand check pass.
-- [ ] Soft launch nav: add Hogs & Livestock to nav - by contact on desktop (check first — this may already be done).
-- [ ] Add contact above phone number in footer (matching shop and about).
-- [ ] Change healthcare video to a surgery room (not graphic).
-- [ ] Widen the "Consistent Infection Control" header on the Human Healthcare section — bump max-width from 3XL to 4XL so it drops to its own line.
-- [ ] Make section header styles global/shared instead of duplicated per page, so future changes to these headers don't need to be repeated across pages.
-- [ ] Remove the line-height-8 class from the paragraph under the header — just use the default line-height (applies across all pages using this pattern).
-- [ ] On the HVAC pages, put "Cleaner Coils. Cleaner Ducts. Cleaner Air." each on its own line, matching how the Human and Ag pages already break it.
+- [x] Soft launch nav: add Hogs & Livestock to nav - by contact on desktop (check first — this may already be done).
+      Done 2026-09-17: already in place from the earlier hog-nav task (see
+      the "Hog page should be in the main nav" entry above, merged from
+      batch-a-hog-header, 8c61bfc). Checked before doing anything; no new
+      change needed.
+- [x] Add contact above phone number in footer (matching shop and about).
+      Done 2026-09-17: the fourth footer column's "Contact" eyebrow is now
+      visible (matching Shop and About) and a "Contact Us" link (to
+      /contact-us/) sits above the phone number. Minimal (soft-launch)
+      footer is untouched. Commit 4e8f8f4.
+- [x] Change healthcare video to a surgery room (not graphic).
+      Done 2026-09-17: clinic.mp4 replaced again -- the dental-autoclave
+      clip wasn't what Joshua wanted. New clip (Pexels ID 31670380, license
+      confirmed, exact page URL/title unrecoverable since the download
+      predates this continuation and Pexels' by-ID lookup endpoints both
+      404 without the original slug) shows a nurse checking on a draped,
+      prepped patient in an operating room -- wide, calm, no blood or
+      visible incision. Source portrait video (1080x1920) crops cleanly to
+      the site's 1280x720 hero format; checked across the whole clip, not
+      just one frame. Commit 0e4127f.
+- [x] Widen the "Consistent Infection Control" header on the Human Healthcare section — bump max-width from 3XL to 4XL so it drops to its own line.
+      Done 2026-09-17: this turned out to be SectorHero's shared center-
+      layout headline column, not a section <h2> band header -- fixed at
+      the source (max-w-3xl -> max-w-4xl), so it applies to every Human and
+      HVAC sector page that uses SectorHero, not just healthcare. Commit
+      67b4c0b.
+- [x] Make section header styles global/shared instead of duplicated per page, so future changes to these headers don't need to be repeated across pages.
+      Done 2026-09-17: the three ag pages (hogs-livestock, indoor-growing,
+      poultry) each hand-duplicated the exact hero markup SectorHero was
+      extracted from; migrated all three onto <SectorHero layout="center">
+      so the width/line-height fixes above (and any future one) now apply
+      everywhere from one place instead of four. Verified visual parity by
+      screenshot; the only intended differences are the width/line-height
+      changes. Commit 516dd03.
+- [x] Remove the line-height-8 class from the paragraph under the header — just use the default line-height (applies across all pages using this pattern).
+      Done 2026-09-17: removed from SectorHero's center-layout support text
+      and the split-layout's optional lede paragraph (default browser line-
+      height instead); the ag-page consolidation above means this now also
+      covers the three ag heroes. Commit 67b4c0b.
+- [x] On the HVAC pages, put "Cleaner Coils. Cleaner Ducts. Cleaner Air." each on its own line, matching how the Human and Ag pages already break it.
+      Done 2026-09-17: /hvac/'s headline is now a three-element array
+      (['Cleaner Coils.', 'Cleaner Ducts.', 'Cleaner Air.']), matching the
+      Human hub's three-line treatment via the same SectorHero prop.
+      Commit 8f44a45.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
