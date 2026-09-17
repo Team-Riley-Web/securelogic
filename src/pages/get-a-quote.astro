@@ -1,0 +1,35 @@
+---
+// src/pages/get-a-quote.astro
+// Spec: docs/superpowers/specs/2026-09-17-resources-utility-design.md
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SectorHero from '../components/sector/SectorHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import fogger from '../assets/images/human-fogger.png';
+---
+
+<BaseLayout title="Genesis360 | Get A Quote" description="Request a quote to evaluate Genesis360 botanical disinfection and automated dry fog systems for your facility.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <SectorHero
+        eyebrow="Get A Quote"
+        headline={['Get A Quote For', 'Your Facility.']}
+        support="Tell us about the space and we'll map the right Genesis360 configuration."
+        poster={fogger}
+        cta={{ href: '#quote', label: 'Start Below' }}
+      />
+
+      <section id="quote" class="bg-slate-100 py-20 sm:py-24">
+        <div class="container-page">
+          <p class="reveal mx-auto mb-10 max-w-2xl text-center text-lg leading-8 text-slate-600" x-intersect.once="$el.classList.add('is-visible')">
+            Every quote starts with a facility walkthrough and a coverage plan, not a guess.
+          </p>
+          <QuoteForm />
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
