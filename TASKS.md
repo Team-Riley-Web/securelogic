@@ -916,7 +916,14 @@ unchecked task unless you are starting it.
 - [ ] Blogs / From The Field rows: always show three posts, even if the second and third are not closely related; fill with something more generic rather than showing fewer.
 - [ ] The "Other Human Health Markets" block should come last, after the pre-footer CTA, and should be a different design from the current card grid.
 - [ ] Really pull from any of the brochures we have (reference-files) for the copy and content of the Human and HVAC sections.
-- [ ] Find a different video for the hero of /human/healthcare/ - ideally someone cleaning medical equipment or a surgical room (replaces the current doctor-walking-a-hallway clip).
+- [x] Find a different video for the hero of /human/healthcare/ - ideally someone cleaning medical equipment or a surgical room (replaces the current doctor-walking-a-hallway clip).
+      Done 2026-09-17: clinic.mp4 is now a clinician in full PPE loading
+      dental instruments into an autoclave (Pexels, "A Woman Sterilizing the
+      Dental Equipments" by Fariborz MP, free license; 12 s, 1.4 MB, 1280x720,
+      muted). Poster and hub-card alt updated; source recorded in
+      src/assets/videos/STOCK-SOURCES.md. Mixkit had no usable
+      sterilization or operating-room footage. Merged from branch
+      batch-c-healthcare-clip (09ecbd3).
 - [ ] On /human/athletics/, make the hero headline "Athletes Fight For You. We Fight For Your Athletes" (currently "Your Athletes Fight For Wins. / We Fight For Your Athletes.").
 - [ ] Athletics case-study band: shorten the title (e.g. "The Case Of Ringworm At Tarleton State") and reduce the line height of the intro paragraph beneath it.
 - [ ] Athletics case-study band: the at-a-glance stats are not vertically centered and "Eliminated / Daily Mopping" doesn't look right; fix the stat tiles.
