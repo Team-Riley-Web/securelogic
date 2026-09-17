@@ -12,9 +12,7 @@ import { hvacMarkets } from '../data/hvac-markets';
 import botanimaxLogo from '../assets/images/botanimax-logo.png';
 import botanimaxBottle from '../assets/images/botanimax-bottle.png';
 import compact from '../assets/images/genesis-compact.png';
-import inroom from '../assets/images/inroom-mist.png';
 import hvac from '../assets/images/hvac-mist.png';
-import mobile from '../assets/images/mobile-mist.png';
 import medical from '../assets/images/medical-mist.png';
 import portable from '../assets/images/portable-mist.png';
 import agri from '../assets/images/agri-guard.png';
@@ -51,14 +49,13 @@ export function getStaticPaths() {
 const slug = Astro.params.slug ?? '';
 const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
 
+// Lineup and names follow the Sales Pricing Guide (Genesis360 Pricing Model - External.docx); the retired InRoom/Mobile Dry Fog names and the duplicate renders were dropped 2026-09-17.
 const systems: { name: string; image: ImageMetadata; alt: string }[] = [
-  { name: 'InRoom Dry Fog', image: inroom, alt: 'Genesis360 InRoom Dry Fog' },
-  { name: 'HVAC Dry Fog', image: hvac, alt: 'Genesis360 HVAC dry fog system image' },
-  { name: 'Compact Dry Fog', image: compact, alt: 'Genesis360 Compact dry fog unit' },
-  { name: 'Mobile Dry Fog', image: mobile, alt: 'Genesis360 Mobile Dry Fog' },
-  { name: 'Medical Dry Fog', image: medical, alt: 'Kinetic Systems Medical Dry Fog' },
-  { name: 'Portable Dry Fog', image: portable, alt: 'Kinetic Systems Portable Dry Fog' },
-  { name: 'AgriGuard', image: agri, alt: 'Genesis360 Grey AgriGuard' },
+  { name: 'Compact Wall Mount', image: compact, alt: 'Genesis360 Compact Wall Mount unit' },
+  { name: 'AeroGuard', image: hvac, alt: 'Genesis360 AeroGuard HVAC unit' },
+  { name: 'MediGuard Pro', image: medical, alt: 'Genesis360 MediGuard Pro unit' },
+  { name: 'Battery Powered Fogger', image: portable, alt: 'Genesis360 Battery Powered Fogger' },
+  { name: 'AgriGuard', image: agri, alt: 'Genesis360 AgriGuard large-barn unit' },
 ];
 
 const differentiators = [
@@ -74,7 +71,7 @@ const differentiators = [
 ];
 
 const features = [
-  'EPA 2(c) Registered',
+  'EPA Registered (Reg. No. 92089-2-103661)',
   'Controls harmful bacteria, viruses, and fungi',
   'Helps contain emerging pathogens',
   'Residual clean efficacy',
@@ -83,7 +80,7 @@ const features = [
 ];
 
 const botanimaxFeatures: { title: string; copy: string }[] = [
-  { title: 'Plant Actives', copy: 'BotaniMax is meticulously crafted from 150+ plant actives, ensuring that every drop is infused with the natural power and resilience of botanicals for a holistic defense against pathogens.' },
+  { title: 'Plant Actives', copy: 'BotaniMax is crafted from thyme oil, wintergreen oil, and citrus extracts — a complex, multi-modal blend of natural compounds infused into every drop for a holistic defense against pathogens.' },
   { title: 'Comprehensive Protection', copy: 'Our formula is designed to combat a wide spectrum of harmful microorganisms — bacteria, viruses, or fungi — making it a versatile solution for many different environments.' },
   { title: "Potency of Nature's Defenses", copy: 'Embrace the full potency of nature’s defenses. By utilizing plant oil, our disinfectant goes beyond synthetic alternatives to deliver a natural and effective tool against pathogens.' },
   { title: 'Eco-Friendly Solution', copy: 'BotaniMax is not only powerful but also eco-friendly. We prioritize sustainability so the product aligns with responsible practices — a choice that’s good for you and for the planet.' },
@@ -154,10 +151,10 @@ const techSections: { title: string; image: ImageMetadata; alt: string; paragrap
 ];
 
 const microDynamics: { title: string; copy: string }[] = [
-  { title: 'Extended Suspension', copy: 'Smaller droplets remain airborne 10–20× longer, maximizing contact time.' },
+  { title: 'Extended Suspension', copy: 'Sub-10-micron droplets remain suspended in the air column for up to 8 hours in field studies, maximizing contact time.' },
   { title: 'Omnidirectional Movement', copy: 'Vapor-phase dry fog diffuses through convection currents, wrapping around every surface.' },
   { title: 'No Oversaturation', copy: 'The dry fog evaporates before pooling — ideal for climate-sensitive spaces like labs, data centers, and greenhouses.' },
-  { title: 'Surface Adhesion', copy: 'Droplets form at a low contact angle (≈ 4–12%), clinging evenly across vertical, horizontal, and underside planes.' },
+  { title: 'Surface Adhesion', copy: 'Droplets move with airflow rather than falling, clinging evenly across vertical, horizontal, and underside planes.' },
 ];
 
 const envSafe = [
@@ -174,7 +171,7 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   },
   {
     question: 'How is Genesis360 different from traditional foggers or spray systems?',
-    answer: 'Traditional foggers and pump sprayers produce larger wet droplets (30–120 microns) that fall quickly and leave gaps. Genesis360 droplets remain suspended long enough to fill the room or duct volume, wrap around objects, and reach hidden zones — without relying on a person to aim the sprayer.',
+    answer: 'Traditional pump sprayers produce 80–300 micron droplets that fall immediately, ULV foggers produce 20–50 micron droplets that fall within seconds, and electrostatic sprayers produce 40–80 micron droplets with rapid surface deposition. Genesis360 droplets are sub-10 microns and remain suspended long enough to fill the room or duct volume, wrap around objects, and reach hidden zones — without relying on a person to aim the sprayer.',
   },
   {
     question: 'What problems does Genesis360 solve for facilities?',
@@ -215,7 +212,7 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   },
   {
     question: 'What kind of maintenance does Genesis360 require?',
-    answer: 'Most systems require low monthly maintenance, such as inspecting filters, verifying nozzle performance, and checking fluid levels.',
+    answer: 'Most systems require low maintenance. The HVAC platform’s documented schedule is a twice-yearly check to confirm the unit is running correctly and refill the liquid tank; other deployments should follow the maintenance schedule in their product documentation.',
   },
 ];
 
@@ -267,7 +264,7 @@ const pageTitle =
 
     {canonicalSlug === 'hvac' && (
       <>
-        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="360HVAC Dry Fog infuses air-handling systems with ultra-fine BotaniMax dry fog, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
+        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="Genesis360 AeroGuard infuses air-handling systems with ultra-fine BotaniMax dry fog, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
         <section class="bg-white py-20">
           <div class="container-page">
             <div class="grid gap-6 sm:grid-cols-2">
@@ -349,7 +346,7 @@ const pageTitle =
             </div>
             <div>
               <h2 class="section-title">Why BotaniMax</h2>
-              <p class="mt-4 text-base leading-8 text-slate-600">A patent-pending, plant-based disinfectant engineered to deliver hospital-grade results without the harsh synthetics.</p>
+              <p class="mt-4 text-base leading-8 text-slate-600">A 100% botanical, plant-based disinfectant engineered to deliver hospital-grade results without the harsh synthetics.</p>
               <div class="mt-8 grid gap-3 sm:grid-cols-2">
                 {features.map((feature) => (
                   <div class="flex gap-3 rounded-lg bg-slate-50 p-4">
@@ -374,7 +371,7 @@ const pageTitle =
                 </article>
               ))}
               <article class="grid content-center gap-3 rounded-lg bg-botanical-600 p-6 text-white shadow-lift">
-                <p class="text-sm leading-6 text-white/90">Our patent-pending product is more than a disinfectant — it's a commitment to the purity and strength of botanicals for a healthier environment.</p>
+                <p class="text-sm leading-6 text-white/90">Our botanical product is more than a disinfectant — it's a commitment to the purity and strength of botanicals for a healthier environment.</p>
                 <p class="font-semibold">Join the natural defense movement.</p>
               </article>
             </div>
