@@ -1,0 +1,85 @@
+---
+// src/pages/resources/documentation.astro
+// The Efficacy Lab Report, Staph Efficacy Lab Report, and Industrial Hygiene
+// White Paper are not present in any reference folder available to this
+// build, so their links still point at the WordPress media library; see
+// docs/QUESTIONS-FOR-MARTY.md for the ask to get local copies before the
+// DNS cutover. The EPA Master Label and SDS are now self-hosted.
+// Spec: docs/superpowers/specs/2026-09-17-resources-utility-design.md
+import { ArrowDownToLine } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import faqRoom from '../../assets/images/faq-room.jpg';
+import label from '../../assets/images/botanimax-label.png';
+
+const docGroups: { heading: string; items: [string, string][] }[] = [
+  {
+    heading: 'Documentation',
+    items: [
+      ['EPA Registration for the Label', '/docs/Secure-Logic-BotaniMax-EPA-Master-Label.pdf'],
+      ['BotaniMax SDS Sheet', '/docs/Secure-Logic-BotaniMax-SDS.pdf'],
+    ],
+  },
+  {
+    heading: 'Lab Reports',
+    items: [
+      ['Efficacy Lab Report', 'https://securelogicusa.com/wp-content/uploads/2025/04/Pathogen-Report.pdf'],
+      ['Staph Efficacy Lab Report', 'https://securelogicusa.com/wp-content/uploads/2025/04/Staph-Final-Report.pdf'],
+    ],
+  },
+  {
+    heading: 'White Paper',
+    items: [
+      ['Industrial Hygiene White Paper', 'https://securelogicusa.com/wp-content/uploads/2025/04/INDUSTRIAL-HYGIENE-White-Paper-Genesis-misting-Trial-BotaniMax.pdf'],
+    ],
+  },
+];
+---
+
+<BaseLayout title="Genesis360 | Documentation" description="Lab reports, product labels, and technical papers behind Genesis360 and BotaniMax.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <SectorHero
+        eyebrow="Documentation"
+        headline={['Supporting Data For', 'Genesis360.']}
+        support="Lab test results, product labels, and technical papers behind the platform."
+        poster={faqRoom}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
+
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
+          <Image src={label} alt="BotaniMax product label" class="h-max rounded-lg bg-slate-100 shadow-lift lg:sticky lg:top-28" widths={[640, 960, 1200]} sizes="(min-width: 1024px) 42vw, 100vw" />
+          <div class="grid gap-10">
+            {docGroups.map(({ heading, items }) => (
+              <div>
+                <h2 class="text-sm font-semibold uppercase tracking-[0.16em] text-botanical-600">{heading}</h2>
+                <div class="mt-4 grid gap-4">
+                  {items.map(([title, file]) => (
+                    <a href={file} class="accent-card group flex items-center justify-between gap-4 p-5" target="_blank" rel="noopener">
+                      <span class="font-semibold text-slate-900">{title}</span>
+                      <span class="inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Download <ArrowDownToLine class="h-5 w-5 text-primary-600 transition group-hover:translate-y-0.5" /></span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectorCta
+        eyebrow="Want The Full Picture?"
+        heading="Talk To Our Team About Your Facility."
+        copy="We can walk through which reports and specs are most relevant to your deployment."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
