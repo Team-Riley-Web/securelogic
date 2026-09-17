@@ -60,11 +60,10 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
     )}
 
     <div class:list={['col-span-2 md:col-span-1', minimal && 'text-center md:text-left']}>
-      {/* The "Help" eyebrow was dropped. In the four-column layout the Shop and
-          About columns still carry one, so an invisible stand-in keeps this
-          column's links on the same baseline as theirs. */}
-      {!minimal && <p class="bl-eyebrow invisible" aria-hidden="true">Contact</p>}
+      {/* This column's eyebrow matches the Shop and About columns above. */}
+      {!minimal && <p class="bl-eyebrow">Contact</p>}
       <div class:list={['grid gap-2 text-sm text-white/75', !minimal && 'mt-4', minimal && 'justify-items-center md:justify-items-start']}>
+        {!minimal && <a href="/contact-us/" class="hover:text-white">Contact Us</a>}
         <a href={minimal ? 'tel:+18889974310' : '/contact-us/'} class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
         <a href={`mailto:${contactEmail}`} class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />{contactEmail}</a>
         {/* /privacy-policy/ renders the full site chrome, so the landing page
