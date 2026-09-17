@@ -16,12 +16,12 @@ import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
 import { humanMarkets } from '../../data/human-markets';
-import { posts } from '../../data/blog-posts';
+import { relatedPosts as pickPosts, HUMAN_FILL } from '../../data/related-posts';
 import fogger from '../../assets/images/human-fogger.png';
 import compactFront from '../../assets/images/human-compact-front.png';
 
 const market = humanMarkets.find((m) => m.slug === 'military')!;
-const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const relatedPosts = pickPosts(market.postSlugs, HUMAN_FILL);
 const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
 
 // Source: Genesis360 AthleticGuard.pdf (Compact Wall Mount sheet) for the
