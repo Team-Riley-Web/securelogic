@@ -1075,6 +1075,13 @@ unchecked task unless you are starting it.
       duplicates removed, video + README added); a basename diff confirmed
       nothing else was lost. Source comments in four .astro files updated to
       the new paths (commit 12cd2fd); build and brand check pass.
+- [ ] Soft launch nav: add Hogs & Livestock to nav - by contact on desktop (check first — this may already be done).
+- [ ] Add contact above phone number in footer (matching shop and about).
+- [ ] Change healthcare video to a surgery room (not graphic).
+- [ ] Widen the "Consistent Infection Control" header on the Human Healthcare section — bump max-width from 3XL to 4XL so it drops to its own line.
+- [ ] Make section header styles global/shared instead of duplicated per page, so future changes to these headers don't need to be repeated across pages.
+- [ ] Remove the line-height-8 class from the paragraph under the header — just use the default line-height (applies across all pages using this pattern).
+- [ ] On the HVAC pages, put "Cleaner Coils. Cleaner Ducts. Cleaner Air." each on its own line, matching how the Human and Ag pages already break it.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
