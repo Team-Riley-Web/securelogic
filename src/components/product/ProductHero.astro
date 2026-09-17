@@ -1,0 +1,89 @@
+---
+// Split hero for product, company, and technical pages. Product art remains
+// fully visible (object-contain) instead of being treated like sector footage.
+import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  eyebrow: string;
+  headline: string[];
+  copy: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  logo?: ImageMetadata;
+  logoAlt?: string;
+  cta: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  tone?: 'blue' | 'green';
+  imageFit?: 'contain' | 'cover';
+}
+
+const {
+  eyebrow,
+  headline,
+  copy,
+  image,
+  imageAlt,
+  logo,
+  logoAlt = '',
+  cta,
+  secondaryCta,
+  tone = 'blue',
+  imageFit = 'contain',
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'relative isolate overflow-hidden text-white',
+    tone === 'green'
+      ? 'bg-[linear-gradient(145deg,hsl(224_68%_19%)_0%,hsl(210_63%_24%)_52%,hsl(144_48%_24%)_100%)]'
+      : 'bg-[linear-gradient(145deg,hsl(232_74%_17%)_0%,hsl(226_70%_25%)_58%,hsl(219_72%_31%)_100%)]',
+  ]}
+  style="--bl-eyebrow-color: var(--bl-lime);"
+>
+  <div class="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" style="background: radial-gradient(circle at 82% 16%, rgb(120 210 160 / 0.22), transparent 34%), radial-gradient(circle at 8% 94%, rgb(61 111 255 / 0.3), transparent 42%);"></div>
+  <div class="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full border border-white/10" aria-hidden="true"></div>
+
+  <div class="container-page relative grid min-h-[620px] items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.02fr_.98fr] lg:gap-16 lg:py-24">
+    <div class="max-w-2xl">
+      {logo && (
+        <Image src={logo} alt={logoAlt} class="mb-8 h-16 w-auto max-w-[16rem] object-contain object-left" widths={[200, 320, 480]} sizes="256px" />
+      )}
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h1 class="mt-5 text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
+        {headline.map((line, index) => (
+          <span class:list={['block', index === headline.length - 1 && 'text-lime-400']}>{line}</span>
+        ))}
+      </h1>
+      <p class="mt-7 max-w-xl text-base leading-8 text-white/75 sm:text-lg">{copy}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={cta.href} class="bl-pill">{cta.label}</a>
+        {secondaryCta && (
+          <a href={secondaryCta.href} class="bl-pill-outline border-white/50">
+            {secondaryCta.label} <ArrowRight class="h-4 w-4" aria-hidden="true" />
+          </a>
+        )}
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-xl">
+      <div class="absolute inset-x-[8%] bottom-0 h-16 rounded-[50%] bg-black/35 blur-2xl" aria-hidden="true"></div>
+      <div class="relative grid min-h-[360px] place-items-center overflow-hidden rounded-[2rem] border border-white/15 bg-white/[.08] p-6 shadow-deep backdrop-blur-sm sm:min-h-[440px] sm:p-10">
+        <div class="pointer-events-none absolute inset-0" aria-hidden="true" style="background: linear-gradient(145deg, rgb(255 255 255 / 0.08), transparent 44%);"></div>
+        <Image
+          src={image}
+          alt={imageAlt}
+          class:list={[
+            'relative z-10 h-full max-h-[440px] w-full',
+            imageFit === 'cover' ? 'object-cover' : 'object-contain',
+          ]}
+          widths={[480, 720, 960, 1280]}
+          sizes="(min-width: 1024px) 44vw, 88vw"
+          priority
+        />
+      </div>
+    </div>
+  </div>
+</section>

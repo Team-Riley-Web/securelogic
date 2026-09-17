@@ -1,0 +1,151 @@
+---
+// Technical page grounded in the Genesis360 Technology Explainer, Compact
+// Wall Mount sheet, and Tarleton/Element Materials Technology report.
+import { ArrowRight, Check, CircleDot, Clock3, Radio, Smartphone, Wind } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import DropletComparison from '../../components/product/DropletComparison.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import pathogen from '../../assets/images/pathogen.png';
+import nozzles from '../../assets/images/nozzles.png';
+import compact from '../../assets/images/human-compact-front.png';
+
+// Source: Technology Explainer, pages 1–2.
+const forces = [
+  { title: 'Air Turbulence', copy: 'Room and duct movement carries suspended droplets beyond a straight spray path.', icon: Wind },
+  { title: 'Thermal Currents', copy: 'Temperature-driven air movement helps circulate small droplets through the space.', icon: Radio },
+  { title: 'Brownian Motion', copy: 'At very small scales, random particle motion contributes to dispersion and contact.', icon: CircleDot },
+  { title: 'Electrostatic Forces', copy: 'Charge interactions influence how fine droplets and airborne particles move and meet.', icon: Smartphone },
+];
+
+// Source: Tarleton State lab/field report summarizing independent Element
+// Materials Technology testing. Figures remain in log-reduction form.
+const validation = [
+  { value: '≥6-log', label: 'viral reduction in cited controlled testing' },
+  { value: '≥5-log', label: 'bacterial reduction in cited controlled testing' },
+  { value: 'Element', label: 'Materials Technology, independent laboratory' },
+];
+---
+
+<BaseLayout title="Genesis360 | Technology" description="See how sub-10-micron droplets, configurable controls, and independent validation shape the Genesis360 platform.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <ProductHero
+        eyebrow="The Technology"
+        headline={['Small Droplets.', 'Whole-Space Behavior.']}
+        copy="Genesis360 is engineered around a physical threshold: below ten microns, droplets settle far more slowly and begin to move with the air around them."
+        image={pathogen}
+        imageAlt="Illustration of a microscopic airborne particle"
+        cta={{ href: '#droplet-physics', label: 'Follow The Physics' }}
+        secondaryCta={{ href: '/genesis360mistingsystems/', label: 'Explore The Systems' }}
+      />
+
+      <div id="droplet-physics" class="scroll-mt-28">
+        <DropletComparison
+          eyebrow="Start With Size"
+          heading="Gravity Stops Being The Whole Story."
+          copy="The Technology Explainer compares application methods by typical droplet size and what happens after release. Genesis360 is designed in the sub-10-micron range, where suspended aerosol behavior becomes the operating advantage."
+        />
+      </div>
+
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page">
+          <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Movement Below Ten Microns</p>
+            <h2 class="bl-h2 mt-4">The Room Starts Moving The Mist.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">Stokes’ Law explains why smaller particles settle more slowly: as diameter decreases, air resistance matters more relative to gravity. Once suspended, the droplets encounter several forces already present in the environment.</p>
+          </div>
+          <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {forces.map(({ title, copy, icon: Icon }) => (
+              <article class="reveal rounded-2xl bg-brand-50 p-7 shadow-sm" x-intersect.once="$el.classList.add('is-visible')">
+                <span class="grid h-12 w-12 place-items-center rounded-xl bg-primary-50 text-primary-600"><Icon class="h-6 w-6" aria-hidden="true" /></span>
+                <h3 class="mt-6 text-xl text-brand-900">{title}</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">{copy}</p>
+              </article>
+            ))}
+          </div>
+          <p class="mt-6 text-xs leading-5 text-brand-muted">Source: Genesis360 Technology Explainer. The named forces describe transport behavior, not a stand-alone efficacy claim.</p>
+        </div>
+      </section>
+
+      <section class="overflow-hidden bg-brand-900 py-20 text-white sm:py-24">
+        <div class="container-page grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div class="reveal relative grid min-h-[360px] place-items-center rounded-[2rem] border border-white/15 bg-white/[.07] p-10" x-intersect.once="$el.classList.add('is-visible')">
+            <div class="absolute h-56 w-56 rounded-full bg-primary-500/20 blur-3xl" aria-hidden="true"></div>
+            <Image src={nozzles} alt="Precision nozzle producing a fine mist" class="relative z-10 w-full max-w-sm object-contain" widths={[360, 560, 760]} sizes="(min-width: 1024px) 34vw, 80vw" />
+          </div>
+          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Dry To Human Touch. Wet To Pathogens.</p>
+            <h2 class="mt-4 text-3xl leading-tight sm:text-4xl">Microscopic Liquid Without A Wet Room.</h2>
+            <div class="mt-6 grid gap-5 text-base leading-8 text-white/70">
+              <p>The Technology Explainer describes sub-10-micron droplets as too small to accumulate enough moisture to feel wet when they settle on skin, equipment, or surfaces. At the microscopic level, each droplet remains liquid.</p>
+              <p>Many microorganisms fall in the 0.5–5 micron range. A sub-10-micron droplet can still be large relative to the microbe while remaining imperceptible as standing moisture to a person in the room.</p>
+            </div>
+            <p class="mt-6 text-xs leading-5 text-white/50">This mechanism description does not replace product-label directions, facility protocols, or material-compatibility review.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Automation</p>
+            <h2 class="bl-h2 mt-4">Repeatability Starts With The Right Control Package.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body">The hardware is configurable. A base Compact system uses a standard timer. The optional smart control board replaces that timer when phone or desktop control is needed. Controls are selected for the facility; they are not a universal standard feature.</p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-2">
+              <article class="rounded-2xl bg-brand-50 p-6">
+                <Clock3 class="h-6 w-6 text-primary-600" aria-hidden="true" />
+                <h3 class="mt-5 text-lg text-brand-900">Standard Timer</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">Configured local scheduling for a fixed treatment pattern.</p>
+              </article>
+              <article class="rounded-2xl bg-primary-50 p-6">
+                <Smartphone class="h-6 w-6 text-botanical-600" aria-hidden="true" />
+                <h3 class="mt-5 text-lg text-brand-900">Optional Smart Control</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">Phone or desktop access in configurations that need remote scheduling and monitoring.</p>
+              </article>
+            </div>
+            <p class="mt-5 text-xs leading-5 text-brand-muted">Source: Genesis360 AthleticGuard / Compact Wall Mount product sheet.</p>
+          </div>
+          <div class="reveal rounded-2xl bg-brand-50 p-8 shadow-lift sm:p-10" x-intersect.once="$el.classList.add('is-visible')">
+            <Image src={compact} alt="Front view of a Genesis360 Compact Wall Mount control unit" class="mx-auto max-h-[460px] w-full object-contain" widths={[420, 640, 860]} sizes="(min-width: 1024px) 40vw, 100vw" />
+          </div>
+        </div>
+      </section>
+
+      <section class="relative overflow-hidden bg-[linear-gradient(135deg,hsl(226_73%_24%),hsl(232_75%_15%))] py-20 text-white sm:py-24">
+        <div class="container-page relative">
+          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Independent Validation</p>
+            <h2 class="mt-4 text-3xl leading-tight sm:text-4xl">Controlled Tests Put Numbers Behind The Platform.</h2>
+            <p class="mt-6 text-base leading-8 text-white/70">The Tarleton State report summarizes laboratory work performed by Element Materials Technology and other validation studies using BotaniMax with the Genesis360 delivery platform.</p>
+          </div>
+          <div class="mt-12 grid gap-5 md:grid-cols-3">
+            {validation.map(({ value, label }) => (
+              <article class="reveal rounded-2xl border border-white/15 bg-white/[.07] p-7 text-center" x-intersect.once="$el.classList.add('is-visible')">
+                <p class="text-4xl font-bold text-lime-400">{value}</p>
+                <p class="mt-3 text-sm leading-6 text-white/65">{label}</p>
+              </article>
+            ))}
+          </div>
+          <div class="mx-auto mt-8 flex max-w-3xl gap-4 rounded-2xl bg-white p-6 text-left text-brand-body">
+            <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" aria-hidden="true" />
+            <p class="text-sm leading-6">These figures summarize specific organisms, application methods, exposure periods, and controlled dwell conditions in the cited report. They are not a promise that every site or protocol produces the same result.</p>
+          </div>
+          <div class="mt-8 text-center"><a href="/resources/documentation/" class="bl-pill-outline border-white/40">Review Supporting Documents <ArrowRight class="h-4 w-4" aria-hidden="true" /></a></div>
+        </div>
+      </section>
+
+      <SectorCta
+        eyebrow="Physics First"
+        heading="Map The Space Before You Choose The System."
+        copy="The right configuration starts with volume, airflow, occupancy, materials, and the operating window available for each cycle."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

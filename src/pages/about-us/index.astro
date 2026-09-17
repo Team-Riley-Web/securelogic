@@ -1,0 +1,119 @@
+---
+// Company narrative preserves the established About copy while presenting it
+// in the same modular visual system as the rebuilt market and product pages.
+import { Check, X } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProductHero from '../../components/product/ProductHero.astro';
+import DifferenceGrid from '../../components/sector/DifferenceGrid.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import nozzles from '../../assets/images/nozzles.png';
+import lineup from '../../assets/images/fitness-athletics-lineup.jpg';
+import pathogen from '../../assets/images/pathogen.png';
+
+const fieldProblems = [
+  'Manual work changed from person to person and shift to shift.',
+  'Hidden surfaces and airflow pathways were easy to miss.',
+  'Wet application created material and operational tradeoffs.',
+  'Facility teams needed repeatability without adding more labor.',
+];
+
+const path = [
+  { step: '01', title: 'Field Work', copy: 'More than two decades inside restoration, infection-control, school, government, healthcare, and residential projects.' },
+  { step: '02', title: 'Systems Thinking', copy: 'Construction, engineering, and operating experience turned recurring field problems into design constraints.' },
+  { step: '03', title: 'Genesis360', copy: 'The team developed a configurable delivery platform around sub-10-micron droplets and repeatable cycles.' },
+  { step: '04', title: 'What Comes Next', copy: 'Keep improving how facilities control air and surface conditions without depending on more manual variability.' },
+];
+---
+
+<BaseLayout title="Genesis360 | About Secure Logic" description="Secure Logic combines field experience, engineering, and systems design to build the Genesis360 environmental-control platform.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <ProductHero
+        eyebrow="About Secure Logic"
+        headline={['Field Experience.', 'Engineered Into A Better System.']}
+        copy="Secure Logic builds environmental-control systems from the problems its founders saw repeatedly in working facilities: inconsistent labor, missed coverage, wet application, and operational uncertainty."
+        image={nozzles}
+        imageAlt="Close view of precision nozzles producing a fine Genesis360 mist"
+        cta={{ href: '#our-story', label: 'Read Our Story' }}
+        secondaryCta={{ href: '/about-us/technology/', label: 'Explore The Technology' }}
+      />
+
+      <section id="our-story" class="scroll-mt-28 bg-white py-20 sm:py-24">
+        <div class="container-page grid gap-12 lg:grid-cols-[1.08fr_.92fr] lg:items-start">
+          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Our Story</p>
+            <h2 class="bl-h2 mt-4">The Same Problems Kept Showing Up.</h2>
+            <div class="mt-7 grid max-w-3xl gap-5 text-base leading-8 text-brand-body">
+              <p>For more than 23 years, Co-Founder and CEO Marty Boquet ran one of the Gulf Coast’s largest restoration and infection-control firms. Inside hospitals, schools, government buildings, and homes, the settings changed but the operating problems did not.</p>
+              <p>COVID did not create those problems. It exposed them. Even when a facility had an effective disinfectant, people still had to apply it consistently, reach the difficult areas, and repeat the process every time.</p>
+              <p>After the pandemic, Marty teamed up with Co-Founder and COO Josh Morvant, who brought more than 20 years of construction, engineering, and systems-design experience. Their question was practical: could the delivery process become as consistent as the chemistry?</p>
+            </div>
+            <blockquote class="mt-8 rounded-2xl border-l-4 border-botanical-500 bg-botanical-50 p-7 text-lg font-semibold leading-8 text-brand-900">Build an automated, physics-driven system that covers a three-dimensional space the same way, cycle after cycle.</blockquote>
+          </div>
+
+          <div class="reveal lg:sticky lg:top-28" x-intersect.once="$el.classList.add('is-visible')">
+            <div class="rounded-2xl bg-brand-50 p-7 shadow-lift">
+              <p class="text-xs font-bold uppercase tracking-[.16em] text-primary-600">What The Field Revealed</p>
+              <div class="mt-6 grid gap-4">
+                {fieldProblems.map((problem) => (
+                  <div class="flex gap-4 rounded-xl bg-white p-4">
+                    <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-red-50 text-red-500"><X class="h-4 w-4" aria-hidden="true" /></span>
+                    <p class="text-sm font-semibold leading-6 text-brand-800">{problem}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <DifferenceGrid
+        eyebrow="How We Think"
+        heading="Consistency Has To Be Designed In."
+        lede="The company’s operating principles are less about novelty than control: understand the physics, automate the repeatable work, and fit the system to the facility that has to live with it."
+        points={[
+          { icon: 'droplet', title: 'Precision', copy: 'Control droplet size and placement so the same configured system behaves predictably in the same environment.' },
+          { icon: 'cycle', title: 'Repeatability', copy: 'Move routine delivery from memory and technique into scheduled cycles and documented operating steps.' },
+          { icon: 'coverage', title: 'Practicality', copy: 'Design around real rooms, air handlers, maintenance access, staffing limits, and operating schedules.' },
+        ]}
+        closing={{ lead: 'If the outcome depends on a perfect manual pass every time, the process is still the weak link.', aside: 'Genesis360 is the first Secure Logic platform built around that belief. It will not be the last.' }}
+      />
+
+      <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div class="pointer-events-none absolute right-[-6rem] top-12 h-72 w-72 opacity-10" aria-hidden="true"><Image src={pathogen} alt="" class="h-full w-full object-contain" /></div>
+        <div class="container-page relative">
+          <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">The Path</p>
+            <h2 class="bl-h2 mt-4">From A Field Problem To A Platform.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">Secure Logic’s direction follows a simple sequence: observe the failure, turn it into an engineering constraint, build the repeatable system, and keep learning from the places where it runs.</p>
+          </div>
+          <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {path.map(({ step, title, copy }) => (
+              <article class="reveal relative overflow-hidden rounded-2xl bg-brand-50 p-7" x-intersect.once="$el.classList.add('is-visible')">
+                <span class="absolute right-5 top-3 text-6xl font-black text-brand-100" aria-hidden="true">{step}</span>
+                <Check class="h-6 w-6 text-botanical-600" aria-hidden="true" />
+                <h3 class="mt-8 text-xl text-brand-900">{title}</h3>
+                <p class="mt-3 text-sm leading-6 text-brand-body">{copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectorCta
+        variant="photo"
+        image={lineup}
+        imageAlt="Genesis360 systems and BotaniMax products in an operating athletic facility"
+        eyebrow="The Work Continues"
+        heading="Bring Us The Environment That Is Hard To Control."
+        copy="We build from the facility backward: what needs coverage, when the space is available, and where the current process breaks down."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

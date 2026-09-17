@@ -1,0 +1,139 @@
+---
+// Genesis360 system-family page. Product names/configurations follow the
+// Sales Pricing Guide; technical figures are limited to the AthleticGuard
+// Compact sheet and Technology Explainer.
+import { ArrowRight, Check, Clock3, Gauge, PanelsTopLeft } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProductHero from '../components/product/ProductHero.astro';
+import DropletComparison from '../components/product/DropletComparison.astro';
+import DifferenceGrid from '../components/sector/DifferenceGrid.astro';
+import SectorCta from '../components/sector/SectorCta.astro';
+import lineup from '../assets/images/fitness-athletics-lineup.jpg';
+import compact from '../assets/images/human-compact-iso.png';
+import aeroGuard from '../assets/images/hvac-aeroguard-render.png';
+import mediGuard from '../assets/images/medical-mist.png';
+import fogger from '../assets/images/portable-mist.png';
+import agriGuard from '../assets/images/agri-guard.png';
+
+interface SystemCard {
+  name: string;
+  fit: string;
+  copy: string;
+  image: ImageMetadata;
+  alt: string;
+  href: string;
+}
+
+const systems: SystemCard[] = [
+  // Source: Sales Pricing Guide — current system names and application fits.
+  { name: 'Compact Wall Mount', fit: 'Rooms & shared spaces', copy: 'A fixed room system that can mount on a wall, sit on a surface, or move between prepared brackets.', image: compact, alt: 'Genesis360 Compact Wall Mount shown from an angled front view', href: '/human/' },
+  { name: 'AeroGuard', fit: 'HVAC pathways', copy: 'Installs at the air handler for scheduled treatment around the coil, drain pan, and downstream duct pathway.', image: aeroGuard, alt: 'Genesis360 AeroGuard unit for HVAC air handlers', href: '/hvac/' },
+  { name: 'MediGuard Pro', fit: 'Clinical environments', copy: 'A room-based configuration for clinical spaces where repeatable after-hours treatment matters.', image: mediGuard, alt: 'Genesis360 MediGuard Pro room-treatment unit', href: '/human/healthcare/' },
+  { name: 'Battery Powered Fogger', fit: 'Portable spot treatment', copy: 'A cordless option for equipment, rooms, and hard-to-reach areas between scheduled fixed-system cycles.', image: fogger, alt: 'Genesis360 Battery Powered Fogger', href: '/human/athletics/' },
+  { name: 'AgriGuard', fit: 'Barns & production spaces', copy: 'A large-space configuration designed around the airflow, layout, and operating rhythm of animal agriculture.', image: agriGuard, alt: 'Genesis360 AgriGuard large-barn unit', href: '/ag/hogs-livestock/' },
+];
+
+// Source: Genesis360 AthleticGuard / Compact Wall Mount sheet.
+const compactFacts = [
+  { value: '1 gallon', label: 'integrated tank', icon: Gauge },
+  { value: '~85 min', label: 'single-nozzle misting time', icon: Clock3 },
+  { value: '~42 min', label: 'dual-nozzle misting time', icon: PanelsTopLeft },
+];
+---
+
+<BaseLayout title="Genesis360 | Dry Fog Systems" description="Explore the Genesis360 family of fixed, HVAC, clinical, portable, and agricultural dry mist systems.">
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <ProductHero
+        eyebrow="Genesis360 Systems"
+        headline={['One Platform.', 'Built For Every Space.']}
+        copy="A configurable family of automated dry mist systems, built around the same sub-10-micron delivery principle and adapted to the way each facility actually operates."
+        image={lineup}
+        imageAlt="Genesis360 room system, portable fogger, and BotaniMax products arranged in an athletic facility"
+        imageFit="cover"
+        cta={{ href: '#systems', label: 'Find Your System' }}
+        secondaryCta={{ href: '/about-us/technology/', label: 'See How It Works' }}
+      />
+
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page">
+          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">The Platform</p>
+            <h2 class="bl-h2 mt-4">One Set Of Physics. Five Ways To Deploy It.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">Genesis360 is not a single fogger scaled up and down. It is a deployment platform: fixed in a room, integrated with an air handler, configured for clinical use, carried to the next problem area, or sized for a barn.</p>
+          </div>
+
+          <div id="systems" class="mt-14 grid scroll-mt-28 gap-5 md:grid-cols-2 xl:grid-cols-5">
+            {systems.map(({ name, fit, copy, image, alt, href }) => (
+              <article class="reveal group flex flex-col overflow-hidden rounded-2xl bg-brand-50 shadow-lift" x-intersect.once="$el.classList.add('is-visible')">
+                <div class="grid aspect-[4/3] place-items-center bg-white p-6">
+                  <Image src={image} alt={alt} class="h-full w-full object-contain transition duration-500 group-hover:scale-[1.04]" widths={[260, 420, 640]} sizes="(min-width: 1280px) 18vw, (min-width: 768px) 44vw, 100vw" />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <p class="text-[.68rem] font-bold uppercase tracking-[.15em] text-primary-600">{fit}</p>
+                  <h3 class="mt-3 text-xl text-brand-900">{name}</h3>
+                  <p class="mt-3 flex-1 text-sm leading-6 text-brand-body">{copy}</p>
+                  <a href={href} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary-700">Explore the fit <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" /></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <DifferenceGrid
+        eyebrow="Why Genesis360"
+        heading="Coverage Is A System, Not A Spray Pattern."
+        lede="The delivery hardware, droplet size, placement, and schedule work together. That is what makes the platform configurable without making every site start from scratch."
+        points={[
+          { icon: 'droplet', title: 'Sub-10-Micron Delivery', copy: 'Droplets are engineered small enough to remain suspended and move with room or duct airflow instead of dropping immediately.' },
+          { icon: 'cycle', title: 'Repeatable Cycles', copy: 'A configured timer or control package runs the same treatment pattern without relying on a person to aim every pass.' },
+          { icon: 'coverage', title: 'Built Around The Space', copy: 'Nozzle count, mounting, output, and controls are matched to the room, air handler, or production area being treated.' },
+        ]}
+        closing={{ lead: 'Choose the environment first. Then choose the hardware that can cover it consistently.', aside: 'Our team maps the space, operating schedule, and maintenance plan before recommending a configuration.' }}
+      />
+
+      <section class="bg-white py-20 sm:py-24">
+        <div class="container-page grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+          <div class="reveal rounded-2xl bg-brand-50 p-8 shadow-lift sm:p-10" x-intersect.once="$el.classList.add('is-visible')">
+            <Image src={compact} alt="Genesis360 Compact Wall Mount product render" class="mx-auto max-h-[430px] w-full object-contain" widths={[420, 640, 860]} sizes="(min-width: 1024px) 38vw, 100vw" />
+          </div>
+          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="bl-eyebrow">Compact Wall Mount</p>
+            <h2 class="bl-h2 mt-4">A Concrete Example Of A Configurable System.</h2>
+            <p class="mt-6 text-base leading-8 text-brand-body">The Compact can be wall-mounted, placed on a tabletop, or moved with its integrated handle. Optional dual nozzles increase output, while an optional smart control board replaces the standard timer for phone or desktop control.</p>
+            <div class="mt-8 grid gap-4 sm:grid-cols-3">
+              {compactFacts.map(({ value, label, icon: Icon }) => (
+                <div class="rounded-2xl bg-brand-50 p-5">
+                  <Icon class="h-5 w-5 text-botanical-600" aria-hidden="true" />
+                  <p class="mt-4 text-2xl font-bold text-brand-900">{value}</p>
+                  <p class="mt-1 text-xs leading-5 text-brand-body">{label}</p>
+                </div>
+              ))}
+            </div>
+            <div class="mt-7 flex gap-3 rounded-2xl bg-primary-50 p-5 text-sm leading-6 text-brand-body">
+              <Check class="mt-0.5 h-5 w-5 shrink-0 text-primary-600" aria-hidden="true" />
+              <p>Most applications complete a full treatment cycle in under ten minutes. Runtime and cycle length depend on settings, liquid, room size, nozzle configuration, and facility protocol.</p>
+            </div>
+            <p class="mt-4 text-xs leading-5 text-brand-muted">Source: Genesis360 AthleticGuard / Compact Wall Mount product sheet.</p>
+          </div>
+        </div>
+      </section>
+
+      <DropletComparison />
+
+      <SectorCta
+        eyebrow="Your Space. Your Configuration."
+        heading="Start With The Environment You Need To Cover."
+        copy="Tell us how the space is used, when it is empty, and where manual treatment breaks down. We will map the Genesis360 configuration that fits."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
