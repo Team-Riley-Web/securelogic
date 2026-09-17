@@ -3,6 +3,10 @@
 // The sector page's argument. With an image: half photograph (with an optional
 // headline stat riding on it), half copy — the hog page's "The Reality In Every
 // Barn". Without an image: the centred text band from the poultry page.
+// Optional `video`: renders in the same slot as the image (muted/looping,
+// SectorHero's split-layout video attributes), using `image` as its poster —
+// so every video usage still ships a still fallback. Additive only; every
+// existing image-only call site is unaffected.
 import { ArrowRight } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -13,13 +17,15 @@ interface Props {
   paragraphs?: string[];
   image?: ImageMetadata;
   imageAlt?: string;
+  /** Optional background video for the image slot. Requires `image` as its poster/fallback. */
+  video?: string;
   stat?: { value: string; caption: string };
   link?: { href: string; label: string };
   /** Which corner the stat sits in. Defaults to 'left' so existing pages (the hog page) are unchanged. */
   statPosition?: 'left' | 'right';
 }
 
-const { eyebrow, heading, paragraphs = [], image, imageAlt = '', stat, link, statPosition = 'left' } = Astro.props;
+const { eyebrow, heading, paragraphs = [], image, imageAlt = '', video, stat, link, statPosition = 'left' } = Astro.props;
 const statRight = statPosition === 'right';
 ---
 
@@ -39,13 +45,27 @@ const statRight = statPosition === 'right';
   <section class="relative isolate overflow-hidden bg-brand-100">
     <div class="grid lg:grid-cols-2">
       <div class="relative min-h-[22rem] lg:min-h-full">
-        <Image
-          src={image}
-          alt={imageAlt}
-          class="absolute inset-0 h-full w-full object-cover"
-          widths={[640, 960, 1280]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-        />
+        {video ? (
+          <video
+            class="absolute inset-0 h-full w-full object-cover"
+            src={video}
+            poster={image.src}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-hidden="true"
+          ></video>
+        ) : (
+          <Image
+            src={image}
+            alt={imageAlt}
+            class="absolute inset-0 h-full w-full object-cover"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
+        )}
         <span class="absolute inset-0" aria-hidden="true" style={`background: linear-gradient(${statRight ? 255 : 105}deg, rgb(16 32 74 / 0.42) 0%, rgb(16 32 74 / 0.28) 58%, rgb(16 32 74 / 0.06) 100%);`}></span>
 
         {stat && (
