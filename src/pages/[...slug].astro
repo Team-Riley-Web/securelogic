@@ -11,8 +11,7 @@ export function getStaticPaths() {
   ].map((slug) => ({ params: { slug } }));
 }
 
-const slug = Astro.params.slug ?? '';
-const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
+const canonicalSlug = Astro.params.slug ?? '';
 
 const pageTitle = canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home';
 ---
