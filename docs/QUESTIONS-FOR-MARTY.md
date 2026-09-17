@@ -12,7 +12,10 @@ what the site does today, so a "keep it" answer is as easy as a change.
    "Unique EPA Registration" sheet says the ingredients are on the "25(b)
    Minimal Risk List", and the site said "2(c)" in three places. The site now
    says "EPA Registered" with the registration number and nothing else. Is
-   there a category phrase you want used, and what is its basis?
+   there a category phrase you want used, and what is its basis? Note: the
+   same wording was corrected inside the reproduced Newfields press release
+   on the blog; say so if you would rather that page stay as originally
+   issued.
 2. **Emerging Viral Pathogen claim.** The EPA master label allows the emerging
    pathogen language only in off-label communications under EPA's guidance,
    not as a standing certification. The homepage mark now reads "Qualifies
@@ -21,7 +24,9 @@ what the site does today, so a "keep it" answer is as easy as a change.
 3. **Patent status.** The homepage said "Patent-Pending Formula" about
    BotaniMax; the Tarleton case study says the *misting technology* is
    "patented". Which is true, and for which product? The site now says
-   "Proprietary Misting Technology" until you confirm.
+   "Proprietary Misting Technology" until you confirm. The Newfields press
+   release on the blog still says "Patented droplet technology", which
+   matches the case study's claim about the misting system, so it was left.
 4. **"150+ plant-derived actives".** No document supports the number. The
    label lists citric acid (2.06%) as the active and the SDS lists thyme oil,
    wintergreen oil and botanicals. The site now names thyme, wintergreen and

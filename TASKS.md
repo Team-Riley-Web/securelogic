@@ -925,7 +925,37 @@ unchecked task unless you are starting it.
 - [ ] Athletics page argument band: move the 72+ stat from the bottom-left corner of the photo to the bottom-right corner; it gets a little lost on the left.
 - [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
 - [ ] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
-- [ ] Read through each piece of content in the new reference-files folder (reference-files/new, 14 PDFs) and update the site as necessary. Break it into subtasks and use subagents if necessary.
+- [x] Read through each piece of content in the new reference-files folder (reference-files/new, 14 PDFs) and update the site as necessary. Break it into subtasks and use subagents if necessary.
+      Done 2026-09-17: the 14 PDFs were byte-identical to the August OneDrive
+      set, so nothing new arrived; the value was in mining documents never
+      used for copy before (EPA label, SDS, promo sheet, HVAC sheet, lab
+      report). Three parallel read-only audits (BotaniMax; technology/HVAC;
+      athletics) are saved under docs/audits/2026-09-17-*.md. One fix wave
+      (commit cda2c06, 24 edits, reviewed) then:
+      * EPA wording: "EPA Registered" + Reg. No. 92089-2-103661 everywhere;
+        the three inconsistent category codes (2(c), 25(c)) removed, incl.
+        inside the reproduced Newfields press release.
+      * "150+ plant actives" -> thyme, wintergreen, citrus + "100% Botanical
+        Formula"; "Patent-Pending Formula" -> "Proprietary Misting Technology"
+        (CertMark kind renamed patent -> misting); EVP mark softened to
+        "Qualifies For Emerging Pathogen Claims".
+      * Dry Fog Systems lineup now Compact Wall Mount / AeroGuard / MediGuard
+        Pro / Battery Powered Fogger / AgriGuard per the pricing guide;
+        360HVAC -> AeroGuard in hvac-markets.ts and the HVAC hero; retired
+        Dry Fog names + "Kinetic Systems" gone; at-sea blog post renamed.
+      * Technology page: unsupported "10-20x" / "4-12%" figures replaced with
+        the Explainer's "up to 8 hours" suspension; FAQ droplet comparison
+        and maintenance answers follow the brochures.
+      * Athletics headline and meta say "#1 reported cause".
+      Not changed on purpose: the wrestling blog's external 8.5-20.9% study
+      figure; the coach is not named (Leath vs Leeth). Rebuild-scope items
+      (HVAC + technology pages) are listed at the end of the technology
+      audit for sub-projects 2/5 and 3/5. Decisions collected in
+      docs/QUESTIONS-FOR-MARTY.md (Q1-Q7). Also landed today: Joshua's new
+      product photo as the gym/hub hero poster (1280-wide JPEG, original in
+      reference-files/photos). Reviewer asked for one visual check: the
+      "100% BOTANICAL" glyph text in CertMark is the longest yet; verify on
+      the home page in the next QA pass.
 - [x] Organize and rename the reference-files folder as you see fit (update any source comments in src that point at the old paths).
       Done 2026-09-17: reference-files/ (gitignored) is now brochures/ (6),
       botanimax/ (7), case-studies/ (2), copy-decks/ (5), logos/ (28),
