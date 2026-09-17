@@ -907,10 +907,26 @@ unchecked task unless you are starting it.
 - [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
 - [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
 - [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
-- [ ] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
-- [ ] Clarifies the hog-page nav task above: this will be a "soft-launch nav" - I don't want to get rid of the old nav design. Keep the full mega-menu design for the full launch; the soft-launch nav is a temporary variant.
-- [ ] Hog page: reduce the spacing between the coverage-map section and the closing "Start With The Barns You Run Hardest." CTA (large empty band between them on desktop, see screenshot 2026-09-16).
-- [ ] Hog page: the "Start With The Barns You Run Hardest." CTA section should probably have a white background and some other sort of photo, graphic, or design to it.
+- [x] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
+      Done 2026-09-17: the soft-launch (minimal) header shows a "Hogs &
+      Livestock" outline pill immediately before Contact on desktop and as the
+      first drawer item on phones. Soft-launch only; it lives inside the
+      `minimal` branch of Header.astro and comes out with it. The full
+      mega-menu header is untouched. Merged from batch-a-hog-header (8c61bfc).
+- [x] Clarifies the hog-page nav task above: this will be a "soft-launch nav" - I don't want to get rid of the old nav design. Keep the full mega-menu design for the full launch; the soft-launch nav is a temporary variant.
+      Done 2026-09-17: honoured. Only the `minimal` variant changed; the old
+      nav design is intact for the full launch (Marty Q17 confirms the plan).
+- [x] Hog page: reduce the spacing between the coverage-map section and the closing "Start With The Barns You Run Hardest." CTA (large empty band between them on desktop, see screenshot 2026-09-16).
+      Done 2026-09-17: the barn stage's aspect ratio went 1.98 -> 2.2 (the
+      artwork keeps its size and centre, so every callout anchor was rescaled
+      exactly) and the section's bottom padding was trimmed; the CTA sits 116
+      px higher at 1280 wide. Mobile layout unchanged.
+- [x] Hog page: the "Start With The Barns You Run Hardest." CTA section should probably have a white background and some other sort of photo, graphic, or design to it.
+      Done 2026-09-17: SectorCta gained a `photo` variant (white ground,
+      copy left / 4:3 photo right at lg, photo-then-copy stacked on phones);
+      the hog page uses it with baby-pigs-3.jpg ("Piglets in a clean nursery
+      pen"). Every other page keeps the default variant, which renders
+      byte-identically to before.
 - [ ] Sector landing pages (Human, HVAC hubs): use videos like the ag page (pictures work too, but they all should match the agricultural design). Pull out as much of the similar content as possible: the ag page breaks down each of its three sub pages, do that within Human and HVAC too.
 - [ ] Sector sub pages (human and HVAC markets): match the design of the hog page as closely as possible, with consistency across every one of these internal pages (healthcare, schools, athletics; then residential, commercial, industrial).
 - [ ] Blogs / From The Field rows: always show three posts, even if the second and third are not closely related; fill with something more generic rather than showing fewer.
@@ -958,7 +974,9 @@ unchecked task unless you are starting it.
       caption right-aligned and the photo scrim mirrored so the dark end sits
       under the stat.
 - [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
-- [ ] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
+- [x] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
+      Done 2026-09-17: the `{ label: 'Shop All', href: '#shop' }` line in
+      Header.astro's secondaryLinks is commented out with a dated note.
 - [x] Read through each piece of content in the new reference-files folder (reference-files/new, 14 PDFs) and update the site as necessary. Break it into subtasks and use subagents if necessary.
       Done 2026-09-17: the 14 PDFs were byte-identical to the August OneDrive
       set, so nothing new arrived; the value was in mining documents never
