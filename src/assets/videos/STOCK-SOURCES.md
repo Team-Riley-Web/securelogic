@@ -13,3 +13,14 @@ No acceptable clip was found for the military market (Mixkit's `military` catego
 categories — `army`, `soldier`, `corridor` — return combat/battlefield footage almost exclusively,
 with no empty barracks or military building interior shot). `/human/military/` keeps its still
 poster hero.
+
+- `home-interior.mp4`: [Empty Room with Ceiling Fan and Windows](https://www.pexels.com/video/empty-room-with-ceiling-fan-and-windows-19227397/) by Curtis Adams — Pexels License (free, no attribution required) — hero, /hvac/residential/
+- `rooftop-unit.mp4`: [Aerial view of industrial rooftop and surrounding landscape](https://www.pexels.com/video/aerial-view-of-industrial-rooftop-and-surrounding-landscape-34448153/) by Altaf Shah — Pexels License (free, no attribution required) — hero, /hvac/commercial/
+- `plant-air.mp4`: [Aerial shot of interior of the warehouse](https://www.pexels.com/video/aerial-shot-of-interior-of-the-warehouse-4477651/) by Paul Cruz — Pexels License (free, no attribution required) — hero, /hvac/industrial/
+
+All three HVAC clips landed (unlike the human-section military gap): Mixkit's `air-conditioning`,
+`home-interior`, `house-interior`, `roof`, `industrial-building`, and `pipes` categories returned
+mostly irrelevant results (dance/nightclub/abandoned-building footage sharing the same tags), so
+these came from targeted Pexels searches instead, fetched via WebFetch (search pages) then
+downloaded directly with curl (the `pexels.com/download/video/<id>/` links were not
+Cloudflare-blocked, unlike the search pages). No market needed its still fallback.
