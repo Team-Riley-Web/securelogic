@@ -115,3 +115,21 @@ what the site does today, so a "keep it" answer is as easy as a change.
 23. **Dealer pricing language.** The contractor block links to Get A Quote
     labelled "Talk To Us About Dealer Pricing" with no figures. OK to imply a
     dealer program exists?
+
+## Resources & Documentation (added 2026-09-17 during the resources/utility build-out)
+
+24. **Three documents still link off-site.** The Efficacy Lab Report, Staph
+    Efficacy Lab Report, and Industrial Hygiene White Paper on
+    `/resources/documentation/` still point at the WordPress media library
+    (`https://securelogicusa.com/wp-content/uploads/2025/04/Pathogen-Report.pdf`,
+    `https://securelogicusa.com/wp-content/uploads/2025/04/Staph-Final-Report.pdf`,
+    and
+    `https://securelogicusa.com/wp-content/uploads/2025/04/INDUSTRIAL-HYGIENE-White-Paper-Genesis-misting-Trial-BotaniMax.pdf`),
+    unlike the EPA Master Label and SDS, which are now self-hosted. Those
+    links are scheduled to change at the DNS cutover. Can you send local
+    copies of these three so they can be self-hosted the same way?
+25. **Privacy Policy is still placeholder text.** `/privacy-policy/` is still
+    the generic WordPress default boilerplate (comments, cookies, embedded
+    content, data retention — nothing specific to Genesis360 or Secure
+    Logic). Does counsel-reviewed policy text exist for this site, or should
+    the placeholder stay until it does?

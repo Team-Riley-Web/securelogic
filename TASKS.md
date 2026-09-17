@@ -994,7 +994,63 @@ unchecked task unless you are starting it.
       Genesis360 vs. Secure Logic voice) all apply directly to these four
       pages. All copy is drafted from the label/SDS/promo sheets and the
       Technology Explainer and needs his read.
-- [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
+- [x] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
+      Done 2026-09-17: seven static pages replace the catch-all's remaining
+      utility branches. Tiers per spec
+      (docs/superpowers/specs/2026-09-17-resources-utility-design.md):
+      /resources/ is standard+ (hub, four-card grid to Blog/Brochures/
+      Documentation/FAQs); /resources/brochures/, /resources/documentation/,
+      /resources/faqs/, /contact-us/, /get-a-quote/ are standard;
+      /privacy-policy/ is standard (legal) — deliberately plain, no hero
+      video, no reveal animation, no closing CTA band beyond the shared
+      footer, so the legal text reads as static text rather than marketing.
+      Two documents are now self-hosted (added in Task 1 of this plan): the
+      BotaniMax EPA Master Label and SDS, copied from reference-files and
+      served from public/docs/. Three documents stay external on
+      /resources/documentation/ — the Efficacy Lab Report, Staph Efficacy Lab
+      Report, and Industrial Hygiene White Paper — because no local copies
+      exist in any reference folder available to this build; they still link
+      to the WordPress media library
+      (securelogicusa.com/wp-content/uploads/2025/04/...), which is
+      scheduled to change at the DNS cutover. Local copies are now asked for
+      in Marty question 24 below, so they can be self-hosted the same way as
+      the label/SDS before that cutover breaks them.
+      Two new brochures added to /resources/brochures/: Athletics (sub-10-
+      micron dry fog for wrestling/weight rooms) and HVAC (AeroGuard for
+      coil/drain pan/duct pathway), each with its own rendered cover
+      thumbnail matching the three existing brochures' portrait style.
+      One new FAQ added to /resources/faqs/: "Is BotaniMax EPA registered?",
+      answering the BotaniMax-audit gap with the Reg. No. 92089-2-103661
+      federal registration, sourced from the label.
+      /faqs/ now 301-redirects to /resources/faqs/ so the old short URL
+      doesn't 404; the catch-all's seven retired branches (resources,
+      resources/brochures, resources/documentation, resources/faqs, faqs,
+      contact-us, get-a-quote, privacy-policy) and their now-unused
+      constants/imports are fully removed from src/pages/[...slug].astro,
+      which now serves only home-page. Build holds at the 43-page baseline
+      recorded in Task 1.
+      QA: link sweep (no BROKEN hrefs, one h1 per page) and browser QA at
+      500px and 1280px for all seven pages, including both new brochure
+      covers, the documentation page's sticky label image, and the FAQ
+      accordion (verified as native <details>/<summary>, semantically
+      correct; resting-state screenshots only, per the same convention as
+      the earlier build-out QA passes not exercising hover/open states).
+      No genuine defects found — nothing needed a fix or rebuild. One
+      capture artifact, not a site bug: the embedded Pipedrive form on
+      /get-a-quote/ and /contact-us/ needs several seconds to load its
+      external script in a from-cold headless capture, so a screenshot taken
+      too early shows blank space where the form fields render; re-capturing
+      with a longer wait shows the Name/Email fields load correctly.
+      astro check remains at the same 8 pre-existing homepage errors with no
+      new diagnostics; brand check passes; no `$` figures on any of the
+      seven pages.
+      Everything stays behind the soft-launch gate. All commits are local;
+      nothing pushed.
+      FLAG FOR MARTY: two new questions added to
+      docs/QUESTIONS-FOR-MARTY.md under "Resources & Documentation" (24-25)
+      — local copies of the three external documents, and whether
+      counsel-reviewed Privacy Policy text exists or the placeholder should
+      stay.
 - [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
 - [x] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
       Done 2026-09-17: the soft-launch (minimal) header shows a "Hogs &
