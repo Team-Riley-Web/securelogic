@@ -1,9 +1,9 @@
 ---
 // src/components/sector/SectorCta.astro
 // Closing CTA for every sector page. Extracted from AgCta.astro (which now
-// wraps this). `href` defaults to /contact-us/ because /get-a-quote/ is
-// unfinished; pages open during the soft launch pass the landing page's
-// contact block instead.
+// wraps this). `href` defaults to /contact-us/ only so the ag pages (which
+// still pass no `href`) keep working; every other call site passes
+// href="/get-a-quote/" explicitly per the site-wide convention.
 //
 // `variant`: 'default' (unchanged) renders the centred band on bg-brand-100.
 // 'photo' — added 2026-09-17 for the hog page — renders on white as a
