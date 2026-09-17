@@ -52,7 +52,7 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
     <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
 
     <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
-      <div class="mx-auto max-w-3xl">
+      <div class="mx-auto max-w-4xl">
         <p class="bl-eyebrow">{eyebrow}</p>
         <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
           {headline.map((line, i) => (
@@ -62,7 +62,7 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
             </>
           ))}
         </h1>
-        <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
+        <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium text-white/75 sm:max-w-lg sm:text-xl">
           {support}
         </p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
@@ -114,7 +114,7 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
         ))}
       </h1>
       <p class="mt-6 max-w-xl text-lg font-semibold text-white/75 sm:text-xl">{support}</p>
-      {lede && <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">{lede}</p>}
+      {lede && <p class="mt-8 max-w-xl text-base text-white/75 sm:text-lg">{lede}</p>}
       <div class="mt-10 flex flex-wrap gap-3">
         <a href={cta.href} class="bl-pill">{cta.label}</a>
         {secondaryCta && (
