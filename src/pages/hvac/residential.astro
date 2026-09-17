@@ -1,0 +1,228 @@
+---
+// src/pages/hvac/residential.astro
+// Residential — the HVAC section's flagship. Speaks to homeowners in the
+// brochure's voice, with a contractor block near the end. Sources cited beside
+// the copy: H = Genesis360 HVAC.pdf, G = Sales Pricing Guide (names only),
+// E = Technology Explainer.pdf, L = the Tarleton lab report, A = the Compact
+// sheet (Genesis360 AthleticGuard.pdf). Spec:
+// docs/superpowers/specs/2026-09-17-hvac-section-design.md
+// Icon substitution: `Waves` does not exist in this @lucide/astro version;
+// substituted `Droplets` for the Drain Pan icon (nearest match, water/moisture).
+import { AirVent, Cloud, Droplets, Fan, House, Snowflake, Smartphone, ThermometerSun, Wind, ArrowRight } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import ArgumentBand from '../../components/sector/ArgumentBand.astro';
+import CoverageMap from '../../components/sector/CoverageMap.astro';
+import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
+import StepsBand from '../../components/sector/StepsBand.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import OtherMarkets from '../../components/sector/OtherMarkets.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { hvacMarkets } from '../../data/hvac-markets';
+import { posts } from '../../data/blog-posts';
+import aeroguardOnHandler from '../../assets/images/hvac-aeroguard-on-handler.png';
+import wholeHouse from '../../assets/images/hvac-whole-house.png';
+import cleanDirty from '../../assets/images/hvac-clean-vs-dirty.png';
+import aeroguardRender from '../../assets/images/hvac-aeroguard-render.png';
+import closetUnit from '../../assets/images/hvac-closet-unit.png';
+import familyHome from '../../assets/images/hvac-family-home.png';
+
+const market = hvacMarkets.find((m) => m.slug === 'residential')!;
+const FILL = ['biofilm-hvac-prevention', 'how-to-identify-sick-building-syndrome-and-improve-indoor-air-quality-in-your-building'];
+const relatedPosts = [...market.postSlugs, ...FILL].filter((s, i, a) => a.indexOf(s) === i).map((s) => posts.find((p) => p.slug === s)!).filter(Boolean).slice(0, 3);
+const otherMarkets = hvacMarkets.filter((m) => m.slug !== market.slug);
+
+// Source H p.2 (the air path: coil, drain pan, cabinet, ductwork, vents) and
+// Source L ("deliver disinfectant through HVAC systems to extend coverage across
+// ventilation pathways"). Anchors are percentages of the 1536x1024 cutaway and
+// are tuned from screenshots in this task's QA step.
+const coveragePoints = [
+  { key: 'handler', label: 'Air Handler', icon: Fan, side: 'left' as const,
+    copy: 'Genesis360 installs here, after the coil has been manually cleaned, and releases its dry mist into the cabinet where the air is moving.',
+    callout: { x: 1.5, y: 14 }, anchor: { x: 37, y: 30 } },
+  { key: 'coil', label: 'Evaporator Coil', icon: Snowflake, side: 'left' as const,
+    copy: 'A wet environment by design. Biofilm, bacteria and mold begin here; the mist reaches the fins and the moisture film on them.',
+    callout: { x: 1.5, y: 44 }, anchor: { x: 35, y: 53 } },
+  { key: 'pan', label: 'Drain Pan', icon: Droplets, side: 'left' as const,
+    copy: 'Standing water and buildup that can clog drain lines and back up into the home. Treated every cycle.',
+    callout: { x: 1.5, y: 74 }, anchor: { x: 35, y: 73 } },
+  { key: 'ducts', label: 'Ductwork', icon: Wind, side: 'right' as const,
+    copy: 'The dry droplets move with the airflow into the downstream duct pathway instead of settling at the source.',
+    callout: { x: 98.5, y: 14 }, anchor: { x: 61, y: 29 } },
+  { key: 'vents', label: 'Supply Vents', icon: AirVent, side: 'right' as const,
+    copy: 'Where the recycled air enters every room. What reaches the vents is what the household breathes.',
+    callout: { x: 98.5, y: 44 }, anchor: { x: 52, y: 43 } },
+  { key: 'thermostat', label: 'Every Cycle', icon: ThermometerSun, side: 'right' as const, sub: 'Schedule',
+    copy: 'The system is programmed to run on a schedule of your choosing, so treatment happens whether or not anyone remembers.',
+    callout: { x: 98.5, y: 74 }, anchor: { x: 65, y: 43 } },
+];
+
+// Source G: AeroGuard Base (1 nozzle + digital timer); AeroGuard + Smart/App
+// (1 nozzle + PLC Smart Board/App); dual-nozzle upgrade. Source H: installs
+// into the HVAC system after a manual coil clean.
+const deployments = [
+  {
+    device: 'AeroGuard',
+    deviceCopy: 'One nozzle on a digital timer, installed at the air handler after a manual coil clean. Set the schedule once and the cycles run on their own.',
+    image: aeroguardRender,
+    imageAlt: 'Genesis360 AeroGuard unit',
+    facility: 'Most Homes',
+    facilityCopy: 'A single air handler in a closet, attic or garage.',
+    icon: House,
+  },
+  {
+    device: 'AeroGuard + Smart/App',
+    deviceCopy: 'The same unit with PLC Smart Board/App control: schedule and monitor from a phone, with low-liquid and power alerts. A dual-nozzle upgrade covers larger handlers.',
+    image: closetUnit,
+    imageAlt: 'Genesis360 AeroGuard beside a residential closet air handler',
+    facility: 'Larger Homes & Second Systems',
+    facilityCopy: 'Two handlers, a large one, or a homeowner who wants the record on their phone.',
+    icon: Smartphone,
+  },
+];
+
+// Source H p.2, "Homeowners should be aware of" (Today) and p.1 "Why
+// homeowners should ask for Genesis360" (With Genesis360), both verbatim
+// in substance.
+const today = [
+  'Indoor air quality concerns for sensitive individuals and those with a compromised immune system',
+  'Clogged drain pans or drain lines that overflow or back up and damage the home',
+  'Restricted airflow from dirty coils and buildup, and the higher operating costs that follow',
+  'Musty or stale odors from mold and bacteria build-up',
+];
+const withGenesis = [
+  'Supports cleaner HVAC pathways',
+  'Helps reduce odor-causing buildup',
+  'Helps target hidden wet mechanical areas',
+  'Supports long-term HVAC cleanliness and comfort',
+];
+
+// Source H p.2, "How it works", five steps; titles verbatim.
+const steps = [
+  { title: 'Installed into the HVAC system', copy: 'Ideally after your evaporator coil has been manually cleaned, so the system starts from a clean slate.' },
+  { title: 'Touches more of the pathway', copy: 'Once the system is manually cleaned, Genesis360 helps prevent future buildup across the coil, drain pan and duct pathway rather than one spot.' },
+  { title: 'Automated treatment cycle', copy: 'The system is programmed to run on a schedule of your choosing.' },
+  { title: 'Dry droplet distribution', copy: 'Sub-10-micron droplets move through the HVAC system with the airflow and settle without wetting surfaces.' },
+  { title: 'Ongoing annual maintenance', copy: 'A suggested twice-a-year check that Genesis360 is running effectively, and a refill of the liquid tank.' },
+];
+---
+
+<BaseLayout
+  title="Genesis360 | HVAC | Residential"
+  description="Clean air starts inside your HVAC system. Genesis360 AeroGuard treats the coil, drain pan and duct pathway on a schedule, so the air your family breathes starts cleaner."
+>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <!-- Source H p.1: headline verbatim; support from the opening paragraph. -->
+      <SectorHero
+        eyebrow="Residential"
+        headline={['Clean Air Starts Inside', 'Your HVAC System.']}
+        support="Your air conditioner moves the air your family lives, sleeps, works and breathes in every day."
+        poster={market.hero.poster}
+        video={market.hero.video}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+        secondaryCta={{ href: '#coverage-map', label: 'See Where It Reaches' }}
+      />
+
+      <!-- Source H p.2: heading verbatim; paragraphs from the air-path explanation. Stat: H p.2
+           "Ongoing annual maintenance — Suggested twice a year observation ... and to refill the
+           liquid tank." -->
+      <ArgumentBand
+        eyebrow="The Reality In Every Home"
+        heading="What Could Be Hiding Inside Your HVAC System?"
+        image={aeroguardOnHandler}
+        imageAlt="Genesis360 AeroGuard releasing dry mist across the evaporator coil inside an air handler"
+        statPosition="right"
+        stat={{ value: '2×', caption: 'a year is all the maintenance the system asks for' }}
+        paragraphs={[
+          'Inside your HVAC system, air from your home is drawn into the air conditioner, cycles across the evaporator coil in a wet environment, through the mechanical cabinet, into the ductwork, and out through the vents in every room. Because the coil and drain pan naturally collect moisture, they collect biofilm, bacteria, mold, mildew, dust and odor-causing buildup over time.',
+          'When the system turns on, the recycled air moves across those same areas and circulates through the home again. Genesis360 for HVAC targets the mechanical areas where that buildup begins, so cleaner air starts where the air starts.',
+        ]}
+        link={{ href: '#deployments', label: 'See The Systems' }}
+      />
+
+      <CoverageMap
+        eyebrow="Coverage Map"
+        heading="One System To Reach The Whole HVAC Pathway."
+        lede="Most indoor air quality devices treat one spot. Genesis360 releases a dry mist inside the air handler that travels with the air itself, through the mechanical area and down the duct pathway."
+        art={wholeHouse}
+        artAlt="Cutaway of a house showing the attic air handler, ductwork, supply vents, closet furnace and outdoor condenser"
+        mobileHeading="Whole-Pathway Coverage"
+        mobileCopy="One unit at the air handler reaches the coil, the drain pan and the ductwork beyond."
+        mobileIcon={Cloud}
+        points={coveragePoints}
+        stageAspect={1.7}
+        artWidth={50}
+      />
+
+      <DeploymentCards
+        heading="One Platform. Two Ways To Deploy It."
+        intro="A timer for most homes, an app for the rest. Both install at the air handler and run on their own."
+        cards={deployments}
+      />
+
+      <!-- Source H p.1 (odor paragraph) and p.2 (four concerns). -->
+      <StatBand
+        eyebrow="What Homeowners Should Know"
+        heading="Masking An Odor Doesn't Fix Where It Starts."
+        lede="Most odors start in the HVAC. Candles, sprays, plug-ins and deodorizers cover them up; if the odor originates inside the system, masking it does not solve the problem."
+        figures={[
+          { value: '4', label: 'Things to be aware of', copy: 'Sensitive occupants, clogged drain pans, restricted airflow and musty odors all trace back to the same wet mechanical areas.' },
+          { value: '1', label: 'Place it all begins', copy: 'The evaporator coil and drain pan collect moisture by design, and everything the air carries with it.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="Homeowners should be aware of:"
+          today={today}
+          withIntro="Genesis360 for HVAC:"
+          with={withGenesis}
+        />
+      </StatBand>
+
+      <StepsBand
+        eyebrow="How It Works"
+        heading="Installed Once. Working Every Cycle."
+        lede="Genesis360 fits into the maintenance your system already needs, then keeps working between visits."
+        steps={steps}
+        image={cleanDirty}
+        imageAlt="Side-by-side comparison of a clean HVAC coil and drain pan with a dirty one"
+        source="Results depend on application methods, the condition of the system, maintenance practice, and professional installation."
+      />
+
+      <!-- Contractor path. Source H p.2: "Ask your HVAC professional about adding Genesis360 to
+           your home as a part of a cleaner indoor air and HVAC maintenance strategy." No pricing. -->
+      <section class="bg-brand-100 py-16 sm:py-20">
+        <div class="container-page">
+          <div class="reveal grid items-center gap-8 rounded-2xl p-8 text-white sm:p-10 lg:grid-cols-[1.25fr_1fr]" style="background: linear-gradient(135deg, var(--bl-ink) 0%, var(--bl-ink-mid) 62%, var(--bl-ink-deep) 100%);" x-intersect.once="$el.classList.add('is-visible')">
+            <div>
+              <p class="bl-eyebrow" style="--bl-eyebrow-color: var(--bl-lime);">For HVAC Professionals</p>
+              <h2 class="mt-3 text-2xl leading-snug sm:text-3xl">Add Genesis360 to the maintenance you already sell.</h2>
+              <p class="mt-4 text-sm leading-7 text-white/75">Install it after the coil clean, set the schedule, and the system keeps the pathway clean between your visits. Homeowners are told to ask their HVAC professional about it; be the one they ask.</p>
+            </div>
+            <div class="lg:border-l lg:border-white/20 lg:pl-8">
+              <a href="/get-a-quote/" class="bl-pill bl-pill-invert">Talk To Us About Dealer Pricing <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <PostsRow posts={relatedPosts} heading="From The Field" />
+      <OtherMarkets heading="Other HVAC Markets" basePath="/hvac/" markets={otherMarkets} />
+      <SectorCta
+        variant="photo"
+        image={familyHome}
+        imageAlt="Family relaxing at home with clean indoor air"
+        eyebrow="Your Home. Your Coverage Plan."
+        heading="A Cleaner HVAC System. Fresher Air. Better Peace Of Mind."
+        copy="Tell us about your system and who lives in the house, and our team will map the right AeroGuard configuration and connect you with an installer."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
