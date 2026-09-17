@@ -11,8 +11,10 @@ import type { ImageMetadata } from 'astro';
 interface Props {
   layout?: 'center' | 'split';
   eyebrow: string;
-  /** Two lines; the second renders in lime. */
-  headline: [string, string];
+  /** Two or three lines. The LAST line renders in lime; the others in white.
+   * Below `lg` the lines flow inline, separated by a space. At `lg` and up
+   * each line is its own block. */
+  headline: string[];
   support: string;
   poster: ImageMetadata;
   video?: string;
@@ -48,7 +50,12 @@ const { layout = 'center', eyebrow, headline, support, poster, video, cta, secon
       <div class="mx-auto max-w-3xl">
         <p class="bl-eyebrow">{eyebrow}</p>
         <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
-          {headline[0]}<br /><span class="text-lime-400">{headline[1]}</span>
+          {headline.map((line, i) => (
+            <>
+              <span class:list={['lg:block', i === headline.length - 1 && 'text-lime-400']}>{line}</span>
+              {i < headline.length - 1 && ' '}
+            </>
+          ))}
         </h1>
         <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
           {support}
@@ -94,7 +101,12 @@ const { layout = 'center', eyebrow, headline, support, poster, video, cta, secon
     <div class="container-page relative py-20 sm:py-24">
       <p class="bl-eyebrow">{eyebrow}</p>
       <h1 class="mt-5 max-w-4xl text-4xl leading-[1.06] sm:text-5xl lg:text-6xl">
-        {headline[0]}<br /><span class="text-lime-400">{headline[1]}</span>
+        {headline.map((line, i) => (
+          <>
+            <span class:list={['lg:block', i === headline.length - 1 && 'text-lime-400']}>{line}</span>
+            {i < headline.length - 1 && ' '}
+          </>
+        ))}
       </h1>
       <p class="mt-6 max-w-xl text-lg font-semibold text-white/75 sm:text-xl">{support}</p>
       {lede && <p class="mt-8 max-w-xl text-base leading-8 text-white/75 sm:text-lg">{lede}</p>}
