@@ -20,6 +20,7 @@ import AgCta from '../../components/AgCta.astro';
 import AgPostsRow from '../../components/AgPostsRow.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { agMarkets } from '../../data/ag-markets';
 import { CONTACT_EMAIL, CONTACT_HREF, CTA_LABEL, SOFT_LAUNCH } from '../../data/launch-gate';
@@ -434,33 +435,15 @@ const withGenesis = [
       <!-- MODULE 1 — hero. Shaped like the homepage hero: centred, one line of
            support, one CTA. The deck's longer argument sits in the band below,
            on a solid ground, rather than fighting the footage for legibility. -->
-      <section class="relative isolate overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime);">
-        <video
-          class="absolute inset-0 h-full w-full object-cover"
-          src={swineVideo}
-          poster={swinePoster.src}
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          aria-hidden="true"
-        ></video>
-        <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
-
-        <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
-          <div class="mx-auto max-w-3xl">
-            <p class="bl-eyebrow">Hogs &amp; Livestock</p>
-            <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
-              Complete Coverage.<br /><span class="text-lime-400">Healthy Pigs.</span>
-            </h1>
-            <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
-              Proactive pathogen control at every point in every pig's life cycle.
-            </p>
-            <a href={SOFT_LAUNCH ? CONTACT_HREF : '/get-a-quote/'} class="bl-pill mt-8">{SOFT_LAUNCH ? CTA_LABEL : 'Get A Quote'}</a>
-          </div>
-        </div>
-      </section>
+      <SectorHero
+        layout="center"
+        eyebrow="Hogs & Livestock"
+        headline={['Complete Coverage.', 'Healthy Pigs.']}
+        support="Proactive pathogen control at every point in every pig's life cycle."
+        poster={swinePoster}
+        video={swineVideo}
+        cta={{ href: SOFT_LAUNCH ? CONTACT_HREF : '/get-a-quote/', label: SOFT_LAUNCH ? CTA_LABEL : 'Get A Quote' }}
+      />
 
       <!-- The deck's Module 1 argument. Half image, half dark panel — the copy
            needed a header that lands the "pathogens are everywhere" idea, and
