@@ -23,7 +23,7 @@ import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
 import { humanMarkets } from '../../data/human-markets';
-import { posts } from '../../data/blog-posts';
+import { relatedPosts as pickPosts, HUMAN_FILL } from '../../data/related-posts';
 import gymVideo from '../../assets/videos/gym.mp4';
 import gymPoster from '../../assets/images/hero-gym-poster.jpg';
 import coachVideo from '../../assets/videos/tarleton-coach.mp4';
@@ -35,7 +35,7 @@ import compactFront from '../../assets/images/human-compact-front.png';
 import compactIso from '../../assets/images/human-compact-iso.png';
 
 const market = humanMarkets.find((m) => m.slug === 'athletics')!;
-const relatedPosts = posts.filter((p) => market.postSlugs.includes(p.slug));
+const relatedPosts = pickPosts(market.postSlugs, HUMAN_FILL);
 const otherMarkets = humanMarkets.filter((m) => m.slug !== market.slug);
 
 // Source G (package names, configurations), A (Compact behaviour).
@@ -183,14 +183,14 @@ const quotes = [
 
       <PostsRow posts={relatedPosts} heading="From The Field" />
 
-      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
-
       <SectorCta
         eyebrow="Your Rooms. Your Coverage Plan."
         heading="Start With The Room That Smells Like A Wrestling Room."
         copy="Tell us how the facility runs, from the mat room to the lockers, and our team will map the right portable, fixed, or Compact Pro deployment and build a coverage plan around it."
         href="/get-a-quote/"
       />
+
+      <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
     </main>
 
     <Footer />
