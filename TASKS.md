@@ -925,6 +925,18 @@ unchecked task unless you are starting it.
 - [ ] Athletics page argument band: move the 72+ stat from the bottom-left corner of the photo to the bottom-right corner; it gets a little lost on the left.
 - [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
 - [ ] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
+- [ ] Read through each piece of content in the new reference-files folder (reference-files/new, 14 PDFs) and update the site as necessary. Break it into subtasks and use subagents if necessary.
+- [x] Organize and rename the reference-files folder as you see fit (update any source comments in src that point at the old paths).
+      Done 2026-09-17: reference-files/ (gitignored) is now brochures/ (6),
+      botanimax/ (7), case-studies/ (2), copy-decks/ (5), logos/ (28),
+      renders/ (61), photos/ (2), video/ (1: the Tarleton coach interview,
+      copied from ~/Downloads), plus a README.md describing each folder and
+      the provenance. The two OneDrive folders (Aug 13 and Sep 16) were
+      byte-identical, so one copy of each PDF was kept; "Joshua Riley",
+      webcopy, images and new are gone. 125 files before, 113 after (14
+      duplicates removed, video + README added); a basename diff confirmed
+      nothing else was lost. Source comments in four .astro files updated to
+      the new paths (commit 12cd2fd); build and brand check pass.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
