@@ -6,6 +6,14 @@
 // ≥6-log reductions); the Sales Pricing Guide (MediGuard Pro = Compact Pro, 2
 // nozzles + PLC Smart Board/App; Rolling Stand "especially valuable in medical
 // settings"); Genesis360 AthleticGuard.pdf for the Compact description.
+//
+// Hero and argument-band footage (2026-09-17): page-specific hospital
+// b-roll (hospital-1/2/3, processed to healthcare-hero / healthcare-
+// disinfection / healthcare-family-cta), speaking to both a hospital
+// administrator and a visiting family. The hero deliberately reads from
+// these local assets rather than `market.hero` — `market.hero` still backs
+// the hub's sector card poster elsewhere, and this footage is specific to
+// this page, not shared with the hub.
 import { Stethoscope, BedDouble } from '@lucide/astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
@@ -20,6 +28,11 @@ import { humanMarkets } from '../../data/human-markets';
 import { relatedPosts as pickPosts, HUMAN_FILL } from '../../data/related-posts';
 import rollingStand from '../../assets/images/human-rolling-stand.png';
 import fogger from '../../assets/images/human-fogger.png';
+import heroPoster from '../../assets/images/hero-healthcare-mri-poster.jpg';
+import heroVideo from '../../assets/videos/healthcare-hero.mp4';
+import disinfectionPoster from '../../assets/images/healthcare-disinfection-poster.jpg';
+import disinfectionVideo from '../../assets/videos/healthcare-disinfection.mp4';
+import familyPhoto from '../../assets/images/healthcare-family-cta.jpg';
 
 const market = humanMarkets.find((m) => m.slug === 'healthcare')!;
 const relatedPosts = pickPosts(market.postSlugs, HUMAN_FILL);
@@ -60,10 +73,10 @@ const deployments = [
     <main>
       <SectorHero
         eyebrow="Healthcare"
-        headline={['Complete Coverage.', 'Consistent Infection Control.']}
-        support="Automated, programmable whole-room cycles built for clinical environments."
-        poster={market.hero.poster}
-        video={market.hero.video}
+        headline={['A Cleaner Hospital.', 'A Healthier Family.']}
+        support="Automated, whole-room disinfection so every patient room is a place of healing, not risk."
+        poster={heroPoster}
+        video={heroVideo}
         cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
       />
 
@@ -71,11 +84,17 @@ const deployments = [
            Performance ... Tarleton State.pdf — pathogen list
            (Staphylococcus aureus, MRSA, Pseudomonas aeruginosa, influenza,
            non-enveloped viruses, Clostridioides difficile spores) and the four
-           failure modes of manual cleaning. -->
+           failure modes of manual cleaning. Background video: hospital-1
+           (staff in full PPE disinfecting an exam room), proving the
+           argument visually. -->
       <ArgumentBand
         eyebrow="The Reality In Every Clinic"
-        heading="Infection Control Is Only As Consistent As The Last Person Who Cleaned The Room."
+        heading="A Hospital Should Heal, Not Spread What It's Treating."
+        image={disinfectionPoster}
+        video={disinfectionVideo}
+        imageAlt="Staff in full PPE disinfecting a clinical exam room"
         paragraphs={[
+          "Every family walking through these doors is trusting that the room is safer than the one they left.",
           market.heroCopy,
           'Manual wiping and spraying leave the same gaps everywhere: the air itself, irregular and hard-to-reach surfaces, recontamination between cleanings, and the ordinary inconsistency of people doing a repetitive job. The organisms that matter here, MRSA and other staph, Pseudomonas, influenza and non-enveloped viruses, C. diff spores, live in exactly those gaps.',
           'Genesis360 fills the room with a sub-10-micron dry mist of BotaniMax, an EPA-registered botanical disinfectant, treating the air column and every surface in the same cycle. Independent laboratory testing of the platform has shown bacterial reductions of five log or better and viral reductions of six log or better.',
@@ -92,10 +111,13 @@ const deployments = [
       <PostsRow posts={relatedPosts} heading="From The Field" />
 
       <SectorCta
-        eyebrow="Your Facility. Your Coverage Plan."
-        heading="Start With The Rooms That Turn Over Fastest."
-        copy="Tell us how the facility runs, from exam rooms to dialysis chairs, and our team will map the right MediGuard Pro and portable deployment and build a coverage plan around it."
+        eyebrow="Your Patients. Your Reputation."
+        heading="Give Every Family The Room They're Hoping For."
+        copy="Tell us how the facility runs, from exam rooms to dialysis chairs, and our team will map the right MediGuard Pro and portable deployment so every room a patient sits down in has been treated, not just wiped."
         href="/get-a-quote/"
+        variant="photo"
+        image={familyPhoto}
+        imageAlt="A family consulting with a clinician in an exam room"
       />
 
       <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />
