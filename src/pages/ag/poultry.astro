@@ -19,6 +19,7 @@ import AgCta from '../../components/AgCta.astro';
 import AgPostsRow from '../../components/AgPostsRow.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { ArrowRight } from '@lucide/astro';
 import { agMarkets } from '../../data/ag-markets';
@@ -51,33 +52,15 @@ const otherMarkets = agMarkets.filter((m) => m.slug !== market.slug);
 
     <main>
       <!-- MODULE 1 — hero. Same treatment as the hog and indoor-growing pages. -->
-      <section class="relative isolate overflow-hidden text-white" style="--bl-eyebrow-color: var(--bl-lime);">
-        <video
-          class="absolute inset-0 h-full w-full object-cover"
-          src={poultryVideo}
-          poster={poultryPoster.src}
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          aria-hidden="true"
-        ></video>
-        <div class="absolute inset-0 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]"></div>
-
-        <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
-          <div class="mx-auto max-w-3xl">
-            <p class="bl-eyebrow">Poultry</p>
-            <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
-              Complete Coverage.<br /><span class="text-lime-400">Healthy Flocks.</span>
-            </h1>
-            <p class="mx-auto mt-6 max-w-md text-balance text-lg font-medium leading-8 text-white/75 sm:max-w-lg sm:text-xl sm:leading-9">
-              Proactive pathogen control at every stage of every flock cycle.
-            </p>
-            <a href="/get-a-quote/" class="bl-pill mt-8">Get A Quote</a>
-          </div>
-        </div>
-      </section>
+      <SectorHero
+        layout="center"
+        eyebrow="Poultry"
+        headline={['Complete Coverage.', 'Healthy Flocks.']}
+        support="Proactive pathogen control at every stage of every flock cycle."
+        poster={poultryPoster}
+        video={poultryVideo}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+      />
 
       <!-- MODULE 2 — the argument, on a solid ground. Mirrors the hog page's
            "The Reality In Every Barn" band. -->
