@@ -1,0 +1,121 @@
+---
+// HVAC hub. Mirrors the ag and Human hubs on the shared sector blocks.
+// Sources: H = Genesis360 HVAC.pdf (mission paragraphs, the "why homeowners
+// should ask" list); the hero footage is the existing homepage rooftop clip.
+// Spec: docs/superpowers/specs/2026-09-17-hvac-section-design.md
+import { ClipboardList, FileText, TrendingUp } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
+import SectorCards from '../../components/sector/SectorCards.astro';
+import DifferenceGrid from '../../components/sector/DifferenceGrid.astro';
+import PostsRow from '../../components/sector/PostsRow.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
+import { hvacMarkets } from '../../data/hvac-markets';
+import { posts } from '../../data/blog-posts';
+import heroVideo from '../../assets/videos/application-hvac.mp4';
+import heroPoster from '../../assets/images/hero-hvac-hub-poster.jpg';
+
+const sectorCards = hvacMarkets.map((m) => ({
+  title: m.title,
+  tagline: m.tagline,
+  href: `/hvac/${m.slug}/`,
+  linkLabel: `Explore ${m.title.toLowerCase()}`,
+  image: m.hero.poster,
+  imageAlt: m.hero.posterAlt,
+  stat: m.stat,
+}));
+
+const checklist = [
+  { icon: FileText, label: 'Product & system use guides' },
+  { icon: TrendingUp, label: 'Coverage and maintenance guidance' },
+  { icon: ClipboardList, label: 'Industry resources' },
+];
+
+// Source H p.1, "Why homeowners should ask for Genesis360", three of four.
+const points: { icon: 'droplet' | 'coverage' | 'cycle' | 'shield'; title: string; copy: string }[] = [
+  { icon: 'coverage', title: 'Cleaner HVAC pathways', copy: 'The dry mist travels with the air through the mechanical area and down the duct pathway, not just the spot where it is released.' },
+  { icon: 'droplet', title: 'Hidden wet areas, targeted', copy: 'The coil and drain pan collect moisture by design. Treatment reaches them every cycle, where buildup begins.' },
+  { icon: 'cycle', title: 'Odor-causing buildup, reduced', copy: 'Most odors start in the HVAC. Treating the source beats masking the result.' },
+];
+
+const HVAC_POSTS = [
+  'biofilm-hvac-prevention',
+  'how-to-extend-the-lifespan-of-your-hvac-system',
+  'how-to-identify-sick-building-syndrome-and-improve-indoor-air-quality-in-your-building',
+];
+const hvacPosts = HVAC_POSTS.map((slug) => posts.find((post) => post.slug === slug)!).filter(Boolean);
+---
+
+<BaseLayout
+  title="Genesis360 | HVAC"
+  description="One platform for every air handler. Genesis360 AeroGuard treats the coil, drain pan and duct pathway on a schedule, from a single home to a plant that never switches off."
+>
+  <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <Header />
+    <main>
+      <!-- Source H p.1 opening and "One system to reach the HVAC pathway". -->
+      <SectorHero
+        layout="split"
+        eyebrow="HVAC"
+        headline={['Cleaner Coils. Cleaner Ducts.', 'Cleaner Air.']}
+        support="One Platform. Every Air Handler."
+        lede="Your air handler does more than heat and cool. It moves the air people breathe every day across a wet coil, through a cabinet and down the ducts. Genesis360 keeps the inside of that system cleaner by targeting the mechanical areas where biofilm, bacteria, mold and odors begin."
+        poster={heroPoster}
+        video={heroVideo}
+        cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
+        secondaryCta={{ href: '#sectors', label: 'Explore By Sector' }}
+      />
+
+      <!-- Mission band, same pattern as the ag and Human hubs. Source H p.1. -->
+      <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div class="particle-field particle-field-light" aria-hidden="true">
+          <span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span>
+          <span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span>
+        </div>
+        <div class="container-page relative">
+          <h2 class="bl-h2 reveal mx-auto text-center" x-intersect.once="$el.classList.add('is-visible')">
+            Our mission is simple.<br /><span class="text-brand-600">Genesis360 makes the air you breathe cleaner from the source.</span>
+          </h2>
+          <div class="reveal mx-auto mt-14 grid max-w-5xl gap-10 md:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+            <p class="text-base leading-8 text-brand-body">
+              Most odors start in the HVAC. Homes and buildings reach for candles, sprays, plug-ins and deodorizers to cover them, but if the odor originates inside the system, masking it does not solve the problem. The coil and drain pan collect moisture by design, and with it the biofilm, bacteria and mold that ride the air into every room.
+            </p>
+            <p class="text-base leading-8 text-brand-body">
+              Most indoor air quality devices treat one part of the system. Genesis360 uses a sub-10-micron dry mist released inside the air handler, so treatment travels with the air through the mechanical area and the downstream duct pathway, on a schedule, without anyone in the room.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <SectorCards
+        heading="One platform, from a hall closet to a rooftop."
+        prompt="Select a sector to see what is at stake"
+        cards={sectorCards}
+        checklist={checklist}
+      />
+
+      <DifferenceGrid
+        eyebrow="The Difference"
+        heading="Delivery Is The Difference."
+        lede="Genesis360 suspends BotaniMax sub-10-micron vapor in the moving air of the handler itself, treating the coil, the pan and the pathway at the same time."
+        points={points}
+        closing={{
+          lead: 'The result: a cleaner system, fresher air and equipment that runs the way it was designed to.',
+          aside: 'Every air handler is carrying the same wet, dark, dusty conditions. Genesis360 gives you a way to get ahead of the buildup instead of cleaning it out later.',
+        }}
+      />
+
+      <PostsRow posts={hvacPosts} heading="From The Field" />
+
+      <SectorCta
+        eyebrow="Your Building. Your Coverage Plan."
+        heading="Put Genesis360 To Work On Every Air Handler."
+        copy="Tell us what the system serves and how it is maintained today. Our team will map the right AeroGuard configuration and build a practical coverage plan around it."
+        href="/get-a-quote/"
+      />
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

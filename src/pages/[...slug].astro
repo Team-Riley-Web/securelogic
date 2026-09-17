@@ -7,8 +7,6 @@ import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { posts } from '../data/blog-posts';
-import { hvacMarkets } from '../data/hvac-markets';
 import botanimaxLogo from '../assets/images/botanimax-logo.png';
 import botanimaxBottle from '../assets/images/botanimax-bottle.png';
 import compact from '../assets/images/genesis-compact.png';
@@ -30,7 +28,6 @@ import fitness from '../assets/images/brochure-fitness.png';
 export function getStaticPaths() {
   return [
     'home-page',
-    'hvac',
     'genesis360mistingsystems',
     'botanimax',
     'resources',
@@ -259,44 +256,6 @@ const pageTitle =
             <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
           </div>
         </section>
-      </>
-    )}
-
-    {canonicalSlug === 'hvac' && (
-      <>
-        <PageHero eyebrow="HVAC" title="Cleaner Air. Longer Equipment Life." copy="Genesis360 AeroGuard infuses air-handling systems with ultra-fine BotaniMax dry fog, keeping coils, ducts, and vents clear of the biofilm that spreads facility-wide." />
-        <section class="bg-white py-20">
-          <div class="container-page">
-            <div class="grid gap-6 sm:grid-cols-2">
-              {hvacMarkets.map(({ icon: Icon, slug: marketSlug, title, summary }) => (
-                <a href={`/hvac/${marketSlug}/`} class="card group p-6">
-                  <Icon class="h-6 w-6 text-botanical-600" />
-                  <h2 class="mt-5 text-lg font-semibold text-slate-900">{title}</h2>
-                  <p class="mt-3 text-sm leading-6 text-slate-600">{summary}</p>
-                  <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Learn more <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section class="bg-slate-100 py-20">
-          <div class="container-page">
-            <h2 class="section-title">Related reading</h2>
-            <div class="mt-10 grid gap-8 md:grid-cols-2">
-              {posts.filter((p) => hvacMarkets.some((m) => m.postSlugs.includes(p.slug))).map((post) => (
-                <a href={`/blogs/${post.slug}/`} class="card group flex flex-col overflow-hidden">
-                  <Image src={post.image} alt={post.imageAlt} class="aspect-[16/9] w-full object-cover" widths={[420, 640, 860]} sizes="(min-width: 768px) 50vw, 100vw" />
-                  <div class="flex flex-1 flex-col p-6">
-                    <time datetime={post.isoDate} class="text-xs font-semibold uppercase tracking-[0.16em] text-botanical-600">{post.date}</time>
-                    <h3 class="mt-3 text-lg font-semibold leading-7 text-slate-900">{post.title}</h3>
-                    <span class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700">Read article <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" /></span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}
 
