@@ -95,6 +95,6 @@ export const humanMarkets: Market[] = [
     stat: 'Infection control in a clinic is only as consistent as the last person who cleaned the room. Automated whole-room cycles take the variability, and the labor, out of it.',
     // Source: Genesis360 Pricing Model - External.docx — MediGuard Pro: healthcare, urgent care, dialysis, aging care, outpatient, family practice, dental / orthodontics.
     package: 'MediGuard Pro',
-    hero: { poster: clinicPoster, posterAlt: 'Clinician in full PPE sterilizing dental instruments in an autoclave', video: clinicVideo },
+    hero: { poster: clinicPoster, posterAlt: 'Nurse checking on a draped, prepped patient in an operating room', video: clinicVideo },
   },
 ];

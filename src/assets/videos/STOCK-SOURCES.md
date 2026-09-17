@@ -6,7 +6,7 @@ Mixkit Stock Video Free License:
 - `application-human.mp4`: [Man lifting weights in the gym](https://mixkit.co/free-stock-video/man-lifting-weights-in-the-gym-100544/)
 - `application-hvac.mp4`: [Aerial view of a building's air conditioning system](https://mixkit.co/free-stock-video/aerial-view-of-a-buildings-air-conditioning-system-49185/)
 - `application-agriculture.mp4`: [Greenhouse worker inspects growth of vegetables](https://mixkit.co/free-stock-video/greenhouse-worker-inspects-growth-of-vegetables-5759/)
-- `clinic.mp4`: [A Woman Sterilizing the Dental Equipments](https://www.pexels.com/video/a-woman-sterilizing-the-dental-equipments-8704995/) by Fariborz MP — Pexels License (free, no attribution required) — hero, /human/healthcare/
+- `clinic.mp4`: Pexels video ID 31670380, an operating room with a nurse checking on a draped, prepped patient before a procedure — Pexels License (free, no attribution required) — hero, /human/healthcare/. Exact page URL/title/author unrecoverable: the file was downloaded in a prior session whose search-results page wasn't preserved, and Pexels' page-by-ID and download-by-ID endpoints both return errors without the original slug. Replaces an earlier clip of a clinician sterilizing dental instruments, which Joshua said wasn't a fit ("Change healthcare video to a surgery room (not graphic)").
 - `classroom.mp4`: [Walking down a library corridor with tables and bookcases](https://mixkit.co/free-stock-video/walking-down-a-library-corridor-with-tables-and-bookcases-21589/) — hero, /human/schools/
 
 No acceptable clip was found for the military market (Mixkit's `military` category and related
