@@ -25,6 +25,11 @@ interface Props {
 }
 
 const { layout = 'center', eyebrow, headline, support, poster, video, cta, secondaryCta, lede } = Astro.props;
+
+// Two-line headlines keep their break at every width, exactly like the old
+// `<br />` did. Only a three-line headline (the Human hub) is desktop-only,
+// flowing inline below `lg`.
+const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
 ---
 
 {layout === 'center' ? (
@@ -52,7 +57,7 @@ const { layout = 'center', eyebrow, headline, support, poster, video, cta, secon
         <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
           {headline.map((line, i) => (
             <>
-              <span class:list={['lg:block', i === headline.length - 1 && 'text-lime-400']}>{line}</span>
+              <span class:list={[lineClass, i === headline.length - 1 && 'text-lime-400']}>{line}</span>
               {i < headline.length - 1 && ' '}
             </>
           ))}
@@ -103,7 +108,7 @@ const { layout = 'center', eyebrow, headline, support, poster, video, cta, secon
       <h1 class="mt-5 max-w-4xl text-4xl leading-[1.06] sm:text-5xl lg:text-6xl">
         {headline.map((line, i) => (
           <>
-            <span class:list={['lg:block', i === headline.length - 1 && 'text-lime-400']}>{line}</span>
+            <span class:list={[lineClass, i === headline.length - 1 && 'text-lime-400']}>{line}</span>
             {i < headline.length - 1 && ' '}
           </>
         ))}
