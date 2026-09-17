@@ -81,6 +81,6 @@ export const hvacMarkets: Market[] = [
     stat: 'Around-the-clock air handling gives biofilm constant moisture and airflow to grow in. Scheduled treatment keeps the pathway clean between manual service visits.',
     // Source G lists no industrial package; AeroGuard configurations apply.
     package: null,
-    hero: { poster: industrialPoster, posterAlt: 'Aerial view of a warehouse interior with steel roof trusses and ceiling-mounted air handling units', video: plantAirVideo },
+    hero: { poster: industrialPoster, posterAlt: 'Warehouse interior with steel roof trusses, support columns, and racking stocked with cable reels and conduit', video: plantAirVideo },
   },
 ];
