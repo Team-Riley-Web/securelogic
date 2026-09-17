@@ -1,0 +1,330 @@
+---
+// src/components/sector/CoverageMap.astro
+// Interactive cutaway: ringed callouts in the margins, a leader dot on the
+// feature, the description held back until hover. Generalized copy of the hog
+// page's coverage map (that page keeps its own inline version). Below 1280px
+// the artwork runs full width and the points become a list; on phones a card
+// grid replaces the infographic.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { Cloud } from '@lucide/astro';
+
+interface Point {
+  key: string;
+  label: string;
+  sub?: string;
+  copy: string;
+  icon: typeof Cloud;
+  side: 'left' | 'right';
+  callout: { x: number; y: number };
+  anchor: { x: number; y: number };
+}
+
+interface Props {
+  id?: string;
+  eyebrow: string;
+  heading: string;
+  lede: string;
+  art: ImageMetadata;
+  artAlt: string;
+  mobileHeading: string;
+  mobileCopy: string;
+  mobileIcon: typeof Cloud;
+  points: Point[];
+  stageAspect?: number;
+  artWidth?: number;
+}
+
+const {
+  id = 'coverage-map', eyebrow, heading, lede, art, artAlt, mobileHeading, mobileCopy,
+  mobileIcon: MobileIcon, points, stageAspect = 1.98, artWidth = 54,
+} = Astro.props;
+---
+
+<style>
+  /* Coverage map -------------------------------------------------------- */
+  .map-stage {
+    position: relative;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 74rem;
+    aspect-ratio: var(--map-aspect);
+  }
+
+  /* The artwork sits in the middle so the callouts have margin to live in,
+     the way they do in the source infographic. */
+  .map-art {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--map-art-width);
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 26px 46px rgb(16 32 74 / 0.14));
+  }
+
+  /* Pulsing marker on the feature the callout points at. Hovering it drives
+     the same state as hovering the icon in the margin. */
+  .map-anchor {
+    position: absolute;
+    display: grid;
+    height: 1.6rem;
+    width: 1.6rem;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    z-index: 3;
+  }
+
+  .map-dot {
+    position: relative;
+    display: block;
+    height: 0.8rem;
+    width: 0.8rem;
+    border-radius: 999px;
+    background: var(--bl-green);
+    box-shadow: 0 0 0 0.28rem rgb(82 169 77 / 0.22), 0 1px 4px rgb(16 32 74 / 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .map-dot::after {
+    content: '';
+    position: absolute;
+    inset: -0.28rem;
+    border-radius: 999px;
+    border: 1.5px solid rgb(82 169 77 / 0.6);
+    animation: map-ping 2.8s ease-out infinite;
+  }
+
+  .map-anchor:nth-of-type(2) .map-dot::after { animation-delay: 0.45s; }
+  .map-anchor:nth-of-type(3) .map-dot::after { animation-delay: 0.9s; }
+  .map-anchor:nth-of-type(4) .map-dot::after { animation-delay: 1.35s; }
+  .map-anchor:nth-of-type(5) .map-dot::after { animation-delay: 1.8s; }
+  .map-anchor:nth-of-type(6) .map-dot::after { animation-delay: 2.25s; }
+
+  .map-anchor:hover .map-dot,
+  .map-anchor.is-active .map-dot {
+    transform: scale(1.3);
+    background: var(--bl-blue);
+    box-shadow: 0 0 0 0.5rem rgb(29 63 214 / 0.26), 0 2px 8px rgb(16 32 74 / 0.4);
+  }
+
+  @keyframes map-ping {
+    0% { transform: scale(1); opacity: 0.8; }
+    70% { transform: scale(2.4); opacity: 0; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+
+  .map-callout {
+    position: absolute;
+    display: flex;
+    width: 13.5rem;
+    align-items: flex-start;
+    gap: 0.8rem;
+    outline: none;
+  }
+
+  /* Right-hand callouts mirror: ring on the outer edge, text facing in. */
+  .map-callout-right {
+    transform: translateX(-100%);
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .map-ring {
+    display: flex;
+    height: 3.4rem;
+    width: 3.4rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1.5px solid rgb(29 63 214 / 0.5);
+    background: #fff;
+    color: var(--bl-blue);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .map-callout:hover .map-ring,
+  .map-callout:focus-visible .map-ring,
+  .map-callout.is-active .map-ring {
+    border-color: var(--bl-blue);
+    color: var(--bl-blue);
+    box-shadow: 0 0 0 0.35rem rgb(29 63 214 / 0.24);
+    transform: scale(1.06);
+  }
+
+  .map-text {
+    flex: 1;
+  }
+
+  /* Only the label carries the rule, so its height — and therefore where the
+     leader line has to meet it — never changes when the detail expands. */
+  .map-label {
+    display: block;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid rgb(29 63 214 / 0.38);
+    transition: border-color 0.25s ease;
+  }
+
+  .map-callout:hover .map-label,
+  .map-callout:focus-visible .map-label,
+  .map-callout.is-active .map-label {
+    border-color: var(--bl-blue);
+  }
+
+  .map-name {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bl-ink);
+  }
+
+  .map-sub {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--bl-blue);
+  }
+
+  /* Detail is the hover payoff. */
+  .map-detail {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--bl-body);
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease, margin-top 0.4s ease,
+      padding-top 0.4s ease;
+  }
+
+  .map-callout:hover .map-detail,
+  .map-callout:focus-visible .map-detail,
+  .map-callout.is-active .map-detail {
+    max-height: 12rem;
+    margin-top: 0.5rem;
+    opacity: 1;
+  }
+
+  /* Below 1280px there is not enough margin for the callouts (15.5rem a side
+     plus the art), so the artwork runs full width and the points become a
+     list beneath it. */
+  @media (max-width: 1279px) {
+    .map-stage {
+      aspect-ratio: auto;
+    }
+
+    .map-art {
+      position: static;
+      width: 100%;
+      transform: none;
+    }
+
+    .map-anchor {
+      display: none;
+    }
+
+    .map-callout {
+      position: static;
+      width: 100%;
+      transform: none;
+      margin: 0;
+      border-top: 1px solid var(--bl-hairline);
+      padding: 1rem 0;
+    }
+
+    .map-ring {
+      height: 2.75rem;
+      width: 2.75rem;
+    }
+
+    .map-detail {
+      max-height: none;
+      margin-top: 0.4rem;
+      opacity: 1;
+      overflow: visible;
+    }
+  }
+</style>
+
+<section id={id} class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-brand-100 py-20 sm:py-24">
+  <div class="container-page">
+    <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h2 class="bl-h2 mt-4">{heading}</h2>
+      <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">{lede}</p>
+    </div>
+
+    <div class="mt-10 sm:hidden">
+      <div class="rounded-[1.75rem] bg-brand-900 px-6 py-7 text-center text-white shadow-[0_20px_45px_-30px_rgb(16_32_74_/_0.7),0_2px_8px_rgb(16_32_74_/_0.14)]">
+        <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-lime-400 ring-1 ring-inset ring-white/15">
+          <MobileIcon class="h-7 w-7" aria-hidden="true" />
+        </span>
+        <p class="mt-4 text-xs font-extrabold uppercase tracking-[0.16em] text-lime-400">{mobileHeading}</p>
+        <p class="mt-2 text-sm leading-6 text-white/75">{mobileCopy}</p>
+      </div>
+
+      <div class="mt-4 grid grid-cols-2 gap-3">
+        {points.map(({ label, copy, icon: Icon }) => (
+          <article class="relative flex min-h-52 flex-col items-center overflow-hidden rounded-2xl bg-white px-4 pb-5 pt-6 text-center shadow-[0_16px_35px_-28px_rgb(16_32_74_/_0.55),0_2px_7px_rgb(16_32_74_/_0.08)]">
+            <span class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-600 via-brand-400 to-lime-400" aria-hidden="true"></span>
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100 text-brand-700 ring-1 ring-inset ring-brand-200">
+              <Icon class="h-5 w-5" aria-hidden="true" />
+            </span>
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-[0.08em] text-brand-950">{label}</h3>
+            <p class="mt-2 text-xs leading-5 text-brand-body">{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="map-stage mt-6 hidden sm:block" style={`--map-aspect: ${stageAspect}; --map-art-width: ${artWidth}%;`} x-data="{ active: null }">
+      <Image src={art} alt={artAlt} class="map-art" widths={[720, 1080, 1440]} sizes="(min-width: 1280px) 40rem, 100vw" />
+
+      {points.map(({ key, anchor }) => (
+        <button
+          type="button"
+          class="map-anchor"
+          style={`left: ${anchor.x}%; top: ${anchor.y}%;`}
+          tabindex="-1"
+          aria-hidden="true"
+          x-on:mouseenter={`active = '${key}'`}
+          x-on:mouseleave="active = null"
+          x-on:click={`active = active === '${key}' ? null : '${key}'`}
+          x-bind:class={`active === '${key}' && 'is-active'`}
+        >
+          <span class="map-dot" aria-hidden="true"></span>
+        </button>
+      ))}
+
+      {points.map(({ key, label, sub = 'Coverage', copy, icon: Icon, callout, side }) => (
+        <button
+          type="button"
+          class:list={['map-callout', `map-callout-${side}`]}
+          style={`left: ${callout.x}%; top: ${callout.y}%;`}
+          aria-label={`${label} ${sub.toLowerCase()}`}
+          x-bind:aria-expanded={`(active === '${key}').toString()`}
+          x-on:mouseenter={`active = '${key}'`}
+          x-on:mouseleave="active = null"
+          x-on:focus={`active = '${key}'`}
+          x-on:blur="active = null"
+          x-on:click={`active = active === '${key}' ? null : '${key}'`}
+          x-bind:class={`active === '${key}' && 'is-active'`}
+        >
+          <span class="map-ring"><Icon class="h-6 w-6" aria-hidden="true" /></span>
+          <span class="map-text">
+            <span class="map-label">
+              <span class="map-name">{label}</span>
+              <span class="map-sub">{sub}</span>
+            </span>
+            <span class="map-detail">{copy}</span>
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
