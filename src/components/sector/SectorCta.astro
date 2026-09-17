@@ -4,7 +4,14 @@
 // wraps this). `href` defaults to /contact-us/ because /get-a-quote/ is
 // unfinished; pages open during the soft launch pass the landing page's
 // contact block instead.
+//
+// `variant`: 'default' (unchanged) renders the centred band on bg-brand-100.
+// 'photo' — added 2026-09-17 for the hog page — renders on white as a
+// two-column band (copy / framed photo) at lg, stacking photo-then-copy
+// below it. Falls back to 'default' if no `image` is passed.
 import { ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   eyebrow: string;
@@ -12,22 +19,63 @@ interface Props {
   copy: string;
   href?: string;
   label?: string;
+  variant?: 'default' | 'photo';
+  image?: ImageMetadata;
+  imageAlt?: string;
 }
 
-const { eyebrow, heading, copy, href = '/contact-us/', label = 'Get A Quote' } = Astro.props;
+const {
+  eyebrow,
+  heading,
+  copy,
+  href = '/contact-us/',
+  label = 'Get A Quote',
+  variant = 'default',
+  image,
+  imageAlt = '',
+} = Astro.props;
 ---
 
-<section class="relative isolate overflow-hidden bg-brand-100 py-20 text-center sm:py-24">
-  <div
-    class="reveal relative z-10 mx-auto max-w-3xl px-5 sm:px-6 lg:px-8"
-    x-intersect.once="$el.classList.add('is-visible')"
-  >
-    <p class="bl-eyebrow">{eyebrow}</p>
-    <h2 class="bl-h2 mt-4">{heading}</h2>
-    <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">{copy}</p>
+{variant === 'photo' && image ? (
+  <section class="relative isolate overflow-hidden bg-white py-20 sm:py-24">
+    <div
+      class="reveal relative z-10 mx-auto grid max-w-6xl gap-10 px-5 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8"
+      x-intersect.once="$el.classList.add('is-visible')"
+    >
+      <div class="order-2 text-center lg:order-1 lg:text-left">
+        <p class="bl-eyebrow">{eyebrow}</p>
+        <h2 class="bl-h2 mt-4">{heading}</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body lg:mx-0">{copy}</p>
 
-    <a href={href} class="bl-pill mt-10 shadow-lift-brand">
-      {label} <ArrowRight class="h-4 w-4" aria-hidden="true" />
-    </a>
-  </div>
-</section>
+        <a href={href} class="bl-pill mt-10 shadow-lift-brand">
+          {label} <ArrowRight class="h-4 w-4" aria-hidden="true" />
+        </a>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <Image
+          src={image}
+          alt={imageAlt}
+          class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lift"
+          widths={[480, 640, 860, 1200]}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+) : (
+  <section class="relative isolate overflow-hidden bg-brand-100 py-20 text-center sm:py-24">
+    <div
+      class="reveal relative z-10 mx-auto max-w-3xl px-5 sm:px-6 lg:px-8"
+      x-intersect.once="$el.classList.add('is-visible')"
+    >
+      <p class="bl-eyebrow">{eyebrow}</p>
+      <h2 class="bl-h2 mt-4">{heading}</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-body">{copy}</p>
+
+      <a href={href} class="bl-pill mt-10 shadow-lift-brand">
+        {label} <ArrowRight class="h-4 w-4" aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+)}

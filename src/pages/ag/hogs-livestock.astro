@@ -28,6 +28,10 @@ import swineVideo from '../../assets/videos/swine.mp4';
 import swinePoster from '../../assets/images/hero-swine-poster.jpg';
 import transparentBarn from '../../assets/images/transparent-barn.png';
 import pigBarn from '../../assets/images/baby-pigs-2.jpg';
+// Closing CTA photo (2026-09-17): of baby-pigs-1..5, all landscape except -5
+// (portrait); -3 is a sow nursing a full litter, which reads as the clearest
+// "nursery" scene and works well cropped to the CTA's 4:3 frame.
+import nurseryPhoto from '../../assets/images/baby-pigs-3.jpg';
 import handheldUnit from '../../assets/images/mobile-mist.png';
 import miniUnit from '../../assets/images/genesis-compact.png';
 import customUnit from '../../assets/images/agri-guard.png';
@@ -731,6 +735,9 @@ const withGenesis = [
         heading="Start With The Barns You Run Hardest."
         copy="Tell us how the site runs — farrowing, nursery, grow-finish, or all three — and our team will map the right portable, fixed, or custom AgriGuard deployment and build a coverage plan around it."
         href={SOFT_LAUNCH ? CONTACT_HREF : '/contact-us/'}
+        variant="photo"
+        image={nurseryPhoto}
+        imageAlt="Piglets in a clean nursery pen"
       />
 
     </main>
