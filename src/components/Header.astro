@@ -174,6 +174,15 @@ const secondaryLinks = [
               <Phone class="h-5 w-5" aria-hidden="true" />
             </a>
           )}
+          {/* Soft-launch only: the one open interior page gets a direct link
+              next to Contact, since the mega-menu is hidden in `minimal` mode.
+              Comes out with the rest of `minimal` when the full site launches. */}
+          {minimal && (
+            <a
+              href="/ag/hogs-livestock/"
+              class="bl-pill-outline border-[1.5px] border-brand-600 hidden lg:inline-flex"
+            >Hogs &amp; Livestock</a>
+          )}
           {/* On the minimal header the burger's drawer now carries Contact,
               phone and email, so the pill would be a duplicate - and logo + pill
               + burger overflowed a 390px row (417px scrollWidth). Pill is
@@ -281,6 +290,10 @@ const secondaryLinks = [
           aria-label="Mobile navigation"
         >
           <div class="mx-auto max-w-7xl px-5 py-5 sm:px-6">
+            {/* Soft-launch only: the one open interior page, first in the
+                drawer. Comes out with the rest of `minimal` when the full
+                site launches. */}
+            <a href="/ag/hogs-livestock/" class="sh-mobile-phone" x-on:click="mobileOpen = false">Hogs &amp; Livestock</a>
             {/* All three share .sh-mobile-phone so they read as one set. Contact
                 used to be a .bl-pill, which made it the odd one out. */}
             <a href={contactHref} class="sh-mobile-phone" x-on:click="mobileOpen = false">Contact</a>
