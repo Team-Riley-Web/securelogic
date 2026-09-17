@@ -934,7 +934,66 @@ unchecked task unless you are starting it.
       FLAG FOR MARTY: Questions 21–23 are in
       docs/QUESTIONS-FOR-MARTY.md. All copy is drafted from the brochure and
       needs his read.
-- [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
+- [x] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Spec: docs/superpowers/specs/2026-09-17-product-company-design.md
+      Done 2026-09-17: four static pages replace the catch-all's product/
+      company branches, on a new ProductHero and DropletComparison
+      component. Tiers: /genesis360mistingsystems/ and /botanimax/ are
+      flagship; /about-us/ is standard+; /about-us/technology/ is a
+      flagship-level technical page.
+      /genesis360mistingsystems/: five-product lineup (Compact Wall Mount,
+      AeroGuard, MediGuard Pro, Battery Powered Fogger, AgriGuard), a
+      Compact Wall Mount spec panel (1-gallon tank, ~85 min single-nozzle /
+      ~42 min dual-nozzle, sub-10-minute cycle) from the AthleticGuard sheet,
+      and the documented droplet comparison table.
+      /botanimax/: EPA registration stated by number only (Reg. No.
+      92089-2-103661, no 25(b)/25(c)/2(c) category claim), the three named
+      botanical actives (thyme, wintergreen, citrus), label-backed organism/
+      contact-time cards (90 sec SARS-CoV-2, 5 min human coronavirus &
+      surrogates, 10 min bacteria, 10 min fungicidal), and a CAUTION/
+      label-use note. No claim that the label covers fogging/misting as an
+      application method.
+      /about-us/: the founder story kept as company history rather than a
+      technical claim; operating principles (precision, repeatability,
+      practicality); a four-step company path; closing CTA with a real
+      product photo (not a render).
+      /about-us/technology/: the real comparison table (pump 80-300 micron,
+      ULV foggers 20-50 micron, electrostatic 40-80 micron, Genesis360
+      sub-10 micron, replacing an old invented "30-120 micron" figure);
+      four named transport forces (air turbulence, thermal currents,
+      Brownian motion, electrostatic forces); a qualified "dry to human
+      touch" explanation with an explicit non-safety-claim disclaimer;
+      standard-timer-vs-optional-smart-control framing (never described as
+      standard equipment); the Element Materials Technology validation
+      figures (>=6-log viral, >=5-log bacterial reduction in cited
+      controlled tests).
+      No prices, no patent claims, no "Genesis 360" (space), no retired
+      product names, no unqualified safety/corrosion/environmental-
+      neutrality language. Every quantitative or regulatory claim carries a
+      source comment. Catch-all branches and their now-unused constants and
+      imports are fully removed; every other branch (resources, faqs,
+      contact-us, get-a-quote, privacy-policy) is untouched. Build stays at
+      43 pages; astro check remains at the 8 pre-existing homepage errors;
+      brand check passes; no broken internal links; one h1 per page.
+      QA: all four pages reviewed at 500px and 1280px. No overflow, broken
+      images, clipped product art, or unreadable tables. Minor cosmetic nits
+      accepted as-is: the EPA proof strip renders as two stacked lines
+      rather than one sentence (same information); the four field-problem
+      cards on About Us aren't paired one-to-one with an automation
+      response (addressed later, diffusely, in Principles and Path); the
+      validation panel's lab name sits in its own stat tile alongside the
+      two log-reduction figures.
+      Provenance: implemented by the user directly in Codex in a separate
+      session on this repo, reviewed and QA'd here before commit. This
+      session also found and repaired a stale-write hazard in TASKS.md
+      unrelated to this feature (see commit 320d474) before continuing.
+      Everything remains behind the soft-launch gate. All commits are
+      local; nothing pushed.
+      FLAG FOR MARTY: Questions 1-8 in docs/QUESTIONS-FOR-MARTY.md (EPA
+      wording, emerging-pathogen claim, patent status, plant-actives count,
+      kill claims, BAC Ag vs. BioSecure AP naming, the five-product lineup,
+      Genesis360 vs. Secure Logic voice) all apply directly to these four
+      pages. All copy is drafted from the label/SDS/promo sheets and the
+      Technology Explainer and needs his read.
 - [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
 - [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
 - [x] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
