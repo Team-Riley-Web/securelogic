@@ -99,3 +99,19 @@ what the site does today, so a "keep it" answer is as easy as a change.
 20. **Pricing guide in the repo.** The GitHub repo is public. The pricing
     guide is stamped confidential, so it is kept out of git. Should the
     repo be made private?
+
+## HVAC section (added 2026-09-17 during the HVAC spec)
+
+21. **UV and IAQ-device comparison.** Your renders include a chart comparing
+    Genesis360 with other indoor-air-quality devices and two UV-limitation
+    diagrams. Comparative claims need a source you can defend; the HVAC
+    pages are being built without this module. Do you want it, and what
+    backs the comparisons?
+22. **Homeowner CTA.** The HVAC brochure ends with "Ask your HVAC
+    professional about adding Genesis360 to your home." The residential page
+    speaks to homeowners but its buttons say Get A Quote, with a separate
+    "For HVAC Professionals" block. Fine, or should the page send homeowners
+    to their contractor instead of to you?
+23. **Dealer pricing language.** The contractor block links to Get A Quote
+    labelled "Talk To Us About Dealer Pricing" with no figures. OK to imply a
+    dealer program exists?
