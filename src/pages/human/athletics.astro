@@ -26,6 +26,8 @@ import { humanMarkets } from '../../data/human-markets';
 import { posts } from '../../data/blog-posts';
 import gymVideo from '../../assets/videos/gym.mp4';
 import gymPoster from '../../assets/images/hero-gym-poster.jpg';
+import coachVideo from '../../assets/videos/tarleton-coach.mp4';
+import coachPoster from '../../assets/images/tarleton-coach-poster.jpg';
 // The spec's first choice for this band was the locker-room render; it is portrait (1024x1536) and cropped badly at 50vw, so the landscape D1 gym render is used instead.
 import gymScene from '../../assets/images/human-d1-gym.png';
 import fogger from '../../assets/images/human-fogger.png';
@@ -84,21 +86,23 @@ const withGenesis = [
   'Whole-room coverage: mats, walls, benches, weights, and the air itself',
 ];
 
-// Source T, "At a glance".
+// Source T, "At a glance" ("Daily mopping: Eliminated"; "Mat time lost: None due to infections").
 const glance = [
   { label: 'Facility', value: '10,000 sq ft' },
   { label: 'Athletes', value: '70+' },
   { label: 'Ringworm this season', value: '1 case' },
   { label: 'New staph / impetigo', value: '0' },
-  { label: 'Daily mopping', value: 'Eliminated' },
-  { label: 'Mat time lost to infection', value: 'None' },
+  { label: 'Daily mopping for sanitizing', value: 'Ended' },
+  { label: 'Practices missed to infection', value: '0' },
 ];
 
-// Source T, verbatim.
+// Source T, verbatim. Reduced to the single most impactful quote now that the
+// coach video runs alongside it.
+// The coach is deliberately not named: the case-study document and the video
+// filename disagree on his surname, and the spelling is unresolved (see
+// docs/QUESTIONS-FOR-MARTY.md Q9).
 const quotes = [
   { text: `“We stopped daily mopping the mats for sanitizing and let the system do what it does. The difference is obvious the moment you walk in—our room doesn’t smell like a wrestling room anymore.”`, attribution: 'Tarleton State University Wrestling' },
-  { text: `“Because we’re not dealing with infections, nobody has to sit out practice. That means everyone gets more mat time.”`, attribution: 'Tarleton State University Wrestling' },
-  { text: `“The cherry on top when showing recruits the facility.”`, attribution: 'Tarleton State University Wrestling' },
 ];
 ---
 
@@ -110,10 +114,12 @@ const quotes = [
     <Header />
 
     <main>
-      <!-- Source E: headline verbatim. -->
+      <!-- Source E: the E-Brochure's printed line was "Your Athletes Fight For
+           Wins. We Fight For Your Athletes." This is Joshua's revision of
+           2026-09-16. -->
       <SectorHero
         eyebrow="Athletics"
-        headline={['Your Athletes Fight For Wins.', 'We Fight For Your Athletes.']}
+        headline={['Athletes Fight For You.', 'We Fight For Your Athletes.']}
         support="Automated, whole-room disinfection for wrestling rooms, weight rooms, and locker rooms."
         poster={gymPoster}
         video={gymVideo}
@@ -130,6 +136,7 @@ const quotes = [
         image={gymScene}
         imageAlt="Genesis360 Compact unit mounted on the wall of a college weight room"
         stat={{ value: '72+', caption: 'hours bacteria survive on sweat-soaked mats and rubber floors' }}
+        statPosition="right"
         paragraphs={[
           'Athletic performance training facilities, health and wellness clubs, fitness centers, and recovery and rehabilitation rooms, including weight rooms and locker rooms, are breeding grounds for bacteria, viruses, and fungi, as well as odors. Maintaining a disinfected, odor-free environment is crucial to protecting the health and well-being of your athletes, members, and staff.',
           'Manual disinfection varies with human effort and leaves gaps. Genesis360 fills the room with an ultra-fine botanical mist that reaches every surface, crack, and crevice, including walls, mats, equipment, and the air, on a schedule, with the same result every cycle. No amount of hired staff can match its speed, precision, or consistency.',
@@ -166,10 +173,11 @@ const quotes = [
       <!-- Source T (all figures and quotes), L (lab reductions in the source line). -->
       <CaseStudyBand
         eyebrow="From The Field"
-        heading="One Season At Tarleton State. One Case Of Ringworm."
+        heading="The Case Of Ringworm At Tarleton State."
         intro="A collegiate wrestling program with more than seventy athletes replaced daily mopping with a nightly Genesis360 cycle. This is what the season looked like."
         glance={glance}
         quotes={quotes}
+        video={{ src: coachVideo, poster: coachPoster, caption: 'Head coach, Tarleton State University Wrestling' }}
         source={`Figures and quotations from the Secure Logic case study “Environmental Hygiene & Athlete Performance, Tarleton State University.” Independent laboratory testing of the Genesis360 platform with BotaniMax has shown bacterial reductions of five log or better and viral reductions of six log or better.`}
       />
 
