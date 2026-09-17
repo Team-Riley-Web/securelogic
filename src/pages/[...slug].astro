@@ -1,23 +1,12 @@
 ---
 import type { ImageMetadata } from 'astro';
-import { ArrowDownToLine, ArrowRight, Check, FileText, Leaf, Mail, Phone, Repeat, ShieldCheck, Target, Wrench, X } from '@lucide/astro';
+import { ArrowDownToLine, ArrowRight, Check, FileText, Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import PageHero from '../components/PageHero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import botanimaxLogo from '../assets/images/botanimax-logo.png';
-import botanimaxBottle from '../assets/images/botanimax-bottle.png';
-import compact from '../assets/images/genesis-compact.png';
-import hvac from '../assets/images/hvac-mist.png';
-import medical from '../assets/images/medical-mist.png';
-import portable from '../assets/images/portable-mist.png';
-import agri from '../assets/images/agri-guard.png';
-import physics from '../assets/images/physics-icon.png';
-import nozzle from '../assets/images/nozzle-icon.png';
-import nozzles from '../assets/images/nozzles.png';
-import pathogen from '../assets/images/pathogen.png';
 import faqRoom from '../assets/images/faq-room.jpg';
 import contactBg from '../assets/images/contact-bg.jpeg';
 import label from '../assets/images/botanimax-label.png';
@@ -28,15 +17,11 @@ import fitness from '../assets/images/brochure-fitness.png';
 export function getStaticPaths() {
   return [
     'home-page',
-    'genesis360mistingsystems',
-    'botanimax',
     'resources',
     'resources/brochures',
     'resources/documentation',
     'resources/faqs',
     'faqs',
-    'about-us',
-    'about-us/technology',
     'contact-us',
     'get-a-quote',
     'privacy-policy',
@@ -45,44 +30,6 @@ export function getStaticPaths() {
 
 const slug = Astro.params.slug ?? '';
 const canonicalSlug = slug === 'faqs' ? 'resources/faqs' : slug;
-
-// Lineup and names follow the Sales Pricing Guide (Genesis360 Pricing Model - External.docx); the retired InRoom/Mobile Dry Fog names and the duplicate renders were dropped 2026-09-17.
-const systems: { name: string; image: ImageMetadata; alt: string }[] = [
-  { name: 'Compact Wall Mount', image: compact, alt: 'Genesis360 Compact Wall Mount unit' },
-  { name: 'AeroGuard', image: hvac, alt: 'Genesis360 AeroGuard HVAC unit' },
-  { name: 'MediGuard Pro', image: medical, alt: 'Genesis360 MediGuard Pro unit' },
-  { name: 'Battery Powered Fogger', image: portable, alt: 'Genesis360 Battery Powered Fogger' },
-  { name: 'AgriGuard', image: agri, alt: 'Genesis360 AgriGuard large-barn unit' },
-];
-
-const differentiators = [
-  ['True whole-room disinfection', 'Sub-10-micron dry fog behaves like a vapor, filling the entire room volume and treating air, surfaces, and hard-to-access areas for genuine 360-degree coverage.'],
-  ['Automation and remote operation', 'Industrial-grade controls run pre-programmed cycles automatically, with options for centralized or remote control so staff don’t need to be in the room.'],
-  ['Faster reentry times', 'Integrated air movement and drying accelerate clear-out, allowing rooms to return to service more quickly than with many traditional fogging or vapor systems.'],
-  ['Environmentally neutral and safer than competitors', 'Dry fog leaves no residue, does not change humidity or temperature, and uses tightly controlled dosing — reducing chemical waste, material compatibility issues, and risk to sensitive equipment and surfaces.'],
-  ['Sub-10 micron, dry fog technology', 'Ultra-fine droplets stay suspended longer and move with airflow, wrapping around objects and reaching shadowed zones that line-of-sight UV and large-droplet sprayers miss.'],
-  ['Precision-engineered nozzle system', 'Custom nozzles deliver consistent droplet size and low, predictable flow rates, maximizing coverage while minimizing product consumption and oversaturation.'],
-  ['Platform, not a single device', 'A modular family of systems — HVAC, in-room, medical, mobile, agricultural — built on the same core technology, enabling standardized physics and logic across very different facility types.'],
-  ['Engineered reliability and low maintenance', 'Minimal moving parts and simple periodic checks deliver high uptime, long service life, and a lower total cost of ownership.'],
-  ['Volumetric hygiene layer that complements cleaning', 'Adds an automated, whole-room treatment layer on top of manual cleaning and other technologies, doing what people and line-of-sight systems simply cannot.'],
-];
-
-const features = [
-  'EPA Registered (Reg. No. 92089-2-103661)',
-  'Controls harmful bacteria, viruses, and fungi',
-  'Helps contain emerging pathogens',
-  'Residual clean efficacy',
-  'An emerging viral pathogen disinfectant',
-  'Made in the USA',
-];
-
-const botanimaxFeatures: { title: string; copy: string }[] = [
-  { title: 'Plant Actives', copy: 'BotaniMax is crafted from thyme oil, wintergreen oil, and citrus extracts — a complex, multi-modal blend of natural compounds infused into every drop for a holistic defense against pathogens.' },
-  { title: 'Comprehensive Protection', copy: 'Our formula is designed to combat a wide spectrum of harmful microorganisms — bacteria, viruses, or fungi — making it a versatile solution for many different environments.' },
-  { title: "Potency of Nature's Defenses", copy: 'Embrace the full potency of nature’s defenses. By utilizing plant oil, our disinfectant goes beyond synthetic alternatives to deliver a natural and effective tool against pathogens.' },
-  { title: 'Eco-Friendly Solution', copy: 'BotaniMax is not only powerful but also eco-friendly. We prioritize sustainability so the product aligns with responsible practices — a choice that’s good for you and for the planet.' },
-  { title: "Trust in Nature's Wisdom", copy: 'Nature has been defending itself for centuries, and BotaniMax taps into that inherent wisdom. Trust in the time-tested efficacy of botanicals to protect your surroundings.' },
-];
 
 const docGroups: { heading: string; items: [string, string][] }[] = [
   {
@@ -111,54 +58,6 @@ const brochures: { title: string; image: ImageMetadata; file: string; summary: s
   { title: 'Early Child Care Centers', image: childcare, file: '/docs/Secure-Logic-Early-Child-Care-NoBmax-Brochure.pdf', summary: 'Keeping classrooms, nap areas, and play spaces safe for the youngest and most vulnerable.' },
   { title: 'Agriculture Overview', image: agriculture, file: '/docs/Secure-Logic-AgBrochure1-General.pdf', summary: 'Automated biosecurity for barns, greenhouses, and grow rooms that protects yield and herd health.' },
   { title: 'Fitness Centers', image: fitness, file: '/docs/Secure-Logic-Fitness-Center-Brochure-Final-1.pdf', summary: 'Whole-room disinfection for locker rooms, mats, and high-touch equipment between sessions.' },
-];
-
-const techSections: { title: string; image: ImageMetadata; alt: string; paragraphs: string[]; bullets?: string[] }[] = [
-  {
-    title: 'Physics-Based Precision',
-    image: physics,
-    alt: 'Physics-based precision dry fog icon',
-    paragraphs: [
-      'At the core of the Genesis360™ platform is a simple truth: droplet behavior defines performance. Every nozzle produces a uniform stream of sub-10 µm dry fog droplets — small enough to stay airborne, light enough to behave like a vapor, and engineered to surround airborne and surface-bound particles with measurable consistency.',
-      'Unlike conventional foggers or sprayers that produce 30–120 µm droplets which fall rapidly and leave gaps, Genesis360™ micro-droplets remain suspended long enough to reach hidden zones, under equipment, and behind obstacles — achieving true volumetric saturation.',
-    ],
-  },
-  {
-    title: 'Intelligent Nozzle Architecture',
-    image: nozzle,
-    alt: 'Intelligent nozzle architecture icon',
-    paragraphs: [
-      'Each precision nozzle atomizes fluid at roughly ⅓ oz per minute, maintaining consistent particle size distribution and eliminating over-application. The result is a dry fog that is perfectly even — dry to the touch, residue-free, and safe for electronics, optics, and sensitive surfaces.',
-    ],
-    bullets: [
-      'Tapered orifice geometry for uniform atomization',
-      'Corrosion-resistant alloys for durability in harsh environments',
-      'Laminar flow design that minimizes turbulence and noise',
-    ],
-  },
-  {
-    title: 'Automated Intelligence',
-    image: compact,
-    alt: 'Genesis360 automated controller',
-    paragraphs: [
-      'Genesis360™ replaces human variability with programmable logic. An industrial-grade PLC controller regulates dry fog duration, interval, and density. Once configured, each cycle runs autonomously — set the schedule, press start, walk away.',
-      'Every cycle delivers identical results — drop for drop, second for second — removing training, supervision, and inconsistency from the equation. This automation ensures predictable operation across multi-zone facilities, reducing chemical waste and energy use.',
-    ],
-  },
-];
-
-const microDynamics: { title: string; copy: string }[] = [
-  { title: 'Extended Suspension', copy: 'Sub-10-micron droplets remain suspended in the air column for up to 8 hours in field studies, maximizing contact time.' },
-  { title: 'Omnidirectional Movement', copy: 'Vapor-phase dry fog diffuses through convection currents, wrapping around every surface.' },
-  { title: 'No Oversaturation', copy: 'The dry fog evaporates before pooling — ideal for climate-sensitive spaces like labs, data centers, and greenhouses.' },
-  { title: 'Surface Adhesion', copy: 'Droplets move with airflow rather than falling, clinging evenly across vertical, horizontal, and underside planes.' },
-];
-
-const envSafe = [
-  'Cleanrooms and medical labs',
-  'Semiconductor or optics manufacturing',
-  'HVAC ducts and data centers',
-  'Agricultural and livestock facilities',
 ];
 
 const faqs: { question: string; answer: string; bullets?: string[] }[] = [
@@ -213,36 +112,7 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
   },
 ];
 
-const storyProblems = [
-  'Inconsistent manual labor',
-  'Missed surfaces and hidden zones',
-  'Wet sprays that damaged materials',
-  'Chemical waste',
-  'HVAC systems quietly spreading contaminants',
-];
-
-const designSystems = [
-  'Reduce labor and training burden',
-  'Eliminate guesswork about coverage',
-  'Limit waste and material damage',
-  'Fit into real-world constraints like tight mechanical rooms and limited budgets',
-];
-
-const principles: { icon: typeof Target; title: string; copy: string }[] = [
-  { icon: Target, title: 'Precision', copy: 'Physics-driven droplet control that reaches the same coverage in every corner of a space.' },
-  { icon: Repeat, title: 'Repeatability', copy: 'Automated cycles that deliver identical results run after run, without depending on who is holding the sprayer.' },
-  { icon: Wrench, title: 'Practicality', copy: 'Systems that fit real budgets, real mechanical rooms, and the real constraints of working facilities.' },
-];
-
-// Slugs with no hyphens to split on read as one run-on word in the tab title.
-// The URL stays put until the DNS cutover, so the title is overridden instead.
-const TITLE_OVERRIDES: Record<string, string> = {
-  genesis360mistingsystems: 'Dry Fog Systems',
-};
-
-const pageTitle =
-  TITLE_OVERRIDES[canonicalSlug] ??
-  (canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home');
+const pageTitle = canonicalSlug.split('/').filter(Boolean).map((s) => s.replaceAll('-', ' ')).join(' ') || 'Home';
 ---
 
 <BaseLayout title={`Genesis360 | ${pageTitle}`}>
@@ -256,88 +126,6 @@ const pageTitle =
             <a href="/" class="button-primary">Open Home Page <ArrowRight class="h-4 w-4" /></a>
           </div>
         </section>
-      </>
-    )}
-
-    {canonicalSlug === 'genesis360mistingsystems' && (
-      <>
-        <PageHero eyebrow="Genesis360 Systems" title="The Genesis360™ Dry Fog System Family" copy="The Genesis360™ Platform represents the next generation of environmental control. Built around proprietary sub-10 micron droplet technology and precision-engineered nozzles, each system in the Genesis family provides the same level of scientific consistency — adapted for the specific needs of your space." />
-        <section class="bg-white py-20">
-          <div class="container-page">
-            <p class="mx-auto max-w-3xl text-center text-lg leading-8 text-slate-600">Whether integrated into HVAC ducts, mounted in-room, deployed in medical facilities, or configured for agricultural and mobile use, every Genesis360™ system delivers measurable results: 360-degree coverage, predictable performance, and effortless operation.</p>
-            <h2 class="section-title mt-16 text-center">The Genesis360 System Lineup</h2>
-            <div class="mt-10 flex flex-wrap justify-center gap-6">
-            {systems.map(({ name, image, alt }) => (
-                <article class="accent-card grid w-full max-w-[260px] place-items-center gap-4 border-t-4 border-primary-500 p-6 text-center sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)]">
-                  <Image src={image} alt={alt} class="h-28 w-28 object-contain" widths={[150, 300, 450]} sizes="112px" />
-                  <h3 class="text-lg font-semibold text-slate-900">{name}</h3>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section class="bg-slate-100 py-20">
-          <div class="container-page">
-            <h2 class="section-title text-center">So, what sets the Genesis360 Dry Fog System apart?</h2>
-            <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {differentiators.map(([title, copy]) => (
-                <article class="card p-6">
-                  <ShieldCheck class="h-6 w-6 text-botanical-600" />
-                  <h3 class="mt-5 text-lg font-semibold text-slate-900">{title}</h3>
-                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
-      </>
-    )}
-
-    {canonicalSlug === 'botanimax' && (
-      <>
-        <PageHero eyebrow="BotaniMax" title="Botanical Disinfection for Cleaner Indoor Environments" copy="BotaniMax is dedicated to redefining the way you clean, one botanical solution at a time." />
-        <section class="bg-white py-20">
-          <div class="container-page grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
-            <div class="grid place-items-center rounded-lg bg-slate-100 p-8 shadow-lift">
-              <Image src={botanimaxLogo} alt="BotaniMax logo for disinfection product" class="h-40 w-40 object-contain" widths={[240, 400]} sizes="160px" />
-              <Image src={botanimaxBottle} alt="Bottle of BotaniMax in a clear bottle" class="mt-8 max-h-[460px] object-contain" widths={[260, 420, 620]} sizes="(min-width: 1024px) 38vw, 100vw" />
-            </div>
-            <div>
-              <h2 class="section-title">Why BotaniMax</h2>
-              <p class="mt-4 text-base leading-8 text-slate-600">A 100% botanical, plant-based disinfectant engineered to deliver hospital-grade results without the harsh synthetics.</p>
-              <div class="mt-8 grid gap-3 sm:grid-cols-2">
-                {features.map((feature) => (
-                  <div class="flex gap-3 rounded-lg bg-slate-50 p-4">
-                    <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" />
-                    <span class="text-sm font-semibold text-slate-800">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-slate-100 py-20">
-          <div class="container-page">
-            <h2 class="section-title">Key Features of BotaniMax</h2>
-            <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {botanimaxFeatures.map(({ title, copy }) => (
-                <article class="accent-card border-t-4 border-botanical-500 p-6">
-                  <Leaf class="h-6 w-6 text-botanical-600" />
-                  <h3 class="mt-5 text-lg font-semibold text-slate-900">{title}</h3>
-                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
-                </article>
-              ))}
-              <article class="grid content-center gap-3 rounded-lg bg-botanical-600 p-6 text-white shadow-lift">
-                <p class="text-sm leading-6 text-white/90">Our botanical product is more than a disinfectant — it's a commitment to the purity and strength of botanicals for a healthier environment.</p>
-                <p class="font-semibold">Join the natural defense movement.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-white py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}
 
@@ -449,172 +237,6 @@ const pageTitle =
             </div>
           </div>
         </section>
-        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
-      </>
-    )}
-
-    {canonicalSlug === 'about-us' && (
-      <>
-        <PageHero eyebrow="About Secure Logic" title="Reimagining How the World Disinfects." copy="Secure Logic is a micro-droplet fumigation technology company inventing automated systems to control and improve indoor environments." />
-
-        <section class="bg-white py-20">
-          <div class="container-page grid gap-12 lg:grid-cols-[1fr_.9fr] lg:items-start">
-            <div class="grid gap-6 text-base leading-8 text-slate-600">
-              <h2 class="section-title">Our Story</h2>
-              <p>For more than 23 years, Co-Founder and CEO Marty Boquet ran one of the Gulf Coast's largest restoration and infection-control firms. Working inside hospitals, schools, government buildings, and homes, he kept seeing the same problems repeat:</p>
-              <ul class="grid gap-3">
-                {storyProblems.map((problem) => (
-                  <li class="flex items-start gap-3 rounded-lg bg-slate-50 p-4">
-                    <X class="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
-                    <span class="text-sm font-semibold text-slate-800">{problem}</span>
-                  </li>
-                ))}
-              </ul>
-              <p>COVID did not create those issues. It exposed them. Even when Marty's team used highly effective disinfectants and saw outbreaks stop in building after building, one flaw remained. People still had to do the spraying — and that meant inconsistency, higher cost, and unpredictable results.</p>
-              <p>After the pandemic, Marty teamed up with Co-Founder and COO Josh Morvant, who brings more than 20 years of experience in construction, engineering, and systems design. Together, they set a simple but ambitious goal:</p>
-              <blockquote class="rounded-lg border-l-4 border-botanical-500 bg-botanical-50 p-6 text-lg font-medium leading-8 text-slate-800">Create an automated, physics-driven system that converts liquid into an ultra-dry, sub-10 micron dry fog that fills a space, wraps 360 degrees around every surface, and does it the same way every time.</blockquote>
-              <p>Through extensive R&D and testing with more than 20 nozzle designs, that vision became the Genesis360™ Dry Fog System Platform and the foundation of Secure Logic.</p>
-            </div>
-            <div class="grid gap-6 lg:sticky lg:top-28">
-              <Image src={nozzles} alt="Two nozzles spraying towards each other" class="rounded-lg shadow-lift" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
-              <Image src={pathogen} alt="Image of a pathogen cell" class="rounded-lg shadow-lift" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-slate-100 py-20">
-          <div class="container-page">
-            <p class="eyebrow">Corporate Leadership</p>
-            <h2 class="section-title mt-4">How We Think</h2>
-            <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
-              <div class="grid gap-6 text-base leading-8 text-slate-600">
-                <p>Our belief is simple:</p>
-                <blockquote class="rounded-lg border-l-4 border-primary-500 bg-white p-6 text-lg font-medium leading-8 text-slate-800 shadow-sm">If you want consistent results, you cannot depend on inconsistent processes.</blockquote>
-                <p class="font-semibold text-slate-900">We design systems that:</p>
-                <ul class="grid gap-3">
-                  {designSystems.map((item) => (
-                    <li class="flex items-start gap-3">
-                      <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div class="grid gap-5">
-                {principles.map(({ icon: Icon, title, copy }) => (
-                  <article class="accent-card flex gap-5 border-l-4 border-botanical-500 p-6">
-                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-botanical-50">
-                      <Icon class="h-6 w-6 text-botanical-600" />
-                    </div>
-                    <div>
-                      <h3 class="text-lg font-semibold text-slate-900">{title}</h3>
-                      <p class="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-white py-20">
-          <div class="container-page grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-            <div class="grid gap-6 text-base leading-8 text-slate-600">
-              <h2 class="section-title">The Path Forward</h2>
-              <p>Pathogens are evolving. Expectations around indoor air and surface quality are rising. At Secure Logic, we are committed to pushing dry fog and environmental control technology forward so that buildings of every size can access the same level of intelligent protection.</p>
-              <p class="text-lg font-semibold text-slate-900">Genesis360™ is our first platform. It will not be our last.</p>
-              <p>If you are ready to rethink how your facility treats its air and surfaces, we would like to talk.</p>
-              <a href="/get-a-quote/" class="button-primary w-max">Get a Quote <ArrowRight class="h-4 w-4" /></a>
-            </div>
-            <Image src={pathogen} alt="Micro-droplet dry fog enveloping a surface" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
-          </div>
-        </section>
-
-        <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
-      </>
-    )}
-
-    {canonicalSlug === 'about-us/technology' && (
-      <>
-        <PageHero eyebrow="Technology" title="The Science Behind Genesis360™" copy="Micro-Droplet Physics. Macro-Level Protection." />
-
-        <section class="bg-white py-20">
-          <div class="container-page grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-            <div class="grid gap-6 text-base leading-8 text-slate-600">
-              <h2 class="section-title">The Science of 360-Degree Coverage</h2>
-              <p>Genesis360™ achieves what manual cleaning never can: total environmental contact. Each sub-10 µm droplet functions as a microscopic carrier — surrounding particles, bonding to them, and drawing them out of the air.</p>
-              <p>In physics terms, it leverages <strong class="text-slate-900">impaction, interception, and diffusion</strong> forces simultaneously — delivering measurable control over both air and surface domains.</p>
-              <p class="text-lg font-semibold text-slate-900">The outcome is not just disinfection — it's engineered environmental equilibrium.</p>
-            </div>
-            <Image src={pathogen} alt="Micro-droplet dry fog surrounding an airborne particle" class="rounded-lg shadow-deep" widths={[520, 760]} sizes="(min-width: 1024px) 40vw, 100vw" />
-          </div>
-        </section>
-
-        {techSections.map(({ title, image, alt, paragraphs, bullets }, i) => (
-          <section class={i % 2 === 0 ? 'bg-slate-100 py-20' : 'bg-white py-20'}>
-            <div class={`container-page grid items-center gap-10 lg:grid-cols-2 ${i % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-              <div class="grid place-items-center rounded-lg bg-white p-10 shadow-lift">
-                <Image src={image} alt={alt} class="h-44 w-44 object-contain" widths={[220, 380]} sizes="176px" />
-              </div>
-              <div class="grid gap-5 text-base leading-8 text-slate-600">
-                <h2 class="text-2xl font-semibold text-slate-900">{title}</h2>
-                {paragraphs.map((p) => <p set:html={p} />)}
-                {bullets && (
-                  <ul class="grid gap-3">
-                    {bullets.map((b) => (
-                      <li class="flex items-start gap-3">
-                        <Check class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </div>
-          </section>
-        ))}
-
-        <section class="bg-slate-100 py-20">
-          <div class="container-page">
-            <h2 class="section-title">Sub-10 Micron Dynamics</h2>
-            <p class="mt-4 section-copy">Why droplet size matters — and how it enables uniform 360-degree coverage.</p>
-            <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {microDynamics.map(({ title, copy }) => (
-                <article class="accent-card border-t-4 border-primary-500 p-6">
-                  <h3 class="text-lg font-semibold text-slate-900">{title}</h3>
-                  <p class="mt-3 text-sm leading-6 text-slate-600">{copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-white py-20">
-          <div class="container-page grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div class="grid gap-5 text-base leading-8 text-slate-600">
-              <h2 class="text-2xl font-semibold text-slate-900">Environmental Neutrality</h2>
-              <p>Because Genesis360™ droplets exist in a vapor-phase state, they cause no humidity or temperature change in the treated environment. No wet surfaces. No corrosion. No condensation — just consistent performance, cycle after cycle.</p>
-              <p class="font-semibold text-slate-900">That stability makes the system safe for:</p>
-            </div>
-            <div class="grid gap-3 sm:grid-cols-2">
-              {envSafe.map((item) => (
-                <div class="flex items-start gap-3 rounded-lg bg-slate-50 p-4">
-                  <ShieldCheck class="mt-0.5 h-5 w-5 shrink-0 text-botanical-600" />
-                  <span class="text-sm font-semibold text-slate-800">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-slate-900 py-20 text-white">
-          <div class="container-page max-w-3xl text-center">
-            <h2 class="text-3xl font-semibold">Why It Matters</h2>
-            <p class="mt-6 text-lg leading-8 text-white/75">Precision dry fog isn't about adding complexity; it's about removing uncertainty. Genesis360™ brings laboratory-grade consistency to real-world environments, ensuring safer air, cleaner surfaces, and smarter operations.</p>
-            <a href="/get-a-quote/" class="button-primary mt-8 inline-flex">Get a Quote <ArrowRight class="h-4 w-4" /></a>
-          </div>
-        </section>
-
         <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
       </>
     )}
