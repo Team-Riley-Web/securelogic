@@ -903,7 +903,37 @@ unchecked task unless you are starting it.
       (site-wide pass later), the `[...slug].astro` product list still says
       "Kinetic Systems" (pre-existing), and mobile QA was at 500px because
       headless Chrome on this Mac clamps narrower captures.
-- [ ] Build-out 2/5 — HVAC section to ag/hog quality: /hvac/ hub + residential, commercial, industrial, reusing the Human section's sector blocks. Needs its own spec.
+- [x] Build-out 2/5 — HVAC section to ag/hog quality: /hvac/ hub + residential, commercial, industrial, reusing the Human section's sector blocks. Spec: docs/superpowers/specs/2026-09-17-hvac-section-design.md
+      Done 2026-09-17: four pages completed. /hvac/ is the hub;
+      /hvac/residential/ is the flagship; /hvac/commercial/ is standard+;
+      /hvac/industrial/ is the lean standard page. The hub and market pages
+      compose the shared sector blocks introduced for Human, with two new
+      reusable flagship blocks: CoverageMap and StepsBand. The final market
+      page order is posts, CTA, other HVAC markets, then footer.
+      hvac-markets.ts now carries tagline, stat, package, and hero
+      { poster, posterAlt, video? } data. Residential uses home-interior.mp4,
+      commercial uses rooftop-unit.mp4, and industrial uses plant-air.mp4;
+      all three have dedicated poster fallbacks. The hub uses the existing
+      application-hvac.mp4 footage. The short black-and-white commercial
+      rooftop loop was accepted for this pass.
+      Retired hvac/[slug].astro and the HVAC branch in the catch-all route;
+      the temporary dev kitchen sink was removed. The production build is
+      back to 43 pages. Brand and link sweeps pass, every HVAC route has one
+      h1, no pricing or retired HVAC names appear in the section, and astro
+      check remains at the same 8 pre-existing homepage errors with no HVAC
+      diagnostics.
+      QA: all four pages were reviewed at 500px and 1280px, including a
+      forced hub-card reveal and all six residential coverage-map callouts.
+      One real issue was found and fixed: the three market pages had their
+      Other Markets strip before the closing CTA; all now follow the approved
+      CTA-then-market-strip order. No broken images, overflow, overlap, or
+      genuine browser console errors remain. Captures are under
+      .gstack/browse-reports/2026-09-17-hvac-final/screenshots/.
+      Everything remains behind the soft-launch gate. All commits are local;
+      nothing pushed.
+      FLAG FOR MARTY: Questions 21–23 are in
+      docs/QUESTIONS-FOR-MARTY.md. All copy is drafted from the brochure and
+      needs his read.
 - [ ] Build-out 3/5 — Product and technology pages to ag/hog quality: Genesis360 systems (/genesis360mistingsystems/), BotaniMax, About Us, Technology. Needs its own spec.
 - [ ] Build-out 4/5 — Resources and utility pages to ag/hog quality: Resources hub, brochures, documentation, FAQs, Contact Us, Get A Quote, Privacy Policy. Needs its own spec.
 - [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.

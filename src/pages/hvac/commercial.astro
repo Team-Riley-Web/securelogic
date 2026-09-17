@@ -18,7 +18,6 @@ import SectorCta from '../../components/sector/SectorCta.astro';
 import { hvacMarkets } from '../../data/hvac-markets';
 import { posts } from '../../data/blog-posts';
 import rooftop from '../../assets/images/hvac-rooftop-package.png';
-import aeroguardRender from '../../assets/images/hvac-aeroguard-render.png';
 import closetUnit from '../../assets/images/hvac-closet-unit.png';
 
 const market = hvacMarkets.find((m) => m.slug === 'commercial')!;
@@ -88,13 +87,13 @@ const deployments = [
       />
 
       <PostsRow posts={relatedPosts} heading="From The Field" />
-      <OtherMarkets heading="Other HVAC Markets" basePath="/hvac/" markets={otherMarkets} />
       <SectorCta
         eyebrow="Your Building. Your Coverage Plan."
         heading="Start With The Units Serving The Most People."
         copy="Tell us how many air handlers the building runs and how they are maintained today, and our team will map the right AeroGuard configuration and build a coverage plan around it."
         href="/get-a-quote/"
       />
+      <OtherMarkets heading="Other HVAC Markets" basePath="/hvac/" markets={otherMarkets} />
     </main>
     <Footer />
   </div>
