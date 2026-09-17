@@ -4,6 +4,7 @@
 // then the people who were there. New for the Human section (the ag pages
 // have no case study yet); grounds and type match StatBand.
 import { Quote } from '@lucide/astro';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   eyebrow: string;
@@ -13,9 +14,11 @@ interface Props {
   quotes: { text: string; attribution: string }[];
   /** One line naming the document(s) the figures come from. */
   source: string;
+  /** When passed, replaces the quotes grid with a video + single-quote layout. `quotes[0]` supplies the quote. */
+  video?: { src: string; poster: ImageMetadata; caption: string };
 }
 
-const { eyebrow, heading, intro, glance, quotes, source } = Astro.props;
+const { eyebrow, heading, intro, glance, quotes, source, video } = Astro.props;
 ---
 
 <section class="relative overflow-hidden py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(160deg, var(--bl-ink) 0%, var(--bl-ink-mid) 58%, var(--bl-ink-deep) 100%);">
@@ -37,15 +40,37 @@ const { eyebrow, heading, intro, glance, quotes, source } = Astro.props;
       ))}
     </dl>
 
-    <div class="reveal mt-12 grid gap-6 lg:grid-cols-3" x-intersect.once="$el.classList.add('is-visible')">
-      {quotes.map(({ text, attribution }) => (
-        <figure class="flex flex-col rounded-2xl border border-white/15 bg-white/[0.07] p-8">
-          <Quote class="h-6 w-6 text-lime-400" aria-hidden="true" />
-          <blockquote class="mt-5 flex-1 text-lg leading-8 text-white">{text}</blockquote>
-          <figcaption class="mt-6 text-xs font-bold uppercase tracking-[0.12em] text-white/55">{attribution}</figcaption>
+    {video ? (
+      <div class="reveal mt-12 grid items-center gap-10 lg:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="mx-auto w-full max-w-xs">
+          <video
+            controls
+            preload="metadata"
+            playsinline
+            poster={video.poster.src}
+            src={video.src}
+            class="mx-auto max-h-[32rem] w-full rounded-2xl border border-white/15 object-cover"
+          />
+          <p class="mt-4 text-center text-xs font-bold uppercase tracking-[0.12em] text-white/55">{video.caption}</p>
+        </div>
+
+        <figure class="flex flex-col rounded-2xl border border-white/15 bg-white/[0.07] p-8 sm:p-10">
+          <Quote class="h-7 w-7 text-lime-400" aria-hidden="true" />
+          <blockquote class="mt-6 flex-1 text-xl leading-relaxed text-white sm:text-2xl">{quotes[0].text}</blockquote>
+          <figcaption class="mt-6 text-xs font-bold uppercase tracking-[0.12em] text-white/55">{quotes[0].attribution}</figcaption>
         </figure>
-      ))}
-    </div>
+      </div>
+    ) : (
+      <div class="reveal mt-12 grid gap-6 lg:grid-cols-3" x-intersect.once="$el.classList.add('is-visible')">
+        {quotes.map(({ text, attribution }) => (
+          <figure class="flex flex-col rounded-2xl border border-white/15 bg-white/[0.07] p-8">
+            <Quote class="h-6 w-6 text-lime-400" aria-hidden="true" />
+            <blockquote class="mt-5 flex-1 text-lg leading-8 text-white">{text}</blockquote>
+            <figcaption class="mt-6 text-xs font-bold uppercase tracking-[0.12em] text-white/55">{attribution}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
 
     <p class="mx-auto mt-10 max-w-3xl text-center text-xs leading-6 text-white/55">{source}</p>
   </div>

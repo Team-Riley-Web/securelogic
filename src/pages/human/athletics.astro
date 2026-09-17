@@ -26,6 +26,8 @@ import { humanMarkets } from '../../data/human-markets';
 import { posts } from '../../data/blog-posts';
 import gymVideo from '../../assets/videos/gym.mp4';
 import gymPoster from '../../assets/images/hero-gym-poster.jpg';
+import coachVideo from '../../assets/videos/tarleton-coach.mp4';
+import coachPoster from '../../assets/images/tarleton-coach-poster.jpg';
 // The spec's first choice for this band was the locker-room render; it is portrait (1024x1536) and cropped badly at 50vw, so the landscape D1 gym render is used instead.
 import gymScene from '../../assets/images/human-d1-gym.png';
 import fogger from '../../assets/images/human-fogger.png';
@@ -94,11 +96,13 @@ const glance = [
   { label: 'Practices missed to infection', value: '0' },
 ];
 
-// Source T, verbatim.
+// Source T, verbatim. Reduced to the single most impactful quote now that the
+// coach video runs alongside it.
+// The coach's name is deliberately not used anywhere on this page: the case
+// study prints "Leath" but the video file is named "Leeth", and the spelling
+// is unresolved.
 const quotes = [
   { text: `“We stopped daily mopping the mats for sanitizing and let the system do what it does. The difference is obvious the moment you walk in—our room doesn’t smell like a wrestling room anymore.”`, attribution: 'Tarleton State University Wrestling' },
-  { text: `“Because we’re not dealing with infections, nobody has to sit out practice. That means everyone gets more mat time.”`, attribution: 'Tarleton State University Wrestling' },
-  { text: `“The cherry on top when showing recruits the facility.”`, attribution: 'Tarleton State University Wrestling' },
 ];
 ---
 
@@ -173,6 +177,7 @@ const quotes = [
         intro="A collegiate wrestling program with more than seventy athletes replaced daily mopping with a nightly Genesis360 cycle. This is what the season looked like."
         glance={glance}
         quotes={quotes}
+        video={{ src: coachVideo, poster: coachPoster, caption: 'Head coach, Tarleton State University Wrestling' }}
         source={`Figures and quotations from the Secure Logic case study “Environmental Hygiene & Athlete Performance, Tarleton State University.” Independent laboratory testing of the Genesis360 platform with BotaniMax has shown bacterial reductions of five log or better and viral reductions of six log or better.`}
       />
 
