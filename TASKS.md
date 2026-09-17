@@ -798,7 +798,7 @@ unchecked task unless you are starting it.
       (that has always been the plan), which removes this rule with it. If the
       gate ever outlives the hog launch, point the `# ag` block back at /.
       Not pushed; ships with the rest of today's soft-launch changes.
-- [ ] Build out the entire site. It should match the quality of the ag and hogs page.
+- [x] Build out the entire site. It should match the quality of the ag and hogs page.
       Blocked 2026-09-16 (awaiting Joshua's answers, design not yet approved).
       Scoped as architectural: ~25 non-blog pages + the blog templates.
       Inventory: the ag section (4 pages) is the new standard; everything else
@@ -831,6 +831,12 @@ unchecked task unless you are starting it.
       Joshua's read-through before the implementation plan is written).
       This umbrella entry is superseded by the five sub-project entries
       appended below; it stays unchecked until all five are done.
+      Done 2026-09-17: all five sub-projects complete — Human, HVAC,
+      Product/Company/Technology, Resources & Utility, and Blog — each with
+      its own spec under docs/superpowers/specs/, all behind the
+      soft-launch gate, all local commits, nothing pushed.
+      docs/QUESTIONS-FOR-MARTY.md now holds every open decision accumulated
+      across all five during the build.
 - [x] Build-out 1/5 — Human section to ag/hog quality: /human/ hub + athletics (flagship), healthcare, schools, military. Spec: docs/superpowers/specs/2026-09-16-human-section-design.md
       Done 2026-09-16: five pages shipped. /human/ hub (tier: hub) follows
       the ag-hub pattern — split hero with gym footage, mission band, four
@@ -1051,7 +1057,33 @@ unchecked task unless you are starting it.
       — local copies of the three external documents, and whether
       counsel-reviewed Privacy Policy text exists or the placeholder should
       stay.
-- [ ] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
+- [x] Build-out 5/5 — Blog index and post templates to ag/hog quality. Needs its own spec.
+      Done 2026-09-17: scope was narrower than the other four build-outs by
+      design. Spec: docs/superpowers/specs/2026-09-17-blog-design.md. Only
+      the blog index hero changed — the flat PageHero was replaced with
+      SectorHero (src/pages/blogs/index.astro), matching every other
+      section's eyebrow/headline/support/poster/CTA pattern. Used
+      contact-bg.jpeg as the poster (already imported for the Contact/Get A
+      Quote pages); judged it read well cropped into a wide hero before
+      using it. The featured-post block, the three-column grid, and the
+      closing QuoteForm band are untouched.
+      The post template (src/pages/blogs/[slug].astro) and all 14 post
+      bodies were deliberately left alone — a compliance sweep run before
+      this plan was written found them clean: no EPA category-code
+      violations, no retired product names, no "Genesis 360" with a space,
+      no patent claims. The two dollar figures present in post bodies are
+      cited industry statistics (an FAO crop/livestock loss estimate and an
+      Indoor Air productivity-gains estimate), not pricing.
+      Build holds at 43 pages; astro check remains at the same 8
+      pre-existing homepage errors with no blog diagnostics; brand check
+      passes; zero dollar figures render on the index page.
+      QA: served dist/ and reviewed /blogs/ at 500px and 1280px plus
+      /blogs/are-you-missing-these-3-high-risk-hotspots/ at 1280px. The new
+      hero is legible at both widths, the featured-post/grid layout below it
+      is unaffected, and the post page renders exactly as it did before this
+      plan. No defects found.
+      Everything stays behind the soft-launch gate. All commits are local;
+      nothing pushed.
 - [x] Hog page should be in the main nav next to the Contact button (soft-launch minimal header).
       Done 2026-09-17: the soft-launch (minimal) header shows a "Hogs &
       Livestock" outline pill immediately before Contact on desktop and as the
