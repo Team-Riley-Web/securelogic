@@ -40,3 +40,6 @@ src/assets/brochures/*.docx
 
 # Subagent-driven-development scratch (ledgers, briefs, review packages)
 .superpowers/
+
+# Parallel batch worktrees
+.worktrees/
