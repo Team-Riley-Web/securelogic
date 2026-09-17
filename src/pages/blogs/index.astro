@@ -3,10 +3,11 @@ import { ArrowRight } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import PageHero from '../../components/PageHero.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { posts } from '../../data/blog-posts';
+import contactBg from '../../assets/images/contact-bg.jpeg';
 
 const [featured, ...rest] = posts;
 ---
@@ -16,11 +17,13 @@ const [featured, ...rest] = posts;
   description="Insights on botanical disinfectants, Genesis360 dry fog systems, indoor air quality, and microbial risk reduction."
 >
   <Header />
-  <main>
-    <PageHero
+  <main class="bl" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
+    <SectorHero
       eyebrow="Blog"
-      title="Genesis360 Blog"
-      copy="Tips and insights on botanical disinfectants, Genesis360 dry fog systems, indoor air quality, and microbial risk reduction."
+      headline={['Genesis360', 'Blog.']}
+      support="Tips and insights on botanical disinfectants, Genesis360 dry fog systems, indoor air quality, and microbial risk reduction."
+      poster={contactBg}
+      cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
     />
 
     <section class="bg-white py-20">
