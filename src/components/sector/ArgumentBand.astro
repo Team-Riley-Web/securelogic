@@ -15,9 +15,12 @@ interface Props {
   imageAlt?: string;
   stat?: { value: string; caption: string };
   link?: { href: string; label: string };
+  /** Which corner the stat sits in. Defaults to 'left' so existing pages (the hog page) are unchanged. */
+  statPosition?: 'left' | 'right';
 }
 
-const { eyebrow, heading, paragraphs = [], image, imageAlt = '', stat, link } = Astro.props;
+const { eyebrow, heading, paragraphs = [], image, imageAlt = '', stat, link, statPosition = 'left' } = Astro.props;
+const statRight = statPosition === 'right';
 ---
 
 <style>
@@ -25,6 +28,10 @@ const { eyebrow, heading, paragraphs = [], image, imageAlt = '', stat, link } = 
     height: 3px;
     border-radius: 999px;
     background: linear-gradient(90deg, var(--bl-blue) 0%, rgb(29 63 214 / 0) 100%);
+  }
+  .stat-rule.stat-rule--right {
+    margin-left: auto;
+    background: linear-gradient(270deg, var(--bl-blue) 0%, rgb(29 63 214 / 0) 100%);
   }
 </style>
 
@@ -39,13 +46,13 @@ const { eyebrow, heading, paragraphs = [], image, imageAlt = '', stat, link } = 
           widths={[640, 960, 1280]}
           sizes="(min-width: 1024px) 50vw, 100vw"
         />
-        <span class="absolute inset-0" aria-hidden="true" style="background: linear-gradient(105deg, rgb(16 32 74 / 0.42) 0%, rgb(16 32 74 / 0.28) 58%, rgb(16 32 74 / 0.06) 100%);"></span>
+        <span class="absolute inset-0" aria-hidden="true" style={`background: linear-gradient(${statRight ? 255 : 105}deg, rgb(16 32 74 / 0.42) 0%, rgb(16 32 74 / 0.28) 58%, rgb(16 32 74 / 0.06) 100%);`}></span>
 
         {stat && (
-          <div class="absolute bottom-0 left-0 p-8 text-white sm:p-10">
+          <div class={`absolute bottom-0 p-8 text-white sm:p-10 ${statRight ? 'right-0 flex flex-col items-end text-right' : 'left-0'}`}>
             <p class="text-[5.5rem] font-extrabold leading-[0.85] tracking-tight sm:text-[7.5rem] lg:text-[9.5rem]">{stat.value}</p>
-            <div class="stat-rule mt-4 w-32 sm:w-44 lg:w-56"></div>
-            <p class="mt-4 max-w-[15rem] text-base font-semibold text-white/75">{stat.caption}</p>
+            <div class={`stat-rule mt-4 w-32 sm:w-44 lg:w-56 ${statRight ? 'stat-rule--right' : ''}`}></div>
+            <p class={`mt-4 max-w-[15rem] text-base font-semibold text-white/75 ${statRight ? 'ml-auto text-right' : ''}`}>{stat.caption}</p>
           </div>
         )}
       </div>
