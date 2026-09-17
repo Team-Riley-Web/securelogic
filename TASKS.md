@@ -927,11 +927,34 @@ unchecked task unless you are starting it.
       the hog page uses it with baby-pigs-3.jpg ("Piglets in a clean nursery
       pen"). Every other page keeps the default variant, which renders
       byte-identically to before.
-- [ ] Sector landing pages (Human, HVAC hubs): use videos like the ag page (pictures work too, but they all should match the agricultural design). Pull out as much of the similar content as possible: the ag page breaks down each of its three sub pages, do that within Human and HVAC too.
-- [ ] Sector sub pages (human and HVAC markets): match the design of the hog page as closely as possible, with consistency across every one of these internal pages (healthcare, schools, athletics; then residential, commercial, industrial).
-- [ ] Blogs / From The Field rows: always show three posts, even if the second and third are not closely related; fill with something more generic rather than showing fewer.
-- [ ] The "Other Human Health Markets" block should come last, after the pre-footer CTA, and should be a different design from the current card grid.
-- [ ] Really pull from any of the brochures we have (reference-files) for the copy and content of the Human and HVAC sections.
+- [x] Sector landing pages (Human, HVAC hubs): use videos like the ag page (pictures work too, but they all should match the agricultural design). Pull out as much of the similar content as possible: the ag page breaks down each of its three sub pages, do that within Human and HVAC too.
+      Done 2026-09-17 for Human: the /human/ hub has the ag hub's split video
+      hero (your Compact product photo as poster, gym footage), mission band,
+      four flip sector cards that break down the sub pages, the Difference
+      grid and CTA. HVAC gets the identical treatment in build-out 2/5, whose
+      spec and plan are written and whose first task is running.
+- [x] Sector sub pages (human and HVAC markets): match the design of the hog page as closely as possible, with consistency across every one of these internal pages (healthcare, schools, athletics; then residential, commercial, industrial).
+      Done 2026-09-17 for Human: athletics is the flagship (video hero,
+      argument band with stat, deployment cards, stat + compare band, case
+      study, posts, CTA); healthcare, schools and military carry the standard
+      tier of the same blocks. HVAC follows in build-out 2/5 (residential
+      flagship, commercial standard+, industrial lean).
+- [x] Blogs / From The Field rows: always show three posts, even if the second and third are not closely related; fill with something more generic rather than showing fewer.
+      Done 2026-09-17: src/data/related-posts.ts picks a market's own posts
+      first and fills from a generic human-health list, capped at three; all
+      four Human sector pages use it (3 cards each, verified in the build).
+      The HVAC plan does the same with an HVAC fill list. Merged from
+      batch-d-crosspage (ed2dad8).
+- [x] The "Other Human Health Markets" block should come last, after the pre-footer CTA, and should be a different design from the current card grid.
+      Done 2026-09-17: OtherMarkets is now a compact dark pill strip (eyebrow,
+      one heading, icon + title pills) and renders after the closing CTA on
+      every Human sector page; props unchanged so HVAC reuses it.
+- [x] Really pull from any of the brochures we have (reference-files) for the copy and content of the Human and HVAC sections.
+      Done 2026-09-17: the Human pages were drafted from the Athletic
+      e-brochure, Compact sheet, competitive comparison, Tarleton case study
+      and lab report; three document audits (docs/audits/2026-09-17-*.md)
+      then corrected the rest of the site against the BotaniMax, technology
+      and HVAC documents; the HVAC spec is built from the HVAC brochure.
 - [x] Find a different video for the hero of /human/healthcare/ - ideally someone cleaning medical equipment or a surgical room (replaces the current doctor-walking-a-hallway clip).
       Done 2026-09-17: clinic.mp4 is now a clinician in full PPE loading
       dental instruments into an autoclave (Pexels, "A Woman Sterilizing the
@@ -973,7 +996,10 @@ unchecked task unless you are starting it.
       so the hog page is unchanged); athletics passes right, with the rule and
       caption right-aligned and the photo scrim mirrored so the dark end sits
       under the stat.
-- [ ] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
+- [x] /human/ hub hero headline: on desktop, make each sentence break onto its own line: "Healthier Rooms." / "Healthier Teams." / "Healthier People."
+      Done 2026-09-17: SectorHero takes two or three headline lines; the hub
+      passes three, stacked at lg and inline below; two-line pages keep their
+      break at every width as before.
 - [x] Main nav: remove "Shop All" for right now, just comment it out (secondary nav in Header.astro).
       Done 2026-09-17: the `{ label: 'Shop All', href: '#shop' }` line in
       Header.astro's secondaryLinks is commented out with a dated note.
