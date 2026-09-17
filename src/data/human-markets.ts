@@ -65,7 +65,7 @@ export const humanMarkets: Market[] = [
     stat: 'Between 60% and 100% of wrestlers pick up at least one skin infection in a typical season, and skin infections are the number one reported cause of lost time in the sport.',
     // Source: Genesis360 Pricing Model - External.docx — EnviroGuard: daycare / early childcare, athletics, fitness, contact sports, and other human spaces.
     package: 'EnviroGuard',
-    hero: { poster: gymPoster, posterAlt: 'Genesis360 Compact unit mounted on the wall of a college weight room' },
+    hero: { poster: gymPoster, posterAlt: 'Genesis360 Compact Wall Mount unit releasing dry mist against a block wall' },
   },
   {
     slug: 'military',
