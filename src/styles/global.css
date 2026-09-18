@@ -103,6 +103,16 @@
   }
 }
 
+/* The angle the .genesis-panel rim sweeps through. Registering it is the whole
+   trick: a plain custom property is a token to the animation engine and jumps
+   between keyframes, so only a registered <angle> interpolates smoothly.
+   Must sit at the top level — @property is not allowed inside @layer. */
+@property --genesis-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 @layer components {
 
   /* Brand gradient sweep. The gradient is the logo's green -> blue -> green so
@@ -144,6 +154,62 @@
     .animated-background {
       animation: none;
       background-position: 0% 50%;
+    }
+  }
+
+  /* The "With Genesis360" side of a comparison pair. Both panels share one
+     background, so this side is lifted by its rim rather than a different
+     fill. The rim was a static lime hairline across the top; it is now a lime
+     highlight that travels the whole perimeter.
+     Defined here, not in the components that use it: CompareBand and the hog
+     page both used to carry their own copy, and an Astro-scoped copy outranks
+     anything global, so a local rule would silently win over this one.
+     Used by CompareBand.astro (seven pages) and ag/hogs-livestock.astro. */
+  .genesis-panel {
+    position: relative;
+    box-shadow: 0 0 0 1px rgb(166 217 96 / 0.4), 0 14px 34px -26px rgb(82 194 76 / 0.5);
+  }
+
+  /* The rim itself. A conic gradient fills the whole box, then the mask keeps
+     only the 1px padding ring — painting the gradient into a border directly
+     is not possible, and a second inset element would sit on top of the
+     panel's translucent fill and muddy it.
+     The gradient opens and closes on the same lime so the loop has no seam,
+     which also puts the bright point at the start angle: at 0deg that is
+     12 o'clock, exactly where the old static hairline sat. */
+  .genesis-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--genesis-angle),
+      var(--bl-lime) 0turn,
+      var(--bl-green) 0.08turn,
+      rgb(255 255 255 / 0.12) 0.24turn,
+      rgb(255 255 255 / 0.12) 0.76turn,
+      var(--bl-green) 0.92turn,
+      var(--bl-lime) 1turn
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: genesis-panel-sweep 8s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Without @property the angle never animates, so the rim simply holds its
+     initial 0deg — a static lime top edge, which is what the panel had
+     before. Same result for anyone who asks us to stop moving things. */
+  @media (prefers-reduced-motion: reduce) {
+    .genesis-panel::after {
+      animation: none;
     }
   }
 
@@ -648,5 +714,11 @@
 
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes genesis-panel-sweep {
+  to {
+    --genesis-angle: 360deg;
   }
 }

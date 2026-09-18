@@ -1413,6 +1413,37 @@ unchecked task unless you are starting it.
       viewport to a 500px minimum, so any --window-size below 500 renders at
       500 and merely crops the screenshot. Narrow-phone widths have to be
       checked by measuring in-page, not by screenshotting.
+- [x] Use the rotating conic-gradient glow border CSS effect (@property --a + spin keyframes) on .genesis-panel across all pages that have it
+      Done 2026-09-17: the lime hairline that sat statically across the top of
+      the “With Genesis360” panel now travels the whole perimeter, on all
+      eight pages that use it — CompareBand (athletics, healthcare, military,
+      schools, hvac commercial/industrial/residential) plus the hog page.
+      Two things worth knowing about how it was built:
+      • .genesis-panel existed twice, once in CompareBand.astro and once
+        inline in hogs-livestock.astro. Both are Astro-scoped, and a scoped
+        rule outranks anything global, so adding the effect to global.css
+        alone would have silently done nothing on any page. Both copies are
+        deleted and the rule now lives once in global.css.
+      • The rim is a conic gradient masked down to a 1px ring
+        (mask-composite: exclude) rather than a second inset panel — the panel
+        fill is translucent (bg-white/[0.07]), so anything sitting behind it
+        would show through and muddy it.
+      Used the brand lime/green rather than the reference’s red/yellow, and
+      the gradient opens and closes on the same lime so the loop has no seam.
+      That also puts the bright point at the start angle, so with
+      prefers-reduced-motion the rim freezes at 0deg — a lime top edge, which
+      is exactly what the panel looked like before. Same fallback for any
+      browser without @property, where the angle simply never animates.
+      Verified on all eight pages by reading the computed ::after style: live
+      keyframes, mask-composite applied, and an interpolating angle (each page
+      reported a different non-zero from-angle), which is the proof @property
+      registration took — an unregistered custom property would have made the
+      gradient invalid. Also captured four phases of the sweep and confirmed
+      the highlight sits on a different edge in each, plus the reduced-motion
+      and hog-page renders.
+      Note: the sweep runs continuously whether or not the panel is on screen.
+      One 1px ring per page, so it is not worth JS to pause it, but that is
+      the reason it is 8s and not the reference’s 3s.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
