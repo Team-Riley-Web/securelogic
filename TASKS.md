@@ -1537,7 +1537,33 @@ unchecked task unless you are starting it.
       sweep at 6s with an interpolating angle, and that reduced motion stops
       both and parks the hot core at 12 o'clock — close to the static lime top
       edge the panel started with. Judged by capturing six phases of the loop.
-- [ ] Soften the .genesis-panel animation — make the edge less sharp, fade the edges to transparent
+- [x] Soften the .genesis-panel animation — make the edge less sharp, fade the edges to transparent
+      Done 2026-09-17: the glow is now genuinely blurred instead of a wide
+      band with a crisp cut-off, and the rim ramps in and out of the core
+      rather than switching on.
+      Getting a soft edge needed one piece of real markup. CSS applies a
+      filter to an element's subtree only after each descendant has been
+      masked, so blurring a masked ring on a single element blurs the gradient
+      and then cuts a hard edge into the result — which is exactly what the
+      first version did, and why I had written in the last commit that a
+      blurred halo was not reachable. It is: the blur goes on a .genesis-glow
+      span and the masked ring on its ::before, so the ring is cut first and
+      blurred after. A pseudo-element cannot carry its own pseudo-element,
+      which is why the span has to exist.
+      Also dropped the hard 1px lime ring from the resting box-shadow — a
+      crisp line sitting under a soft glow was most of what made the edge read
+      sharp.
+      Two corrections during the pass: first attempt let the rim fall all the
+      way to transparent on the far side of the sweep, which left the panel
+      indistinguishable from the “Today” one for most of every cycle, so a
+      faint lime now carries all the way round; and the halo was too wide
+      (13px band, 14px inset, 11px blur) — you called it, it read as a cloud
+      around the panel rather than light on its edge. Now 6px/7px/6px, hugging
+      the border.
+      Verified all eight panels carry exactly one .genesis-glow — including
+      the hog page, which only picks it up because of this morning's
+      consolidation onto CompareBand — and that reduced motion parks the
+      bloom at 12 o'clock. Judged by capturing four phases of the loop.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
