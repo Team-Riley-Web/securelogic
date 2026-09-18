@@ -31,15 +31,15 @@ const { eyebrow, heading, lede, figures } = Astro.props;
 
     <!-- The two figures, unboxed, separated by a hairline. -->
     <div class="reveal mx-auto mt-14 grid max-w-2xl gap-10 border-y border-white/15 py-10 sm:grid-cols-2 sm:gap-0" x-intersect.once="$el.classList.add('is-visible')">
-      <div class="text-center sm:pr-8 sm:text-left">
+      <div class="text-center sm:pr-8">
         <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[0].value}</p>
         <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[0].label}</p>
-        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">{figures[0].copy}</p>
+        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55">{figures[0].copy}</p>
       </div>
-      <div class="text-center sm:border-l sm:border-white/15 sm:pl-8 sm:text-left">
+      <div class="text-center sm:border-l sm:border-white/15 sm:pl-8">
         <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[1].value}</p>
         <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[1].label}</p>
-        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">{figures[1].copy}</p>
+        <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55">{figures[1].copy}</p>
       </div>
     </div>
 
