@@ -1266,7 +1266,30 @@ unchecked task unless you are starting it.
       (['Cleaner Coils.', 'Cleaner Ducts.', 'Cleaner Air.']), matching the
       Human hub's three-line treatment via the same SectorHero prop.
       Commit 8f44a45.
-- [ ] Replace the /human/healthcare/ hero video with hospital-3 and use the other hospital- videos elsewhere on the page. Speak to wanting the healthiest and cleanest environment for you and your family; hospitals should be a place of healing. Speak to the hospital admin and to the human, everyman perspective.
+- [x] Replace the /human/healthcare/ hero video with hospital-3 and use the other hospital- videos elsewhere on the page. Speak to wanting the healthiest and cleanest environment for you and your family; hospitals should be a place of healing. Speak to the hospital admin and to the human, everyman perspective.
+      Done 2026-09-17: hero is now hospital-3 (the calm, modern MRI suite),
+      processed to healthcare-hero.mp4 with an MRI poster frame. hospital-1
+      (staff in full PPE disinfecting an exam room) plays behind the argument
+      band — ArgumentBand gained an optional `video` prop for this, additive
+      so every existing image-only call site is unchanged. hospital-2 (a
+      family consultation) supplies the closing CTA's photo via SectorCta's
+      existing photo variant; a frame at t=9s was chosen over five others for
+      the warmest, clearest read.
+      Copy speaks to both audiences as asked: hero "A Cleaner Hospital. / A
+      Healthier Family."; argument band "A Hospital Should Heal, Not Spread
+      What It's Treating." with one new opening line ("Every family walking
+      through these doors is trusting that the room is safer than the one
+      they left.") ahead of the existing sourced paragraphs, which are
+      unchanged word for word; CTA "Give Every Family The Room They're Hoping
+      For." under the eyebrow "Your Patients. Your Reputation."
+      No new clinical claim was introduced — the pathogen list and the
+      five-log/six-log figures are the same sourced text as before. The hero
+      deliberately reads from page-local assets rather than market.hero,
+      which still backs the hub's sector card. Raw hospital-1/2/3 sources now
+      live in reference-files/video/ with the Tarleton footage (commit
+      85ca35c); only the processed clips sit in src/assets.
+      Merged 40cec2a. A fuller video treatment for the family clip, rather
+      than a still, is a reasonable follow-up if wanted.
 - [x] Bring the Human, HVAC, and Ag section indexes and their subpages up to the same content depth as /ag/hogs-livestock/. Do your best with what exists; note for Marty where more source material is needed.
       Done 2026-09-17: added a StatBand + CompareBand to human/schools,
       human/military, hvac/commercial, and hvac/industrial (commit 86de500),
