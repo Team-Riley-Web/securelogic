@@ -1514,6 +1514,29 @@ unchecked task unless you are starting it.
       private .genesis-panel copy that silently outranked the global rule.
       Worth assuming anything on the hog page has a twin in src/components/
       before editing it.
+- [x] .genesis-panel border animation needs more wow factor
+      Done 2026-09-17: (you wrote .genesis-block; the class is .genesis-panel.)
+      Rebuilt the rim as two conic rings sharing one angle, so they sweep as a
+      single light source: a 2px rim that peaks on near-white before falling
+      through lime and green — a light source looks hot at its centre, not
+      saturated — and a 6px halo sitting just outside the panel, which is what
+      carries the glow onto the dark ground. Cycle 8s → 6s, and the resting
+      box-shadow is now a real lime bloom so the panel still reads as the lit
+      one in a still screenshot.
+      First attempt was worse, not better: two highlights half a turn apart
+      plus a halo that ramped across most of the circle lit the whole
+      perimeter at once, and the panel just looked like it had a green border.
+      The travel only reads if there is somewhere for the light to travel
+      from, so it is now one comet with a tail over ~0.3 of a turn and a faint
+      hairline the rest of the way. Contrast is the effect.
+      The halo cannot be blurred, which is worth writing down: CSS applies
+      filters before masks, so blurring it would bleed a wedge of colour
+      across the whole card and then have a hard edge cut into it anyway. A
+      wide band at low alpha gives the glow without that.
+      Verified on all eight panels that both rings animate on genesis-panel-
+      sweep at 6s with an interpolating angle, and that reduced motion stops
+      both and parks the hot core at 12 o'clock — close to the static lime top
+      edge the panel started with. Judged by capturing six phases of the loop.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

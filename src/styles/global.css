@@ -167,30 +167,51 @@
      Used by CompareBand.astro (seven pages) and ag/hogs-livestock.astro. */
   .genesis-panel {
     position: relative;
-    box-shadow: 0 0 0 1px rgb(166 217 96 / 0.4), 0 14px 34px -26px rgb(82 194 76 / 0.5);
+    /* Resting lift. The travelling light is the two rings below; this is the
+       floor it moves over, so the panel still reads as the lit one in a still
+       screenshot and under prefers-reduced-motion. */
+    box-shadow:
+      0 0 0 1px rgb(166 217 96 / 0.34),
+      0 0 38px -14px rgb(82 194 76 / 0.55),
+      0 18px 40px -28px rgb(15 36 112 / 0.8);
   }
 
-  /* The rim itself. A conic gradient fills the whole box, then the mask keeps
-     only the 1px padding ring — painting the gradient into a border directly
-     is not possible, and a second inset element would sit on top of the
-     panel's translucent fill and muddy it.
-     The gradient opens and closes on the same lime so the loop has no seam,
-     which also puts the bright point at the start angle: at 0deg that is
-     12 o'clock, exactly where the old static hairline sat. */
-  .genesis-panel::after {
+  /* Two rings share one angle, so they sweep as a single light source.
+     Both are a conic gradient masked down to a band: the gradient fills the
+     whole box and the mask keeps only the padding ring, because a gradient
+     cannot be painted into a border directly, and a plain inset element would
+     sit over the panel's translucent fill and muddy it.
+
+     Both gradients open and close on the same stop so the loop has no seam,
+     which also puts the leading edge at the start angle: at 0deg that is
+     12 o'clock, where the original static hairline sat.
+
+     One highlight, not two, and dark for most of the turn: the travel only
+     reads if there is somewhere for the light to travel from. Two competing
+     highlights lit most of the perimeter at once and the panel just looked
+     like it had a green border. */
+
+  /* The halo. A wider, softer band sitting just outside the panel, which is
+     what actually carries the glow — it extends past the edge so the light
+     spills onto the dark ground rather than stopping at the border.
+     It cannot be blurred: filters are applied before masking, so blurring
+     here would bleed a wedge of colour across the whole card and then get a
+     hard edge cut into it anyway. A wide band at low alpha does the job. */
+  .genesis-panel::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
+    inset: -6px;
+    /* rounded-2xl (1rem) plus the inset, so the halo stays concentric. */
+    border-radius: calc(1rem + 6px);
+    padding: 6px;
     background: conic-gradient(
       from var(--genesis-angle),
-      var(--bl-lime) 0turn,
-      var(--bl-green) 0.08turn,
-      rgb(255 255 255 / 0.12) 0.24turn,
-      rgb(255 255 255 / 0.12) 0.76turn,
-      var(--bl-green) 0.92turn,
-      var(--bl-lime) 1turn
+      rgb(214 255 150 / 0.55) 0turn,
+      rgb(166 217 96 / 0.3) 0.05turn,
+      rgb(82 194 76 / 0) 0.22turn,
+      rgb(82 194 76 / 0) 0.9turn,
+      rgb(166 217 96 / 0.3) 0.97turn,
+      rgb(214 255 150 / 0.55) 1turn
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -200,14 +221,47 @@
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     mask-composite: exclude;
-    animation: genesis-panel-sweep 8s linear infinite;
+    animation: genesis-panel-sweep 6s linear infinite;
     pointer-events: none;
   }
 
-  /* Without @property the angle never animates, so the rim simply holds its
-     initial 0deg — a static lime top edge, which is what the panel had
-     before. Same result for anyone who asks us to stop moving things. */
+  /* The rim. 2px rather than 1px so the hot core reads as light rather than
+     as a hairline, and it peaks on near-white before falling back through
+     lime and green — a light source looks hot at its centre, not saturated. */
+  .genesis-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--genesis-angle),
+      rgb(247 255 235 / 0.98) 0turn,
+      var(--bl-lime) 0.035turn,
+      var(--bl-green) 0.11turn,
+      rgb(255 255 255 / 0.1) 0.3turn,
+      rgb(255 255 255 / 0.1) 0.92turn,
+      var(--bl-lime) 0.975turn,
+      rgb(247 255 235 / 0.98) 1turn
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: genesis-panel-sweep 6s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Without @property the angle never animates, so both rings simply hold
+     their initial 0deg — the hot core parked at 12 o'clock, which is close to
+     the static lime top edge the panel had before. Same result for anyone who
+     asks us to stop moving things. */
   @media (prefers-reduced-motion: reduce) {
+    .genesis-panel::before,
     .genesis-panel::after {
       animation: none;
     }
