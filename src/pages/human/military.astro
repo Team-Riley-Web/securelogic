@@ -12,6 +12,8 @@ import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import ArgumentBand from '../../components/sector/ArgumentBand.astro';
 import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
@@ -76,6 +78,26 @@ const deployments = [
         ]}
         link={{ href: '#deployments', label: 'See The Systems' }}
       />
+
+      <!-- Source: Laboratory Validation and Field Performance ... Tarleton State.pdf
+           (>=5-log bacterial, >=6-log viral reduction); Technology Explainer.pdf
+           (sub-10-micron suspension time, up to 8 hours). -->
+      <StatBand
+        eyebrow="What Close Quarters Actually Need"
+        heading="An Outbreak Doesn't Wait For The Next Cleaning Shift."
+        lede="One case in a shared bunk room or briefing space can sideline a unit faster than any single point of manual cleaning can keep up with."
+        figures={[
+          { value: '≥6-log', label: 'Viral reduction', copy: 'Independent laboratory testing of the Genesis360 platform, in controlled conditions.' },
+          { value: 'Up to 8 hrs', label: 'Droplet suspension time', copy: 'Sub-10-micron droplets stay airborne long enough to reach what manual cleaning misses.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="A typical shared-space routine covers:"
+          today={['High-touch surfaces, wiped on a rotation', 'Common areas, cleaned between shifts', 'The air in a shared room — not addressed by a wipe-down']}
+          withIntro="Genesis360 adds:"
+          with={['A scheduled cycle that runs whether or not anyone remembers', 'Coverage of the air column and every surface in one pass', 'A room that is dry and ready the moment it is needed again']}
+        />
+      </StatBand>
 
       <DeploymentCards
         heading="One Platform. Two Ways To Deploy It."

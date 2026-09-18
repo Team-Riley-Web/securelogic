@@ -12,6 +12,8 @@ import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import ArgumentBand from '../../components/sector/ArgumentBand.astro';
 import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
@@ -80,6 +82,26 @@ const deployments = [
         ]}
         link={{ href: '#deployments', label: 'See The Systems' }}
       />
+
+      <!-- Source: Laboratory Validation and Field Performance ... Tarleton State.pdf
+           (>=5-log bacterial, >=6-log viral reduction); Technology Explainer.pdf
+           (sub-10-micron suspension time, up to 8 hours). -->
+      <StatBand
+        eyebrow="What A Clean Classroom Actually Needs"
+        heading="A Wipe-Down Reaches Desks. It Doesn't Reach The Air."
+        lede="Absences, substitute costs, and a school year that keeps resetting to zero every time something goes around the building."
+        figures={[
+          { value: '≥5-log', label: 'Bacterial reduction', copy: 'Independent laboratory testing of the Genesis360 platform, in controlled conditions.' },
+          { value: 'Up to 8 hrs', label: 'Droplet suspension time', copy: 'Sub-10-micron droplets remain suspended in the air column, reaching what a cloth never touches.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="A typical classroom cleaning routine covers:"
+          today={['Desks and door handles, wiped by hand', 'Shared surfaces, cleaned once a day at best', 'The air the class actually breathes for the hour — not covered at all']}
+          withIntro="Genesis360 adds:"
+          with={['An automated cycle after hours or between classes', 'Coverage of the air column and every surface in the same pass', 'A dry-to-the-touch room by the time the next class walks in']}
+        />
+      </StatBand>
 
       <DeploymentCards
         heading="One Platform. Two Ways To Deploy It."

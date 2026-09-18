@@ -12,6 +12,8 @@ import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import ArgumentBand from '../../components/sector/ArgumentBand.astro';
 import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
@@ -79,6 +81,25 @@ const deployments = [
         ]}
         link={{ href: '#deployments', label: 'See The Systems' }}
       />
+
+      <!-- Source: Genesis360 HVAC.pdf (four homeowner/facility concerns, adapted to a
+           multi-unit building context); Laboratory Validation ... Tarleton State.pdf. -->
+      <StatBand
+        eyebrow="What Every Building Manager Already Knows"
+        heading="One Dirty Coil Affects Every Room It Serves."
+        lede="Restricted airflow, rising energy costs, and the same recycled air moving through every office the unit feeds."
+        figures={[
+          { value: '≥5-log', label: 'Bacterial reduction', copy: 'Independent laboratory testing of the Genesis360 platform, in controlled conditions.' },
+          { value: '2×', label: 'a year is all the maintenance the system asks for', copy: 'The documented Genesis360 HVAC maintenance schedule.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="A typical building maintenance routine covers:"
+          today={['A scheduled coil cleaning, a few times a year', 'Filter changes on their own cycle', 'Buildup between visits — not addressed until the next service call']}
+          withIntro="Genesis360 AeroGuard adds:"
+          with={['A scheduled cycle between manual service visits', 'Coverage of the coil, drain pan, and downstream duct pathway', 'One record of every cycle that ran, across every unit']}
+        />
+      </StatBand>
 
       <DeploymentCards
         heading="One Platform. Two Ways To Deploy It."
