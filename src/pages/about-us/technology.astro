@@ -10,7 +10,7 @@ import ProductHero from '../../components/product/ProductHero.astro';
 import DropletComparison from '../../components/product/DropletComparison.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
 import pathogen from '../../assets/images/pathogen.png';
-import nozzles from '../../assets/images/nozzles.png';
+import roomDroplets from '../../assets/images/tech-room-droplets.jpg';
 import compact from '../../assets/images/human-compact-front.png';
 
 // Source: Technology Explainer, pages 1–2.
@@ -74,9 +74,8 @@ const validation = [
 
       <section class="overflow-hidden bg-brand-900 py-20 text-white sm:py-24">
         <div class="container-page grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-          <div class="reveal relative grid min-h-[360px] place-items-center rounded-[2rem] border border-white/15 bg-white/[.07] p-10" x-intersect.once="$el.classList.add('is-visible')">
-            <div class="absolute h-56 w-56 rounded-full bg-primary-500/20 blur-3xl" aria-hidden="true"></div>
-            <Image src={nozzles} alt="Precision nozzle producing a fine mist" class="relative z-10 w-full max-w-sm object-contain" widths={[360, 560, 760]} sizes="(min-width: 1024px) 34vw, 80vw" />
+          <div class="reveal relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/[.07] p-3" x-intersect.once="$el.classList.add('is-visible')">
+            <Image src={roomDroplets} alt="Cutaway of a room filled with suspended sub-10-micron droplets" class="aspect-[16/10] w-full rounded-[1.5rem] object-cover" widths={[560, 860, 1200]} sizes="(min-width: 1024px) 42vw, 92vw" />
           </div>
           <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">Dry To Human Touch. Wet To Pathogens.</p>

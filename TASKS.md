@@ -1345,6 +1345,25 @@ unchecked task unless you are starting it.
       two lines and makes that column taller than its neighbour. Pre-existing
       and content-dependent, not caused by the centering change — left alone
       rather than rewording a sourced figure.
+- [x] The About page image doesn't look good — match the rest of the site design.
+      Done 2026-09-17: the hero image on /about-us/ was nozzles.png — a
+      375×375 legacy asset with a circular white vignette baked in, so it
+      rendered soft inside ProductHero's glass panel and looked nothing like
+      any other hero on the site. Replaced it with a real field photograph
+      (Genesis360 Compact misting on a block wall, 6000×4000 original,
+      exported to 1600×1066) and set imageFit="cover" so it fills the panel
+      the way the other framed images do. "Field Experience." now has field
+      imagery behind it.
+      Same asset, second use: /about-us/technology/ used nozzles.png in the
+      "Microscopic Liquid Without A Wet Room" panel, where the white ring read
+      as a sticker floating on the dark band. Swapped it for the previously
+      unused "Room filled with small droplets" render — a cutaway of a room
+      filled with suspended droplets, which is literally what the section
+      describes — and rebuilt the panel as a full-bleed framed image
+      (aspect-[16/10], object-cover) instead of a contained thumbnail with a
+      blur glow behind it. nozzles.png is now unreferenced; left in
+      src/assets/images in case Marty wants the close-up somewhere.
+      Verified by screenshot at 1280 and 500 wide on both pages.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
