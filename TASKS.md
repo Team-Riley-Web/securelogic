@@ -1304,6 +1304,24 @@ unchecked task unless you are starting it.
       known baseline; `npm run check:brand` — clean; dollar-figure grep
       across the seven pages — 0 matches. Soft-launch gate still up;
       nothing pushed.
+- [x] Homepage "Explore By Application" section: place Ag first in the order.
+      Done 2026-09-17: Agriculture now leads the three cards, ahead of Human
+      and HVAC. Applied to both src/pages/index.astro (live) and
+      src/pages/home-full.astro (the parked original), per the convention for
+      homepage changes. Ag is also the only section open during the soft
+      launch, so the one card with a live destination now sits first.
+      Commit ce4092f.
+- [x] StatBand figures (the two big lime numbers with label and copy, e.g. "4 THINGS TO BE AWARE OF" / "1 PLACE IT ALL BEGINS") appear across many pages and are left-aligned — they should be centered.
+      Done 2026-09-17: the figures were centered on mobile but flipped to
+      sm:text-left at desktop, with sm:mx-0 undoing the copy's centering.
+      Removed both so they stay centered at every width. One change in the
+      shared StatBand component, so it lands on all seven pages that use it
+      (athletics, healthcare, military, schools, hvac commercial/industrial/
+      residential). Verified by screenshot. Commit 152f8dc.
+      Noted while checking: a long figure value like "Up to 8 hrs" wraps to
+      two lines and makes that column taller than its neighbour. Pre-existing
+      and content-dependent, not caused by the centering change — left alone
+      rather than rewording a sourced figure.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
