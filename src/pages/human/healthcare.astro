@@ -21,6 +21,8 @@ import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import ArgumentBand from '../../components/sector/ArgumentBand.astro';
 import DeploymentCards from '../../components/sector/DeploymentCards.astro';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import PostsRow from '../../components/sector/PostsRow.astro';
 import OtherMarkets from '../../components/sector/OtherMarkets.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
@@ -101,6 +103,25 @@ const deployments = [
         ]}
         link={{ href: '#deployments', label: 'See The Systems' }}
       />
+
+      <!-- Source: Laboratory Validation and Field Performance ... Tarleton State.pdf
+           (>=5-log bacterial, >=6-log viral reduction). -->
+      <StatBand
+        eyebrow="What Every Room Owes Every Patient"
+        heading="A Clean Room Shouldn't Depend On Who Cleaned It Last."
+        lede="A missed pass, a rushed shift change, a room turned over five minutes early — for the family sitting in it, the gap is invisible until it isn't."
+        figures={[
+          { value: "≥5-log", label: "Bacterial reduction", copy: "Independent laboratory testing of the Genesis360 platform, in controlled conditions." },
+          { value: "≥6-log", label: "Viral reduction", copy: "Independent laboratory testing of the Genesis360 platform, in controlled conditions." },
+        ]}
+      >
+        <CompareBand
+          todayIntro="A typical room turnover covers:"
+          today={["Surfaces, wiped by hand between patients", "The air in the room, untouched by a wipe-down", "Consistency that depends on who is on shift"]}
+          withIntro="Genesis360 adds:"
+          with={["An automated cycle scheduled around patient flow", "The air and every surface, covered in the same pass", "The same result for the next family, and the one after that"]}
+        />
+      </StatBand>
 
       <DeploymentCards
         heading="One Platform. Two Ways To Deploy It."
