@@ -1537,6 +1537,7 @@ unchecked task unless you are starting it.
       sweep at 6s with an interpolating angle, and that reduced motion stops
       both and parks the hot core at 12 o'clock — close to the static lime top
       edge the panel started with. Judged by capturing six phases of the loop.
+- [ ] Soften the .genesis-panel animation — make the edge less sharp, fade the edges to transparent
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

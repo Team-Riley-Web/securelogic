@@ -170,16 +170,21 @@
     /* Resting lift. The travelling light is the two rings below; this is the
        floor it moves over, so the panel still reads as the lit one in a still
        screenshot and under prefers-reduced-motion. */
+    /* No hard 1px ring here any more — it was a crisp line sitting under a
+       soft glow, which is what made the edge read sharp. Just diffuse light.
+       The rim below never falls all the way to transparent for the same
+       reason: with nothing left at the far side of the sweep, the panel was
+       indistinguishable from the "Today" one for most of every cycle. */
     box-shadow:
-      0 0 0 1px rgb(166 217 96 / 0.34),
-      0 0 38px -14px rgb(82 194 76 / 0.55),
+      0 0 34px -11px rgb(82 194 76 / 0.5),
       0 18px 40px -28px rgb(15 36 112 / 0.8);
   }
 
-  /* Two rings share one angle, so they sweep as a single light source.
-     Both are a conic gradient masked down to a band: the gradient fills the
-     whole box and the mask keeps only the padding ring, because a gradient
-     cannot be painted into a border directly, and a plain inset element would
+  /* Two layers share one angle, so they sweep as a single light source: a
+     thin rim on the border itself, and a soft halo spilling outside it.
+
+     Both are a conic gradient masked down to a band, because a gradient
+     cannot be painted into a border directly and a plain inset element would
      sit over the panel's translucent fill and muddy it.
 
      Both gradients open and close on the same stop so the loop has no seam,
@@ -191,27 +196,37 @@
      highlights lit most of the perimeter at once and the panel just looked
      like it had a green border. */
 
-  /* The halo. A wider, softer band sitting just outside the panel, which is
-     what actually carries the glow — it extends past the edge so the light
-     spills onto the dark ground rather than stopping at the border.
-     It cannot be blurred: filters are applied before masking, so blurring
-     here would bleed a wedge of colour across the whole card and then get a
-     hard edge cut into it anyway. A wide band at low alpha does the job. */
-  .genesis-panel::before {
+  /* The halo, on .genesis-glow in CompareBand. The blur lives on the span and
+     the masked ring on its ::before, so the ring is cut first and blurred
+     after — the one order that gives a soft edge. Doing it on a single
+     element blurs the gradient and then cuts a hard edge into the result,
+     which is what the first version did. */
+  .genesis-glow {
+    position: absolute;
+    inset: -7px;
+    border-radius: calc(1rem + 7px);
+    filter: blur(6px);
+    pointer-events: none;
+  }
+
+  .genesis-glow::before {
     content: '';
     position: absolute;
-    inset: -6px;
-    /* rounded-2xl (1rem) plus the inset, so the halo stays concentric. */
-    border-radius: calc(1rem + 6px);
+    inset: 0;
+    border-radius: inherit;
+    /* Wide enough that the blur has material to work with — blurring a
+       hairline just makes a fainter hairline — but no wider, or the glow
+       stops hugging the border and becomes a cloud around the panel. */
     padding: 6px;
     background: conic-gradient(
       from var(--genesis-angle),
-      rgb(214 255 150 / 0.55) 0turn,
-      rgb(166 217 96 / 0.3) 0.05turn,
-      rgb(82 194 76 / 0) 0.22turn,
-      rgb(82 194 76 / 0) 0.9turn,
-      rgb(166 217 96 / 0.3) 0.97turn,
-      rgb(214 255 150 / 0.55) 1turn
+      rgb(214 255 150 / 0.62) 0turn,
+      rgb(166 217 96 / 0.4) 0.06turn,
+      rgb(82 194 76 / 0.16) 0.15turn,
+      rgb(82 194 76 / 0) 0.28turn,
+      rgb(82 194 76 / 0) 0.84turn,
+      rgb(166 217 96 / 0.22) 0.94turn,
+      rgb(214 255 150 / 0.62) 1turn
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -222,27 +237,28 @@
       linear-gradient(#000 0 0);
     mask-composite: exclude;
     animation: genesis-panel-sweep 6s linear infinite;
-    pointer-events: none;
   }
 
-  /* The rim. 2px rather than 1px so the hot core reads as light rather than
-     as a hairline, and it peaks on near-white before falling back through
-     lime and green — a light source looks hot at its centre, not saturated. */
+  /* The rim. Long ramps in and out of the core so the comet arrives and
+     leaves rather than switching on, and the tail lands on transparent
+     instead of a visible hairline, so the dark stretch is the panel's own
+     border rather than a second line drawn over it. */
   .genesis-panel::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 2px;
+    padding: 1.5px;
     background: conic-gradient(
       from var(--genesis-angle),
-      rgb(247 255 235 / 0.98) 0turn,
-      var(--bl-lime) 0.035turn,
-      var(--bl-green) 0.11turn,
-      rgb(255 255 255 / 0.1) 0.3turn,
-      rgb(255 255 255 / 0.1) 0.92turn,
-      var(--bl-lime) 0.975turn,
-      rgb(247 255 235 / 0.98) 1turn
+      rgb(233 255 205 / 0.92) 0turn,
+      rgb(166 217 96 / 0.85) 0.06turn,
+      rgb(82 194 76 / 0.5) 0.16turn,
+      rgb(82 194 76 / 0.24) 0.3turn,
+      rgb(166 217 96 / 0.16) 0.44turn,
+      rgb(166 217 96 / 0.16) 0.72turn,
+      rgb(166 217 96 / 0.34) 0.9turn,
+      rgb(233 255 205 / 0.92) 1turn
     );
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
@@ -256,12 +272,12 @@
     pointer-events: none;
   }
 
-  /* Without @property the angle never animates, so both rings simply hold
-     their initial 0deg — the hot core parked at 12 o'clock, which is close to
-     the static lime top edge the panel had before. Same result for anyone who
-     asks us to stop moving things. */
+  /* Without @property the angle never animates, so both layers simply hold
+     their initial 0deg — the core parked at 12 o'clock, close to the static
+     lime top edge the panel started with. Same for anyone who asks us to stop
+     moving things. */
   @media (prefers-reduced-motion: reduce) {
-    .genesis-panel::before,
+    .genesis-glow::before,
     .genesis-panel::after {
       animation: none;
     }
