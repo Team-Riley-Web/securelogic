@@ -17,6 +17,35 @@ interface Props {
 }
 
 const { eyebrow, heading, lede, figures } = Astro.props;
+
+// A figure must never wrap: "Up to 8 hrs" broke to two lines and pushed its
+// own label and copy out of line with the figure beside it. whitespace-nowrap
+// below makes that structural, so the size has to be chosen to fit or it just
+// trades a wrap for an overflow.
+//
+// Character count is a bad proxy for width, in both directions. Measured in
+// the page at 60px (text-6xl): "Up to 8 hrs" is 11 characters but 314px,
+// because spaces are only ~0.28em; "60–100%" is 7 characters and 317px,
+// because % × ≥ and the dashes are all much wider than an average glyph. So
+// the weights below discount spaces and penalise those wide glyphs. They are
+// deliberately conservative rather than true advances — this only has to pick
+// the right step, and erring large is free.
+//
+// The tightest cell is the two-column layout at its narrowest: max-w-4xl
+// capped by a 768px viewport, halved, less the gutter — measured at 328px.
+// text-6xl would technically fit both of the above, but by 11px, which is not
+// a margin worth trusting once the brand webfont loads; hence the step down.
+// Both figures take the same step, keyed on the wider — sizing them
+// independently would leave a short value huge beside a long one, which reads
+// worse than the wrap did.
+//
+// Verified by measuring every figure on all seven StatBand pages at nine
+// widths from 375 to 1440: no wrap, no overflow.
+const advance = (value: string) =>
+  [...value].reduce((n, c) => n + (c === ' ' ? 0.4 : '≥%×–—'.includes(c) ? 2.2 : 1), 0);
+const widest = Math.max(advance(figures[0].value), advance(figures[1].value));
+// Whole literal class strings, so Tailwind's scanner emits both.
+const valueSize = widest >= 9 ? 'text-4xl md:text-5xl' : 'text-5xl md:text-6xl';
 ---
 
 <section class="relative overflow-hidden py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(160deg, var(--bl-ink) 0%, var(--bl-ink-mid) 58%, var(--bl-ink-deep) 100%);">
@@ -30,14 +59,14 @@ const { eyebrow, heading, lede, figures } = Astro.props;
     </div>
 
     <!-- The two figures, unboxed, separated by a hairline. -->
-    <div class="reveal mx-auto mt-14 grid max-w-2xl gap-10 border-y border-white/15 py-10 sm:grid-cols-2 sm:gap-0" x-intersect.once="$el.classList.add('is-visible')">
-      <div class="text-center sm:pr-8">
-        <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[0].value}</p>
+    <div class="reveal mx-auto mt-14 grid max-w-4xl gap-10 border-y border-white/15 py-10 md:grid-cols-2 md:gap-0" x-intersect.once="$el.classList.add('is-visible')">
+      <div class="text-center md:pr-8">
+        <p class={`${valueSize} whitespace-nowrap font-extrabold leading-none text-lime-400`}>{figures[0].value}</p>
         <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[0].label}</p>
         <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55">{figures[0].copy}</p>
       </div>
-      <div class="text-center sm:border-l sm:border-white/15 sm:pl-8">
-        <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">{figures[1].value}</p>
+      <div class="text-center md:border-l md:border-white/15 md:pl-8">
+        <p class={`${valueSize} whitespace-nowrap font-extrabold leading-none text-lime-400`}>{figures[1].value}</p>
         <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">{figures[1].label}</p>
         <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55">{figures[1].copy}</p>
       </div>

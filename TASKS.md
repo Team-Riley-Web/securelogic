@@ -1388,6 +1388,31 @@ unchecked task unless you are starting it.
       Licence note added to docs/QUESTIONS-FOR-MARTY.md as 16a: Pexels allows
       commercial use without attribution, but every other photo on the site is
       the client's own, so Marty may want to commission this one.
+- [x] StatBand figures don't look good when they break to 2 lines (e.g. "Up to 8 hrs") — all of these should be 1 line
+      Done 2026-09-17: this is the wrap I spotted and left alone when I
+      centred these figures earlier — you were right that it needed fixing.
+      Only "Up to 8 hrs" (schools and military) actually wrapped, at every
+      two-column width.
+      Fixed in the shared StatBand so it cannot come back: the figure is now
+      whitespace-nowrap, the pair sits in max-w-4xl instead of max-w-2xl, and
+      the two-column switch moved from sm to md so the narrowest cell is 328px
+      rather than ~270px. Both figures take one size step together, keyed on
+      the wider of the two — sizing them independently would have left a short
+      value huge next to a long one, which reads worse than the wrap did.
+      The step is chosen by a weighted width estimate, not character count:
+      measured in-page at 60px, "Up to 8 hrs" is 11 characters but 314px
+      (spaces are ~0.28em) while "60–100%" is 7 characters and 317px (% × ≥ and
+      dashes are wide). Character count alone would have shipped an overflow
+      on athletics.
+      Verified by measuring every figure on all seven StatBand pages at nine
+      widths from 375 to 1440 — no wrap, no overflow — and by re-running that
+      same audit against the previous build as a control, where it correctly
+      reported the "Up to 8 hrs" wrap. Spot-checked visually at 500, 768 and
+      1280.
+      Worth knowing for future QA: headless Chrome on this machine clamps the
+      viewport to a 500px minimum, so any --window-size below 500 renders at
+      500 and merely crops the screenshot. Narrow-phone widths have to be
+      checked by measuring in-page, not by screenshotting.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
