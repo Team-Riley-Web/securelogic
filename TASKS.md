@@ -1495,6 +1495,25 @@ unchecked task unless you are starting it.
       in a one-shot headless render at an offset; and scripted scrolling needs
       scroll-behavior:auto forced first, because the site sets smooth on html
       and the animation never advances under --virtual-time-budget.
+- [x] The $4.67 / $1.2B figures on the hog page cost band aren't centered
+      Done 2026-09-17: these were left-aligned because the hog page was not
+      using the shared StatBand at all — it carried its own copy of the
+      markup, still holding the sm:text-left and sm:mx-0 that I removed from
+      the component earlier today. The centring fix landed on the other seven
+      pages and never reached this one.
+      Rather than delete the two classes again and leave the copy to drift a
+      third time, replaced the block with the components. The section wrapper,
+      the figures grid and both comparison panels were byte-identical to
+      StatBand and CompareBand — which were extracted from this page in the
+      first place — so the swap is faithful: 69 lines of duplicate markup out,
+      23 in. The hog page also picks up the one-line figure guarantee it was
+      missing. Dropped the Check and X icon imports, now unused.
+      Verified the rendered geometry matches /human/military/ (a page that
+      already used the components) exactly, and by screenshot at 1280 and 500.
+      Third time today this duplication has bitten: the same page also had a
+      private .genesis-panel copy that silently outranked the global rule.
+      Worth assuming anything on the hog page has a twin in src/components/
+      before editing it.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

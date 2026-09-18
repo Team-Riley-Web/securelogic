@@ -14,7 +14,7 @@
 // `minimal` mode, every CTA points at the landing page's contact block, and the
 // related-posts row (all gated blog links) is left out. Flip SOFT_LAUNCH in
 // src/data/launch-gate.ts to get the full chrome back.
-import { ArrowLeft, ArrowRight, BrickWall, Check, Cloud, Columns3, Fence, Footprints, Phone, ShoppingCart, Truck, Warehouse, Wrench, X } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, BrickWall, Cloud, Columns3, Fence, Footprints, Phone, ShoppingCart, Truck, Warehouse, Wrench } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import AgCta from '../../components/AgCta.astro';
 import AgPostsRow from '../../components/AgPostsRow.astro';
@@ -27,6 +27,8 @@ import { CONTACT_EMAIL, CONTACT_HREF, CTA_LABEL, SOFT_LAUNCH } from '../../data/
 import { posts } from '../../data/blog-posts';
 import swineVideo from '../../assets/videos/swine.mp4';
 import swinePoster from '../../assets/images/hero-swine-poster.jpg';
+import StatBand from '../../components/sector/StatBand.astro';
+import CompareBand from '../../components/sector/CompareBand.astro';
 import transparentBarn from '../../assets/images/transparent-barn.png';
 import pigBarn from '../../assets/images/baby-pigs-2.jpg';
 // Closing CTA photo (2026-09-17): of baby-pigs-1..5, all landscape except -5
@@ -527,74 +529,26 @@ const withGenesis = [
       </section>
 
       <!-- MODULE 3 — the cost of the status quo, and what changes.
-           Runs on the dark ground so the two figures carry, and the comparison
-           inverts: "Today" stays muted on the dark, "With Genesis360" is the lit
-           white panel, so the shift reads visually and not just in the copy. -->
-      <section class="relative overflow-hidden py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime); background: linear-gradient(160deg, var(--bl-ink) 0%, var(--bl-ink-mid) 58%, var(--bl-ink-deep) 100%);">
-        <div class="pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" style="background: radial-gradient(circle at 84% 8%, rgb(82 194 76 / 0.14), transparent 44%), radial-gradient(circle at 6% 92%, rgb(62 103 232 / 0.4), transparent 46%);"></div>
-
-        <div class="container-page relative">
-          <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
-            <p class="bl-eyebrow">The Cost Of Waiting</p>
-            <h2 class="bl-h2 mt-4">When Margins Tighten, Small Losses Decide The Year.</h2>
-            <p class="mx-auto mt-6 max-w-lg text-balance text-base leading-8 text-white/75 sm:max-w-xl sm:text-lg sm:leading-9">
-              Even small losses or performance lags can mean the difference between a profit and a loss.
-            </p>
-          </div>
-
-          <!-- The two figures, unboxed, separated by a hairline. -->
-          <div class="reveal mx-auto mt-14 grid max-w-2xl gap-10 border-y border-white/15 py-10 sm:grid-cols-2 sm:gap-0" x-intersect.once="$el.classList.add('is-visible')">
-            <div class="text-center sm:pr-8 sm:text-left">
-              <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">$4.67</p>
-              <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">Per head, PRRS alone</p>
-              <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">
-                Charged against every hog marketed in the country — whether or not the disease has hit your barns.
-              </p>
-            </div>
-            <div class="text-center sm:border-l sm:border-white/15 sm:pl-8 sm:text-left">
-              <p class="text-5xl font-extrabold leading-none text-lime-400 sm:text-6xl">$1.2B</p>
-              <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em]">Industry cost per year</p>
-              <p class="mx-auto mt-3 max-w-sm text-sm leading-6 text-white/55 sm:mx-0">
-                What PRRS alone takes out of U.S. pork production annually, before any other pathogen is counted.
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-12 grid gap-6 lg:grid-cols-2">
-            <!-- Today: recedes into the dark. -->
-            <div class="rounded-2xl border border-white/15 bg-white/[0.07] p-8">
-              <p class="text-sm font-bold uppercase tracking-[0.12em] text-white">Today</p>
-              <p class="mt-2 text-lg text-white">Keeping pigs healthy and facilities clean means:</p>
-              <ul class="mt-7 space-y-5">
-                {todayReality.map((item) => (
-                  <li class="flex gap-3">
-                    <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500/20">
-                      <X class="h-3 w-3 text-red-400" aria-hidden="true" />
-                    </span>
-                    <span class="text-sm leading-7 text-white">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <!-- With Genesis360: the lit panel. -->
-            <div class="genesis-panel rounded-2xl border border-white/15 bg-white/[0.07] p-8">
-              <p class="text-sm font-bold uppercase tracking-[0.12em] text-lime-400">With Genesis360</p>
-              <p class="mt-2 text-lg text-white">You have the ability to:</p>
-              <ul class="mt-7 space-y-5">
-                {withGenesis.map((item) => (
-                  <li class="flex gap-3">
-                    <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime-400/20">
-                      <Check class="h-3 w-3 text-lime-400" aria-hidden="true" />
-                    </span>
-                    <span class="text-sm leading-7 text-white">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+           This was ~60 lines of markup byte-identical to StatBand + CompareBand,
+           which were extracted from it. Keeping the copy meant the figures never
+           picked up the centring fix (they still carried sm:text-left), so it
+           now uses the components it was the source of. -->
+      <StatBand
+        eyebrow="The Cost Of Waiting"
+        heading="When Margins Tighten, Small Losses Decide The Year."
+        lede="Even small losses or performance lags can mean the difference between a profit and a loss."
+        figures={[
+          { value: '$4.67', label: 'Per head, PRRS alone', copy: 'Charged against every hog marketed in the country — whether or not the disease has hit your barns.' },
+          { value: '$1.2B', label: 'Industry cost per year', copy: 'What PRRS alone takes out of U.S. pork production annually, before any other pathogen is counted.' },
+        ]}
+      >
+        <CompareBand
+          todayIntro="Keeping pigs healthy and facilities clean means:"
+          today={todayReality}
+          withIntro="You have the ability to:"
+          with={withGenesis}
+        />
+      </StatBand>
 
       <!-- Coverage map. Mobile uses a dedicated card grid because the barn
            hotspots do not have enough room to communicate clearly; larger
