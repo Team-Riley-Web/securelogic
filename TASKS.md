@@ -1266,6 +1266,8 @@ unchecked task unless you are starting it.
       (['Cleaner Coils.', 'Cleaner Ducts.', 'Cleaner Air.']), matching the
       Human hub's three-line treatment via the same SectorHero prop.
       Commit 8f44a45.
+- [ ] Replace the /human/healthcare/ hero video with hospital-3 and use the other hospital- videos elsewhere on the page. Speak to wanting the healthiest and cleanest environment for you and your family; hospitals should be a place of healing. Speak to the hospital admin and to the human, everyman perspective.
+- [ ] Bring the Human, HVAC, and Ag section indexes and their subpages up to the same content depth as /ag/hogs-livestock/. Do your best with what exists; note for Marty where more source material is needed.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
