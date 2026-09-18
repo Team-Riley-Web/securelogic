@@ -18,7 +18,12 @@ interface Props {
 const { eyebrow, heading, lede, steps, image, imageAlt, source } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+<!-- No overflow-hidden here. The image column is lg:sticky, and an ancestor with
+     any overflow other than visible makes a sticky element stick to that
+     ancestor's scrollport instead of the viewport — which silently did nothing,
+     since the ancestor is the section the element already sits in. Nothing in
+     this band is positioned outside its box, so there was nothing to clip. -->
+<section class="relative bg-white py-20 sm:py-24">
   <div class="container-page">
     <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.1fr]">
       <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">

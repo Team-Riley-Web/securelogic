@@ -1474,6 +1474,27 @@ unchecked task unless you are starting it.
       Noted for Marty as 16b: About and Military now both show police
       settings (different rooms), in case he would rather About showed a
       hospital or a school.
+- [x] On /hvac/residential/ desktop, make the clean-vs-dirty system image in the "Installed Once. Working Every Cycle." section sticky, like "What The Field Revealed" on the About page
+      Done 2026-09-17: the image column already had lg:sticky lg:top-28 — the
+      same classes the About sidebar uses. It was never going to work: the
+      StepsBand section itself carried overflow-hidden, and an ancestor with
+      any overflow other than visible confines a sticky element to that
+      ancestor's own scrollport. Since the ancestor was the very section the
+      image sits in, sticky silently did nothing. Removed it; nothing in this
+      band is positioned outside its box, so there was nothing to clip.
+      Measured before and after at 1440 wide, against the About sidebar as a
+      control: pre-fix the image moved 412px for 412px of scroll (straight
+      past, never pinned); post-fix it moved 87px for the same 412px, holding
+      at the 112px top-28 offset before releasing at the end of the section.
+      The About control reproduces its own known-good behaviour in the same
+      probe, which is what says the measurement is trustworthy.
+      Only /hvac/residential/ uses StepsBand, so nothing else is affected.
+      Two things that cost time and are worth knowing for future QA on this
+      site: scrolled screenshots are useless here, because .reveal elements
+      sit at opacity 0 until Alpine's x-intersect fires and that never happens
+      in a one-shot headless render at an offset; and scripted scrolling needs
+      scroll-behavior:auto forced first, because the site sets smooth on html
+      and the animation never advances under --virtual-time-budget.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
