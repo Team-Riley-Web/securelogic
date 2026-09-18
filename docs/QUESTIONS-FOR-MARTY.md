@@ -133,3 +133,18 @@ what the site does today, so a "keep it" answer is as easy as a change.
     content, data retention — nothing specific to Genesis360 or Secure
     Logic). Does counsel-reviewed policy text exist for this site, or should
     the placeholder stay until it does?
+
+## Content Depth (added 2026-09-17 during the content-depth-parity build-out)
+
+26. Military has no dedicated source material (no brochure, no case study,
+    no comparison sheet) unlike Athletics. Is there more to draw on, or
+    should this market's copy stay general?
+27. Schools has general facts but no schools-specific document (attendance
+    impact, nurse-visit data, etc.) the way Athletics has a comparison sheet.
+    Is there a schools-specific source to add?
+28. HVAC Commercial and Industrial share one brochure with Residential; there
+    is no commercial- or industrial-specific case study or spec sheet. Is
+    there more to draw on for these two markets specifically?
+29. The `ag/indoor-growing.astro` coverage-map stays blocked on art (deferred
+    2026-09-01, reconfirmed 2026-09-17 — no greenhouse cutaway render exists
+    yet). Still waiting on that commission.

@@ -1267,7 +1267,43 @@ unchecked task unless you are starting it.
       Human hub's three-line treatment via the same SectorHero prop.
       Commit 8f44a45.
 - [ ] Replace the /human/healthcare/ hero video with hospital-3 and use the other hospital- videos elsewhere on the page. Speak to wanting the healthiest and cleanest environment for you and your family; hospitals should be a place of healing. Speak to the hospital admin and to the human, everyman perspective.
-- [ ] Bring the Human, HVAC, and Ag section indexes and their subpages up to the same content depth as /ag/hogs-livestock/. Do your best with what exists; note for Marty where more source material is needed.
+- [x] Bring the Human, HVAC, and Ag section indexes and their subpages up to the same content depth as /ag/hogs-livestock/. Do your best with what exists; note for Marty where more source material is needed.
+      Done 2026-09-17: added a StatBand + CompareBand to human/schools,
+      human/military, hvac/commercial, and hvac/industrial (commit 86de500),
+      each reusing facts already cited on that page's own ArgumentBand — the
+      Tarleton lab report's ≥5-log bacterial / ≥6-log viral reductions, the
+      Technology Explainer's up-to-8-hours droplet suspension, and the HVAC
+      brochure's twice-yearly maintenance schedule — so no new claim was
+      introduced anywhere. The same band went on human/healthcare with copy
+      matched to that page's reworked warmer voice (commit 6c4fcd0, merged
+      f7634c0). ag/poultry got a biosecurity CoverageMap sourced from
+      reference-files/brochures/Livestock Barn Visual Presentation.pdf — a
+      deck never mined anywhere on the site before this task — using its
+      p.6 8-pathway diagram (Birds, People, Vehicles, Equipment, Feed,
+      Water, Wild Birds, Air) and p.8 Complete Coverage framework, with the
+      real "Genesis360 AgriGuard in a Chicken Barn.png" barn interior as the
+      map art since no poultry cutaway render exists (commits 4f341fa,
+      31bfa2d, merged 7c04777). human/index and hvac/index each gained a
+      third, sourced paragraph spanning both columns of the mission band
+      (commits 037bb1f, 1a60de0, merged 36cc511). Left deliberately alone:
+      ag/hogs-livestock, human/athletics, hvac/residential, and ag/index —
+      already at target depth; ag/indoor-growing's coverage map stays
+      blocked on art (no greenhouse cutaway render exists, deferred
+      2026-09-01, reconfirmed today). Four questions parked for Marty in
+      docs/QUESTIONS-FOR-MARTY.md under "Content Depth" (#26-29): Military
+      and Schools both lack dedicated source material the way Athletics has
+      one; HVAC Commercial/Industrial share Residential's one brochure with
+      no market-specific document; ag/indoor-growing is still waiting on
+      the greenhouse art commission. QA on all seven touched pages (link
+      sweep, single-<h1> check, visual review at 500 and 1280 wide): no
+      broken internal links, no genuine visual defects — one blog-card
+      image appeared blank in an oversized single-shot capture but was
+      confirmed to load fine (200, correct bytes) and render correctly at
+      normal viewport heights, a screenshot-method artifact, not a site
+      bug. `npm run build` — 43 pages; `npx astro check` — 8 errors, the
+      known baseline; `npm run check:brand` — clean; dollar-figure grep
+      across the seven pages — 0 matches. Soft-launch gate still up;
+      nothing pushed.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
