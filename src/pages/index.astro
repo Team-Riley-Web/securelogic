@@ -69,9 +69,11 @@ const HERO_WORDS = ['Environments', 'Barns', 'Grow Rooms', 'Gyms', 'Farms'];
 // during the soft launch: the one interior page that is open behind the gate
 // (see public/_redirects). Cards without `live` fall back to #contact.
 const categories: { title: string; href: string; image: ImageMetadata; video: string; copy: string; live?: { href: string; label: string } }[] = [
+  // Agriculture leads: it is the only section open during the soft launch, so
+  // the one card with a live destination sits first.
+  { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.', live: { href: '/ag/hogs-livestock/', label: 'Explore Hogs & Livestock' } },
   { title: 'Human', href: '/human/', image: medical, video: applicationHumanVideo, copy: 'Protect the shared spaces where people learn, train, recover, and gather.' },
   { title: 'HVAC', href: '/hvac/', image: biofilmHvac, video: applicationHvacVideo, copy: 'Treat the hidden coils, ducts, and air pathways that shape indoor air quality.' },
-  { title: 'Agriculture', href: '/ag/', image: greenhouse, video: applicationAgricultureVideo, copy: 'Build repeatable biosecurity into barns, greenhouses, and grow environments.', live: { href: '/ag/hogs-livestock/', label: 'Explore Hogs & Livestock' } },
 ];
 
 const trustStats: { label: string; copy: string; icon: 'droplet' | 'coverage' | 'cycle' | 'shield' }[] = [
