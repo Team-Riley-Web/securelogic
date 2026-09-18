@@ -20,14 +20,55 @@ import AgPostsRow from '../../components/AgPostsRow.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
+import CoverageMap from '../../components/sector/CoverageMap.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { ArrowRight } from '@lucide/astro';
+import { ArrowRight, Bird, Wrench, Wind, Wheat, Feather, Truck, User, Droplet, ShieldCheck } from '@lucide/astro';
 import { agMarkets } from '../../data/ag-markets';
 import { posts } from '../../data/blog-posts';
 import poultryVideo from '../../assets/videos/chickens-alt.mp4';
 import poultryPoster from '../../assets/images/hero-poultry-poster.jpg';
+import poultryBarnCoverage from '../../assets/images/poultry-barn-coverage.png';
 
 const market = agMarkets.find((m) => m.slug === 'poultry')!;
+
+// Source: reference-files/brochures/Livestock Barn Visual Presentation.pdf,
+// p.6 "Biosecurity: Disease Can Enter From Many Pathways" — 8 numbered entry
+// points (Birds, People, Vehicles, Equipment, Feed, Water, Wild Birds, Air) —
+// and p.8 "Complete Coverage. Healthier Flocks." (the Encapsulate / Inactivate
+// / Reduce framework, referenced in the mobile card copy below). Art is the
+// best available poultry-house interior render (not a literal cutaway, per
+// this task's brief); anchors are percentages over that render, tuned from
+// screenshots in this task's QA step.
+const biosecurityPathways = [
+  // Ordered top-to-bottom to match where each feature actually sits in the
+  // photograph, so every callout sits level with its own anchor dot. The art
+  // is a real barn interior rather than a labelled cutaway, so the pairing
+  // has to come from that alignment.
+  { key: 'equipment', label: 'Equipment', sub: 'Pathway', icon: Wrench, side: 'left' as const,
+    copy: "Shared tools, carts and machinery move pathogens from house to house when they aren't cleaned between uses.",
+    callout: { x: 1.5, y: 10 }, anchor: { x: 45, y: 14 } },
+  { key: 'air', label: 'Air', sub: 'Pathway', icon: Wind, side: 'left' as const,
+    copy: 'Exhaust fans and open ventilation exchange the air inside the house with whatever the air outside is carrying.',
+    callout: { x: 1.5, y: 36 }, anchor: { x: 26, y: 44 } },
+  { key: 'birds', label: 'Birds', sub: 'Pathway', icon: Bird, side: 'left' as const,
+    copy: 'New or returning birds can carry pathogens the rest of the flock has never been exposed to.',
+    callout: { x: 1.5, y: 62 }, anchor: { x: 40, y: 68 } },
+  { key: 'feed', label: 'Feed', sub: 'Pathway', icon: Wheat, side: 'left' as const,
+    copy: 'Contaminated feed or feed ingredients introduce pathogens directly into the house.',
+    callout: { x: 1.5, y: 88 }, anchor: { x: 31, y: 83 } },
+  { key: 'wild-birds', label: 'Wild Birds', sub: 'Pathway', icon: Feather, side: 'right' as const,
+    copy: 'Wild birds roosting near vents and feed storage carry pathogens close enough for the flock to catch.',
+    callout: { x: 98.5, y: 10 }, anchor: { x: 66, y: 12 } },
+  { key: 'vehicles', label: 'Vehicles', sub: 'Pathway', icon: Truck, side: 'right' as const,
+    copy: 'Feed trucks, haulers and service vehicles carry contamination between farms on tires and undercarriages.',
+    callout: { x: 98.5, y: 36 }, anchor: { x: 61, y: 40 } },
+  { key: 'people', label: 'People', sub: 'Pathway', icon: User, side: 'right' as const,
+    copy: 'Workers and visitors moving between houses track pathogens in on boots, hands and clothing.',
+    callout: { x: 98.5, y: 62 }, anchor: { x: 57, y: 58 } },
+  { key: 'water', label: 'Water', sub: 'Pathway', icon: Droplet, side: 'right' as const,
+    copy: 'Untreated water lines deliver pathogens straight to every drinker the flock uses.',
+    callout: { x: 98.5, y: 88 }, anchor: { x: 50, y: 79 } },
+];
 
 // Same ordering rule as the other two ag pages: this market's own posts lead,
 // then the ag press release, then whatever other ag posts fill the row.
@@ -75,6 +116,23 @@ const otherMarkets = agMarkets.filter((m) => m.slug !== market.slug);
           </div>
         </div>
       </section>
+
+      <!-- MODULE 2.5 — biosecurity coverage map, new source material (see the
+           source comment above biosecurityPathways). Sits after the argument
+           band and before the related-posts/other-markets sections. -->
+      <CoverageMap
+        eyebrow="Biosecurity"
+        heading="Disease Can Enter From Many Pathways."
+        lede="One goal: keep pathogens out. Every entry point the flock doesn't control is one the system does."
+        art={poultryBarnCoverage}
+        artAlt="Interior of a Genesis360-equipped poultry house with rows of chickens, feed and water lines, exhaust fans and a wall-mounted Genesis360 AgriGuard unit"
+        mobileHeading="8 Pathways. One System."
+        mobileCopy="Genesis360 encapsulates, inactivates and reduces pathogens across the air space, surfaces and waste room — every day."
+        mobileIcon={ShieldCheck}
+        points={biosecurityPathways}
+        stageAspect={2.25}
+        artWidth={68}
+      />
 
       <AgPostsRow posts={relatedPosts} />
 
