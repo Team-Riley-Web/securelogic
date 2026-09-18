@@ -54,7 +54,11 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
     <div class="container-page relative grid min-h-[min(78vh,680px)] place-items-center py-20 text-center sm:py-24">
       <div class="mx-auto max-w-4xl">
         <p class="bl-eyebrow">{eyebrow}</p>
-        <h1 class="mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+        {/* text-balance so a line too long for the container splits evenly
+            instead of orphaning its last word. Every other hero's lines fit
+            on one line each, where balancing is a no-op; the About headline
+            ("Engineered Into A Better System.") is the one that needs it. */}
+        <h1 class="mt-4 text-balance text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
           {headline.map((line, i) => (
             <>
               <span class:list={[lineClass, i === headline.length - 1 && 'text-lime-400']}>{line}</span>

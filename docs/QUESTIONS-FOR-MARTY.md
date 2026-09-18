@@ -94,6 +94,16 @@ what the site does today, so a "keep it" answer is as easy as a change.
     Secure Logic would rather commission its own clinical photography, which
     every other photo on the site already is.
 
+16b. **Two police settings on the site now.** The About hero uses the
+    police-station render (a technician foggering a station lobby) — it was
+    the only unused piece of art showing the work being done in a real
+    building, which is what “Field Experience.” needs behind it. The Military
+    page already uses a different police-station render (the briefing room).
+    Different rooms, different pages, and the About copy does name government
+    buildings as one of the settings, so this reads fine to me. Flagging it in
+    case you would rather About showed a hospital or a school, in which case
+    we need that piece of art.
+
 ## Site structure
 
 17. **Soft-launch nav.** During the soft launch the header shows only the

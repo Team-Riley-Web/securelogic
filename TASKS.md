@@ -1444,6 +1444,36 @@ unchecked task unless you are starting it.
       Note: the sweep runs continuously whether or not the panel is on screen.
       One 1px ring per page, so it is not worth JS to pause it, but that is
       the reason it is 8s and not the reference’s 3s.
+- [x] About hero still not matching — remove the small image and give it a nice background image in the same style as the /resources/ page
+      Done 2026-09-17: the About hero was ProductHero — a glass panel with a
+      framed photo beside the copy — which is a different component from the
+      one every other page uses. Swapping the photo (earlier today) was never
+      going to fix that; the hero itself was the wrong shape. It now uses
+      SectorHero, the same component /resources/ and every sector page uses:
+      full-bleed art under the navy gradient, centred eyebrow, headline,
+      support and the two CTAs.
+      Art: hero-about-poster.jpg, from the previously unused police-station
+      render — a technician foggering a station lobby. It was the only unused
+      piece showing the work being done in a real building, which is what
+      “Field Experience.” is claiming, and it has the depth and mid-tones a
+      full-bleed hero needs. Ruled out along the way: the Compact-on-block-wall
+      photo (it is the same shot as the athletics hero, and as a background it
+      is one big white slab behind the headline), the droplet and airflow
+      renders (baked-in diagram text) and the locker-room and manual-cleaning
+      renders (portrait, and sector-specific).
+      Also added text-balance to the shared hero h1: “Engineered Into A Better
+      System.” was wrapping with “System.” orphaned on its own line. It now
+      splits “Engineered Into” / “A Better System.” and the whole second
+      sentence stays lime as designed. Verified it changed nothing elsewhere by
+      measuring the h1 line count on all fifteen hero pages at five widths:
+      every two-line headline is still two lines at every width, and the three
+      hub pages use the split layout whose h1 was not touched.
+      about-field-misting.jpg is now unreferenced and deleted — it only ever
+      existed for the framed panel this replaced. The 6000×4000 original is
+      still in reference-files if it is wanted later.
+      Noted for Marty as 16b: About and Military now both show police
+      settings (different rooms), in case he would rather About showed a
+      hospital or a school.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
