@@ -82,6 +82,17 @@ what the site does today, so a "keep it" answer is as easy as a change.
 16. **Healthcare page hero** currently shows a doctor walking a hospital
     hallway; Joshua has asked for a clip of medical equipment or a surgical
     room being cleaned. Do you have footage, or should stock be used?
+16a. **Healthcare closing-CTA photo is now stock.** The section
+    “Give Every Family The Room They’re Hoping For” previously used a frame
+    grabbed from the hospital b-roll — a dim, out-of-focus ultrasound
+    consultation where nobody’s face reads and the shot is 960×720. Replaced
+    with a licensed-free stock photo (Pexels 39192346: a mother and son with a
+    doctor in a bright office). Pexels’ licence allows commercial use with no
+    attribution, but it also asks that people in an image not be shown as
+    endorsing a product. This photo is illustrative, not a testimonial, so it
+    is within normal marketing use — flagging it so you can decide whether
+    Secure Logic would rather commission its own clinical photography, which
+    every other photo on the site already is.
 
 ## Site structure
 

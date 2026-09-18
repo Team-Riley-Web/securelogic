@@ -34,6 +34,11 @@ import heroPoster from '../../assets/images/hero-healthcare-mri-poster.jpg';
 import heroVideo from '../../assets/videos/healthcare-hero.mp4';
 import disinfectionPoster from '../../assets/images/healthcare-disinfection-poster.jpg';
 import disinfectionVideo from '../../assets/videos/healthcare-disinfection.mp4';
+// Closing-CTA photo. Stock, not client footage: the hospital-*.mp4 b-roll is
+// 1280x720 and its only shot with people in it is a dim, awkward ultrasound
+// consultation. Source: Pexels photo 39192346 (Pexels licence — free for
+// commercial use, no attribution required), cropped 16:9 -> 16:10 so neither
+// the mother nor the doctor is clipped. See docs/QUESTIONS-FOR-MARTY.md.
 import familyPhoto from '../../assets/images/healthcare-family-cta.jpg';
 
 const market = humanMarkets.find((m) => m.slug === 'healthcare')!;
@@ -138,7 +143,8 @@ const deployments = [
         href="/get-a-quote/"
         variant="photo"
         image={familyPhoto}
-        imageAlt="A family consulting with a clinician in an exam room"
+        imageAlt="A mother and her son listening to a doctor in a bright exam room"
+        imageAspect="16/10"
       />
 
       <OtherMarkets heading="Other Human Health Markets" basePath="/human/" markets={otherMarkets} />

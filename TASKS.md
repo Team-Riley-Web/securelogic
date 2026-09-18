@@ -1364,6 +1364,30 @@ unchecked task unless you are starting it.
       blur glow behind it. nozzles.png is now unreferenced; left in
       src/assets/images in case Marty wants the close-up somewhere.
       Verified by screenshot at 1280 and 500 wide on both pages.
+- [x] Choose a better photo for the "Give Every Family The Room They're Hoping For" section on /human/healthcare/ — can find stock if needed
+      Done 2026-09-17: the old photo was a frame grabbed from hospital-2.mp4
+      — 960×720, soft, an ultrasound consultation shot where the clinician is
+      seen only from behind, the patient is blurred mid-motion and the man
+      beside her is picking at his face. It read as a candid surveillance
+      still, the opposite of the heading.
+      Checked the in-house sources first: hospital-1 is a hazmat-suited worker
+      wiping a bay (that is the problem, not the promise), hospital-3 is an
+      empty MRI suite, and hospital-2's better frames still cap at 960×720
+      with the clinician's back to camera. No render in reference-files is
+      clinical. So stock, as you allowed.
+      Chose Pexels 39192346 — a mother and son listening to a doctor in a
+      bright modern office, 3840×2160, warm, faces readable, and the dark
+      teal wall sits well against the site navy. Cropped 16:9 → 16:10 because
+      the subjects reach both edges and a 4/3 crop clips either the mother's
+      face or the doctor's; exported 1600×1000.
+      That needed a new optional `imageAspect` prop on the shared SectorCta
+      ('4/3' default, '16/10' opt-in), written as a literal class lookup so
+      Tailwind's scanner emits both rules — verified both exist in the built
+      CSS, and the hog page still renders 4/3.
+      Verified by screenshot at 1280 and 500 on healthcare and the hog page.
+      Licence note added to docs/QUESTIONS-FOR-MARTY.md as 16a: Pexels allows
+      commercial use without attribution, but every other photo on the site is
+      the client's own, so Marty may want to commission this one.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

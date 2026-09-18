@@ -22,6 +22,10 @@ interface Props {
   variant?: 'default' | 'photo';
   image?: ImageMetadata;
   imageAlt?: string;
+  // Photo frame shape. 4/3 is the original (hog page); 16/10 suits a wider
+  // photo whose subjects reach both edges and would be clipped by a 4/3 crop.
+  // Written as a literal lookup below so Tailwind's scanner sees both classes.
+  imageAspect?: '4/3' | '16/10';
 }
 
 const {
@@ -33,7 +37,10 @@ const {
   variant = 'default',
   image,
   imageAlt = '',
+  imageAspect = '4/3',
 } = Astro.props;
+
+const aspectClass = imageAspect === '16/10' ? 'aspect-[16/10]' : 'aspect-[4/3]';
 ---
 
 {variant === 'photo' && image ? (
@@ -56,7 +63,7 @@ const {
         <Image
           src={image}
           alt={imageAlt}
-          class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lift"
+          class={`${aspectClass} w-full rounded-2xl object-cover shadow-lift`}
           widths={[480, 640, 860, 1200]}
           sizes="(min-width: 1024px) 40vw, 100vw"
         />
