@@ -1564,6 +1564,20 @@ unchecked task unless you are starting it.
       the hog page, which only picks it up because of this morning's
       consolidation onto CompareBand — and that reduced motion parks the
       bloom at 12 o'clock. Judged by capturing four phases of the loop.
+- [x] Contact page: the office line phone number and email should be the same size
+      Done 2026-09-18: the phone was text-lg and the email text-sm with
+      break-all — the email had clearly been shrunk to stop it overflowing its
+      card rather than because it wanted to be smaller. Both are text-lg now,
+      and break-all became break-words: the address fits at this size, and
+      break-all would hack it mid-word the moment it did not.
+      That exposed a second mismatch at 640 exactly, where the pair first sits
+      side by side and is at its narrowest: the email wrapped to two lines
+      while the phone stayed on one. Moved the two-column switch from sm to md
+      so the cards stack through that band — the same too-tight-at-sm problem,
+      and the same fix, as the StatBand figures yesterday.
+      Verified at thirteen widths from 320 to 1440: same font-size, same line
+      count, no overflow at any of them. Only the soft-launch landing page
+      (src/pages/index.astro) has this block, so nothing else is affected.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

@@ -1074,7 +1074,11 @@ const switchReasons = [
             <PipedriveForm />
           </div>
 
-          <div class="mt-6 grid gap-5 sm:grid-cols-2">
+          <!-- Two columns from md, not sm. At 640 the pair is at its narrowest
+               side by side and the email wrapped to two lines while the phone
+               beside it stayed on one, which is the mismatch this block is
+               meant to avoid. Stacking through that band keeps them equal. -->
+          <div class="mt-6 grid gap-5 md:grid-cols-2">
             <a
               href={CONTACT_PHONE_HREF}
               class="flex items-center gap-4 rounded-2xl border border-brand-900/10 bg-white/80 p-6 shadow-lift transition hover:-translate-y-1 hover:bg-white hover:shadow-deep"
@@ -1096,7 +1100,10 @@ const switchReasons = [
               </span>
               <span class="min-w-0">
                 <span class="bl-eyebrow block">Email</span>
-                <span class="mt-1 block break-all text-sm font-bold text-brand-900">{CONTACT_EMAIL}</span>
+                <!-- Same text-lg as the phone beside it. break-words, not
+                     break-all: the address fits at this size, and break-all
+                     would hack it mid-word the moment it did not. -->
+                <span class="mt-1 block break-words text-lg font-bold text-brand-900">{CONTACT_EMAIL}</span>
               </span>
             </a>
           </div>
