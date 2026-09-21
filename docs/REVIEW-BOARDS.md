@@ -9,21 +9,15 @@ lands in the shared board regardless of which page it was left on.
 
 **Give reviewers this index instead of the raw board link:**
 
-    https://securelogic.netlify.app/review/
+    https://claude.ai/artifact/4i9KbUEgTu5cvrqsq7VzBa
 
 MarkLayer's own switcher is a horizontal strip of 43 tabs labelled with
 truncated URLs (`2. securelogic.netlify.app/about...`), and the labels cannot be
 changed: ProjectTabs.tsx derives them from the url via hostnameOf() + pathOf(),
 and no title field exists in the schema. There is no sidebar or vertical mode
 either. The index page works around that with real page titles, grouped by
-section, each deep-linking to `?page=N` in the same shared project.
-
-The index is a plain static file at `public/review/index.html`, so it deploys
-with the site and needs no account to open. It is gated off both live domains in
-`public/_redirects` (8 rules, the same shape as every other gated path) because
-it links to a board anyone holding the link can write to. Regenerate it whenever
-pages are added: mint a room per new page, PUT the project with the extended
-pageIds array, and rebuild the list from each page's `<title>`.
+section, each deep-linking to `?page=N` in the same shared project. The artifact
+is private until shared from its own Share menu.
 
 ## Why this file exists
 
