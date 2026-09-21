@@ -7,6 +7,18 @@ One link covers every page of the site. Share this with reviewers:
 A page switcher in the board moves between all 43 pages, and every comment
 lands in the shared board regardless of which page it was left on.
 
+**Give reviewers this index instead of the raw board link:**
+
+    https://claude.ai/artifact/4i9KbUEgTu5cvrqsq7VzBa
+
+MarkLayer's own switcher is a horizontal strip of 43 tabs labelled with
+truncated URLs (`2. securelogic.netlify.app/about...`), and the labels cannot be
+changed: ProjectTabs.tsx derives them from the url via hostnameOf() + pathOf(),
+and no title field exists in the schema. There is no sidebar or vertical mode
+either. The index page works around that with real page titles, grouped by
+section, each deep-linking to `?page=N` in the same shared project. The artifact
+is private until shared from its own Share menu.
+
 ## Why this file exists
 
 Projects cannot be claimed. Annotation rooms grew per-link ownership (they
