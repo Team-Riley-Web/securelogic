@@ -1,0 +1,36 @@
+---
+// INTERNAL PREVIEW CHROME — full nav on the review site, gate untouched on the
+// live domains.
+//
+// The soft-launch gate (public/_redirects + src/data/launch-gate.ts) leaves two
+// pages open to the public — / and /ag/hogs-livestock/ — and both render the
+// Header/Footer in `minimal` mode so no nav link leads into a gated page. That
+// also strips the nav on securelogic.netlify.app, which is NOT gated and is the
+// URL the team reviews the site on, so those two pages became dead ends for
+// internal review.
+//
+// One build serves both hosts, so the choice has to be made in the browser.
+// This component parks a second, full-nav copy of the chrome in an inert
+// <template>: nothing inside it is rendered, matched by document.querySelector,
+// initialised by Alpine, or fetched (images included). The swap script at the
+// bottom of BaseLayout replaces `replaces` with the copy, but only on localhost
+// and *.netlify.app. Because template contents sit outside the document tree,
+// the selector cannot accidentally match the copy itself.
+//
+// Fail-closed on purpose: the live domains get the minimal chrome by rendering
+// it, not by suppressing anything, so a blocked or broken script leaves
+// genesis360.com exactly as it is today. Delete this component (and the two
+// usages) when SOFT_LAUNCH goes false — the real chrome is full by default.
+interface Props {
+  // CSS selector for the live minimal element this copy stands in for. Both
+  // roots are unique per page: Header renders a single `.sh` wrapper, Footer a
+  // single `<footer class="bl ...">`. A sibling position would be simpler but
+  // is not safe here — Astro inlines Header's bundled script directly after the
+  // header, so previousElementSibling lands on a <script>.
+  replaces: string;
+}
+
+const { replaces } = Astro.props;
+---
+
+<template data-preview-chrome={replaces}><slot /></template>

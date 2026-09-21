@@ -1579,6 +1579,41 @@ unchecked task unless you are starting it.
       count, no overflow at any of them. Only the soft-launch landing page
       (src/pages/index.astro) has this block, so nothing else is affected.
 
+- [x] securelogic.netlify.app: full nav on home and hogs, so the team can
+      navigate the site for handoff
+      Done 2026-09-21: those two pages are the only ones the soft-launch gate
+      leaves open, and both rendered Header/Footer in `minimal` mode so no nav
+      link led into a gated page. That also made them dead ends on
+      securelogic.netlify.app, which public/_redirects deliberately leaves
+      ungated and is where the team reviews.
+      One build serves both hosts, so the choice is made in the browser. New
+      src/components/PreviewChrome.astro parks a second, full-nav copy of the
+      chrome in an inert <template>; a classic inline script at the bottom of
+      BaseLayout.astro swaps it in over the minimal one, but only on localhost
+      and *.netlify.app. Template contents are outside the document tree, so
+      nothing in the copy renders, is matched by querySelector, is initialised
+      by Alpine, or is fetched until the swap happens.
+      Fail-closed by design: the live domains get the minimal chrome by
+      RENDERING it, not by suppressing anything, so a blocked or broken script
+      leaves genesis360.com byte-identical to before. Confirmed in the built
+      HTML — outside the templates there are still 0 mega-menu triggers, 0
+      secondary nav, 0 /get-a-quote/ links and the minimal two-column grid.
+      The script is classic and inline on purpose: it has to run during parse,
+      ahead of the deferred module scripts Astro emits for Alpine and for
+      Header's announcement rotator, or those would bind to the chrome we just
+      removed. Verified in the browser on both pages: exactly one .sh and one
+      <footer>, no leftover templates, all five mega-menus present and opening
+      on hover (Alpine bound to the swapped-in DOM), secondary nav and the
+      four-column footer back, no new console errors. Host matcher checked
+      against both apex and www of genesis360.com and securelogicusa.com
+      (minimal), securelogic.netlify.app and deploy previews (full), and
+      near-miss hosts like notnetlify.app and evil-netlify.app.attacker.com
+      (minimal).
+      Nav only. The page bodies still run soft-launch: the hog page's CTAs
+      point at /#contact and its related-posts row stays hidden. UNDO AT FULL
+      LAUNCH: delete PreviewChrome.astro, its two usages, and the BaseLayout
+      script — the real chrome is already full by default.
+
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
 - Find video of Mist spraying the camera 

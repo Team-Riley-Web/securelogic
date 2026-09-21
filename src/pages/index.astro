@@ -28,6 +28,7 @@ import AnimatedStatIcon from '../components/AnimatedStatIcon.astro';
 import CertMark from '../components/CertMark.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import PreviewChrome from '../components/PreviewChrome.astro';
 
 // Contact address and CTA label are shared with the other pages that are open
 // during the soft launch (see src/data/launch-gate.ts).
@@ -614,6 +615,7 @@ const switchReasons = [
     "
   >
     <Header minimal contactEmail={CONTACT_EMAIL} />
+    <PreviewChrome replaces=".sh"><Header /></PreviewChrome>
 
     <!-- Hero -->
     <section
@@ -1112,6 +1114,7 @@ const switchReasons = [
     </section>
 
     <Footer minimal contactEmail={CONTACT_EMAIL} />
+    <PreviewChrome replaces="footer.bl"><Footer /></PreviewChrome>
   </div>
 </BaseLayout>
 

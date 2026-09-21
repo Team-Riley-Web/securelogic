@@ -107,5 +107,47 @@ const SITE_NAME = 'Genesis360';
   </head>
   <body class="min-h-screen">
     <slot />
+
+    <!-- Internal preview chrome swap. No-op on every page that does not use
+         <PreviewChrome> (all but / and /ag/hogs-livestock/) and on every host
+         that is not the review site — see src/components/PreviewChrome.astro.
+
+         `is:inline` and classic (not module) are both load-bearing. This has to
+         run during parse, before the deferred module scripts Astro emits for
+         Alpine and for Header's announcement rotator, so those initialise
+         against the swapped-in chrome rather than the copy we just removed. -->
+    <script is:inline>
+      (function () {
+        try {
+          var host = window.location.hostname;
+          // Branch deploys and deploy previews are *.netlify.app too, and they
+          // are ungated for the same reason the main review URL is.
+          var isPreviewHost =
+            host === 'localhost' ||
+            host === '127.0.0.1' ||
+            host === '[::1]' ||
+            /(^|\.)netlify\.app$/.test(host);
+
+          if (!isPreviewHost) return;
+
+          var templates = document.querySelectorAll('template[data-preview-chrome]');
+
+          for (var i = 0; i < templates.length; i++) {
+            var template = templates[i];
+            // Scoped to the document, so it can never match the copy sitting
+            // inside the template itself.
+            var live = document.querySelector(template.getAttribute('data-preview-chrome'));
+            // No match means the chrome's root markup changed. Leave the
+            // minimal chrome standing rather than dropping a second one in.
+            if (!live) continue;
+
+            live.replaceWith(template.content);
+            template.remove();
+          }
+        } catch (e) {
+          // Preview convenience only. It must never break the page.
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -20,6 +20,7 @@ import AgCta from '../../components/AgCta.astro';
 import AgPostsRow from '../../components/AgPostsRow.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import PreviewChrome from '../../components/PreviewChrome.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { agMarkets } from '../../data/ag-markets';
@@ -414,6 +415,7 @@ const withGenesis = [
 
   <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
     <Header minimal={SOFT_LAUNCH} contactEmail={CONTACT_EMAIL} contactHref={CONTACT_HREF} />
+    {SOFT_LAUNCH && <PreviewChrome replaces=".sh"><Header /></PreviewChrome>}
 
     <main>
       <!-- MODULE 1 — hero. Shaped like the homepage hero: centred, one line of
@@ -662,5 +664,6 @@ const withGenesis = [
     </main>
 
     <Footer minimal={SOFT_LAUNCH} contactEmail={CONTACT_EMAIL} contactHref={CONTACT_HREF} />
+    {SOFT_LAUNCH && <PreviewChrome replaces="footer.bl"><Footer /></PreviewChrome>}
   </div>
 </BaseLayout>
