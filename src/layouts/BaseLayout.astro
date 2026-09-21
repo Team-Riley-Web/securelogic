@@ -120,6 +120,16 @@ const SITE_NAME = 'Genesis360';
       (function () {
         try {
           var host = window.location.hostname;
+          // A proxy-based review tool (MarkLayer) serves the page from its own
+          // host, so `location` reports marklayer.app and the check below would
+          // fail on the review site. The proxy injects <base href> carrying the
+          // origin actually under review, and baseURI falls back to the page's
+          // own URL when there is no <base>, so this is a no-op off-proxy.
+          // Keyed on the reviewed site, not the serving host: a board opened on
+          // genesis360.com still reads genesis360.com and stays fail-closed.
+          try {
+            host = new URL(document.baseURI).hostname || host;
+          } catch (e) {}
           // Branch deploys and deploy previews are *.netlify.app too, and they
           // are ungated for the same reason the main review URL is.
           var isPreviewHost =
