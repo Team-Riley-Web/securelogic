@@ -196,3 +196,14 @@ https://securelogicusa.com/get-a-quote/*                   /  302!
 https://www.securelogicusa.com/get-a-quote                 /  302!
 https://www.securelogicusa.com/get-a-quote/*               /  302!
 
+
+# review  -- the internal page index for MarkLayer review boards. Never public:
+#           it links to a board anyone holding the link can write to.
+https://genesis360.com/review                              /  302!
+https://genesis360.com/review/*                            /  302!
+https://www.genesis360.com/review                          /  302!
+https://www.genesis360.com/review/*                        /  302!
+https://securelogicusa.com/review                          /  302!
+https://securelogicusa.com/review/*                        /  302!
+https://www.securelogicusa.com/review                      /  302!
+https://www.securelogicusa.com/review/*                    /  302!
