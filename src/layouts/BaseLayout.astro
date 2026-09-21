@@ -159,5 +159,46 @@ const SITE_NAME = 'Genesis360';
         }
       })();
     </script>
+
+    <!-- Userback review widget. Reviewers browse the real site and comment in
+         place, so feedback follows the site's own navigation and no page needs
+         registering anywhere.
+
+         Review hosts only, same rule as the preview chrome above: the live
+         domains must never load it. Fail-closed by omission — the widget is
+         added by this script rather than removed by one, so a blocked or broken
+         script leaves genesis360.com with no widget, never a leaked one.
+
+         The access token is a public client-side key (it ships in page source
+         by design, like an analytics id), not a secret.
+
+         Deliberately no Userback.user_data: the snippet Userback hands out
+         carries example values that would label every reviewer "someone". With
+         it omitted the widget asks each person for their name instead, which is
+         what we want on a shared review link. -->
+    <script is:inline>
+      (function () {
+        try {
+          var host = window.location.hostname;
+          var isReviewHost =
+            host === 'localhost' ||
+            host === '127.0.0.1' ||
+            host === '[::1]' ||
+            /(^|\.)netlify\.app$/.test(host);
+
+          if (!isReviewHost) return;
+
+          window.Userback = window.Userback || {};
+          window.Userback.access_token = 'A-1TAZxO7oEvmO0OsRDWkk2aCun';
+
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://static.userback.io/widget/v1.js';
+          (document.head || document.body).appendChild(s);
+        } catch (e) {
+          // Review convenience only. It must never break the page.
+        }
+      })();
+    </script>
   </body>
 </html>
