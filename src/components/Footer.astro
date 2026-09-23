@@ -44,6 +44,7 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
     playsinline
     preload="none"
     aria-hidden="true"
+    data-footer-fog
   ></video>
   <div class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]" aria-hidden="true"></div>
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -118,3 +119,16 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
     </p>
   </div>
 </footer>
+
+<script>
+  // Three-quarter speed in the footer only (0.5 read as too slow); the Technology hero plays the same clip at
+  // normal speed. playbackRate resets when a video loads, so it is re-applied
+  // on every play (including each loop restart in some browsers).
+  const FOG_RATE = 0.75;
+  document.querySelectorAll<HTMLVideoElement>('video[data-footer-fog]').forEach((video) => {
+    const slow = () => { video.defaultPlaybackRate = FOG_RATE; video.playbackRate = FOG_RATE; };
+    slow();
+    video.addEventListener('loadedmetadata', slow);
+    video.addEventListener('play', slow);
+  });
+</script>

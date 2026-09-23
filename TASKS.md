@@ -1905,6 +1905,10 @@ unchecked task unless you are starting it.
       screen. Applied to the hog page's inline map and the shared CoverageMap
       (Poultry, Residential AC) to keep them consistent. Phones and desktop are
       unchanged. The hog page is live, so this ships on the next deploy.
+- [x] Footer: make the fog move slower
+      Done 2026-09-23: the footer's fog clip plays at 0.75x through a small
+      script on the footer video. The Technology hero is unaffected. Tried 0.5x
+      first, which you said was too slow. Verified playbackRate 0.75 in Chrome.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
