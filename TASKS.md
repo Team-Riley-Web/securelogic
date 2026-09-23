@@ -1816,7 +1816,13 @@ unchecked task unless you are starting it.
       BotaniMax label task. Residential turns it on, and its alt text now
       describes the infographic rather than 'family relaxing'. Verified in
       Chrome that it opens, closes on Esc and closes on a backdrop click.
-- [ ] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side
+- [x] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side
+      Done 2026-09-23: this is the 'For HVAC Professionals' band on
+      /hvac/residential/; there is no separate page. It was a two-column card
+      with the button on the right behind a divider. It is now one centred
+      column with eyebrow, heading and copy, and the button beneath. The copy is
+      balanced so it does not orphan a word, and it steps up to text-base from
+      sm.
 - [ ] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
 - [ ] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
 
