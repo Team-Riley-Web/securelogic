@@ -1753,7 +1753,16 @@ unchecked task unless you are starting it.
       lazy-loaded. Verified in Chrome that it opens, closes on Esc, and closes
       on a backdrop click, with no console errors. The Residential AC image-zoom
       task below can reuse it.
-- [ ] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
+- [x] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
+      Done 2026-09-23: the left column's sticky label image is replaced by the
+      BotaniMax bottle, oversized, cropped by the section and rising as you
+      scroll. It uses the same scale and scroll-drift wiring as the home page
+      band and the /botanimax/ hero. On phones the downloads come first and the
+      bottle follows. 'BotaniMax Label' is now the third item under
+      Documentation. It downloads public/docs/Secure-Logic-BotaniMax-Product-
+      Label.pdf (0.95 MB), rendered at 300 dpi from the label artwork already in
+      the repo, following the existing Secure-Logic-*.pdf naming. Served as
+      application/pdf.
 - [ ] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
 - [ ] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different
 - [ ] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'

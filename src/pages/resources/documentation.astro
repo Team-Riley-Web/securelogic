@@ -14,7 +14,7 @@ import Footer from '../../components/Footer.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
 import faqRoom from '../../assets/images/faq-room.jpg';
-import label from '../../assets/images/botanimax-label.png';
+import bottle from '../../assets/images/botanimax-bottle.png';
 
 const docGroups: { heading: string; items: [string, string][] }[] = [
   {
@@ -22,6 +22,9 @@ const docGroups: { heading: string; items: [string, string][] }[] = [
     items: [
       ['EPA Registration for the Label', '/docs/Secure-Logic-BotaniMax-EPA-Master-Label.pdf'],
       ['BotaniMax SDS Sheet', '/docs/Secure-Logic-BotaniMax-SDS.pdf'],
+      // The retail product label (front panel artwork), rendered to PDF from
+      // src/assets/images/botanimax-label.png at 300 dpi.
+      ['BotaniMax Label', '/docs/Secure-Logic-BotaniMax-Product-Label.pdf'],
     ],
   },
   {
@@ -52,10 +55,28 @@ const docGroups: { heading: string; items: [string, string][] }[] = [
         cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
       />
 
-      <section class="bg-white py-20 sm:py-24">
-        <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
-          <Image src={label} alt="BotaniMax product label" class="h-max rounded-lg bg-slate-100 shadow-lift lg:sticky lg:top-28" widths={[640, 960, 1200]} sizes="(min-width: 1024px) 42vw, 100vw" />
-          <div class="grid gap-10">
+      <!-- Left: the BotaniMax bottle from the home page and /botanimax/,
+           oversized and rising with scroll (scroll-drift.ts), cropped by the
+           section. Right: the downloads, now including the label itself. -->
+      <section class="overflow-hidden bg-white py-20 sm:py-24">
+        <div class="container-page grid gap-10 lg:grid-cols-[.9fr_1.1fr] lg:gap-16">
+          <div class="relative order-2 h-[28rem] sm:h-[34rem] lg:order-1 lg:h-auto lg:min-h-[36rem] lg:self-stretch">
+            <div class="absolute inset-0 flex items-start justify-center lg:items-center">
+              <Image
+                src={bottle}
+                alt="BotaniMax botanical disinfectant bottle"
+                class="h-[36rem] w-auto max-w-none object-contain will-change-transform sm:h-[44rem]"
+                style="translate: 0 80px; scale: 1.12;"
+                data-scroll-drift="80,0"
+                data-scroll-drift-lg="200,-40"
+                data-scroll-drift-scale="1.12"
+                data-scroll-drift-frame="parent"
+                widths={[480, 720, 960]}
+                sizes="(min-width: 1024px) 480px, 88vw"
+              />
+            </div>
+          </div>
+          <div class="order-1 grid content-start gap-10 lg:order-2">
             {docGroups.map(({ heading, items }) => (
               <div>
                 <h2 class="text-sm font-semibold uppercase tracking-[0.16em] text-botanical-600">{heading}</h2>
