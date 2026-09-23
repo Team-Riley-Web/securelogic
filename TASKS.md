@@ -1881,6 +1881,15 @@ unchecked task unless you are starting it.
       CoverageMap used by Poultry and Residential AC. Desktop, 1280 and up, is
       unchanged. The hog page is live on genesis360.com, so this change ships
       there on the next deploy.
+- [x] Footer: add the Technology fog video behind the footer too
+      Done 2026-09-23: the sitewide footer plays tech-fog.mp4 behind its
+      content, anchored to the bottom so the fog layer rolls along the base. The
+      original navy gradient now sits over it at 94% opacity at the top, fading
+      to 66% at the bottom, so the type keeps its contrast while the fog shows
+      through. preload=none, so the 0.9 MB clip downloads only when it plays,
+      and it is hidden under reduced motion. Verified playing in Chrome at 1280
+      and 500. Footer.astro is shared with the live landing and hog pages, so it
+      ships there on the next deploy.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

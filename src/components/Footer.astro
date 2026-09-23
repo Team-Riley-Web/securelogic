@@ -8,6 +8,7 @@
 import { ArrowRight, Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import footerMark from '../assets/images/Genesis360-icon.png';
+import fogVideo from '../assets/videos/tech-fog.mp4';
 
 interface Props {
   // `minimal` drops the Shop and About link columns, which point at interior
@@ -25,7 +26,23 @@ interface Props {
 const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref = '#contact' } = Astro.props;
 ---
 
-<footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: linear-gradient(180deg, #14297f 0%, #132676 16%, #11215f 44%, #0d1a52 74%, #0b1057 100%);">
+<footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: #0d1a52;">
+  <!-- The Technology hero's fog clip rolling behind the footer, under the
+       original gradient at partial opacity so the type keeps its contrast.
+       preload="none": the footer is always below the fold, so the clip only
+       downloads once autoplay starts it. Hidden for reduced motion, which
+       leaves the plain gradient. -->
+  <video
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-bottom motion-reduce:hidden"
+    src={fogVideo}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-hidden="true"
+  ></video>
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true" style="background: linear-gradient(180deg, rgb(20 41 127 / 0.94) 0%, rgb(19 38 118 / 0.9) 16%, rgb(17 33 95 / 0.8) 44%, rgb(13 26 82 / 0.7) 74%, rgb(11 16 87 / 0.66) 100%);"></div>
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
     <Image src={footerMark} alt="" class:list={['absolute -bottom-20 -right-12 h-[24rem] w-auto max-w-none brightness-0 invert opacity-[0.045] blur-[0.2px]', minimal && 'hidden md:block']} widths={[280, 420]} sizes="280px" />
   </div>
