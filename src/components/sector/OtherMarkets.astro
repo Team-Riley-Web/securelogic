@@ -20,12 +20,7 @@ const { heading, basePath, markets } = Astro.props;
 
 <section class="border-t border-brand-100 bg-white py-12 sm:py-14">
   <div class="container-page">
-    <div class="flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <p class="bl-eyebrow">Other Markets</p>
-        <h2 class="mt-2 text-2xl font-bold text-brand-900">{heading}</h2>
-      </div>
-    </div>
+    <h2 class="text-2xl font-bold text-brand-900">{heading}</h2>
 
     <div class:list={['mt-6 grid gap-4 sm:grid-cols-2', markets.length >= 3 && 'lg:grid-cols-3']}>
       {markets.map(({ icon: Icon, slug, title, summary }) => (

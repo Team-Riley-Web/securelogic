@@ -1868,7 +1868,10 @@ unchecked task unless you are starting it.
       a dark heading. Each question is a solid navy card with a lift shadow that
       steps to brand-800 when open. The answer text stays white and larger, and
       the lime arrow chip is kept.
-- [ ] Every market page: remove the unnecessary 'Other Markets' eyebrow
+- [x] Every market page: remove the unnecessary 'Other Markets' eyebrow
+      Done 2026-09-23: removed from the shared OtherMarkets strip, so it is gone
+      on every HVAC, Human and Ag market page. The strip now opens straight on
+      its heading, for example 'Other HVAC Markets'.
 - [ ] Coverage map list at tablet width (hog page screenshot) doesn't look good — centred/mirrored rows; needs to appear differently
 
 ## Seperate TODOS (not for AI)
