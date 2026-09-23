@@ -359,8 +359,18 @@ const withGenesis = [
        plus the barn), so the artwork runs full width and the points become a
        list beneath it. */
     @media (max-width: 1279px) {
+      /* Tablet: the art on top, the callouts as a two-column grid of cards
+         beneath it (was a centred, mirrored hairline list). */
       .barn-stage {
         aspect-ratio: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.875rem;
+      }
+
+      .barn-stage > :first-child {
+        grid-column: 1 / -1;
+        margin-bottom: 1rem;
       }
 
       .barn-art {
@@ -378,8 +388,14 @@ const withGenesis = [
         width: 100%;
         transform: none;
         margin: 0;
-        border-top: 1px solid var(--bl-hairline);
-        padding: 1rem 0;
+        padding: 1.1rem 1.2rem;
+        border-radius: 1rem;
+        background: #fff;
+        box-shadow: 0 16px 35px -28px rgb(16 32 74 / 0.55), 0 2px 7px rgb(16 32 74 / 0.08);
+        /* A <button> centres its text, and right-hand callouts are mirrored
+           for the desktop margins; as cards they all read ring-first, left. */
+        flex-direction: row;
+        text-align: left;
       }
 
       .barn-ring {

@@ -1872,7 +1872,15 @@ unchecked task unless you are starting it.
       Done 2026-09-23: removed from the shared OtherMarkets strip, so it is gone
       on every HVAC, Human and Ag market page. The strip now opens straight on
       its heading, for example 'Other HVAC Markets'.
-- [ ] Coverage map list at tablet width (hog page screenshot) doesn't look good — centred/mirrored rows; needs to appear differently
+- [x] Coverage map list at tablet width (hog page screenshot) doesn't look good — centred/mirrored rows; needs to appear differently
+      Done 2026-09-23: below 1280px the coverage maps turned into a hairline
+      list with centred or mirrored rows. They are now the art on top with the
+      callouts in a two-column grid of white cards beneath: ring first, label
+      and description left-aligned, with the same shadow as the phone cards.
+      Applied to both copies, the hog page's inline map and the shared
+      CoverageMap used by Poultry and Residential AC. Desktop, 1280 and up, is
+      unchanged. The hog page is live on genesis360.com, so this change ships
+      there on the next deploy.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
