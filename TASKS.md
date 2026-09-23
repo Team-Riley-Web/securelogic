@@ -1663,7 +1663,15 @@ unchecked task unless you are starting it.
       the stacked mobile cards, and the source line. The Technology page turns
       it on. The Genesis360 page's copy of the section is unchanged for now; the
       Compact Wall Mount task below asks for the same treatment there.
-- [ ] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain
+- [x] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain
+      Done 2026-09-23: the section is now 50-50 (lg:grid-cols-2). The pale card
+      behind the image is gone; the image sits absolutely in the right half with
+      object-contain and scales to the copy's height. Swapped human-compact-
+      front.png, which is mostly transparent padding and read as a small box in
+      the half, for genesis-compact.png: a tight render that shows the unit's
+      built-in digital timer panel, which is what the section is about. CHECK:
+      that render's front label reads 'HVACMist Compact'. If that is a retired
+      name, say so and I will switch back or trim the old image.
 - [ ] Contact page should be the Get a Quote page; take Contact out of the About submenu
 - [ ] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
 - [ ] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row

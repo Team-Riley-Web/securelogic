@@ -12,7 +12,7 @@ import SectorCta from '../../components/sector/SectorCta.astro';
 import heroVideo from '../../assets/videos/tech-fog.mp4';
 import heroPoster from '../../assets/images/hero-tech-fog-poster.jpg';
 import roomDroplets from '../../assets/images/tech-room-droplets.jpg';
-import compact from '../../assets/images/human-compact-front.png';
+import compact from '../../assets/images/genesis-compact.png';
 
 // Source: Technology Explainer, pages 1–2.
 const forces = [
@@ -91,9 +91,12 @@ const validation = [
         </div>
       </section>
 
+      <!-- 50-50: copy left, the unit filling the right half with no card
+           behind it. The image is absolutely placed and object-contain, so the
+           column's height comes from the copy and the unit scales to fill it. -->
       <section class="bg-white py-20 sm:py-24">
-        <div class="container-page grid gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
-          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+        <div class="container-page grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div class="reveal self-center" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">Automation</p>
             <h2 class="bl-h2 mt-4">Repeatability Starts With The Right Control Package.</h2>
             <p class="mt-6 text-base leading-8 text-brand-body">The hardware is configurable. A base Compact system uses a standard timer. The optional smart control board replaces that timer when phone or desktop control is needed. Controls are selected for the facility; they are not a universal standard feature.</p>
@@ -111,8 +114,8 @@ const validation = [
             </div>
             <p class="mt-5 text-xs leading-5 text-brand-muted">Source: Genesis360 AthleticGuard / Compact Wall Mount product sheet.</p>
           </div>
-          <div class="reveal rounded-2xl bg-brand-50 p-8 shadow-lift sm:p-10" x-intersect.once="$el.classList.add('is-visible')">
-            <Image src={compact} alt="Front view of a Genesis360 Compact Wall Mount control unit" class="mx-auto max-h-[460px] w-full object-contain" widths={[420, 640, 860]} sizes="(min-width: 1024px) 40vw, 100vw" />
+          <div class="reveal relative min-h-[22rem] sm:min-h-[28rem] lg:min-h-0 lg:self-stretch" x-intersect.once="$el.classList.add('is-visible')">
+            <Image src={compact} alt="Genesis360 Compact unit with its built-in timer control panel" class="absolute inset-0 h-full w-full object-contain" widths={[480, 720, 1080]} sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
         </div>
       </section>
