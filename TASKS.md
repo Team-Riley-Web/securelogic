@@ -1786,7 +1786,21 @@ unchecked task unless you are starting it.
       task. The live hog page is unaffected: its posts row is hidden during soft
       launch. Note: on /human/athletics/ the navy posts band follows the royal-
       blue case-study band. The tones are distinct but both are dark.
-- [ ] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'
+- [x] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'
+      Done 2026-09-23: the biosecurity coverage map's photo was set to 68% of
+      the stage, where the component default is 54%. It ran under the left-hand
+      labels, and each callout's hover detail spilled onto it and into the label
+      below. It is now 56%, clear of both callout columns at 1280. The stage is
+      taller (aspect 1.95, was 2.25) so an opened detail clears the next
+      callout, and the open callout stacks above its neighbours. The anchor dots
+      were tuned at the old size, so they are rescaled about the centre in code
+      from ART_WIDTH and STAGE_ASPECT constants rather than re-tuned by hand.
+      Verified the dots still sit on their features. Below 1280, where the map
+      becomes a list, rows were centred or mirrored because a button centres
+      text by default. All rows now read ring-first and left-aligned, which also
+      fixes the same list on /hvac/residential/. Other Agriculture Markets moved
+      to the shared OtherMarkets strip below the CTA, as on Indoor Growing,
+      which removes the doubled gap after From The Field.
 - [ ] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
 - [ ] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
 - [ ] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side

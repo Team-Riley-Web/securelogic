@@ -202,6 +202,14 @@ const {
       padding-top 0.4s ease;
   }
 
+  /* The open callout sits above its neighbours, so if its detail ever runs
+     long it overlaps the next label cleanly instead of interleaving. */
+  .map-callout:hover,
+  .map-callout:focus-visible,
+  .map-callout.is-active {
+    z-index: 4;
+  }
+
   .map-callout:hover .map-detail,
   .map-callout:focus-visible .map-detail,
   .map-callout.is-active .map-detail {
@@ -235,6 +243,14 @@ const {
       margin: 0;
       border-top: 1px solid var(--bl-hairline);
       padding: 1rem 0;
+      /* A <button> centres its text by default, and the right-hand callouts
+         are mirrored for the desktop margins; in a list every row reads the
+         same way, ring first, text left. */
+      text-align: left;
+    }
+
+    .map-callout-right {
+      flex-direction: row;
     }
 
     .map-ring {
