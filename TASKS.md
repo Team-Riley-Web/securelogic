@@ -1744,7 +1744,15 @@ unchecked task unless you are starting it.
       (icons included) and the 'use the label' note are all centred. The 'Label-
       Backed Performance' eyebrow was the default brand blue on navy. It is now
       light grey (white at 72%) for this section only.
-- [ ] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal
+- [x] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal
+      Done 2026-09-23: the label is now a button that opens it full-size in a
+      modal, with a 'Click to enlarge' hint under the thumbnail rather than over
+      the label text. New reusable src/components/ImageZoom.astro on the native
+      <dialog>: Esc, the X, or a click anywhere off the image closes it. Focus
+      and background inertness are handled by the browser. The full-size copy is
+      lazy-loaded. Verified in Chrome that it opens, closes on Esc, and closes
+      on a backdrop click, with no console errors. The Residential AC image-zoom
+      task below can reuse it.
 - [ ] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
 - [ ] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
 - [ ] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different

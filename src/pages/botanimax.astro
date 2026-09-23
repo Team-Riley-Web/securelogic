@@ -10,6 +10,7 @@ import Footer from '../components/Footer.astro';
 import ProductHero from '../components/product/ProductHero.astro';
 import DifferenceGrid from '../components/sector/DifferenceGrid.astro';
 import SectorCta from '../components/sector/SectorCta.astro';
+import ImageZoom from '../components/ImageZoom.astro';
 import bottle from '../assets/images/botanimax-bottle.png';
 import logo from '../assets/images/botanimax-logo-trim.png';
 import label from '../assets/images/botanimax-label.png';
@@ -143,7 +144,7 @@ const labelClaims = [
             <a href="/resources/documentation/" class="bl-pill mt-8">Open Documentation <ArrowRight class="h-4 w-4" aria-hidden="true" /></a>
           </div>
           <div class="reveal overflow-hidden rounded-2xl bg-brand-50 p-5 shadow-lift" x-intersect.once="$el.classList.add('is-visible')">
-            <Image src={label} alt="BotaniMax product label with directions, registration number, ingredients, and precautionary statements" class="w-full rounded-xl object-contain" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 38vw, 100vw" />
+            <ImageZoom src={label} alt="BotaniMax product label with directions, registration number, ingredients, and precautionary statements" caption="BotaniMax product label" sizes="(min-width: 1024px) 38vw, 100vw" />
           </div>
         </div>
       </section>
