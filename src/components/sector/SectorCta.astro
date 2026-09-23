@@ -12,6 +12,7 @@
 import { ArrowRight } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import ImageZoom from '../ImageZoom.astro';
 
 interface Props {
   eyebrow: string;
@@ -26,6 +27,9 @@ interface Props {
   // photo whose subjects reach both edges and would be clipped by a 4/3 crop.
   // Written as a literal lookup below so Tailwind's scanner sees both classes.
   imageAspect?: '4/3' | '16/10';
+  // For an image that carries its own small text (an infographic): shown
+  // whole, uncropped, and click-to-enlarge in a modal via ImageZoom.
+  zoomable?: boolean;
 }
 
 const {
@@ -38,6 +42,7 @@ const {
   image,
   imageAlt = '',
   imageAspect = '4/3',
+  zoomable = false,
 } = Astro.props;
 
 const aspectClass = imageAspect === '16/10' ? 'aspect-[16/10]' : 'aspect-[4/3]';
@@ -60,6 +65,16 @@ const aspectClass = imageAspect === '16/10' ? 'aspect-[16/10]' : 'aspect-[4/3]';
       </div>
 
       <div class="order-1 lg:order-2">
+        {zoomable ? (
+          <ImageZoom
+            src={image}
+            alt={imageAlt}
+            caption={imageAlt}
+            class="w-full rounded-2xl shadow-lift"
+            widths={[640, 860, 1200, 1600]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+          />
+        ) : (
         <Image
           src={image}
           alt={imageAlt}
@@ -67,6 +82,7 @@ const aspectClass = imageAspect === '16/10' ? 'aspect-[16/10]' : 'aspect-[4/3]';
           widths={[480, 640, 860, 1200]}
           sizes="(min-width: 1024px) 40vw, 100vw"
         />
+        )}
       </div>
     </div>
   </section>

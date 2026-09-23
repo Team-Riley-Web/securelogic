@@ -1808,7 +1808,14 @@ unchecked task unless you are starting it.
       white Other Markets strip of compact linked cards, two across on HVAC and
       Ag and three on Human. Verified on residential and schools. No page-
       specific change needed.
-- [ ] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
+- [x] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
+      Done 2026-09-23: the image is an infographic with its own small text, and
+      it was also being cropped to a 4/3 frame. SectorCta's photo variant gained
+      a zoomable prop. It shows the image whole and uncropped, with a 'Click to
+      enlarge' hint, and opens it full-size in the ImageZoom modal from the
+      BotaniMax label task. Residential turns it on, and its alt text now
+      describes the infographic rather than 'family relaxing'. Verified in
+      Chrome that it opens, closes on Esc and closes on a backdrop click.
 - [ ] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side
 - [ ] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
 - [ ] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
