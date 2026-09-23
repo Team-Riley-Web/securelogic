@@ -27,13 +27,16 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
 ---
 
 <footer class="bl relative isolate overflow-hidden px-5 sm:px-6 lg:px-8 py-16 text-white" style="--bl-eyebrow-color: rgb(255 255 255 / 0.72); background: #0d1a52;">
-  <!-- The Technology hero's fog clip rolling behind the footer, under the
-       original gradient at partial opacity so the type keeps its contrast.
+  <!-- The Technology hero's fog clip, set up exactly as SectorHero sets it:
+       object-cover, centred, under the same navy overlay. Centred cover puts
+       the rolling fog line at the same height in the frame as it sits in the
+       hero, and it spans the full width. (Tried object-contain: in a footer
+       this wide and short it renders as a centred box with visible edges.)
        preload="none": the footer is always below the fold, so the clip only
-       downloads once autoplay starts it. Hidden for reduced motion, which
-       leaves the plain gradient. -->
+       downloads once autoplay starts it. Hidden for reduced motion, leaving
+       the overlay over the navy ground. -->
   <video
-    class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-bottom motion-reduce:hidden"
+    class="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover motion-reduce:hidden"
     src={fogVideo}
     autoplay
     muted
@@ -42,7 +45,7 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
     preload="none"
     aria-hidden="true"
   ></video>
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true" style="background: linear-gradient(180deg, rgb(20 41 127 / 0.94) 0%, rgb(19 38 118 / 0.9) 16%, rgb(17 33 95 / 0.8) 44%, rgb(13 26 82 / 0.7) 74%, rgb(11 16 87 / 0.66) 100%);"></div>
+  <div class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(0deg,hsl(236_78%_16%/.94)_0%,hsl(229_76%_24%/.82)_48%,hsl(221_82%_20%/.78)_100%)]" aria-hidden="true"></div>
   <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
     <Image src={footerMark} alt="" class:list={['absolute -bottom-20 -right-12 h-[24rem] w-auto max-w-none brightness-0 invert opacity-[0.045] blur-[0.2px]', minimal && 'hidden md:block']} widths={[280, 420]} sizes="280px" />
   </div>

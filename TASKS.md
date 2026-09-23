@@ -1890,6 +1890,16 @@ unchecked task unless you are starting it.
       and it is hidden under reduced motion. Verified playing in Chrome at 1280
       and 500. Footer.astro is shared with the live landing and hog pages, so it
       ships there on the next deploy.
+- [x] Footer: the mist video doesn't look the same as on Technology — make it object-contain
+      Done 2026-09-23: kept object-cover. Tried object-contain first: in a
+      footer this wide and short it renders the 16:9 clip as a centred box with
+      visible dark edges, even screen-blended. The mismatch came from my earlier
+      setup, object-bottom plus a lighter, different gradient, which showed only
+      the white base of the fog as a lavender wash. The footer video is now set
+      up exactly as SectorHero's: object-cover, centred, under the identical
+      navy overlay, so the rolling fog line sits at the same height and scale as
+      on Technology, across the full width. Verified at 1280 and 500.
+- [ ] Hog page coverage map: the barn image should be smaller on tablet
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
