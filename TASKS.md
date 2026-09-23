@@ -1713,7 +1713,16 @@ unchecked task unless you are starting it.
       washes, lime eyebrow, white heading, a glassy bordered table, and the
       Genesis360 row tinted lime with a lime figure. Mobile cards follow suit.
       The Technology page keeps the light version.
-- [ ] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there
+- [x] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there
+      Done 2026-09-23: ProductHero gained media="float", which /botanimax/ uses.
+      The glass card is gone. The bottle is oversized, cropped by the hero's
+      bottom edge, and rises as you scroll, using the home page BotaniMax band's
+      own numbers: scale 1.12, 240 to 80px on desktop, 80 to 0 below lg. It is
+      driven by the shared scroll-drift script rather than a copy of the home
+      page's inline handler. The 'BotaniMax' eyebrow is removed (eyebrow is now
+      optional) and the logo takes its place larger. It uses a trimmed copy,
+      botanimax-logo-trim.png, because the original is about a third transparent
+      padding.
 - [ ] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
 - [ ] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
 - [ ] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color

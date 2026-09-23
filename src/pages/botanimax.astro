@@ -11,7 +11,7 @@ import ProductHero from '../components/product/ProductHero.astro';
 import DifferenceGrid from '../components/sector/DifferenceGrid.astro';
 import SectorCta from '../components/sector/SectorCta.astro';
 import bottle from '../assets/images/botanimax-bottle.png';
-import logo from '../assets/images/botanimax-logo.png';
+import logo from '../assets/images/botanimax-logo-trim.png';
 import label from '../assets/images/botanimax-label.png';
 
 // Sources: BotaniMax EPA master label, product label, SDS, and promo sheet.
@@ -41,7 +41,6 @@ const labelClaims = [
     <Header />
     <main>
       <ProductHero
-        eyebrow="BotaniMax"
         headline={['Botanical By Design.', 'Registered To Perform.']}
         copy="An EPA-registered botanical cleaner, disinfectant, and deodorizer built from a multi-modal blend of plant-derived ingredients."
         image={bottle}
@@ -49,6 +48,7 @@ const labelClaims = [
         logo={logo}
         logoAlt="BotaniMax"
         tone="green"
+        media="float"
         cta={{ href: '#label-performance', label: 'See Label Performance' }}
         secondaryCta={{ href: '/resources/documentation/', label: 'View Documentation' }}
       />
