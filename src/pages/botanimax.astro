@@ -13,6 +13,7 @@ import SectorCta from '../components/sector/SectorCta.astro';
 import bottle from '../assets/images/botanimax-bottle.png';
 import logo from '../assets/images/botanimax-logo-trim.png';
 import label from '../assets/images/botanimax-label.png';
+import thyme from '../assets/images/blog-thymol-vs-thyme.png';
 
 // Sources: BotaniMax EPA master label, product label, SDS, and promo sheet.
 const proof = [
@@ -64,13 +65,17 @@ const labelClaims = [
         </div>
       </section>
 
-      <section class="bg-white py-20 sm:py-24">
-        <div class="container-page grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-          <div class="reveal relative grid min-h-[500px] place-items-center overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,hsl(147_52%_94%),hsl(213_70%_95%))] p-8 shadow-lift" x-intersect.once="$el.classList.add('is-visible')">
-            <div class="absolute h-72 w-72 rounded-full bg-white/80 blur-2xl" aria-hidden="true"></div>
-            <Image src={bottle} alt="BotaniMax bottle showing its botanical disinfectant label" class="relative z-10 max-h-[500px] w-full object-contain" widths={[360, 540, 760]} sizes="(min-width: 1024px) 36vw, 80vw" />
-          </div>
-          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+      <!-- 50-50, full bleed: the thyme photo runs edge to edge in the left
+           half with the bottle standing on it; the copy column is capped at
+           half the page container so its left edge lines up with the rest. -->
+      <section class="grid bg-white lg:grid-cols-2">
+        <div class="relative min-h-[28rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[44rem]">
+          <Image src={thyme} alt="" class="absolute inset-0 h-full w-full object-cover" widths={[640, 960, 1280]} sizes="(min-width: 1024px) 50vw, 100vw" />
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_55%,rgb(255_255_255/.55),transparent_58%),linear-gradient(180deg,rgb(16_32_74/.05),rgb(16_32_74/.35))]" aria-hidden="true"></div>
+          <Image src={bottle} alt="BotaniMax bottle showing its botanical disinfectant label" class="absolute inset-x-0 bottom-[6%] mx-auto h-[82%] w-full object-contain object-bottom drop-shadow-[0_30px_40px_rgb(0_0_0/.35)]" widths={[360, 540, 760]} sizes="(min-width: 1024px) 30vw, 70vw" />
+        </div>
+        <div class="flex items-center px-5 py-16 sm:px-6 sm:py-20 lg:px-16 lg:py-24">
+          <div class="reveal w-full max-w-[36rem]" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">The Botanical Blend</p>
             <h2 class="bl-h2 mt-4">Three Named Ingredients. More Than A Single Mode Of Action.</h2>
             <p class="mt-6 text-base leading-8 text-brand-body">BotaniMax product materials name thyme oil, wintergreen oil, and citrus extracts. Together they form a complex botanical blend rather than relying on one synthetic-style mechanism.</p>

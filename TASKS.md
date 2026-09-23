@@ -1729,7 +1729,14 @@ unchecked task unless you are starting it.
       it for the headline's accent line instead of the site lime (#a6d960).
       /botanimax/ is the only page on the green tone, so nothing else changes.
       Verified computed colour rgb(60,181,77).
-- [ ] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
+- [x] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
+      Done 2026-09-23: now a full-bleed 50-50. The left half is edge-to-edge
+      thyme foliage, blog-thymol-vs-thyme.png, already in the repo from the
+      thymol blog post, with the BotaniMax bottle standing on it under a soft
+      drop shadow. The copy and three ingredient cards sit in the right half,
+      capped so the text measure stays readable. The pale gradient card is gone.
+      Stacks photo-first on phones. The bottle also appears in the hero; if you
+      would rather this half carry only the thyme photo, it is one line to drop.
 - [ ] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color
 - [ ] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal
 - [ ] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
