@@ -1823,7 +1823,11 @@ unchecked task unless you are starting it.
       column with eyebrow, heading and copy, and the button beneath. The copy is
       balanced so it does not orphan a word, and it steps up to text-base from
       sm.
-- [ ] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
+- [x] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
+      Done 2026-09-23: the QuoteForm band at the bottom of /blogs/ is replaced
+      by the site's standard SectorCta band. It is centred on light blue, reads
+      'Ready To Put It To Work?', and its Get A Quote button links to /get-a-
+      quote/.
 - [ ] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
 
 ## Seperate TODOS (not for AI)

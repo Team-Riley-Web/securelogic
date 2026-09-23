@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import SectorHero from '../../components/sector/SectorHero.astro';
-import QuoteForm from '../../components/QuoteForm.astro';
+import SectorCta from '../../components/sector/SectorCta.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { posts } from '../../data/blog-posts';
 import contactBg from '../../assets/images/contact-bg.jpeg';
@@ -76,7 +76,12 @@ const [featured, ...rest] = posts;
       </div>
     </section>
 
-    <section class="bg-slate-100 py-20"><div class="container-page"><QuoteForm /></div></section>
+    <SectorCta
+      eyebrow="Your Facility. Your Coverage Plan."
+      heading="Ready To Put It To Work?"
+      copy="Tell us about the space you need to protect, and our team will map the right Genesis360 configuration for it."
+      href="/get-a-quote/"
+    />
   </main>
   <Footer />
 </BaseLayout>
