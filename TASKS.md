@@ -1613,6 +1613,37 @@ unchecked task unless you are starting it.
       point at /#contact and its related-posts row stays hidden. UNDO AT FULL
       LAUNCH: delete PreviewChrome.astro, its two usages, and the BaseLayout
       script — the real chrome is already full by default.
+- [x] Get a Quote page: add a different video — someone walking through inspecting a facility with other people
+      Done 2026-09-23: the hero now plays src/assets/videos/facility-
+      walkthrough.mp4 — two people in hard hats walking a warehouse aisle
+      together (Pexels 10817415, free license, source logged in STOCK-
+      SOURCES.md), 1280x720, muted, 2.4 MB, with a poster frame. Nothing in
+      Pexels or Mixkit showed a disinfection-specific walkthrough; this was the
+      closest group facility tour. Replaces the fogger still.
+- [ ] Home page: replace the Get a Quote form with the Pipedrive form
+- [ ] About page: pull a different hero video — the current one is already used on the Human/Military page
+- [ ] About page, 'From a field problem to a platform': slowly pulse the virus molecule in the background, maybe add one on the left side too; make them feel alive, move as we scroll
+- [ ] Technology page: keep the video background like all the other pages; remove the molecule there
+- [ ] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
+- [ ] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain
+- [ ] Contact page should be the Get a Quote page; take Contact out of the About submenu
+- [ ] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
+- [ ] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row
+- [ ] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section
+- [ ] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there
+- [ ] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
+- [ ] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
+- [ ] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color
+- [ ] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal
+- [ ] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
+- [ ] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
+- [ ] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different
+- [ ] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'
+- [ ] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
+- [ ] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
+- [ ] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side
+- [ ] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
+- [ ] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

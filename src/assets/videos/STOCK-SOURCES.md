@@ -24,3 +24,5 @@ mostly irrelevant results (dance/nightclub/abandoned-building footage sharing th
 these came from targeted Pexels searches instead, fetched via WebFetch (search pages) then
 downloaded directly with curl (the `pexels.com/download/video/<id>/` links were not
 Cloudflare-blocked, unlike the search pages). No market needed its still fallback.
+
+- `facility-walkthrough.mp4`: [Workers with Safety Helmets in Warehouse](https://www.pexels.com/video/workers-with-safety-helmets-in-warehouse-10817415/), Pexels video ID 10817415 — Pexels License (free, no attribution required) — hero, /get-a-quote/. Two people in hard hats walking a warehouse aisle together, standing in for a facility walkthrough. Re-encoded to 1280x720, muted.
