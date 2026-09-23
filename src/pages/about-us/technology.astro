@@ -6,10 +6,11 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import ProductHero from '../../components/product/ProductHero.astro';
+import SectorHero from '../../components/sector/SectorHero.astro';
 import DropletComparison from '../../components/product/DropletComparison.astro';
 import SectorCta from '../../components/sector/SectorCta.astro';
-import pathogen from '../../assets/images/pathogen.png';
+import heroVideo from '../../assets/videos/tech-fog.mp4';
+import heroPoster from '../../assets/images/hero-tech-fog-poster.jpg';
 import roomDroplets from '../../assets/images/tech-room-droplets.jpg';
 import compact from '../../assets/images/human-compact-front.png';
 
@@ -34,12 +35,12 @@ const validation = [
   <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
     <Header />
     <main>
-      <ProductHero
+      <SectorHero
         eyebrow="The Technology"
         headline={['Small Droplets.', 'Whole-Space Behavior.']}
-        copy="Genesis360 is engineered around a physical threshold: below ten microns, droplets settle far more slowly and begin to move with the air around them."
-        image={pathogen}
-        imageAlt="Illustration of a microscopic airborne particle"
+        support="Genesis360 is engineered around a physical threshold: below ten microns, droplets settle far more slowly and begin to move with the air around them."
+        poster={heroPoster}
+        video={heroVideo}
         cta={{ href: '#droplet-physics', label: 'Follow The Physics' }}
         secondaryCta={{ href: '/genesis360mistingsystems/', label: 'Explore The Systems' }}
       />

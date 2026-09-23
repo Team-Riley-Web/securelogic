@@ -1649,7 +1649,14 @@ unchecked task unless you are starting it.
       drift="from,to". It writes the translate property, so it composes with the
       pulse animation. The BotaniMax scroll tasks further down will reuse it.
       Reduced motion stops both.
-- [ ] Technology page: keep the video background like all the other pages; remove the molecule there
+- [x] Technology page: keep the video background like all the other pages; remove the molecule there
+      Done 2026-09-23: the hero moved from ProductHero, which had the pathogen
+      molecule as its side image, to the shared SectorHero video treatment every
+      sector page uses. Same eyebrow, headline, copy and both CTAs. Footage is
+      the slow blue fog clip that sat unused in public/videos/securelogic-
+      header.mp4, re-encoded to src/assets/videos/tech-fog.mp4 at 1280 (6.3 MB
+      to 0.6 MB) with a poster. No molecule is left on the page. The original in
+      public/videos is untouched.
 - [ ] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
 - [ ] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain
 - [ ] Contact page should be the Get a Quote page; take Contact out of the About submenu
