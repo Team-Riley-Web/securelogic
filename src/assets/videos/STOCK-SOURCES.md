@@ -26,3 +26,5 @@ downloaded directly with curl (the `pexels.com/download/video/<id>/` links were 
 Cloudflare-blocked, unlike the search pages). No market needed its still fallback.
 
 - `facility-walkthrough.mp4`: [Workers with Safety Helmets in Warehouse](https://www.pexels.com/video/workers-with-safety-helmets-in-warehouse-10817415/), Pexels video ID 10817415 — Pexels License (free, no attribution required) — hero, /get-a-quote/. Two people in hard hats walking a warehouse aisle together, standing in for a facility walkthrough. Re-encoded to 1280x720, muted.
+
+- `about-engineers.mp4`: [Couple of scientists on a factory](https://mixkit.co/free-stock-video/couple-of-scientists-on-a-factory-22992/) — Mixkit Stock Video Free License — hero, /about-us/. Two engineers in lab coats reviewing a tablet among plant piping. Replaces the hero-about-poster.jpg still, which was the same image as the /human/military/ hero. Muted, 1280x720.

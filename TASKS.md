@@ -1630,7 +1630,14 @@ unchecked task unless you are starting it.
       a-quote/ renders it with walkthrough copy instead of the two-column
       QuoteForm. Email shown is CONTACT_EMAIL (info@genesis360.com), same as the
       home page; the old QuoteForm showed info@securelogicUSA.com.
-- [ ] About page: pull a different hero video — the current one is already used on the Human/Military page
+- [x] About page: pull a different hero video — the current one is already used on the Human/Military page
+      Done 2026-09-23: the About hero was a still, hero-about-poster.jpg, byte-
+      for-byte the same police-station image as /human/military/. It now plays
+      src/assets/videos/about-engineers.mp4 — two engineers in lab coats
+      reviewing a tablet among plant piping (Mixkit 'Couple of scientists on a
+      factory', free license, logged in STOCK-SOURCES.md), 3.2 MB, muted, with
+      its own poster. The old about poster is now unreferenced and left in
+      place.
 - [ ] About page, 'From a field problem to a platform': slowly pulse the virus molecule in the background, maybe add one on the left side too; make them feel alive, move as we scroll
 - [ ] Technology page: keep the video background like all the other pages; remove the molecule there
 - [ ] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
