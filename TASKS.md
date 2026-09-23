@@ -1837,6 +1837,18 @@ unchecked task unless you are starting it.
       and the heading was falling back to the old font. The Keep Reading band
       below moved from grey to white so it does not sit tint-on-tint against the
       form. QuoteForm is now used only by ag/[slug].astro.
+- [x] Technology page: the fog video hero can't be seen — fix it
+      Done 2026-09-23: the earlier clip was dark-blue smoke and vanished under
+      the hero's navy overlay. tech-fog.mp4 is now a white fog layer rolling
+      across a dark ground: Pexels 9694228, a 20 s cut, 0.9 MB, logged in STOCK-
+      SOURCES.md. It reads clearly through the overlay, and the poster was
+      regenerated.
+- [ ] Genesis360 page: move /genesis360mistingsystems/ to /genesis360/
+- [ ] Genesis360 page: make the system cards dark themed like on the homepage
+- [ ] Documentation page: give the BotaniMax bottle a shadow
+- [ ] FAQs page: make the section background light but keep the FAQ accordions dark
+- [ ] Every market page: remove the unnecessary 'Other Markets' eyebrow
+- [ ] Coverage map list at tablet width (hog page screenshot) doesn't look good — centred/mirrored rows; needs to appear differently
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
