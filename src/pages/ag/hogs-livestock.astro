@@ -32,10 +32,10 @@ import StatBand from '../../components/sector/StatBand.astro';
 import CompareBand from '../../components/sector/CompareBand.astro';
 import transparentBarn from '../../assets/images/transparent-barn.png';
 import pigBarn from '../../assets/images/baby-pigs-2.jpg';
-// Closing CTA photo (2026-09-17): of baby-pigs-1..5, all landscape except -5
-// (portrait); -3 is a sow nursing a full litter, which reads as the clearest
-// "nursery" scene and works well cropped to the CTA's 4:3 frame.
-import nurseryPhoto from '../../assets/images/baby-pigs-3.jpg';
+// Closing CTA photo: of baby-pigs-1..5, all landscape except -5 (portrait).
+// Was -3 (a sow nursing her litter, eyes closed) until 2026-09-23, when it was
+// read as sad; -1 is two alert, healthy piglets and keeps both in the 4:3 crop.
+import nurseryPhoto from '../../assets/images/baby-pigs-1.jpg';
 import handheldUnit from '../../assets/images/mobile-mist.png';
 import miniUnit from '../../assets/images/genesis-compact.png';
 import customUnit from '../../assets/images/agri-guard.png';
@@ -677,7 +677,7 @@ const withGenesis = [
         href={SOFT_LAUNCH ? CONTACT_HREF : '/get-a-quote/'}
         variant="photo"
         image={nurseryPhoto}
-        imageAlt="Piglets in a clean nursery pen"
+        imageAlt="Two healthy spotted piglets on fresh straw"
       />
 
     </main>
