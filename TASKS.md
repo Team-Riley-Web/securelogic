@@ -1899,7 +1899,12 @@ unchecked task unless you are starting it.
       up exactly as SectorHero's: object-cover, centred, under the identical
       navy overlay, so the rolling fog line sits at the same height and scale as
       on Technology, across the full width. Verified at 1280 and 500.
-- [ ] Hog page coverage map: the barn image should be smaller on tablet
+- [x] Hog page coverage map: the barn image should be smaller on tablet
+      Done 2026-09-23: from 640 to 1279px the art is capped at 40rem and centred
+      instead of running full width, so the callout cards start within the first
+      screen. Applied to the hog page's inline map and the shared CoverageMap
+      (Poultry, Residential AC) to keep them consistent. Phones and desktop are
+      unchanged. The hog page is live, so this ships on the next deploy.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

@@ -375,7 +375,10 @@ const withGenesis = [
 
       .barn-art {
         position: static;
-        width: 100%;
+        /* Capped and centred: at full width on a tablet the art filled the
+           whole screen before any callout appeared. */
+        width: min(100%, 40rem);
+        justify-self: center;
         transform: none;
       }
 
