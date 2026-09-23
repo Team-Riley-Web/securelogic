@@ -1737,7 +1737,13 @@ unchecked task unless you are starting it.
       capped so the text measure stays readable. The pale gradient card is gone.
       Stacks photo-first on phones. The bottle also appears in the hero; if you
       would rather this half carry only the thyme photo, it is one line to drop.
-- [ ] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color
+- [x] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color
+      Done 2026-09-23: the section now sits on the Athletics fog photo,
+      human-d1-gym.png: a wall unit misting a weight room. It is under a navy
+      scrim so the white type holds. Heading block, the four contact-time cards
+      (icons included) and the 'use the label' note are all centred. The 'Label-
+      Backed Performance' eyebrow was the default brand blue on navy. It is now
+      light grey (white at 72%) for this section only.
 - [ ] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal
 - [ ] Documentation page: same BotaniMax bottle effect — zooms and moves with scroll; put the actual label on the right side as one of the downloadable docs, e.g. 'BotaniMax label'
 - [ ] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
