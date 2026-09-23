@@ -1723,7 +1723,12 @@ unchecked task unless you are starting it.
       optional) and the logo takes its place larger. It uses a trimmed copy,
       botanimax-logo-trim.png, because the original is about a third transparent
       padding.
-- [ ] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
+- [x] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
+      Done 2026-09-23: new Tailwind colour botanimax: #3cb54d, the dominant
+      green sampled from botanimax-logo.png. ProductHero's green tone now uses
+      it for the headline's accent line instead of the site lime (#a6d960).
+      /botanimax/ is the only page on the green tone, so nothing else changes.
+      Verified computed colour rgb(60,181,77).
 - [ ] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
 - [ ] BotaniMax page, 'Label-backed performance' / 'contact time is part of the claim': use the fog image from Athletics, center all that, and make 'Label-backed performance' white or gray — not legible in its current color
 - [ ] BotaniMax page, 'Read the source' with the label: make the label click-open into a modal

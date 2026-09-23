@@ -66,7 +66,7 @@ const {
       {eyebrow && <p class="bl-eyebrow">{eyebrow}</p>}
       <h1 class="mt-5 text-4xl leading-[1.04] sm:text-5xl lg:text-6xl">
         {headline.map((line, index) => (
-          <span class:list={['block', index === headline.length - 1 && 'text-lime-400']}>{line}</span>
+          <span class:list={['block', index === headline.length - 1 && (tone === 'green' ? 'text-botanimax' : 'text-lime-400')]}>{line}</span>
         ))}
       </h1>
       <p class="mt-7 max-w-xl text-base leading-8 text-white/75 sm:text-lg">{copy}</p>

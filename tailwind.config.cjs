@@ -63,6 +63,9 @@ module.exports = {
           // Never apply opacity to `body`; step to `muted` instead.
           muted: '#5a6a8d',
         },
+        // The green in the BotaniMax logo (dominant colour of
+        // botanimax-logo.png). For BotaniMax-branded accents only.
+        botanimax: '#3cb54d',
         // Two accent greens: the lime reads on dark grounds, the mid on light.
         lime: {
           400: '#a6d960',
