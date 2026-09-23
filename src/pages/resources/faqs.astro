@@ -79,20 +79,19 @@ const faqs: { question: string; answer: string; bullets?: string[] }[] = [
         cta={{ href: '/get-a-quote/', label: 'Get A Quote' }}
       />
 
-      <!-- Centred single column on a navy band. The items were pale grey on
-           white beside a sticky photo; the photo is gone and each question
-           is now a glass card that brightens when open, with the answer set
-           a step larger than before (text-base, was text-sm). -->
-      <section class="relative overflow-hidden bg-brand-900 py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime);">
-        <div class="pointer-events-none absolute inset-0" aria-hidden="true" style="background: radial-gradient(circle at 85% 6%, rgb(62 103 232 / 0.35), transparent 42%), radial-gradient(circle at 8% 96%, rgb(82 194 76 / 0.14), transparent 40%);"></div>
+      <!-- Centred single column on a light band; each question is a navy
+           card that brightens a step when open, with the answer set a step
+           larger than before (text-base, was text-sm). -->
+      <section class="relative overflow-hidden bg-brand-100 py-20 sm:py-24">
+        <div class="pointer-events-none absolute inset-0" aria-hidden="true" style="background: radial-gradient(circle at 85% 6%, rgb(62 103 232 / 0.14), transparent 42%), radial-gradient(circle at 8% 96%, rgb(82 194 76 / 0.08), transparent 40%);"></div>
         <div class="container-page relative">
           <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">Common Questions</p>
-            <h2 class="bl-h2 mt-4 text-white">What Facilities Ask Before They Switch.</h2>
+            <h2 class="bl-h2 mt-4">What Facilities Ask Before They Switch.</h2>
           </div>
           <div class="mx-auto mt-12 grid max-w-3xl gap-4">
             {faqs.map(({ question, answer, bullets }) => (
-              <details class="group rounded-2xl border border-white/12 bg-white/[.06] px-6 py-5 transition-colors open:border-white/25 open:bg-white/[.11] sm:px-7">
+              <details class="group rounded-2xl bg-brand-900 px-6 py-5 shadow-lift transition-colors open:bg-brand-800 sm:px-7" style="--bl-eyebrow-color: var(--bl-lime);">
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-5 text-left text-base font-semibold text-white sm:text-lg [&::-webkit-details-marker]:hidden">
                   {question}
                   <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 text-lime-400 transition group-open:rotate-90 group-open:bg-lime-400 group-open:text-brand-900">

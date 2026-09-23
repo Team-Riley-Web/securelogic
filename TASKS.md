@@ -1863,7 +1863,11 @@ unchecked task unless you are starting it.
       Done 2026-09-23: added a soft navy drop shadow (0 40px 36px at 28%) that
       follows the bottle's silhouette, since the PNG is transparent. It moves
       with the bottle as it scrolls.
-- [ ] FAQs page: make the section background light but keep the FAQ accordions dark
+- [x] FAQs page: make the section background light but keep the FAQ accordions dark
+      Done 2026-09-23: the band is light blue (brand-100) with faint washes and
+      a dark heading. Each question is a solid navy card with a lift shadow that
+      steps to brand-800 when open. The answer text stays white and larger, and
+      the lime arrow chip is kept.
 - [ ] Every market page: remove the unnecessary 'Other Markets' eyebrow
 - [ ] Coverage map list at tablet width (hog page screenshot) doesn't look good — centred/mirrored rows; needs to appear differently
 
