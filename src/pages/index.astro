@@ -20,10 +20,10 @@
 // TO RESTORE THE FULL SITE: delete public/_redirects, then copy
 // src/pages/home-full.astro back over this file — that is the untouched
 // original.
-import { ArrowLeft, ArrowRight, Info, Mail, Phone, Quote, Star } from '@lucide/astro';
+import { ArrowLeft, ArrowRight, Info, Quote, Star } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PipedriveForm from '../components/PipedriveForm.astro';
+import ContactBlock from '../components/ContactBlock.astro';
 import AnimatedStatIcon from '../components/AnimatedStatIcon.astro';
 import CertMark from '../components/CertMark.astro';
 import Footer from '../components/Footer.astro';
@@ -33,11 +33,8 @@ import PreviewChrome from '../components/PreviewChrome.astro';
 // Contact address and CTA label are shared with the other pages that are open
 // during the soft launch (see src/data/launch-gate.ts).
 import { CONTACT_EMAIL, CTA_LABEL } from '../data/launch-gate';
-const CONTACT_PHONE = '1-888-997-4310';
-const CONTACT_PHONE_HREF = 'tel:+18889974310';
 import logo from '../assets/images/logo.png';
 import logoIconNoWords from '../assets/images/logo-icon-no-words.png';
-import contactMark from '../assets/images/Genesis360-icon.png';
 import farmVideo from '../assets/videos/farm.mp4';
 import cannabisVideo from '../assets/videos/cannabis.mp4';
 import gymVideo from '../assets/videos/gym.mp4';
@@ -1038,80 +1035,7 @@ const switchReasons = [
          page asks for anything. Phone and email are plain links rather than a
          form: the form posts to a gated page, and Marty wants these reaching
          him directly while the rebuild is in flight. -->
-    <section id="contact" class="relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 bg-brand-100">
-      <!-- Same treatment as the Genesis360 Platform section, retuned for a
-           light ground: two radial washes plus a ring, with the mark ghosted
-           in behind. Decoration only, so it is inert and hidden from AT. -->
-      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div
-          class="absolute inset-0"
-          style="background: radial-gradient(circle at 12% 8%, rgb(62 103 232 / 0.16), transparent 38%), radial-gradient(circle at 88% 88%, rgb(116 166 255 / 0.30), transparent 34%);"
-        >
-        </div>
-        <div class="absolute -right-40 -top-56 hidden h-[38rem] w-[38rem] rounded-full border-[3rem] border-white/30 sm:block"></div>
-        <!-- Same Genesis360 mark the footer ghosts in. The footer inverts it
-             white for its dark ground; here it keeps its own colour against the
-             light one. -->
-        <Image
-          src={contactMark}
-          alt=""
-          class="absolute -bottom-26 -left-15 hidden h-[55rem] w-auto max-w-none opacity-[0.05] sm:block"
-          widths={[560]}
-          sizes="560px"
-        />
-      </div>
-
-      <div class="reveal relative z-10 mx-auto max-w-6xl" x-intersect.once="$el.classList.add('is-visible')">
-        <div class="mx-auto max-w-4xl text-center">
-          <p class="bl-eyebrow">Your Facility. Your Coverage Plan.</p>
-          <h2 class="bl-h2 mt-4">Start Protecting Your Facility.</h2>
-          <p class="mx-auto mt-5 max-w-4xl text-base leading-7 text-brand-body">Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility.</p>
-        </div>
-
-        <!-- The hosted form paints white fields, so the card behind it is
-             tinted rather than white. Extra top padding keeps the first label
-             off the card edge, since the iframe carries no padding of its own. -->
-        <div class="mx-auto mt-12 max-w-2xl">
-          <div class="rounded-2xl border border-brand-900/10 bg-white/80 px-6 pb-6 pt-10 shadow-lift sm:px-8 sm:pb-8 sm:pt-12">
-            <PipedriveForm />
-          </div>
-
-          <!-- Two columns from md, not sm. At 640 the pair is at its narrowest
-               side by side and the email wrapped to two lines while the phone
-               beside it stayed on one, which is the mismatch this block is
-               meant to avoid. Stacking through that band keeps them equal. -->
-          <div class="mt-6 grid gap-5 md:grid-cols-2">
-            <a
-              href={CONTACT_PHONE_HREF}
-              class="flex items-center gap-4 rounded-2xl border border-brand-900/10 bg-white/80 p-6 shadow-lift transition hover:-translate-y-1 hover:bg-white hover:shadow-deep"
-            >
-              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
-                <Phone class="h-5 w-5 text-brand-600" aria-hidden="true" />
-              </span>
-              <span class="min-w-0">
-                <span class="bl-eyebrow block">Office Line</span>
-                <span class="mt-1 block text-lg font-bold text-brand-900">{CONTACT_PHONE}</span>
-              </span>
-            </a>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              class="flex items-center gap-4 rounded-2xl border border-brand-900/10 bg-white/80 p-6 shadow-lift transition hover:-translate-y-1 hover:bg-white hover:shadow-deep"
-            >
-              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-100">
-                <Mail class="h-5 w-5 text-brand-600" aria-hidden="true" />
-              </span>
-              <span class="min-w-0">
-                <span class="bl-eyebrow block">Email</span>
-                <!-- Same text-lg as the phone beside it. break-words, not
-                     break-all: the address fits at this size, and break-all
-                     would hack it mid-word the moment it did not. -->
-                <span class="mt-1 block break-words text-lg font-bold text-brand-900">{CONTACT_EMAIL}</span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ContactBlock />
 
     <Footer minimal contactEmail={CONTACT_EMAIL} />
     <PreviewChrome replaces="footer.bl"><Footer /></PreviewChrome>

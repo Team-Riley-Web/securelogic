@@ -1620,7 +1620,16 @@ unchecked task unless you are starting it.
       SOURCES.md), 1280x720, muted, 2.4 MB, with a poster frame. Nothing in
       Pexels or Mixkit showed a disinfection-specific walkthrough; this was the
       closest group facility tour. Replaces the fogger still.
-- [ ] Home page: replace the Get a Quote form with the Pipedrive form
+- [x] Get a Quote page: replace the Get a Quote form with the Pipedrive form as it looks on the home page
+      Done 2026-09-23: (captured first as 'Home page: …'; re-read, you meant the
+      Get a Quote page should use the home page's Pipedrive block, the same ask
+      you made for blog posts.) Extracted the home #contact section into
+      src/components/ContactBlock.astro — washes, ghosted mark, form on the
+      tinted card, phone + email cards — with eyebrow/heading/body/id props.
+      index.astro now renders <ContactBlock /> and is visually unchanged; /get-
+      a-quote/ renders it with walkthrough copy instead of the two-column
+      QuoteForm. Email shown is CONTACT_EMAIL (info@genesis360.com), same as the
+      home page; the old QuoteForm showed info@securelogicUSA.com.
 - [ ] About page: pull a different hero video — the current one is already used on the Human/Military page
 - [ ] About page, 'From a field problem to a platform': slowly pulse the virus molecule in the background, maybe add one on the left side too; make them feel alive, move as we scroll
 - [ ] Technology page: keep the video background like all the other pages; remove the molecule there
