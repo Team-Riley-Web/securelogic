@@ -1657,7 +1657,12 @@ unchecked task unless you are starting it.
       header.mp4, re-encoded to src/assets/videos/tech-fog.mp4 at 1280 (6.3 MB
       to 0.6 MB) with a poster. No molecule is left on the page. The original in
       public/videos is untouched.
-- [ ] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
+- [x] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
+      Done 2026-09-23: DropletComparison gained a center prop that centers the
+      eyebrow, heading and copy, every table column including the header row,
+      the stacked mobile cards, and the source line. The Technology page turns
+      it on. The Genesis360 page's copy of the section is unchanged for now; the
+      Compact Wall Mount task below asks for the same treatment there.
 - [ ] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain
 - [ ] Contact page should be the Get a Quote page; take Contact out of the About submenu
 - [ ] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
