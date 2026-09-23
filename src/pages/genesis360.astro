@@ -60,12 +60,15 @@ const compactFacts = [
         secondaryCta={{ href: '/about-us/technology/', label: 'See How It Works' }}
       />
 
-      <section class="bg-white py-20 sm:py-24">
-        <div class="container-page">
+      <!-- Dark, like the home page's Genesis360 Platform band: navy ground,
+           glass cards with a lime/blue top rule, white type. -->
+      <section class="relative overflow-hidden bg-brand-900 py-20 text-white sm:py-24" style="--bl-eyebrow-color: var(--bl-lime);">
+        <div class="pointer-events-none absolute inset-0" aria-hidden="true" style="background: radial-gradient(circle at 12% 0%, rgb(62 103 232 / 0.35), transparent 40%), radial-gradient(circle at 90% 100%, rgb(82 194 76 / 0.12), transparent 40%);"></div>
+        <div class="container-page relative">
           <div class="reveal mx-auto max-w-3xl text-center" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">The Platform</p>
-            <h2 class="bl-h2 mt-4">One Set Of Physics. Five Ways To Deploy It.</h2>
-            <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">Genesis360 is not a single fogger scaled up and down. It is a deployment platform: fixed in a room, integrated with an air handler, configured for clinical use, carried to the next problem area, or sized for a barn.</p>
+            <h2 class="bl-h2 mt-4 text-white">One Set Of Physics. Five Ways To Deploy It.</h2>
+            <p class="mt-6 text-base leading-8 text-white/65 sm:text-lg">Genesis360 is not a single fogger scaled up and down. It is a deployment platform: fixed in a room, integrated with an air handler, configured for clinical use, carried to the next problem area, or sized for a barn.</p>
           </div>
 
           <!-- Two by two, not five across: each card runs image-left from
@@ -76,19 +79,20 @@ const compactFacts = [
             {systems.map(({ name, fit, copy, image, alt, href }, i) => (
               <article
                 class:list={[
-                  'reveal group flex flex-col overflow-hidden rounded-2xl bg-brand-50 shadow-lift sm:flex-row',
+                  'reveal group relative flex flex-col overflow-hidden rounded-2xl bg-white/[0.075] shadow-lift-dark ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.11] sm:flex-row',
                   i === systems.length - 1 && systems.length % 2 === 1 && 'lg:col-span-2 lg:mx-auto lg:w-[calc(50%-0.625rem)]',
                 ]}
                 x-intersect.once="$el.classList.add('is-visible')"
               >
-                <div class="grid aspect-[4/3] place-items-center bg-white p-6 sm:aspect-auto sm:w-[44%] sm:shrink-0">
+                <span class:list={['absolute inset-x-0 top-0 z-10 h-1', i % 2 === 0 ? 'bg-lime-500' : 'bg-brand-400']} aria-hidden="true"></span>
+                <div class="grid aspect-[4/3] place-items-center bg-[radial-gradient(circle_at_50%_45%,rgb(255_255_255/.14),transparent_70%)] p-6 sm:aspect-auto sm:w-[44%] sm:shrink-0">
                   <Image src={image} alt={alt} class="h-48 w-full object-contain transition duration-500 group-hover:scale-[1.04]" widths={[260, 420, 640]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 44vw, 100vw" />
                 </div>
                 <div class="flex flex-1 flex-col p-6 sm:p-7">
-                  <p class="text-[.68rem] font-bold uppercase tracking-[.15em] text-primary-600">{fit}</p>
-                  <h3 class="mt-3 text-xl text-brand-900">{name}</h3>
-                  <p class="mt-3 flex-1 text-sm leading-6 text-brand-body">{copy}</p>
-                  <a href={href} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary-700">Explore the fit <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" /></a>
+                  <p class="bl-eyebrow">{fit}</p>
+                  <h3 class="mt-3 text-2xl text-white">{name}</h3>
+                  <p class="mt-3 flex-1 text-sm leading-6 text-white/60">{copy}</p>
+                  <a href={href} class="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.1em] text-white">Explore the fit <ArrowRight class="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" /></a>
                 </div>
               </article>
             ))}

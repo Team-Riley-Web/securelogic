@@ -1851,7 +1851,14 @@ unchecked task unless you are starting it.
       a matching Astro redirects entry. The new path has its own soft-launch
       gate block on all four live hosts, placed with the other gate rules, so it
       stays hidden on genesis360.com like the old one.
-- [ ] Genesis360 page: make the system cards dark themed like on the homepage
+- [x] Genesis360 page: make the system cards dark themed like on the homepage
+      Done 2026-09-23: the 'One Set Of Physics' section now matches the home
+      page's Genesis360 Platform band. It has a navy ground with blue and green
+      washes. The cards are glass (white at 7.5% with a white/10 ring and dark
+      lift shadow) with a lime or blue top rule, alternating. The eyebrow is
+      lime, headings are white and body text is white at 60%. Cards lift on
+      hover. Product renders sit on a soft white glow so the white units still
+      read.
 - [ ] Documentation page: give the BotaniMax bottle a shadow
 - [ ] FAQs page: make the section background light but keep the FAQ accordions dark
 - [ ] Every market page: remove the unnecessary 'Other Markets' eyebrow
