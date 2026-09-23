@@ -1909,6 +1909,10 @@ unchecked task unless you are starting it.
       Done 2026-09-23: the footer's fog clip plays at 0.75x through a small
       script on the footer video. The Technology hero is unaffected. Tried 0.5x
       first, which you said was too slow. Verified playbackRate 0.75 in Chrome.
+- [x] Footer: make the fog video a bit transparent
+      Done 2026-09-23: the footer video is at 60% opacity (opacity-60 on the
+      video element), so the fog fades further into the navy ground under the
+      overlay. The Technology hero is unchanged.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 
