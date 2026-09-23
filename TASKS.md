@@ -1801,7 +1801,13 @@ unchecked task unless you are starting it.
       fixes the same list on /hvac/residential/. Other Agriculture Markets moved
       to the shared OtherMarkets strip below the CTA, as on Indoor Growing,
       which removes the doubled gap after From The Field.
-- [ ] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
+- [x] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
+      Done 2026-09-23: covered by the shared-component change in the Indoor
+      Growing task. /hvac/residential/ and every other HVAC, Human and Ag market
+      page now end the same way: the navy From The Field band, the CTA, then the
+      white Other Markets strip of compact linked cards, two across on HVAC and
+      Ag and three on Human. Verified on residential and schools. No page-
+      specific change needed.
 - [ ] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
 - [ ] HVAC Professionals page: 'Talk about dealer pricing' button is on the right side — center all of it and put the button beneath instead of on the side
 - [ ] Blog index page: remove the Get a Quote form; just a CTA that brings us to the Get a Quote page
