@@ -1684,7 +1684,15 @@ unchecked task unless you are starting it.
       pages had been linking to /contact-us/ and now dials. Blog bodies'
       securelogicusa.com/contact-us/ links left alone per CLAUDE.md (they flip
       at DNS cutover); the redirect covers them. Build: 42 pages.
-- [ ] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
+- [x] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
+      Done 2026-09-23: hero moved from ProductHero, a split with the lineup
+      photo on the right, to the shared SectorHero, a full-bleed background with
+      centred copy, matching the sector, About and Technology pages. Same copy
+      and CTAs. The background is the same athletics lineup photo, cut to 1920px
+      (hero-genesis360-lineup.jpg, 230 KB) because SectorHero serves its poster
+      without Astro's image pipeline and the original is 6000px / 6.8 MB.
+      ProductHero is now used only by /botanimax/, which the BotaniMax hero task
+      below reworks.
 - [ ] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row
 - [ ] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section
 - [ ] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there

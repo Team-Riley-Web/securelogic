@@ -8,11 +8,13 @@ import type { ImageMetadata } from 'astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ProductHero from '../components/product/ProductHero.astro';
+import SectorHero from '../components/sector/SectorHero.astro';
 import DropletComparison from '../components/product/DropletComparison.astro';
 import DifferenceGrid from '../components/sector/DifferenceGrid.astro';
 import SectorCta from '../components/sector/SectorCta.astro';
-import lineup from '../assets/images/fitness-athletics-lineup.jpg';
+// 1920px cut of fitness-athletics-lineup.jpg (6000px, 6.8 MB): SectorHero
+// serves its poster as-is, without Astro's image pipeline.
+import heroImage from '../assets/images/hero-genesis360-lineup.jpg';
 import compact from '../assets/images/human-compact-iso.png';
 import aeroGuard from '../assets/images/hvac-aeroguard-render.png';
 import mediGuard from '../assets/images/medical-mist.png';
@@ -49,13 +51,11 @@ const compactFacts = [
   <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
     <Header />
     <main>
-      <ProductHero
+      <SectorHero
         eyebrow="Genesis360 Systems"
         headline={['One Platform.', 'Built For Every Space.']}
-        copy="A configurable family of automated dry mist systems, built around the same sub-10-micron delivery principle and adapted to the way each facility actually operates."
-        image={lineup}
-        imageAlt="Genesis360 room system, portable fogger, and BotaniMax products arranged in an athletic facility"
-        imageFit="cover"
+        support="A configurable family of automated dry mist systems, built around the same sub-10-micron delivery principle and adapted to the way each facility actually operates."
+        poster={heroImage}
         cta={{ href: '#systems', label: 'Find Your System' }}
         secondaryCta={{ href: '/about-us/technology/', label: 'See How It Works' }}
       />
