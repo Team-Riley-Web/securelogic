@@ -1,7 +1,7 @@
 ---
 // src/components/sector/SectorCta.astro
 // Closing CTA for every sector page. Extracted from AgCta.astro (which now
-// wraps this). `href` defaults to /contact-us/ only so the ag pages (which
+// wraps this). `href` defaults to /get-a-quote/ only so the ag pages (which
 // still pass no `href`) keep working; every other call site passes
 // href="/get-a-quote/" explicitly per the site-wide convention.
 //
@@ -32,7 +32,7 @@ const {
   eyebrow,
   heading,
   copy,
-  href = '/contact-us/',
+  href = '/get-a-quote/',
   label = 'Get A Quote',
   variant = 'default',
   image,

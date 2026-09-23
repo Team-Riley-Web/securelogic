@@ -196,3 +196,13 @@ https://securelogicusa.com/get-a-quote/*                   /  302!
 https://www.securelogicusa.com/get-a-quote                 /  302!
 https://www.securelogicusa.com/get-a-quote/*               /  302!
 
+
+# CONTACT FOLDED INTO GET A QUOTE (2026-09-23)
+# Not a gate rule: a bare path, so it applies on every host. It sits below the
+# host-scoped gate on purpose -- on the live domains the gate's contact-us rules
+# above match first and still send visitors to /; everywhere else (the review
+# site) /contact-us/ lands on the quote form. `!` because Astro's redirects
+# config also writes a meta-refresh page at this path, which would otherwise
+# shadow the rule.
+/contact-us      /get-a-quote/  301!
+/contact-us/*    /get-a-quote/  301!

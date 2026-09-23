@@ -13,7 +13,7 @@ interface Props {
   eyebrow: string;
   heading: string;
   copy: string;
-  // Pages open during the soft launch pass '/#contact' so the CTA lands on the landing page's contact block instead of the gated /contact-us/.
+  // Pages open during the soft launch pass '/#contact' so the CTA lands on the landing page's contact block instead of the gated /get-a-quote/.
   href?: string;
   // Passed straight through to SectorCta; see that component for what they do.
   variant?: 'default' | 'photo';
@@ -21,7 +21,7 @@ interface Props {
   imageAlt?: string;
 }
 
-const { eyebrow, heading, copy, href = '/contact-us/', variant, image, imageAlt } = Astro.props;
+const { eyebrow, heading, copy, href = '/get-a-quote/', variant, image, imageAlt } = Astro.props;
 ---
 
 <SectorCta eyebrow={eyebrow} heading={heading} copy={copy} href={href} variant={variant} image={image} imageAlt={imageAlt} />

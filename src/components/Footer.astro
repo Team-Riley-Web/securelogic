@@ -63,8 +63,8 @@ const { minimal = false, contactEmail = 'info@securelogicUSA.com', contactHref =
       {/* This column's eyebrow matches the Shop and About columns above. */}
       {!minimal && <p class="bl-eyebrow">Contact</p>}
       <div class:list={['grid gap-2 text-sm text-white/75', !minimal && 'mt-4', minimal && 'justify-items-center md:justify-items-start']}>
-        {!minimal && <a href="/contact-us/" class="hover:text-white">Contact Us</a>}
-        <a href={minimal ? 'tel:+18889974310' : '/contact-us/'} class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
+        {!minimal && <a href="/get-a-quote/" class="hover:text-white">Get A Quote</a>}
+        <a href="tel:+18889974310" class="inline-flex items-center gap-2 hover:text-white"><Phone class="h-4 w-4" />1-888-997-4310</a>
         <a href={`mailto:${contactEmail}`} class="inline-flex items-center gap-2 hover:text-white"><Mail class="h-4 w-4" />{contactEmail}</a>
         {/* /privacy-policy/ renders the full site chrome, so the landing page
             can't link to it while the rest of the site is gated. */}

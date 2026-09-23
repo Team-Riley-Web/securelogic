@@ -1672,7 +1672,18 @@ unchecked task unless you are starting it.
       built-in digital timer panel, which is what the section is about. CHECK:
       that render's front label reads 'HVACMist Compact'. If that is a retired
       name, say so and I will switch back or trim the old image.
-- [ ] Contact page should be the Get a Quote page; take Contact out of the About submenu
+- [x] Contact page should be the Get a Quote page; take Contact out of the About submenu
+      Done 2026-09-23: /contact-us/ is gone as a page and 301s to /get-a-quote/:
+      a bare-path rule at the bottom of public/_redirects, which sits below the
+      host-scoped gate so live domains still go to /, plus an Astro redirects
+      entry so dev and the build's meta-refresh page agree. Contact Us is out of
+      the About mega menu, which is now three across. Every internal /contact-
+      us/ link now points at /get-a-quote/: the footer Contact column link, now
+      labelled Get A Quote; the SectorCta and AgCta default href; home-full;
+      hogs-livestock at full launch; brochures. The footer phone number on full
+      pages had been linking to /contact-us/ and now dials. Blog bodies'
+      securelogicusa.com/contact-us/ links left alone per CLAUDE.md (they flip
+      at DNS cutover); the redirect covers them. Build: 42 pages.
 - [ ] Genesis360 page: use a background image instead of the side image, for consistency with the other pages
 - [ ] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row
 - [ ] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section

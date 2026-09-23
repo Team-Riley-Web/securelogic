@@ -1,4 +1,4 @@
-import { CircleQuestionMark, Cpu, FileCheck, FileText, Leaf, Newspaper, Phone, SprayCan } from '@lucide/astro';
+import { CircleQuestionMark, Cpu, FileCheck, FileText, Leaf, Newspaper, SprayCan } from '@lucide/astro';
 import { humanMarkets } from './human-markets';
 import { hvacMarkets } from './hvac-markets';
 import { agMarkets } from './ag-markets';
@@ -57,10 +57,9 @@ export const megaMenus: MegaMenuGroup[] = [
   {
     label: 'About Us',
     href: '/about-us/',
-    gridClass: 'sm:grid-cols-2 lg:grid-cols-4',
+    gridClass: 'sm:grid-cols-3',
     items: [
       { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis360’s sub-10 micron dry fog.', href: '/about-us/technology/' },
-      { icon: Phone, title: 'Contact Us', summary: 'Connect directly with the Genesis360 team.', href: '/contact-us/' },
       { icon: SprayCan, title: 'Genesis360', summary: 'Automated dry fog systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
       { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
     ],
