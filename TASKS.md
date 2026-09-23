@@ -1771,7 +1771,21 @@ unchecked task unless you are starting it.
       brighten when open, where a lime arrow chip rotates and fills. Answer and
       bullet text went from text-sm to text-base, and questions to text-lg from
       sm up. Verified open and close in Chrome.
-- [ ] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different
+- [x] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different
+      Done 2026-09-23: fixed in the shared components, so every market and hub
+      page changed together. PostsRow ('From The Field') is its own navy band
+      with blue and green washes, a lime 'Related Reading' eyebrow, white cards
+      with a slight image zoom on hover, and Read More moved into the header row
+      instead of a centred pill under the cards. Padding went from py-20/24 to
+      py-16/20. OtherMarkets is no longer a dark pill row running into the dark
+      footer. It is a white strip with a hairline top border and compact linked
+      cards (icon, title, one-line summary, arrow). Indoor Growing dropped its
+      own inline full-size card grid for OtherMarkets and moved it below the
+      CTA, the order every other market page already used, so the two bands are
+      no longer stacked with double padding. Poultry is converted in the next
+      task. The live hog page is unaffected: its posts row is hidden during soft
+      launch. Note: on /human/athletics/ the navy posts band follows the royal-
+      blue case-study band. The tones are distinct but both are dark.
 - [ ] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'
 - [ ] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
 - [ ] Residential AC page, 'A cleaner HVAC system': the image on the right is too small to read — make it clickable to zoom, or fix the layout
