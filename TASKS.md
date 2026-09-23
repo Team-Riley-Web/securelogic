@@ -1763,7 +1763,14 @@ unchecked task unless you are starting it.
       Label.pdf (0.95 MB), rendered at 300 dpi from the label artwork already in
       the repo, following the existing Secure-Logic-*.pdf naming. Served as
       application/pdf.
-- [ ] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
+- [x] FAQs: center them, take the floating picture out of the left; replace the gray background with a darker one; text inside when opened can be a little larger
+      Done 2026-09-23: /resources/faqs/ is the only FAQ list on the site. The
+      sticky photo on the left is gone and the questions are one centred column
+      (max-w-3xl) under a new heading, 'What Facilities Ask Before They Switch.'
+      The pale grey items are replaced by a navy band with glass cards that
+      brighten when open, where a lime arrow chip rotates and fills. Answer and
+      bullet text went from text-sm to text-base, and questions to text-lg from
+      sm up. Verified open and close in Chrome.
 - [ ] Indoor Growing page: 'From the field' (blog post) and 'Other markets' — too much space between these and the design doesn't look right; should have its own background color and look slightly different
 - [ ] Poultry page: the image is too large / getting cut off and the hover states cover it in a way that doesn't look good; also too much space between 'From the field' and 'Other agriculture markets'
 - [ ] Residential AC page: 'Other HVAC markets' doesn't look good either; need consistency across the market pages
