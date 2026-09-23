@@ -15,8 +15,8 @@ import SectorCta from '../components/sector/SectorCta.astro';
 // 1920px cut of fitness-athletics-lineup.jpg (6000px, 6.8 MB): SectorHero
 // serves its poster as-is, without Astro's image pipeline.
 import heroImage from '../assets/images/hero-genesis360-lineup.jpg';
-import compact from '../assets/images/human-compact-iso.png';
-import aeroGuard from '../assets/images/hvac-aeroguard-render.png';
+import compact from '../assets/images/human-compact-iso-trim.png';
+import aeroGuard from '../assets/images/hvac-aeroguard-render-trim.png';
 import mediGuard from '../assets/images/medical-mist.png';
 import fogger from '../assets/images/portable-mist.png';
 import agriGuard from '../assets/images/agri-guard.png';
@@ -68,13 +68,23 @@ const compactFacts = [
             <p class="mt-6 text-base leading-8 text-brand-body sm:text-lg">Genesis360 is not a single fogger scaled up and down. It is a deployment platform: fixed in a room, integrated with an air handler, configured for clinical use, carried to the next problem area, or sized for a barn.</p>
           </div>
 
-          <div id="systems" class="mt-14 grid scroll-mt-28 gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {systems.map(({ name, fit, copy, image, alt, href }) => (
-              <article class="reveal group flex flex-col overflow-hidden rounded-2xl bg-brand-50 shadow-lift" x-intersect.once="$el.classList.add('is-visible')">
-                <div class="grid aspect-[4/3] place-items-center bg-white p-6">
-                  <Image src={image} alt={alt} class="h-full w-full object-contain transition duration-500 group-hover:scale-[1.04]" widths={[260, 420, 640]} sizes="(min-width: 1280px) 18vw, (min-width: 768px) 44vw, 100vw" />
+          <!-- Two by two, not five across: each card runs image-left from
+               sm so the art keeps a sensible size in a half-width column. Five
+               systems leave one over, so the last card centres on its own row
+               at the same width rather than stretching across both columns. -->
+          <div id="systems" class="mt-14 grid scroll-mt-28 gap-5 lg:grid-cols-2">
+            {systems.map(({ name, fit, copy, image, alt, href }, i) => (
+              <article
+                class:list={[
+                  'reveal group flex flex-col overflow-hidden rounded-2xl bg-brand-50 shadow-lift sm:flex-row',
+                  i === systems.length - 1 && systems.length % 2 === 1 && 'lg:col-span-2 lg:mx-auto lg:w-[calc(50%-0.625rem)]',
+                ]}
+                x-intersect.once="$el.classList.add('is-visible')"
+              >
+                <div class="grid aspect-[4/3] place-items-center bg-white p-6 sm:aspect-auto sm:w-[44%] sm:shrink-0">
+                  <Image src={image} alt={alt} class="h-48 w-full object-contain transition duration-500 group-hover:scale-[1.04]" widths={[260, 420, 640]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 44vw, 100vw" />
                 </div>
-                <div class="flex flex-1 flex-col p-6">
+                <div class="flex flex-1 flex-col p-6 sm:p-7">
                   <p class="text-[.68rem] font-bold uppercase tracking-[.15em] text-primary-600">{fit}</p>
                   <h3 class="mt-3 text-xl text-brand-900">{name}</h3>
                   <p class="mt-3 flex-1 text-sm leading-6 text-brand-body">{copy}</p>

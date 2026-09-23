@@ -1693,7 +1693,15 @@ unchecked task unless you are starting it.
       without Astro's image pipeline and the original is 6000px / 6.8 MB.
       ProductHero is now used only by /botanimax/, which the BotaniMax hero task
       below reworks.
-- [ ] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row
+- [x] Genesis360 page, 'One set of physics, five ways to deploy it': make it two-by-two cards instead of five in a row
+      Done 2026-09-23: the five system cards are now two columns from lg, each
+      running image-left from sm, where they had been five narrow columns at xl.
+      Five does not split evenly, so AgriGuard, the fifth card, centres on its
+      own row at the same card width instead of stretching across. The Compact
+      and AeroGuard renders were mostly transparent padding and looked tiny at
+      the new size. They now use trimmed copies (human-compact-iso-trim.png,
+      hvac-aeroguard-render-trim.png) on this page only, and every card's art
+      sits in the same fixed-height box. Stacks one per row on phones.
 - [ ] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section
 - [ ] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there
 - [ ] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
