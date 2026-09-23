@@ -3,7 +3,9 @@
 // The home page's contact section: centred heading, the Pipedrive form on a
 // tinted card, and phone + email cards beneath. Extracted from index.astro so
 // /get-a-quote/ and every blog post carry the same clean block instead of the
-// older two-column QuoteForm. Defaults reproduce the home page exactly.
+// older two-column QuoteForm. Defaults reproduce the home page exactly. It
+// carries `bl` itself so it keeps the brand type on pages (blog posts) that
+// do not wrap themselves in it.
 import { Mail, Phone } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import PipedriveForm from './PipedriveForm.astro';
@@ -28,7 +30,7 @@ const CONTACT_PHONE = '1-888-997-4310';
 const CONTACT_PHONE_HREF = 'tel:+18889974310';
 ---
 
-<section id={id} class="relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 bg-brand-100">
+<section id={id} class="bl relative isolate scroll-mt-24 overflow-hidden px-5 sm:px-6 lg:px-8 py-24 bg-brand-100">
   <!-- Same treatment as the Genesis360 Platform section, retuned for a
        light ground: two radial washes plus a ring, with the mark ghosted
        in behind. Decoration only, so it is inert and hidden from AT. -->

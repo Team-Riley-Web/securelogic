@@ -1828,7 +1828,15 @@ unchecked task unless you are starting it.
       by the site's standard SectorCta band. It is centred on light blue, reads
       'Ready To Put It To Work?', and its Get A Quote button links to /get-a-
       quote/.
-- [ ] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
+- [x] Blog posts: keep the Pipedrive quote form, but it needs to look just like the home page's clean design, not what it currently is
+      Done 2026-09-23: every blog post now uses ContactBlock, the same component
+      as the home page and /get-a-quote/, in place of the two-column QuoteForm.
+      It is the Pipedrive form on the tinted card, with phone and email cards
+      beneath, under 'Put This To Work In Your Facility.' ContactBlock now
+      carries the .bl type layer itself, because blog posts do not wrap in it
+      and the heading was falling back to the old font. The Keep Reading band
+      below moved from grey to white so it does not sit tint-on-tint against the
+      form. QuoteForm is now used only by ag/[slug].astro.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

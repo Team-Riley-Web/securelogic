@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import ArticleAudio from '../../components/ArticleAudio.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
-import QuoteForm from '../../components/QuoteForm.astro';
+import ContactBlock from '../../components/ContactBlock.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { posts } from '../../data/blog-posts';
 
@@ -56,11 +56,16 @@ const more = posts.filter((p) => p.slug !== post.slug).slice(0, 3);
         </div>
       </section>
 
-      <section class="bg-white pb-20">
-        <div class="container-page"><div class="mx-auto max-w-3xl"><QuoteForm /></div></div>
-      </section>
+      <!-- Same contact block as the home page and /get-a-quote/: the
+           Pipedrive form on a tinted card, phone and email beneath. -->
+      <ContactBlock
+        id="quote"
+        eyebrow="Your Facility. Your Coverage Plan."
+        heading="Put This To Work In Your Facility."
+        body="Tell us what you need to protect and how the space operates. Our team will help map the right fixed, portable, or HVAC-integrated approach, then build a practical coverage plan around your facility."
+      />
 
-      <section class="bg-slate-100 py-20">
+      <section class="bg-white py-20">
         <div class="container-page">
           <h2 class="section-title">Keep reading</h2>
           <div class="mt-10 grid gap-8 md:grid-cols-3">
