@@ -60,7 +60,7 @@ export const megaMenus: MegaMenuGroup[] = [
     gridClass: 'sm:grid-cols-3',
     items: [
       { icon: Cpu, title: 'Technology', summary: 'The science behind Genesis360’s sub-10 micron dry fog.', href: '/about-us/technology/' },
-      { icon: SprayCan, title: 'Genesis360', summary: 'Automated dry fog systems for whole-room disinfection.', href: '/genesis360mistingsystems/' },
+      { icon: SprayCan, title: 'Genesis360', summary: 'Automated dry fog systems for whole-room disinfection.', href: '/genesis360/' },
       { icon: Leaf, title: 'BotaniMax', summary: '100% botanical disinfectant, EPA registered.', href: '/botanimax/' },
     ],
   },

@@ -1843,7 +1843,14 @@ unchecked task unless you are starting it.
       across a dark ground: Pexels 9694228, a 20 s cut, 0.9 MB, logged in STOCK-
       SOURCES.md. It reads clearly through the overlay, and the poster was
       regenerated.
-- [ ] Genesis360 page: move /genesis360mistingsystems/ to /genesis360/
+- [x] Genesis360 page: move /genesis360mistingsystems/ to /genesis360/
+      Done 2026-09-23: the page is now src/pages/genesis360.astro at
+      /genesis360/. Every internal link now points there: header secondary nav,
+      footer, About mega menu, Technology CTA and home-full. The old URL 301s to
+      /genesis360/ through a bare rule at the bottom of public/_redirects, with
+      a matching Astro redirects entry. The new path has its own soft-launch
+      gate block on all four live hosts, placed with the other gate rules, so it
+      stays hidden on genesis360.com like the old one.
 - [ ] Genesis360 page: make the system cards dark themed like on the homepage
 - [ ] Documentation page: give the BotaniMax bottle a shadow
 - [ ] FAQs page: make the section background light but keep the FAQ accordions dark

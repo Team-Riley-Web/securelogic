@@ -13,6 +13,7 @@ export default defineConfig({
   // real 301 on Netlify; this covers `astro dev` and any other host.
   redirects: {
     '/contact-us': '/get-a-quote/',
+    '/genesis360mistingsystems': '/genesis360/',
   },
   integrations: [
     alpinejs({ entrypoint: '/src/alpine' }),
