@@ -1638,7 +1638,17 @@ unchecked task unless you are starting it.
       factory', free license, logged in STOCK-SOURCES.md), 3.2 MB, muted, with
       its own poster. The old about poster is now unreferenced and left in
       place.
-- [ ] About page, 'From a field problem to a platform': slowly pulse the virus molecule in the background, maybe add one on the left side too; make them feel alive, move as we scroll
+- [x] About page, 'From a field problem to a platform': slowly pulse the virus molecule in the background, maybe add one on the left side too; make them feel alive, move as we scroll
+      Done 2026-09-23: two molecules now — the original top-right, plus a
+      smaller one lower-left behind the first card. Each breathes on a slow CSS
+      loop (scale 1→1.09, a few degrees of turn, opacity .09→.17; .molecule-
+      pulse in global.css), the left one on a longer offset reversed cycle so
+      they never pulse together. Both drift vertically in opposite directions as
+      the section scrolls. The drift is a new shared script, src/scripts/scroll-
+      drift.ts, loaded by BaseLayout and opted into with data-scroll-
+      drift="from,to". It writes the translate property, so it composes with the
+      pulse animation. The BotaniMax scroll tasks further down will reuse it.
+      Reduced motion stops both.
 - [ ] Technology page: keep the video background like all the other pages; remove the molecule there
 - [ ] Technology page: center the 'Gravity stops being the whole story' section, the whole section including the table
 - [ ] Technology page, automation section: remove the background and just put an image there — a 50-50 section where the image is a full background, contain

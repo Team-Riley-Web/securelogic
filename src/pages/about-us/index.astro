@@ -89,7 +89,16 @@ const path = [
       />
 
       <section class="relative overflow-hidden bg-white py-20 sm:py-24">
-        <div class="pointer-events-none absolute right-[-6rem] top-12 h-72 w-72 opacity-10" aria-hidden="true"><Image src={pathogen} alt="" class="h-full w-full object-contain" /></div>
+        <!-- Two molecules, right and lower-left, breathing out of phase and
+             drifting in opposite directions as the section scrolls past.
+             Pulse is CSS (.molecule-pulse, global.css); drift is the shared
+             scroll-drift script, which writes `translate` so the two compose. -->
+        <div class="pointer-events-none absolute right-[-6rem] top-12 h-72 w-72" data-scroll-drift="-60,90" aria-hidden="true">
+          <Image src={pathogen} alt="" class="molecule-pulse h-full w-full object-contain" />
+        </div>
+        <div class="pointer-events-none absolute bottom-6 left-[-5rem] h-56 w-56" data-scroll-drift="70,-70" aria-hidden="true">
+          <Image src={pathogen} alt="" class="molecule-pulse molecule-pulse--alt h-full w-full object-contain" />
+        </div>
         <div class="container-page relative">
           <div class="reveal max-w-3xl" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">The Path</p>

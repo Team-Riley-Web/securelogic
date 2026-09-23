@@ -792,3 +792,26 @@
     --genesis-angle: 360deg;
   }
 }
+
+/* Decorative virus molecules (About, "From A Field Problem To A Platform").
+   A slow breath — scale, opacity and a few degrees of turn — so they read as
+   alive without pulling focus. The --alt variant runs longer and offset so a
+   pair never pulses in step. Position drift comes from scroll-drift.ts on the
+   wrapper, so this can own `transform` freely. */
+@keyframes molecule-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.09; }
+  50% { transform: scale(1.09) rotate(8deg); opacity: 0.17; }
+}
+.molecule-pulse {
+  animation: molecule-pulse 7s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.molecule-pulse--alt {
+  animation-duration: 9s;
+  animation-delay: -3.5s;
+  animation-direction: reverse;
+}
+@media (prefers-reduced-motion: reduce) {
+  .molecule-pulse { animation: none; opacity: 0.12; }
+}
