@@ -108,12 +108,15 @@ const compactFacts = [
         closing={{ lead: 'Choose the environment first. Then choose the hardware that can cover it consistently.', aside: 'Our team maps the space, operating schedule, and maintenance plan before recommending a configuration.' }}
       />
 
+      <!-- 50-50, same treatment as the Technology page's automation band:
+           no card behind the unit, which fills its half with object-contain
+           and takes its height from the copy column. -->
       <section class="bg-white py-20 sm:py-24">
-        <div class="container-page grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-          <div class="reveal rounded-2xl bg-brand-50 p-8 shadow-lift sm:p-10" x-intersect.once="$el.classList.add('is-visible')">
-            <Image src={compact} alt="Genesis360 Compact Wall Mount product render" class="mx-auto max-h-[430px] w-full object-contain" widths={[420, 640, 860]} sizes="(min-width: 1024px) 38vw, 100vw" />
+        <div class="container-page grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div class="reveal relative min-h-[22rem] sm:min-h-[28rem] lg:min-h-0 lg:self-stretch" x-intersect.once="$el.classList.add('is-visible')">
+            <Image src={compact} alt="Genesis360 Compact Wall Mount product render" class="absolute inset-0 h-full w-full object-contain" widths={[480, 720, 1080]} sizes="(min-width: 1024px) 50vw, 100vw" />
           </div>
-          <div class="reveal" x-intersect.once="$el.classList.add('is-visible')">
+          <div class="reveal self-center" x-intersect.once="$el.classList.add('is-visible')">
             <p class="bl-eyebrow">Compact Wall Mount</p>
             <h2 class="bl-h2 mt-4">A Concrete Example Of A Configurable System.</h2>
             <p class="mt-6 text-base leading-8 text-brand-body">The Compact can be wall-mounted, placed on a tabletop, or moved with its integrated handle. Optional dual nozzles increase output, while an optional smart control board replaces the standard timer for phone or desktop control.</p>
@@ -135,7 +138,7 @@ const compactFacts = [
         </div>
       </section>
 
-      <DropletComparison />
+      <DropletComparison center theme="dark" />
 
       <SectorCta
         eyebrow="Your Space. Your Configuration."

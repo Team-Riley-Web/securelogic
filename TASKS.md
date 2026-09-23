@@ -1702,7 +1702,17 @@ unchecked task unless you are starting it.
       the new size. They now use trimmed copies (human-compact-iso-trim.png,
       hvac-aeroguard-render-trim.png) on this page only, and every card's art
       sits in the same fixed-height box. Stacks one per row on phones.
-- [ ] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section
+- [x] Compact Wall Mount page: make it a 50-50 section with the background image contain; center 'Droplet behavior' just like we did elsewhere and make it a dark theme section
+      Done 2026-09-23: there is no separate Compact Wall Mount page. This is the
+      Compact Wall Mount band on /genesis360mistingsystems/ and the Droplet
+      Behavior section after it. The Compact band is now 50-50 with no card
+      behind the unit, which fills its half with object-contain, the same
+      treatment as the Technology automation band. Droplet Behavior is centred,
+      using the center prop from the Technology task, and dark.
+      DropletComparison gained theme="dark": navy ground with blue and green
+      washes, lime eyebrow, white heading, a glassy bordered table, and the
+      Genesis360 row tinted lime with a lime figure. Mobile cards follow suit.
+      The Technology page keeps the light version.
 - [ ] BotaniMax page hero: same effect as the home hero — moves as we scroll; remove the 'BotaniMax' eyebrow and just have the actual logo there
 - [ ] BotaniMax page: make the green in 'Registered to perform' the same as the green in the BotaniMax logo
 - [ ] BotaniMax page, 'The botanical blend, three named ingredients': make that a 50-50
