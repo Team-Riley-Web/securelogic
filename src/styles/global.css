@@ -470,12 +470,12 @@
   }
 
   .post-body p {
-    @apply mt-6 text-base leading-8 text-slate-600;
+    @apply mt-6 text-base leading-7 text-slate-600;
   }
 
   .post-body ul,
   .post-body ol {
-    @apply mt-6 grid gap-3 text-base leading-8 text-slate-600;
+    @apply mt-6 grid gap-3 text-base leading-7 text-slate-600;
   }
 
   .post-body ul > li {

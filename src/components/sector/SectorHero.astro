@@ -22,9 +22,11 @@ interface Props {
   secondaryCta?: { href: string; label: string };
   /** split only: the longer paragraph under the support line. */
   lede?: string;
+  /** split only: CSS object-position for the media panel (default centred). */
+  mediaPosition?: string;
 }
 
-const { layout = 'center', eyebrow, headline, support, poster, video, cta, secondaryCta, lede } = Astro.props;
+const { layout = 'center', eyebrow, headline, support, poster, video, cta, secondaryCta, lede, mediaPosition = 'center' } = Astro.props;
 
 // Two-line headlines keep their break at every width, exactly like the old
 // `<br />` did. Only a three-line headline (the Human hub) is desktop-only,
@@ -86,7 +88,7 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
       {video ? (
         <video
           class="h-full w-full object-cover"
-          style="mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);"
+          style={`object-position: ${mediaPosition}; mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);`}
           src={video}
           poster={poster.src}
           autoplay
@@ -98,7 +100,7 @@ const lineClass = headline.length >= 3 ? 'lg:block' : 'block';
       ) : (
         <img
           class="h-full w-full object-cover"
-          style="mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);"
+          style={`object-position: ${mediaPosition}; mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 0.25) 26%, rgb(0 0 0 / 0.7) 52%, #000 78%);`}
           src={poster.src}
           alt=""
         />

@@ -183,7 +183,7 @@ const { id = 'sectors', heading, prompt, cards, checklist } = Astro.props;
 </style>
 
 <section id={id} class="pb-4 bg-brand-900">
-  <div class="reveal container-page pb-12 pt-20 text-center sm:pt-24" x-intersect.once="$el.classList.add('is-visible')">
+  <div class="reveal container-page py-14 text-center" x-intersect.once="$el.classList.add('is-visible')">
     <h2 class="bl-h2 mx-auto max-w-3xl text-white">{heading}</h2>
     <p class="mx-auto mt-5 max-w-xl text-sm font-semibold uppercase tracking-[0.12em] text-white/55">{prompt}</p>
   </div>

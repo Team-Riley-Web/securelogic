@@ -1913,6 +1913,21 @@ unchecked task unless you are starting it.
       Done 2026-09-23: the footer video is at 60% opacity (opacity-60 on the
       video element), so the fog fades further into the navy ground under the
       overlay. The Technology hero is unchanged.
+- [x] HVAC: gear the AeroGuard residential messaging to the mom — safer IAQ for her children, reducing allergens (Marty feedback on /hvac/ 'Delivery Is The Difference' section)
+  Done 2026-09-25: /hvac/ hub "The Difference" section retitled "Cleaner Air For The People Inside." with a new lede; card 01 is now "Safer air for your children" (mold, bacteria, allergens in every bedroom). residential.astro: hero support line, meta description, a new ArgumentBand paragraph about kids with allergies or asthma, StatBand eyebrow "What Every Parent Should Know", CTA copy. The brochure-verbatim headline and lists were left alone. Allergen claim flagged as Q31.
+- [x] HVAC: gear the AeroGuard commercial messaging to the employee — better work environment, employee retention, less sick time, improved productivity (Marty feedback)
+  Done 2026-09-25: hub card 02 "A healthier place to work" (sick time, retention, productivity). commercial.astro: hero support line, new ArgumentBand paragraph about employees, CTA copy asks how many people work under the units. No numbers added, since there are no sources for them. Sick-time claim flagged as Q31.
+- [x] HVAC: mention there is an AeroGuard system for every size and style of HVAC system, from residential to commercial spaces (Marty feedback)
+  Done 2026-09-25: hub card 03 "A system for every HVAC" replaces the odor card (odors now live in the mission band). DeploymentCards intros on residential and commercial updated to say it too.
+- [x] HVAC: asthma cases at an all-time high due to poor indoor IAQ — focus the /hvac/ 'The Difference' section on the health consequences of poor IAQ (Marty feedback)
+  Done 2026-09-25: /hvac/ hub DifferenceGrid is now "Why It Matters" / "Poor Indoor Air Has A Health Cost." The lede cites CDC (asthma affects about 1 in 12 Americans) and EPA (indoor air 2-5x more polluted than outdoor; about 90% of time spent indoors), then ties mold, bacteria and allergens in the HVAC to that. Card 01 now names asthma triggers; the closing panel lead is health-led. The audience cards from the three earlier tasks stay. "All-time high due to poor IAQ" is not stated as fact, since we have no source; flagged as Q32.
+- [x] HVAC hub hero: replace the rooftop footage with a relatable family scene — family in a living room, HVAC in a closet beside them with the wall cut away (Marty, Userback 8434757; Amelie has the picture in her folder)
+  Done 2026-09-25: hero is now hvac-hub-family.mp4 (Pexels 8524037: mom, dad and daughter hugging on a sofa, locked-off camera; forward-then-reverse loop), poster hero-hvac-hub-family-poster.jpg. It has no HVAC closet cutaway in frame; Amelie's picture, if it shows one, can still replace it.
+- [x] Mission band: make the bottom centered paragraph stand out (bold or a different heading type) — the current three-paragraph layout 'feels wrong, not good design'
+  Done 2026-09-25: the closing paragraph of the mission band on /hvac/ and /human/ is now a pull statement: text-lg/sm:text-xl, semibold, brand-900 ink, with a short centred botanical-green bar above it. /ag/ has only two paragraphs, so it was unchanged.
+- [x] HVAC hub hero video: swap for a more candid clip — the family just doing their normal thing at home, not posing for the camera (steady camera, not wobbly)
+  Done 2026-09-25: hvac-hub-family.mp4 is now Pexels 7415430 (mom, dad and son playing cards on a bright living-room floor, locked-off camera, nobody looking at the lens). 13 s with a 1 s crossfade loop, 1280 wide, muted. Source logged in STOCK-SOURCES.md.
+  Superseded 2026-09-25: replaced by the supplied cutaway video (HVAC closet + family), which is what Marty's Userback 8434757 described.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

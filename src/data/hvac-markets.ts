@@ -10,6 +10,9 @@ import industrialPoster from '../assets/images/hero-hvac-industrial-poster.jpg';
 import homeInteriorVideo from '../assets/videos/home-interior.mp4';
 import rooftopUnitVideo from '../assets/videos/rooftop-unit.mp4';
 import plantAirVideo from '../assets/videos/plant-air.mp4';
+import residentialCard from '../assets/images/hvac-card-residential.jpg';
+import commercialCard from '../assets/images/hvac-card-commercial.jpg';
+import industrialCard from '../assets/images/hvac-rooftop-package.png';
 
 /** Sales Pricing Guide application package that covers a market, or null. */
 export type HvacPackage = 'AeroGuard' | null;
@@ -33,6 +36,8 @@ export interface Market {
   package: HvacPackage;
   /** Hero media. `video` is a Vite asset URL string; absent = still hero. */
   hero: { poster: ImageMetadata; posterAlt: string; video?: string };
+  /** The hub's sector-card photo, when it differs from the hero poster (Marty, Userback 2026-09-25). */
+  card?: { image: ImageMetadata; alt: string };
 }
 
 export const hvacMarkets: Market[] = [
@@ -51,6 +56,8 @@ export const hvacMarkets: Market[] = [
     // Source G: AeroGuard — "Residential / commercial HVAC", AeroGuard Base, 1 nozzle / digital timer.
     package: 'AeroGuard',
     hero: { poster: residentialPoster, posterAlt: 'Empty, sunlit living room with a ceiling fan and floor air vents', video: homeInteriorVideo },
+    // Cropped from hvac-family-home.png (the "Breathe Better" art), family only.
+    card: { image: residentialCard, alt: 'A smiling family on the living-room sofa as fresh air flows from a ceiling vent' },
   },
   {
     slug: 'commercial',
@@ -67,6 +74,8 @@ export const hvacMarkets: Market[] = [
     // Source G: AeroGuard — "Residential / commercial HVAC".
     package: 'AeroGuard',
     hero: { poster: commercialPoster, posterAlt: 'Aerial view of commercial rooftop packaged HVAC units and ductwork', video: rooftopUnitVideo },
+    // Unsplash 376KN_ISplE (Unsplash License).
+    card: { image: commercialCard, alt: 'Two coworkers sharing a high-five at a desk in a bright, plant-filled office' },
   },
   {
     slug: 'industrial',
@@ -82,5 +91,6 @@ export const hvacMarkets: Market[] = [
     // Source G lists no industrial package; AeroGuard configurations apply.
     package: null,
     hero: { poster: industrialPoster, posterAlt: 'Warehouse interior with steel roof trusses, support columns, and racking stocked with cable reels and conduit', video: plantAirVideo },
+    card: { image: industrialCard, alt: 'Genesis360 AeroGuard mounted on a commercial rooftop HVAC unit, misting the coil' },
   },
 ];
