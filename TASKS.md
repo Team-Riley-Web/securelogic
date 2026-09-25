@@ -1928,6 +1928,8 @@ unchecked task unless you are starting it.
 - [x] HVAC hub hero video: swap for a more candid clip — the family just doing their normal thing at home, not posing for the camera (steady camera, not wobbly)
   Done 2026-09-25: hvac-hub-family.mp4 is now Pexels 7415430 (mom, dad and son playing cards on a bright living-room floor, locked-off camera, nobody looking at the lens). 13 s with a 1 s crossfade loop, 1280 wide, muted. Source logged in STOCK-SOURCES.md.
   Superseded 2026-09-25: replaced by the supplied cutaway video (HVAC closet + family), which is what Marty's Userback 8434757 described.
+- [x] Proofread and verify the latest Marty/Userback implementation round, then resolve the corresponding Userback conversations only when each requested change is confirmed correct.
+  Done 2026-09-25: proofread the HVAC hub, residential and commercial copy; softened unsupported health/business guarantees while preserving Marty's positioning; verified the supplied cutaway hero and all three sector-card images at responsive sizes; `npm run build` passes and production-preview browser checks are clean. Added an internal verification note to each item and moved Userback feedback 8434757, 8434771, 8434777, 8434789, 8434793, 8434799, 8434801, 8434803 and 8434817 to Resolved. Final Userback search confirmed all nine in the Resolved workflow.
 
 ## Seperate TODOS (not for AI)
 - match brand blue and green and then incorporate throughout the site 

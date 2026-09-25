@@ -38,11 +38,11 @@ const checklist = [
 // Source H p.1's "Why homeowners should ask for Genesis360").
 const points: { icon: 'droplet' | 'coverage' | 'cycle' | 'shield'; title: string; copy: string }[] = [
   // Card 01: residential, written to the parent (Marty, 2026-09-25).
-  { icon: 'shield', title: 'Safer air for your children', copy: 'Your kids breathe the air your HVAC moves, all day and all night. AeroGuard helps keep mold and bacteria off the coil, reducing the allergens that can trigger asthma and allergies in every bedroom.' },
+  { icon: 'shield', title: 'Cleaner air for your children', copy: 'Your kids spend hours every day breathing the air your HVAC recirculates. For families managing asthma or allergies, AeroGuard targets mold- and bacteria-harboring buildup at the coil — one place potential irritants and allergens can accumulate.' },
   // Card 02: commercial, written to the employer about their people (Marty, 2026-09-25).
-  { icon: 'cycle', title: 'A healthier place to work', copy: 'Your team breathes the building\'s air eight hours a day. Cleaner air supports a better workplace: less sick time, stronger retention and a team that gets more done.' },
+  { icon: 'cycle', title: 'A healthier place to work', copy: 'Cleaner indoor air can support a better workplace: greater employee comfort, fewer musty odors and an environment designed around attendance, retention and productivity.' },
   // Card 03: range (Marty, 2026-09-25). Odors moved up into the mission band.
-  { icon: 'coverage', title: 'A system for every HVAC', copy: 'Hall closet, attic, rooftop or a building full of air handlers: there is an AeroGuard for every size and style of HVAC system, from residential to commercial spaces.' },
+  { icon: 'coverage', title: 'An AeroGuard for every HVAC', copy: 'From hall closets and attics to rooftops and buildings full of air handlers, AeroGuard is available for residential and commercial HVAC systems of every size and style.' },
 ];
 
 const HVAC_POSTS = [
@@ -55,7 +55,7 @@ const hvacPosts = HVAC_POSTS.map((slug) => posts.find((post) => post.slug === sl
 
 <BaseLayout
   title="Genesis360 | HVAC"
-  description="One platform for every air handler. Genesis360 AeroGuard treats the coil, drain pan and air handler on a schedule, from a single home to a plant that never switches off."
+  description="One platform for every air handler. Genesis360 AeroGuard treats the coil, drain pan and downstream HVAC pathway on a schedule, from a single home to a plant that never switches off."
 >
   <div class="bl bg-white" x-data x-init="document.documentElement.classList.add('reveal-enabled')">
     <Header />
@@ -86,13 +86,13 @@ const hvacPosts = HVAC_POSTS.map((slug) => posts.find((post) => post.slug === sl
           </h2>
           <div class="reveal mx-auto mt-14 grid max-w-5xl gap-10 md:grid-cols-2" x-intersect.once="$el.classList.add('is-visible')">
             <p class="text-base leading-7 text-brand-body">
-              The HVAC is the lungs of the building. Every breath of indoor air passes through it, so indoor air quality starts there. Most odors start there too: the coil and drain pan collect moisture by design, and with it the biofilm and bacteria behind the smell. Candles, sprays and plug-ins only cover it up. Controlling the bacteria load inside the system removes the source.
+              Think of the HVAC as the lungs of the building: it recirculates the air people breathe throughout the day, so indoor air quality starts there. Most odors start there too. The coil and drain pan collect moisture by design, and with it the biofilm and bacteria behind the smell. Candles, sprays and plug-ins only cover it up. Controlling the bacteria load inside the system addresses a source instead of masking the result.
             </p>
             <p class="text-base leading-7 text-brand-body">
-              AeroGuard releases a sub-10-micron dry mist inside the air handler. The droplets are dry, so they do no harm to the electronics and mechanicals they land on. Unlike UV light, which only treats what its beam can reach, the mist touches every internal surface of the system, including the shadowed ones.
+              AeroGuard releases a sub-10-micron dry mist inside the air handler. Its low-moisture droplets are engineered to move through the unit without wetting electronics or mechanical components. Unlike a fixed light source, the mist moves with the air, helping it reach internal surfaces beyond a direct line of sight, including shadowed areas.
             </p>
             <p class="mx-auto max-w-3xl text-balance before:mx-auto before:mb-7 before:block before:h-1 before:w-12 before:rounded-full before:bg-botanical-500 before:content-[''] text-center text-lg font-semibold leading-8 text-brand-900 sm:text-xl md:col-span-2">
-              We apply only enough to coat the system's internal components, not the whole home. Keeping biofilm and mold off the coil keeps air moving freely across it, which improves efficiency, lowers operating cost and extends the life of the equipment. Occupants won't even know AeroGuard is running. They will just notice a home that smells better and air that feels cleaner.
+              AeroGuard applies only enough mist to treat the HVAC's internal components and downstream pathway, not the living or working space. Limiting biofilm and mold buildup on the coil helps preserve airflow, support efficient operation and reduce strain on mechanical components. The goal is a cleaner-smelling space and fresher-feeling air without fogging occupied rooms.
             </p>
           </div>
         </div>
@@ -112,10 +112,10 @@ const hvacPosts = HVAC_POSTS.map((slug) => posts.find((post) => post.slug === sl
       <DifferenceGrid
         eyebrow="Why It Matters"
         heading="Poor Indoor Air Has A Health Cost."
-        lede="About 1 in 12 Americans now lives with asthma. We spend roughly 90% of our time indoors, where the EPA finds air can be two to five times more polluted than outside. Mold, bacteria and allergens growing inside the HVAC ride that air into every room. AeroGuard stops them at the source."
+        lede="Asthma affects about 1 in 12 Americans. The EPA reports that we spend roughly 90% of our time indoors and that levels of some pollutants are often two to five times higher indoors than outdoors. Mold, bacteria and other contaminants can accumulate on damp HVAC components and move through the rooms they serve. AeroGuard targets that buildup inside the system."
         points={points}
         closing={{
-          lead: 'The result: fewer asthma and allergy triggers in the air, and equipment that runs the way it was designed to.',
+          lead: 'The goal: cleaner HVAC pathways, fewer places for mold, bacteria and odor-causing buildup to collect, and equipment that runs the way it was designed to.',
           aside: 'Every air handler is carrying the same wet, dark, dusty conditions. Genesis360 gives you a way to get ahead of the buildup instead of cleaning it out later.',
         }}
       />

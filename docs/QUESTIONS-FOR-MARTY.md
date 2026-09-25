@@ -178,17 +178,18 @@ what the site does today, so a "keep it" answer is as easy as a change.
     Genesis360 page, HVAC Residential, Commercial and Industrial). Does the
     ductwork count as part of the system AeroGuard treats, or should those
     lines stop at the coil, drain pan and air handler?
-31. The residential copy now says AeroGuard "helps reduce the allergens" in
-    a child's bedroom, and the commercial copy promises "less sick time"
-    and a more productive team. Neither claim has a test or study behind it
-    in the source material, and BotaniMax is an EPA-registered product,
-    which limits the health claims its marketing can make. Are you
-    comfortable with these as written, or does anything need to be softened
-    or backed by a source?
+31. You asked the residential copy to address allergens and the commercial
+    copy to address sick time, retention and productivity. The site now
+    avoids promising those outcomes: Residential says AeroGuard targets
+    buildup where potential irritants and allergens can accumulate, while
+    Commercial says cleaner indoor air can support attendance, retention and
+    productivity. Stronger cause-and-effect language would need a test or
+    study. Keep the careful wording, or is there supporting evidence we can
+    cite?
 32. You said asthma cases are at an all-time high because of poor indoor air.
     The /hvac/ page now cites figures from public sources: CDC (about 1 in 12
-    Americans has asthma) and EPA (indoor air can be 2-5x more polluted than
-    outdoor air; people spend about 90% of their time indoors). It does not
-    say asthma is at an all-time high *because of* indoor air, since we have
-    no source for that link. Do you have a study or report behind it we can
-    cite?
+    Americans has asthma) and EPA (levels of some pollutants are often 2-5x
+    higher indoors than outdoors; people spend about 90% of their time
+    indoors). It does not say asthma is at an all-time high *because of*
+    indoor air, since we have no source for that link. Do you have a study or
+    report behind it we can cite?
